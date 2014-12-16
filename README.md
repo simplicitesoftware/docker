@@ -8,10 +8,9 @@ Introduction
 ------------
 
 This packages is a **minimalistic** [Docker](http://www.docker.com) container on which you can
-run Simplicit&eacute;&reg; for **evaluation** or **testing** purposes.
+run a Simplicit&eacute;&reg; application package for **evaluation** or **testing** purposes.
 
 It uses Apache Tomcat as the Java application server and an embedded HSQLDB engine as the database.
-
 Within the container Apache Tomcat is configured to have only the `8080` HTTP connector exposed.
 
 The current versions of the included components are:
@@ -19,19 +18,37 @@ The current versions of the included components are:
 - Apache Tomcat 7.0.57
 - HSQLDB 2.3.2
 
-Build
------
+Get
+---
 
-Put your Simplicit&eacute;&reg; application package(s) in `tomcat/webapps`, then build the container by:
+You can get the sandbox container from [Docker Hub](https://registry.hub.docker.com/u/simplicite/sandbox/):
 
-	docker build -t simplicite .
+	docker pull simplicite/sandbox
+
+Add application
+---------------
+
+To add a Simplicit&eacute;&reg; application you need to create a dedicated `Dockerfile`:
+
+	vi Dockerfile
+
+With this content:
+
+```
+FROM simplicite/sandbox
+ADD <location of your Simplict&eacute;&reg; application package> /usr/local/tomcat/webapps/ROOT
+```
+
+Then you can build your application container:
+
+	docker build -t <my application name> .
 
 Run
 ---
 
 Start a container instance using:
 
-	docker run -p <public port, e.g. 8080>:8080 simplicite
+	docker run -p <public port, e.g. 8080>:8080 <my application name>
 
 Licenses
 --------
