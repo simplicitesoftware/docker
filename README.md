@@ -24,7 +24,7 @@ Build
 
 Put your Simplicit&eacute;&reg; application package(s) in `tomcat/webapps`, then build the container by:
 
-	docker build --rm=true -t simplicite .
+	docker build -t simplicite .
 
 Run
 ---
