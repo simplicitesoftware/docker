@@ -16,8 +16,10 @@
   limitations under the License.
 --><!-- The contents of this file will be loaded for each web application --><Context>
 
-    <!-- Default set of monitored resources -->
+    <!-- Default set of monitored resources. If one of these changes, the    -->
+    <!-- web application will be reloaded.                                   -->
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
+    <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
 
     <!-- Uncomment this to disable session persistence across Tomcat restarts -->
     <!--
@@ -29,5 +31,4 @@
     <!--
     <Valve className="org.apache.catalina.valves.CometConnectionManagerValve" />
     -->
-
 </Context>
