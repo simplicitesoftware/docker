@@ -15,7 +15,7 @@ Within the container Apache Tomcat is configured to have only the `8080` HTTP co
 
 The current versions of the included components are:
 
-- Apache Tomcat 7.0.57
+- Apache Tomcat 8.0.30
 - HSQLDB 2.3.2
 
 Get
