@@ -1,14 +1,14 @@
-![](http://www.simplicitesoftware.com/logos/logo250.png)
+![](https://www.simplicite.io/logos/logo250.png)
 ---
 
-Simplicit&eacute;&reg; Docker container
-=======================================
+Simplicit&eacute;&reg; sandbox container
+========================================
 
 Introduction
 ------------
 
 This packages is a **minimalistic** [Docker](http://www.docker.com) container on which you can
-run a Simplicit&eacute;&reg; application package for **evaluation** or **testing** purposes.
+run a Simplicit&eacute;&reg; application sandbox for **evaluation** or **testing** purposes.
 
 It uses Apache Tomcat as the Java application server and an embedded HSQLDB engine as the database.
 Within the container Apache Tomcat is configured to have only the `8080` HTTP connector exposed.
