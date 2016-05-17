@@ -13,5 +13,7 @@ img { border: none 0px; }
 </head>
 <body>
 <img style="display: block; margin: 0px auto;" src="home.jpg" alt="Simplicit&eacute; Software"/>
+<p>If you see this page, it means that you have not included the Simplicit&eacute;&reg; platform package itself.</p
+<p>Please refer to the <code>README.md</code> file for details.</p>
 </body>
 </html>

@@ -50,6 +50,9 @@ Start a container instance using:
 
 	docker run -p <public port, e.g. 8080>:8080 <my application name>
 
+Note that if you experience network issues from your instance it is likely to be a DNS configuration issue
+that you can solve by adding `--dns=8.8.8.8` to your run command above.
+
 Licenses
 --------
 
