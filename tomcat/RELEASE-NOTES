@@ -16,7 +16,7 @@
 ================================================================================
 
 
-                     Apache Tomcat Version 8.0.30
+                     Apache Tomcat Version 8.0.33
                             Release Notes
 
 
@@ -72,7 +72,7 @@ for use by web applications (by placing them in "lib"):
 * catalina-ha.jar (High availability package)
 * catalina-storeconfig.jar (Generation of XML configuration from current state)
 * catalina-tribes.jar (Group communication)
-* ecj-4.4.2.jar (Eclipse JDT Java compiler)
+* ecj-4.5.jar (Eclipse JDT Java compiler)
 * el-api.jar (EL 3.0 API)
 * jasper.jar (Jasper 2 Compiler and Runtime)
 * jasper-el.jar (Jasper 2 EL implementation)
