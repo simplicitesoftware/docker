@@ -13,11 +13,6 @@ run a Simplicit&eacute;&reg; application sandbox for **evaluation** or **testing
 It uses Apache Tomcat as the Java application server and an embedded HSQLDB engine as the database.
 Within the container Apache Tomcat is configured to have only the `8080` HTTP connector exposed.
 
-The current versions of the included components are:
-
-- Apache Tomcat 8.0.33
-- HSQLDB 2.3.2
-
 Get
 ---
 
