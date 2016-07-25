@@ -36,14 +36,14 @@ ADD <location of your Simplict&eacute;&reg; application package> /usr/local/tomc
 
 Then you can build your application container:
 
-	docker build -t <my application name> .
+	docker build -t simplicite/<my application name> .
 
 Run
 ---
 
 Start a container instance using:
 
-	docker run -p <public port, e.g. 8080>:8080 <my application name>
+	docker run -p <public port, e.g. 8080>:8080 simplicite/<my application name>
 
 Note that if you experience network issues from your instance it is likely to be a DNS configuration issue
 that you can solve by adding `--dns=8.8.8.8` to your run command above.
