@@ -4,6 +4,8 @@
 Simplicit&eacute;&reg; sandbox container
 ========================================
 
+![](https://images.microbadger.com/badges/image/simplicite/sandbox.svg)
+
 Introduction
 ------------
 
