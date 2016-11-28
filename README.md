@@ -1,5 +1,5 @@
-![](https://www.simplicite.io/logos/logo250.png)
----
+![Simplicit&eacute; Software](https://www.simplicite.io/resources/logos/logo250.png)
+***
 
 Simplicit&eacute;&reg; sandbox container
 ========================================
