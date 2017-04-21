@@ -38,7 +38,7 @@ ADD <location of your Simplict&eacute;&reg; application package> /usr/local/tomc
 
 Then you can build your application container:
 
-	docker build -t simplicite/<my application name> .
+	docker build [--build-arg tomcatpath=<path to tomcat dir>] -t simplicite/<my application name> .
 
 Run
 ---
