@@ -20,7 +20,7 @@ Get
 
 You can get the sandbox container from [Docker Hub](https://registry.hub.docker.com/u/simplicite/sandbox/):
 
-	docker pull simplicite/sandbox
+	sudo docker pull simplicite/sandbox
 
 Add application
 ---------------
@@ -38,14 +38,14 @@ ADD <location of your Simplict&eacute;&reg; application package> /usr/local/tomc
 
 Then you can build your application container:
 
-	docker build [--build-arg tomcatpath=<path to tomcat dir>] -t simplicite/<my application name> .
+	sudo docker build -t simplicite/<my application name> .
 
 Run
 ---
 
 Start a container instance using:
 
-	docker run -p <public port, e.g. 8080>:8080 simplicite/<my application name>
+	sudo docker run -p <public port, e.g. 8080>:8080 simplicite/<my application name>
 
 Note that if you experience network issues from your instance it is likely to be a DNS configuration issue
 that you can solve by adding `--dns=8.8.8.8` to your run command above.

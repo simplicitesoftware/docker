@@ -18,15 +18,15 @@ Copy a preconfigured Tomcat directory:
 
 Build the image:
 
-	docker build -t simplicite/sandbox .
+	sudo docker build -t simplicite/sandbox .
 
 Push do DockerHub
 -----------------
 
 Login to Docker Hub:
 
-	docker login
+	sudo docker login
 
 Push it to Docker Hub:
 
-	docker push simplicite/sandbox
+	sudo docker push simplicite/sandbox
