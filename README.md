@@ -1,26 +1,23 @@
 ![Simplicit&eacute; Software](https://www.simplicite.io/resources/logos/logo250.png)
 * * *
 
-Simplicit&eacute;&reg; sandbox container
-========================================
-
-[![](https://images.microbadger.com/badges/image/simplicite/sandbox.svg)](http://microbadger.com/images/simplicite/sandbox "Get your own image badge on microbadger.com")
+Using Simplicit&eacute;&reg; server container
+=============================================
 
 Introduction
 ------------
 
-This packages is a **minimalistic** [Docker](http://www.docker.com) container on which you can
-run a Simplicit&eacute;&reg; application sandbox for **evaluation** or **testing** purposes.
+This packages is a base [Docker](http://www.docker.com) server container on which you can
+run a Simplicit&eacute;&reg; instace.
 
-It uses Apache Tomcat as the Java application server and an embedded HSQLDB engine as the database.
-Within the container Apache Tomcat is configured to have only the `8080` HTTP connector exposed.
+It uses Apache Tomcat as application server and, by default, an embedded HSQLDB engine.
 
 Get
 ---
 
-You can get the sandbox container from [Docker Hub](https://registry.hub.docker.com/u/simplicite/sandbox/):
+You can get the server container from [Docker Hub](https://registry.hub.docker.com/u/simplicite/server/):
 
-	sudo docker pull simplicite/sandbox
+	sudo docker pull simplicite/server
 
 Add application
 ---------------
@@ -32,7 +29,7 @@ To add a Simplicit&eacute;&reg; application you need to create a dedicated `Dock
 With this content:
 
 ```
-FROM simplicite/sandbox
+FROM simplicite/server
 ADD <location of your Simplict&eacute;&reg; application package> /usr/local/tomcat/webapps/ROOT
 ```
 

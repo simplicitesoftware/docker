@@ -1,8 +1,8 @@
 ![Simplicit&eacute; Software](https://www.simplicite.io/resources/logos/logo250.png)
 * * *
 
-Building Simplicit&eacute;&reg; sandbox container
-=================================================
+Building Simplicit&eacute;&reg; server container
+================================================
 
 Build image
 -----------
@@ -18,7 +18,7 @@ Copy a preconfigured Tomcat directory:
 
 Build the image:
 
-	sudo docker build -t simplicite/sandbox .
+	sudo docker build -t simplicite/server .
 
 Push do DockerHub
 -----------------
@@ -29,4 +29,4 @@ Login to Docker Hub:
 
 Push it to Docker Hub:
 
-	sudo docker push simplicite/sandbox
+	sudo docker push simplicite/server
