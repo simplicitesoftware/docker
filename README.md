@@ -44,6 +44,12 @@ Start a container instance using:
 
 	sudo docker run -p <public port, e.g. 8080>:8080 simplicite/<my application name>
 
+The container instance exposes 3 ports for different usage:
+
+- HTTP port `8080` for direct access or to be exposed thru an HTTP reverse proxy (Apache, NGINX, ...)
+- HTTP port `8443` to be exposed thru an HTTPS reverse proxy (Apache, NGINX, ...)
+- AJP port `8009` to be exposed thru an HTTP/HTTPS reverse proxy (Apache)
+
 Note that if you experience network issues from your instance it is likely to be a DNS configuration issue
 that you can solve by adding `--dns=8.8.8.8` to your run command above.
 
