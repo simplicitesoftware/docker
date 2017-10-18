@@ -1,8 +1,8 @@
 ![Simplicit&eacute; Software](https://www.simplicite.io/resources/logos/logo250.png)
 * * *
 
-Using Simplicit&eacute;&reg; server container
-=============================================
+Using Simplicit&eacute;&reg; server image
+=========================================
 
 Introduction
 ------------
