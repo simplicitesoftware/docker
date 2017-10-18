@@ -70,7 +70,7 @@ Third party licenses
 --------------------
 
 The image is based on the standard CentOS image and standard CentOS distribution's components (OpenJDK, ..).
-When build with Simplicit&eacute;&reg; pre-configured Tomcat server it also contains the following components:
+When built with Simplicit&eacute;&reg; pre-configured Tomcat server it also contains the following components:
 
 - Apache Tomcat released under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0)
 - HyperSQL (HSQLDB) released under [a custom BSD style license](http://hsqldb.org/web/hsqlLicense.html)
