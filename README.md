@@ -7,10 +7,8 @@ Using Simplicit&eacute;&reg; server container
 Introduction
 ------------
 
-This packages is a base [Docker](http://www.docker.com) server container on which you can
-run a Simplicit&eacute;&reg; instace.
-
-It uses Apache Tomcat as application server and, by default, an embedded HSQLDB engine.
+This packages is dedicated to build a simple [Docker](http://www.docker.com) image that contains a pre-configured
+Tomcat server on which you can run a Simplicit&eacute;&reg; low code platform instance.
 
 Get
 ---
@@ -19,10 +17,10 @@ You can get the server container from [Docker Hub](https://registry.hub.docker.c
 
 	sudo docker pull simplicite/server
 
-Add application
+Add an instance
 ---------------
 
-To add a Simplicit&eacute;&reg; application you need to create a dedicated `Dockerfile`:
+To add a Simplicit&eacute;&reg; instance you need to create a dedicated `Dockerfile`:
 
 	vi Dockerfile
 
@@ -33,14 +31,14 @@ FROM simplicite/server
 ADD <location of your Simplict&eacute;&reg; application package> /usr/local/tomcat/webapps/ROOT
 ```
 
-Then you can build your application container:
+Then you can build your image using:
 
 	sudo docker build -t simplicite/<my application name> .
 
 Run
 ---
 
-Start a container instance using:
+Start a container using:
 
 	sudo docker run -p <public port, e.g. 8080>:8080 simplicite/<my application name>
 
@@ -71,5 +69,10 @@ limitations under the License.
 Third party licenses
 --------------------
 
-- Apache Tomcat is released under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0)
-- HyperSQL (HSQLDB) is released under [a specific BSD style license](http://hsqldb.org/web/hsqlLicense.html)
+The image is based on the standard CentOS image and standard CentOS distribution's components (OpenJDK, ..).
+When build with Simplicit&eacute;&reg; pre-configured Tomcat server it also contains the following components:
+
+- Apache Tomcat released under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0)
+- HyperSQL (HSQLDB) released under [a custom BSD style license](http://hsqldb.org/web/hsqlLicense.html)
+- MariaDB connector/J (JDBC driver) released under [LGPL license](https://www.gnu.org/licenses/lgpl-3.0.en.html)
+- PostgreSQL JDBC driver released under [a custom BSD style license](https://jdbc.postgresql.org/about/license.html)

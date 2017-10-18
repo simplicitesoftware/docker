@@ -14,7 +14,7 @@ Clone the GitHub repositiory:
 
 Copy a preconfigured Tomcat directory:
 
-	cp -r <path to your preconfigured Tomcat directory, e.g. /var/simplicite/tomcat> tomcat
+	cp -r <path to your pre-configured Tomcat directory, e.g. /var/simplicite/tomcat> tomcat
 
 Build the image:
 
