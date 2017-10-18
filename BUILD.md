@@ -27,6 +27,6 @@ Login to Docker Hub:
 
 	sudo docker login
 
-Push it to Docker Hub:
+Push image to Docker Hub:
 
 	sudo docker push simplicite/server

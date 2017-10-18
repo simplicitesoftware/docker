@@ -7,20 +7,22 @@ Using Simplicit&eacute;&reg; server image
 Introduction
 ------------
 
-This packages is dedicated to build a simple [Docker](http://www.docker.com) image that contains a pre-configured
-Tomcat server on which you can run a Simplicit&eacute;&reg; low code platform instance.
+This package corresponds to a simple  [Docker](http://www.docker.com) that contains a pre-configured
+Tomcat server on which you can run a [Simplicit&eacute;&reg;](http://www.simplicitesoftware.com) low code platform instance.
 
-Get
----
+See the `BUILD.md` file for image building details. The built image is available on [DockerHub](https://hub.docker.com/r/simplicite/server/)
 
-You can get the server container from [Docker Hub](https://registry.hub.docker.com/u/simplicite/server/):
+Pull
+----
+
+You can pull the image by:
 
 	sudo docker pull simplicite/server
 
 Add an instance
 ---------------
 
-To add a Simplicit&eacute;&reg; instance you need to create a dedicated `Dockerfile`:
+To add a Simplicit&eacute;&reg; platform instance you need to create a dedicated `Dockerfile`:
 
 	vi Dockerfile
 
@@ -31,18 +33,18 @@ FROM simplicite/server
 ADD <location of your Simplict&eacute;&reg; application package> /usr/local/tomcat/webapps/ROOT
 ```
 
-Then you can build your image using:
+Then you can build your instance's image by:
 
 	sudo docker build -t simplicite/<my application name> .
 
 Run
 ---
 
-Start a container using:
+Run the container by:
 
 	sudo docker run -p <public port, e.g. 8080>:8080 simplicite/<my application name>
 
-The container instance exposes 3 ports for different usage:
+The container exposes 3 ports for different usage:
 
 - HTTP port `8080` for direct access or to be exposed thru an HTTP reverse proxy (Apache, NGINX, ...)
 - HTTP port `8443` to be exposed thru an HTTPS reverse proxy (Apache, NGINX, ...)
@@ -66,13 +68,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-Third party licenses
---------------------
+Third party components
+----------------------
 
-The image is based on the standard CentOS image and standard CentOS distribution's components (OpenJDK, ..).
-When built with Simplicit&eacute;&reg; pre-configured Tomcat server it also contains the following components:
+The image is based on the official [CentOS image](https://hub.docker.com/_/centos/) and its standard components (OpenJDK, ..).
+
+The built image available on DockerHub also contains the following components:
 
 - Apache Tomcat released under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0)
-- HyperSQL (HSQLDB) released under [a custom BSD style license](http://hsqldb.org/web/hsqlLicense.html)
-- MariaDB connector/J (JDBC driver) released under [LGPL license](https://www.gnu.org/licenses/lgpl-3.0.en.html)
+- HyperSQL (HSQLDB) engine and JDBC driver released under [a custom BSD style license](http://hsqldb.org/web/hsqlLicense.html)
+- MySQL connector/J JDBC driver released under [LGPL license](https://www.gnu.org/licenses/lgpl-3.0.en.html)
 - PostgreSQL JDBC driver released under [a custom BSD style license](https://jdbc.postgresql.org/about/license.html)
