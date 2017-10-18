@@ -7,7 +7,7 @@ Using Simplicit&eacute;&reg; server image
 Introduction
 ------------
 
-This package corresponds to a simple  [Docker](http://www.docker.com) that contains a pre-configured
+This package corresponds to a simple [Docker](http://www.docker.com) image that contains a pre-configured.
 Tomcat server on which you can run a [Simplicit&eacute;&reg;](http://www.simplicitesoftware.com) low code platform instance.
 
 See the `BUILD.md` file for image building details. The built image is available on [DockerHub](https://hub.docker.com/r/simplicite/server/)
