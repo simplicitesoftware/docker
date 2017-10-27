@@ -1,3 +1,5 @@
 tomcat
+template
+*.sh
 **/Thumbs.db
 **.bak
