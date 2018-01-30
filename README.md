@@ -1,6 +1,8 @@
 ![Simplicit&eacute; Software](https://www.simplicite.io/resources/logos/logo250.png)
 * * *
 
+<a href="https://www.simplicite.io"><img src="https://img.shields.io/badge/author-SimpliciteSoftware-blue.svg?style=flat-square" alt="Author"></a>
+
 Using Simplicit&eacute;&reg; server image
 =========================================
 
