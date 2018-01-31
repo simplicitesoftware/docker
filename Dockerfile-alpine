@@ -7,8 +7,7 @@ RUN rm -rf /var/cache/apk/*
 COPY tomcat /usr/local/tomcat
 RUN sed -i '/${tomcat.ajpport}/s/<!-- /</;/${tomcat.ajpport}/s/ -->/>/' /usr/local/tomcat/conf/server.xml
 RUN chmod +x /usr/local/tomcat/bin/*.sh /usr/local/tomcat/run.sh
-RUN mkdir /usr/local/share/ca-certificates
-COPY /etc/pki/ca-trust/source/anchors/*.crt /usr/local/share/ca-certificates
+COPY /etc/pki/ca-trust/source/anchors/*.crt /usr/local/share/ca-certificates/
 RUN update-ca-certificates
 EXPOSE 8005 8080 8443 8009 8000 8500
 CMD cd /usr/local/tomcat; ./run.sh -t
