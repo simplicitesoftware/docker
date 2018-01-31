@@ -7,7 +7,7 @@ ENV JAVA_HOME /usr/lib/jvm/java-1.8.0
 COPY tomcat /usr/local/tomcat
 RUN sed -i '/${tomcat.ajpport}/s/<!-- /</;/${tomcat.ajpport}/s/ -->/>/' /usr/local/tomcat/conf/server.xml
 RUN chmod +x /usr/local/tomcat/bin/*.sh /usr/local/tomcat/run.sh
-COPY *.crt /etc/pki/ca-trust/source/anchors || CONTINUE
+COPY *.crt /etc/pki/ca-trust/source/anchors/ || CONTINUE
 RUN /bin/update-ca-trust extract
 EXPOSE 8005 8080 8443 8009 8000 8500
 CMD cd /usr/local/tomcat; ./run.sh -t
