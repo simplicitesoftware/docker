@@ -1,7 +1,7 @@
 FROM centos
 MAINTAINER Simplicite.io <contact@simplicite.io>
 RUN yum upgrade -y && yum clean all
-RUN yum -y install bash ca-certificates java-1.8.0-openjdk-devel mariadb postgresql && yum clean all
+RUN yum -y install bash ca-certificates java-1.8.0-openjdk-devel mariadb postgresql && yum clean all && rm -rf /var/cache/yum
 ENV JAVA_HOME /usr/lib/jvm/java-1.8.0
 COPY tomcat /usr/local/tomcat
 RUN sed -i '/${tomcat.ajpport}/s/<!-- /</;/${tomcat.ajpport}/s/ -->/>/' /usr/local/tomcat/conf/server.xml
