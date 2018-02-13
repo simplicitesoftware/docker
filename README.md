@@ -39,20 +39,38 @@ Then you can build your instance's image by:
 
 	sudo docker build -t simplicite/<my application name> .
 
-Run
----
-
-Run the container by:
-
-	sudo docker run -p <public port, e.g. 8080>:8080 simplicite/<my application name>
-
-The container exposes 3 ports for different usage:
+The image is configured to exposes 3 ports for different usage:
 
 - HTTP port `8080` for direct access or to be exposed thru an HTTP reverse proxy (Apache, NGINX, ...)
 - HTTP port `8443` to be exposed thru an HTTPS reverse proxy (Apache, NGINX, ...)
 - AJP port `8009` to be exposed thru an HTTP/HTTPS reverse proxy (Apache)
 
-Note that if you experience network issues from your instance it is likely to be a DNS configuration issue
+Run
+---
+
+### Sandbox database
+
+Run the container in "sandbox" mode with an embedded database by:
+
+	sudo docker run [-it --rm | -d] -p <public port, e.g. 8080>:8080 [-p <secured HTTP port, e.g. 8443>:8443] [-p <AJP port, e.g. 8009>:8009] simplicite/<my application name>
+
+### Standard mode
+
+You can also run the container in standard mode with an external database by adding these arguments to the above run command:
+
+	-e DB_SETUP=<setup database if empty = true | false>
+	-e DB_VENDOR=<database vendor = "mysql" | "postgresql" | "oracle" | "sqlserver">
+	-e DB_HOST=<hostname or IP address>
+	-e DB_PORT=<port, defaults to 3306 for mysql, 5432 for postgresql, 1521 for oracle or 1433 for sqlserver>
+	-e DB_USER=<database username>
+	-e DB_PASSWORD=<database username's password>
+	-e DB_NAME=<database name>```
+
+### Others
+
+You can adjust the JVM options by using `-e JAVA_OPTS="<other JVM options, e.g. -Xms...>"`
+
+If you experience network issues within your container it is likely to be a DNS configuration issue
 that you can solve by adding `--dns=8.8.8.8` to your run command above.
 
 Licenses
@@ -73,9 +91,8 @@ limitations under the License.
 Third party components
 ----------------------
 
-The image is based on the official [CentOS image](https://hub.docker.com/_/centos/) and its standard components (OpenJDK, ..).
-
-The built image available on DockerHub also contains the following components:
+The base server image is based on the official [CentOS image](https://hub.docker.com/_/centos/) and its
+standard components (OpenJDK, ..). It also contains the following custom components:
 
 - Apache Tomcat released under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0)
 - HyperSQL (HSQLDB) engine and JDBC driver released under [a custom BSD style license](http://hsqldb.org/web/hsqlLicense.html)
