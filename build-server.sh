@@ -23,7 +23,9 @@ do
 	[ $SRV != "tomcat" ] && TAGEXT="-$SRV"
 	for TAG in $TAGS
 	do
+		echo "========================================================"
 		echo "Building $SERVER:$TAG$TAGEXT image..."
+		echo "========================================================"
 		sudo docker build -f Dockerfile-$TAG -t $SERVER:$TAG$TAGEXT .
 		echo "Done"
 	done

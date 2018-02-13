@@ -85,7 +85,9 @@ do
 	[ $SRV != "tomcat" ] && TAGEXT="-$SRV"
 	for TAG in $TAGS
 	do
+		echo "========================================================"
 		echo "Building $PLATFORM:$TAG$TAGEXT image..."
+		echo "========================================================"
 		cat > Dockerfile << EOF
 FROM $SERVER:$TAG$TAGEXT
 MAINTAINER Simplicite.io <contact@simplicite.io>
