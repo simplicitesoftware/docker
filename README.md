@@ -39,11 +39,13 @@ Then you can build your instance's image by:
 
 	sudo docker build -t simplicite/<my application name> .
 
-The image is configured to exposes 3 ports for different usage:
+The image is configured to exposes the following ports for different usage:
 
-- HTTP port `8080` for direct access or to be exposed thru an HTTP reverse proxy (Apache, NGINX, ...)
-- HTTP port `8443` to be exposed thru an HTTPS reverse proxy (Apache, NGINX, ...)
-- AJP port `8009` to be exposed thru an HTTP/HTTPS reverse proxy (Apache)
+- Toomcat HTTP port `8080` for direct access or to be exposed thru an HTTP reverse proxy (Apache, NGINX, ...)
+- Tomcat HTTP port `8443` to be exposed thru an HTTPS reverse proxy (Apache, NGINX, ...)
+- Tomcat AJP port `8009` to be exposed thru an HTTP/HTTPS reverse proxy (Apache)
+- Tomcat admin port `8005` for starting/stopping Tomcat from outside of the container
+- Tomcat JPDA port `8000` for remote debugging Tomcat (needs Tomcat to be (re)started with the `jpda` keyword)
 
 Run
 ---
@@ -52,7 +54,7 @@ Run
 
 Run the container in "sandbox" mode with an embedded database by:
 
-	sudo docker run [-it --rm | -d] -p <public port, e.g. 8080>:8080 [-p <secured HTTP port, e.g. 8443>:8443] [-p <AJP port, e.g. 8009>:8009] simplicite/<my application name>
+	sudo docker run [-it --rm | -d] -p <public port, e.g. 8080>:8080 [-p <secured HTTP port, e.g. 8443>:8443] [-p <AJP port, e.g. 8009>:8009] [-p <admin port, e.g. 8005>:8005] [-p <JPDA port, e.g. 8000>:8000] simplicite/<my application name>
 
 ### Standard mode
 

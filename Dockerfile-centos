@@ -9,5 +9,5 @@ RUN sed -i '/${tomcat.ajpport}/s/<!-- /</;/${tomcat.ajpport}/s/ -->/>/' /usr/loc
 RUN chmod +x /usr/local/tomcat/bin/*.sh /usr/local/tomcat/run.sh
 COPY *.crt /etc/pki/ca-trust/source/anchors/
 RUN /bin/update-ca-trust extract
-EXPOSE 8005 8080 8443 8009 8000 8500
+EXPOSE 8080 8443 8009 8005 8000
 CMD cd /usr/local/tomcat; ./run.sh -t
