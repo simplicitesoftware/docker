@@ -1,5 +1,4 @@
 FROM openjdk:alpine
-MAINTAINER Simplicite.io <contact@simplicite.io>
 RUN apk update && apk upgrade
 RUN apk add --update bash ca-certificates mysql-client postgresql-client
 RUN rm -rf /var/cache/apk/*

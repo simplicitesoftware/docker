@@ -7,40 +7,30 @@ SRVS="tomcat tomee"
 
 BRANCH=release
 TEMPLATE=template-4.0-$BRANCH
-CVDB=template40
 SERVER=simplicite/server
 PLATFORM=simplicite/platform
 DB=docker
 IP=`ifconfig eth0 | grep 'inet ' | awk '{print $2}'`
 
-echo "Updating and copying template..."
 cd $TEMPLATE
 git pull
-cd ..
-rm -fr template
-rsync -a --exclude='.git' --exclude='.gitignore' $TEMPLATE/ template
-rm -f template/app/WEB-INF/db/*.dmp
-echo "Done"
 
-cd template/tools
-
-if [ ! -f ../app/WEB-INF/db/simplicite-mysql.dmp ]
+# ZZZ temporary ZZZ
+CVDB=template40
+if [ ! -f app/WEB-INF/db/simplicite-mysql.dmp ]
 then
 	echo "Preparing MySQL dump..."
 	./convert-mysql.sh --drop --dump $CVDB
 	mv -f simplicite-mysql.dmp ../app/WEB-INF/db
 	echo "Done"
 fi
-
-if [ ! -f ../app/WEB-INF/db/simplicite-postgresql.dmp ]
+if [ ! -f app/WEB-INF/db/simplicite-postgresql.dmp ]
 then
 	echo "Preparing PostgreSQL dump..."
 	./convert-postgresql.sh --drop --dump $CVDB
 	mv -f simplicite-postgresql.dmp ../app/WEB-INF/db
 	echo "Done"
 fi
-
-cd ../..
 
 for SRV in $SRVS
 do
@@ -51,17 +41,26 @@ do
 		echo "========================================================"
 		echo "Building $PLATFORM:$TAG$TAGEXT image..."
 		echo "========================================================"
+		DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
+		PROPS=app/WEB-INF/classes/com/simplicite/globals.properties
+		VERSION=`grep platform.version $PROPS | awk -F= '{print $2}'`
+		PATCHLEVEL=`grep platform.patchlevel $PROPS | awk -F= '{print $2}'`
+		REVISION=`grep platform.revision $PROPS | awk -F= '{print $2}`
 		cat > Dockerfile << EOF
 FROM $SERVER:$TAG$TAGEXT
-MAINTAINER Simplicite.io <contact@simplicite.io>
-COPY template/app /usr/local/tomcat/webapps/ROOT
+LABEL org.label-schema.build-date="$DATE" \
+      org.label-schema.name="simplicite" \
+      org.label-schema.description="Simplicite platform" \
+      org.label-schema.vendor="Simplicite Software" \
+      org.label-schema.version="$VERSION.$PATHCHLEVEL (revision $REVISION)" \
+      org.label-schema.url="https://www.simplicite.io"
+COPY $TEMPLATE/app /usr/local/tomcat/webapps/ROOT
 EOF
 		sudo docker build -f Dockerfile -t $PLATFORM:$TAG$TAGEXT .
 		rm -f Dockerfile
 		echo "Done"
 	done
 done
-rm -fr template
 
 echo ""
 for SRV in $SRVS
