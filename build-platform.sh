@@ -5,32 +5,40 @@ TAGS="centos alpine"
 SRVS="tomcat tomee"
 [ "$2" != "" ] && SRVS=$2
 
+BRANCH=release
+TEMPLATE=template-4.0-$BRANCH
+CVDB=template40
 SERVER=simplicite/server
 PLATFORM=simplicite/platform
 DB=docker
 IP=`ifconfig eth0 | grep 'inet ' | awk '{print $2}'`
 
 echo "Updating and copying template..."
-cd template-4.0-release
+cd $TEMPLATE
 git pull
 cd ..
 rm -fr template
-rsync -a --exclude='.git' --exclude='.gitignore' template-4.0-release/ template
+rsync -a --exclude='.git' --exclude='.gitignore' $TEMPLATE/ template
 rm -f template/app/WEB-INF/db/*.dmp
-sed -i "/INSERT INTO M_SYSTEM VALUES.*'PUBLIC_PAGES'/s/'yes'/'no'/" template/app/WEB-INF/db/simplicite.script
 echo "Done"
 
 cd template/tools
 
-echo "Preparing MySQL dump..."
-./convert-mysql.sh --dump > /dev/null
-mv -f simplicite-mysql.dmp ../app/WEB-INF/db
-echo "Done"
+if [ ! -f ../app/WEB-INF/db/simplicite-mysql.dmp ]
+then
+	echo "Preparing MySQL dump..."
+	./convert-mysql.sh --drop --dump $CVDB
+	mv -f simplicite-mysql.dmp ../app/WEB-INF/db
+	echo "Done"
+fi
 
-echo "Preparing PostgreSQL dump..."
-./convert-postgresql.sh --dump > /dev/null
-mv -f simplicite-postgresql.dmp ../app/WEB-INF/db
-echo "Done"
+if [ ! -f ../app/WEB-INF/db/simplicite-postgresql.dmp ]
+then
+	echo "Preparing PostgreSQL dump..."
+	./convert-postgresql.sh --drop --dump $CVDB
+	mv -f simplicite-postgresql.dmp ../app/WEB-INF/db
+	echo "Done"
+fi
 
 cd ../..
 
