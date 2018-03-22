@@ -15,23 +15,6 @@ IP=`ifconfig eth0 | grep 'inet ' | awk '{print $2}'`
 cd $TEMPLATE
 git pull
 
-# ZZZ temporary ZZZ
-CVDB=template40
-if [ ! -f app/WEB-INF/db/simplicite-mysql.dmp ]
-then
-	echo "Preparing MySQL dump..."
-	tools/convert-mysql.sh --drop --dump $CVDB
-	mv -f tools/simplicite-mysql.dmp app/WEB-INF/db
-	echo "Done"
-fi
-if [ ! -f app/WEB-INF/db/simplicite-postgresql.dmp ]
-then
-	echo "Preparing PostgreSQL dump..."
-	tools/convert-postgresql.sh --drop --dump $CVDB
-	mv -f tools/simplicite-postgresql.dmp app/WEB-INF/db
-	echo "Done"
-fi
-
 for SRV in $SRVS
 do
 	TAGEXT=""
