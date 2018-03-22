@@ -23,58 +23,13 @@ echo "Done"
 cd template/tools
 
 echo "Preparing MySQL dump..."
-echo "    Converting"
-./convert-mysql.sh > /dev/null
-echo "    Loading"
-echo "create database $DB default character set utf8;
-grant all privileges on $DB.* to $DB@localhost identified by '$DB';
-flush privileges;" | mysql -u root
-RET=$?
-[ "$RET" -ne 0 ] && exit $RET
-mysql --user=$DB --password=$DB $DB < simplicite-mysql.sql
-RET=$?
-[ "$RET" -ne 0 ] && exit $RET
-echo "update m_system set sys_value = 'BLOB' where sys_code = 'DOC_DIR'" | mysql --user=$DB --password=$DB $DB
-RET=$?
-[ "$RET" -ne 0 ] && exit $RET
-echo "    Dumping"
-mysqldump --user=$DB --password=$DB $DB > ../app/WEB-INF/db/simplicite-mysql.dmp
-RET=$?
-[ "$RET" -ne 0 ] && exit $RET
-echo "drop database $DB;
-drop user $DB@localhost;
-flush privileges;" | mysql -u root
+./convert-mysql.sh --dump > /dev/null
+mv -f simplicite-mysql.dmp ../app/WEB-INF/db
 echo "Done"
 
 echo "Preparing PostgreSQL dump..."
-echo "    Converting"
-./convert-postgresql.sh > /dev/null
-echo "    Loading"
-PGPASSWORD=postgres psql -q -h localhost -U postgres -c "create user $DB with password '$DB'"
-RET=$?
-[ "$RET" -ne 0 ] && exit $RET
-PGPASSWORD=postgres psql -q -h localhost  -U postgres -c "create database $DB encoding 'UTF8' lc_ctype 'en_US.UTF-8' lc_collate 'en_US.UTF-8' template template0;"
-RET=$?
-[ "$RET" -ne 0 ] && exit $RET
-PGPASSWORD=postgres psql -q -h localhost  -U postgres -c "grant all privileges on database $DB to $DB;"
-RET=$?
-[ "$RET" -ne 0 ] && exit $RET
-PGPASSWORD=$DB psql -q -h localhost  -U $DB $DB < simplicite-postgresql.sql
-RET=$?
-[ "$RET" -ne 0 ] && exit $RET
-PGPASSWORD=$DB psql -q -h localhost  -U $DB $DB -c "update m_system set sys_value = 'BLOB' where sys_code = 'DOC_DIR'"
-RET=$?
-[ "$RET" -ne 0 ] && exit $RET
-echo "    Dumping"
-PGPASSWORD=$DB pg_dump -h localhost  -U $DB $DB --no-owner > ../app/WEB-INF/db/simplicite-postgresql.dmp
-RET=$?
-[ "$RET" -ne 0 ] && exit $RET
-PGPASSWORD=postgres psql -q -h localhost  -U postgres -c "drop database $DB"
-RET=$?
-[ "$RET" -ne 0 ] && exit $RET
-PGPASSWORD=postgres psql -q -h localhost  -U postgres -c "drop user $DB"
-RET=$?
-[ "$RET" -ne 0 ] && exit $RET
+./convert-postgresql.sh --dump > /dev/null
+mv -f simplicite-postgresql.dmp ../app/WEB-INF/db
 echo "Done"
 
 cd ../..
