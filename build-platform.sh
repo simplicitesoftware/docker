@@ -31,11 +31,11 @@ do
 		REVISION=`grep platform.revision $PROPS | awk -F= '{print $2}'`
 		cat > Dockerfile << EOF
 FROM $SERVER:$TAG$TAGEXT
-LABEL org.label-schema.build-date="$DATE" \
-      org.label-schema.name="simplicite" \
-      org.label-schema.description="Simplicite platform" \
-      org.label-schema.vendor="Simplicite Software" \
-      org.label-schema.version="$VERSION.$PATHCHLEVEL (revision $REVISION)" \
+LABEL org.label-schema.build-date="$DATE" \\
+      org.label-schema.name="simplicite" \\
+      org.label-schema.description="Simplicite platform / $TAG / $SRV" \\
+      org.label-schema.vendor="Simplicite Software" \\
+      org.label-schema.version="$VERSION.$PATCHLEVEL (revision $REVISION)" \\
       org.label-schema.url="https://www.simplicite.io"
 COPY $TEMPLATE/app /usr/local/tomcat/webapps/ROOT
 EOF
