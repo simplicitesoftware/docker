@@ -20,15 +20,15 @@ CVDB=template40
 if [ ! -f app/WEB-INF/db/simplicite-mysql.dmp ]
 then
 	echo "Preparing MySQL dump..."
-	./convert-mysql.sh --drop --dump $CVDB
-	mv -f simplicite-mysql.dmp ../app/WEB-INF/db
+	tools/convert-mysql.sh --drop --dump $CVDB
+	mv -f tools/simplicite-mysql.dmp app/WEB-INF/db
 	echo "Done"
 fi
 if [ ! -f app/WEB-INF/db/simplicite-postgresql.dmp ]
 then
 	echo "Preparing PostgreSQL dump..."
-	./convert-postgresql.sh --drop --dump $CVDB
-	mv -f simplicite-postgresql.dmp ../app/WEB-INF/db
+	tools/convert-postgresql.sh --drop --dump $CVDB
+	mv -f tools/simplicite-postgresql.dmp app/WEB-INF/db
 	echo "Done"
 fi
 
