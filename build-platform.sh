@@ -45,7 +45,7 @@ do
 		PROPS=app/WEB-INF/classes/com/simplicite/globals.properties
 		VERSION=`grep platform.version $PROPS | awk -F= '{print $2}'`
 		PATCHLEVEL=`grep platform.patchlevel $PROPS | awk -F= '{print $2}'`
-		REVISION=`grep platform.revision $PROPS | awk -F= '{print $2}`
+		REVISION=`grep platform.revision $PROPS | awk -F= '{print $2}'`
 		cat > Dockerfile << EOF
 FROM $SERVER:$TAG$TAGEXT
 LABEL org.label-schema.build-date="$DATE" \
