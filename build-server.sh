@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ "$1" = "--help" ]
+then
+	echo "Usage: `basename $0` [<tag(s)> [<server(s)>]]" >&2
+	exit 0
+fi
+
 TAGS="centos alpine"
 [ "$1" != "" ] && TAGS=$1
 SRVS="tomcat tomee"

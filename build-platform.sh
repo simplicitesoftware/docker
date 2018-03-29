@@ -1,16 +1,27 @@
 #!/bin/bash
 
-TAGS="centos alpine"
-[ "$1" != "" ] && TAGS=$1
-SRVS="tomcat tomee"
-[ "$2" != "" ] && SRVS=$2
+if [ "$1" = "--help" ]
+then
+	echo "Usage: `basename $0` [master|<tag(s)> [<server(s)>]]" >&2
+	exit 0
+fi
 
-BRANCH=release
+if [ "$1" = "master" ]
+then
+	BRANCH=master
+	TAGS=centos
+	SRVS=tomcat
+else
+	BRANCH=release
+	TAGS="centos alpine"
+	[ "$1" != "" ] && TAGS=$1
+	SRVS="tomcat tomee"
+	[ "$2" != "" ] && SRVS=$2
+fi
+
 TEMPLATE=template-4.0-$BRANCH
 SERVER=simplicite/server
 PLATFORM=simplicite/platform
-DB=docker
-IP=`ifconfig eth0 | grep 'inet ' | awk '{print $2}'`
 
 cd $TEMPLATE
 git pull
@@ -19,6 +30,7 @@ for SRV in $SRVS
 do
 	TAGEXT=""
 	[ $SRV != "tomcat" ] && TAGEXT="-$SRV"
+	[ $BRANCH = "master" ] && BRANCHEXT="-$BRANCH"
 	for TAG in $TAGS
 	do
 		echo "========================================================"
@@ -33,37 +45,42 @@ do
 FROM $SERVER:$TAG$TAGEXT
 LABEL org.label-schema.build-date="$DATE" \\
       org.label-schema.name="simplicite" \\
-      org.label-schema.description="Simplicite platform / $TAG / $SRV" \\
+      org.label-schema.description="Simplicite platform $BRANCH / $TAG / $SRV" \\
       org.label-schema.vendor="Simplicite Software" \\
       org.label-schema.version="$VERSION.$PATCHLEVEL (revision $REVISION)" \\
       org.label-schema.url="https://www.simplicite.io"
-COPY $TEMPLATE/app /usr/local/tomcat/webapps/ROOT
+COPY app /usr/local/tomcat/webapps/ROOT
 EOF
-		sudo docker build -f Dockerfile -t $PLATFORM:$TAG$TAGEXT .
+		sudo docker build -f Dockerfile -t $PLATFORM:$TAG$TAGEXT$BRANCHEXT .
 		rm -f Dockerfile
 		echo "Done"
 	done
 done
 
+cd ..
+
 echo ""
+DB=docker
+IP=`ifconfig eth0 | grep 'inet ' | awk '{print $2}'`
 for SRV in $SRVS
 do
 	TAGEXT=""
 	[ $SRV != "tomcat" ] && TAGEXT="-$SRV"
+	[ $BRANCH = "master" ] && BRANCHEXT="-$BRANCH"
 	for TAG in $TAGS
 	do
-		echo "-- $PLATFORM:$TAG$TAGEXT ------------------"
-		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 $PLATFORM:$TAG$TAGEXT"
-		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 -e DB_SETUP=true -e DB_VENDOR=mysql -e DB_HOST=$IP -e DB_PORT=3306 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$TAG$TAGEXT"
-		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 -e DB_SETUP=true -e DB_VENDOR=postgresql -e DB_HOST=$IP -e DB_PORT=5432 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$TAG$TAGEXT"
-		echo "sudo docker push $PLATFORM:$TAG$TAGEXT"
+		echo "-- $PLATFORM:$TAG$TAGEXT$BRANCHEXT ------------------"
+		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 $PLATFORM:$TAG$TAGEXT$BRANCHEXT"
+		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 -e DB_SETUP=true -e DB_VENDOR=mysql -e DB_HOST=$IP -e DB_PORT=3306 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$TAG$TAGEXT$BRANCHEXT"
+		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 -e DB_SETUP=true -e DB_VENDOR=postgresql -e DB_HOST=$IP -e DB_PORT=5432 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$TAG$TAGEXT$BRANCHEXT"
+		echo "sudo docker push $PLATFORM:$TAG$TAGEXT$BRANCHEXT"
 		if [ $TAG = "centos" -a $SRV = "tomcat" ]
 		then
-			echo "sudo docker tag $PLATFORM:$TAG$TAGEXT $PLATFORM:latest"
-			echo "sudo docker push $PLATFORM:latest"
+			echo "sudo docker tag $PLATFORM:$TAG$BRANCHEXT $PLATFORM:latest$BRANCHEXT"
+			echo "sudo docker push $PLATFORM:latest$BRANCHEXT"
 		fi
 		# ZZZ Temporary ZZZZZZZZZZZZZZZZZZZZ
-		if [ $TAG = "centos" ]
+		if [ $TAG = "centos" -a $BRANCH = "release" ]
 		then
 			DT=`date +%Y%m%d`
 			echo "sudo docker tag $PLATFORM:$TAG$TAGEXT $PLATFORM:$TAG$TAGEXT-$DT"
