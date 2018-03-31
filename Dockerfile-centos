@@ -1,6 +1,6 @@
 FROM centos
 RUN yum upgrade -y
-RUN yum -y install bash ca-certificates java-1.8.0-openjdk-devel mariadb postgresql
+RUN yum -y install bash git curl ca-certificates java-1.8.0-openjdk-devel mariadb postgresql
 RUN yum clean all && rm -rf /var/cache/yum
 ENV JAVA_HOME /usr/lib/jvm/java-1.8.0
 COPY tomcat /usr/local/tomcat
