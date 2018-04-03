@@ -1,7 +1,5 @@
 FROM openjdk:alpine
-RUN apk update && apk upgrade
-RUN apk add --update bash git curl ca-certificates mysql-client postgresql-client
-RUN rm -rf /var/cache/apk/*
+RUN apk update && apk upgrade && apk add --update bash git curl ca-certificates mysql-client postgresql-client && rm -rf /var/cache/apk/*
 # JAVA_HOME is defined by default
 COPY tomcat /usr/local/tomcat
 RUN sed -i '/${tomcat.ajpport}/s/<!-- /</;/${tomcat.ajpport}/s/ -->/>/' /usr/local/tomcat/conf/server.xml

@@ -49,6 +49,7 @@ LABEL org.label-schema.name="simplicite" \\
       org.label-schema.url="https://www.simplicite.io" \\
       org.label-schema.description="Simplicite platform $BRANCH / $TAG / $SRV" \\
       org.label-schema.version="$VERSION.$PATCHLEVEL (revision $REVISION)" \\
+      org.label-schema.license="https://www.simplicite.io/resources/license.md" \\
       org.label-schema.build-date="$DATE"
 COPY app /usr/local/tomcat/webapps/ROOT
 EOF
