@@ -10,7 +10,7 @@ if [ "$1" = "master" -o "$1" = "nightly" ]
 then
 	BRANCH=master
 	TAGS=centos
-	SRVS=tomcat
+	SRVS=tomcat9
 else
 	BRANCH=release
 	TAGS="centos alpine"
@@ -29,7 +29,7 @@ git pull
 for SRV in $SRVS
 do
 	TAGEXT=""
-	[ $SRV != "tomcat" ] && TAGEXT="-$SRV"
+	[ $BRANCH != "master" -a $SRV != "tomcat" ] && TAGEXT="-$SRV"
 	for TAG in $TAGS
 	do
 		PFTAG=$TAG$TAGEXT
@@ -67,7 +67,7 @@ IP=`ifconfig eth0 | grep 'inet ' | awk '{print $2}'`
 for SRV in $SRVS
 do
 	TAGEXT=""
-	[ $SRV != "tomcat" ] && TAGEXT="-$SRV"
+	[ $BRANCH != "master" -a $SRV != "tomcat" ] && TAGEXT="-$SRV"
 	for TAG in $TAGS
 	do
 		PFTAG=$TAG$TAGEXT
