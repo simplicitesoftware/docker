@@ -29,7 +29,7 @@ git pull
 for SRV in $SRVS
 do
 	TAGEXT=""
-	[ $BRANCH != "master" -a $SRV != "tomcat" ] && TAGEXT="-$SRV"
+	[ $SRV != "tomcat" ] && TAGEXT="-$SRV"
 	for TAG in $TAGS
 	do
 		PFTAG=$TAG$TAGEXT
@@ -67,7 +67,7 @@ IP=`ifconfig eth0 | grep 'inet ' | awk '{print $2}'`
 for SRV in $SRVS
 do
 	TAGEXT=""
-	[ $BRANCH != "master" -a $SRV != "tomcat" ] && TAGEXT="-$SRV"
+	[ $SRV != "tomcat" ] && TAGEXT="-$SRV"
 	for TAG in $TAGS
 	do
 		PFTAG=$TAG$TAGEXT
