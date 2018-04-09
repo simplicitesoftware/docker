@@ -22,7 +22,7 @@ for SRV in $SRVS
 do
 	echo "Copying $SRV..."
 	rm -fr ./tomcat
-	cp -r ../$SRV tomcat
+	cp -r -L ../$SRV tomcat
 	echo "Done"
 
 	TAGEXT=""
