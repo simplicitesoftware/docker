@@ -8,7 +8,7 @@ fi
 
 TAGS="centos alpine"
 [ "$1" != "" ] && TAGS=$1
-SRVS="tomcat tomee"
+SRVS="tomcat tomcat9 tomee"
 [ "$2" != "" ] && SRVS=$2
 
 SERVER=simplicite/server
