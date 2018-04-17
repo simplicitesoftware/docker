@@ -60,13 +60,13 @@ Run the container in "sandbox" mode with an embedded database by:
 
 You can also run the container in standard mode with an external database by adding these arguments to the above run command:
 
-	-e DB_SETUP=<setup database if empty = true | false>
-	-e DB_VENDOR=<database vendor = "mysql" | "postgresql" | "oracle" | "mssql">
+	-e DB_SETUP=<setup database if empty = true|false>
+	-e DB_VENDOR=<database vendor = mysql|postgresql|oracle|mssql>
 	-e DB_HOST=<hostname or IP address>
 	-e DB_PORT=<port, defaults to 3306 for mysql, 5432 for postgresql, 1521 for oracle or 1433 for mssql>
 	-e DB_USER=<database username>
 	-e DB_PASSWORD=<database username's password>
-	-e DB_NAME=<database name>```
+	-e DB_NAME=<database name>
 
 ### Others
 
