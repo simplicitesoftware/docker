@@ -41,7 +41,7 @@ Then you can build your instance's image by:
 
 The image is configured to exposes the following ports for different usage:
 
-- Toomcat HTTP port `8080` for direct access or to be exposed thru an HTTP reverse proxy (Apache, NGINX, ...)
+- Tomcat HTTP port `8080` for direct access or to be exposed thru an HTTP reverse proxy (Apache, NGINX, ...)
 - Tomcat HTTP port `8443` to be exposed thru an HTTPS reverse proxy (Apache, NGINX, ...)
 - Tomcat AJP port `8009` to be exposed thru an HTTP/HTTPS reverse proxy (Apache)
 - Tomcat admin port `8005` for starting/stopping Tomcat from outside of the container
@@ -70,7 +70,9 @@ You can also run the container in standard mode with an external database by add
 
 ### Others
 
-You can adjust the JVM options by using `-e JAVA_OPTS="<other JVM options, e.g. -Xms...>"`
+You can force the timezone of the application server by using `-e TOMCAT_TIMEZONE=<timezone, e.g. Europe/paris>`
+
+You can adjust any other required JVM options by using `-e JAVA_OPTS="<other JVM options, e.g. -Xms...>"`
 
 If you experience network issues within your container it is likely to be a DNS configuration issue
 that you can solve by adding `--dns=8.8.8.8` to your run command above.
