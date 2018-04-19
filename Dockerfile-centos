@@ -1,5 +1,6 @@
 FROM centos
 RUN yum upgrade -y && yum install -y epel-release && yum -y install bash git curl ca-certificates java-1.8.0-openjdk-devel mariadb postgresql postfix && yum clean all && rm -rf /var/cache/yum
+RUN sed -i 's/^inet_protocols = all/inet_protocols = ipv4/' /etc/postfix/main.cf
 ENV JAVA_HOME /usr/lib/jvm/java-1.8.0
 COPY tomcat /usr/local/tomcat
 RUN sed -i '/${tomcat.ajpport}/s/<!-- /</;/${tomcat.ajpport}/s/ -->/>/' /usr/local/tomcat/conf/server.xml
