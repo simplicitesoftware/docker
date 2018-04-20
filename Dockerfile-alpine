@@ -8,4 +8,4 @@ RUN chmod +x /usr/local/run.sh /usr/local/tomcat/run.sh /usr/local/tomcat/bin/*.
 COPY *.crt /usr/local/share/ca-certificates/
 RUN update-ca-certificates
 EXPOSE 8080 8443 8009 8005 8000
-CMD cd /usr/local; ./run.sh
+CMD /usr/local/run.sh
