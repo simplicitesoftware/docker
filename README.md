@@ -72,6 +72,8 @@ You can also run the container in standard mode with an external database by add
 
 You can force the timezone of the application server by using `-e TOMCAT_TIMEZONE=<timezone, e.g. Europe/paris>`
 
+You can start a local Postfix SMTP server by using `-e LOCAL_SMTP_SERVER=true`
+
 You can adjust any other required JVM options by using `-e JAVA_OPTS="<other JVM options, e.g. -Xms...>"`
 
 If you experience network issues within your container it is likely to be a DNS configuration issue

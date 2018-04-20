@@ -2,10 +2,11 @@ FROM centos
 RUN yum upgrade -y && yum install -y epel-release && yum -y install bash git curl ca-certificates java-1.8.0-openjdk-devel mariadb postgresql postfix && yum clean all && rm -rf /var/cache/yum
 RUN sed -i 's/^inet_protocols = all/inet_protocols = ipv4/' /etc/postfix/main.cf
 ENV JAVA_HOME /usr/lib/jvm/java-1.8.0
+COPY run.sh /usr/local/run.sh
 COPY tomcat /usr/local/tomcat
 RUN sed -i '/${tomcat.ajpport}/s/<!-- /</;/${tomcat.ajpport}/s/ -->/>/' /usr/local/tomcat/conf/server.xml
-RUN chmod +x /usr/local/tomcat/bin/*.sh /usr/local/tomcat/run.sh
+RUN chmod +x /usr/local/run.sh /usr/local/tomcat/run.sh /usr/local/tomcat/bin/*.sh
 COPY *.crt /etc/pki/ca-trust/source/anchors/
 RUN /bin/update-ca-trust extract
 EXPOSE 8080 8443 8009 8005 8000
-CMD cd /usr/local/tomcat; ./run.sh -t
+CMD cd /usr/local; ./run.sh
