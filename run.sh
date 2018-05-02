@@ -24,6 +24,8 @@ then
 		SYNC_EXCLUDES="--exclude='app/META-INF/context.xml' --exclude='app/WEB-INF/web.xml' --exclude='app/WEB-INF/classes/log4j.xml' --exclude='app/WEB-INF/WEB-INF/patches/V*/patches.properties' --exclude='app/WEB-INF/db' --exclude='app/WEB-INF/dbdoc'"
 	fi
 	rsync -avhrW --no-compress --progress $SYNC_EXCLUDES app/ $TOMCAT_DIR/webapps/ROOT
+	RES=$?
+	[ $RES -ne 0 ] && exit $RES
 	echo "...done"
 fi
 
