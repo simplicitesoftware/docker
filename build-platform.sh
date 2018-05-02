@@ -56,7 +56,7 @@ LABEL org.label-schema.name="simplicite" \\
 EOF
 		if [ $GIT -eq 1 ]
 		then
-			echo "RUN git clone --single-branch --depth 1 $DOCKER_GIT_URL /usr/local/template" >> Dockerfile
+			echo "RUN git clone --single-branch $DOCKER_GIT_URL /usr/local/template" >> Dockerfile
 		else
 			echo "COPY app /usr/local/tomcat/webapps/ROOT" >> Dockerfile
 		fi
