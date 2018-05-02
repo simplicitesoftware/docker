@@ -18,9 +18,9 @@ then
 	cd ..
 	echo "...done"
 	echo "Upgrading webapp..."
-	SYNC_EXCLUDES=""
-	[ -d $TOMCAT_DIR/webapps/ROOT ] && SYNC_EXCLUDES="--exclude='app/META-INF/context.xml' --exclude='app/WEB-INF/web.xml' --exclude='app/WEB-INF/classes/log4j.xml' --exclude='app/WEB-INF/WEB-INF/patches/V*/patches.properties' --exclude='app/WEB-INF/db' --exclude='app/WEB-INF/dbdoc'"
-	rsync -avhrW --no-compress --progress $SYNC_EXCLUDES $TEMPLATE_DIR/app/ $TOMCAT_DIR/webapps/ROOT
+	SYNC_OPTS=""
+	[ -d $TOMCAT_DIR/webapps/ROOT ] && SYNC_OPTS="--delete --exclude='META-INF/context.xml' --exclude='WEB-INF/web.xml' --exclude='WEB-INF/classes/log4j.xml' --exclude='WEB-INF/WEB-INF/patches/V*/patches.properties' --exclude='WEB-INF/db' --exclude='WEB-INF/dbdoc'"
+	rsync -avhrW --no-compress $SYNC_OPTS $TEMPLATE_DIR/app/ $TOMCAT_DIR/webapps/ROOT
 	RES=$?
 	[ $RES -ne 0 ] && exit $RES
 	echo "...done"
