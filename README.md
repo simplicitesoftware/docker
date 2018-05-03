@@ -68,9 +68,9 @@ The images are configured to exposes the following ports for different usage:
 Run
 ---
 
-### Sandbox database
+### Sandbox mode
 
-Run the container in "sandbox" mode with an embedded database by:
+Run the container in sandbox mode with an embedded database by:
 
 	sudo docker run [-it --rm | -d] -p <public port, e.g. 8080>:8080 [-p <secured HTTP port, e.g. 8443>:8443] [-p <AJP port, e.g. 8009>:8009] [-p <admin port, e.g. 8005>:8005] [-p <JPDA port, e.g. 8000>:8000] simplicite/<server | my application name>[:tag]
 
@@ -123,10 +123,10 @@ limitations under the License.
 Third party components
 ----------------------
 
-The base server image is based on the official [CentOS image](https://hub.docker.com/_/centos/) and its
-standard components (OpenJDK, ..). It also contains the following custom components:
+The base server images are based on the official [centos image](https://hub.docker.com/_/centos/) and [openjdk:alpine image](https://hub.docker.com/_/openjdk/)
+and their standard additional packages. It also contains the following custom components:
 
-- Apache Tomcat released under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0)
+- Apache Tomcat or TomEE released under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0)
 - HyperSQL (HSQLDB) engine and JDBC driver released under [a custom BSD style license](http://hsqldb.org/web/hsqlLicense.html)
 - MySQL connector/J JDBC driver released under [LGPL license](https://www.gnu.org/licenses/lgpl-3.0.en.html)
 - PostgreSQL JDBC driver released under [a custom BSD style license](https://jdbc.postgresql.org/about/license.html)
