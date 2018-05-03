@@ -9,22 +9,29 @@ Using Simplicit&eacute;&reg; server image
 Introduction
 ------------
 
-This package corresponds to a simple [Docker](http://www.docker.com) image that contains a pre-configured.
-Tomcat server on which you can run a [Simplicit&eacute;&reg;](http://www.simplicitesoftware.com) low code platform instance.
+This repository contains tools to build **server** [Docker](http://www.docker.com) images that contains a pre-configured
+[Tomcat](http://tomcat.apache.org/) or [TomEE](http://tomee.apache.org) server on which you can run
+a [Simplicit&eacute;&reg;](http://www.simplicitesoftware.com) low code platform instance.
 
-See the `BUILD.md` file for image building details. The built image is available on [DockerHub](https://hub.docker.com/r/simplicite/server/)
+The images built using these tools are available on [DockerHub](https://hub.docker.com/r/simplicite/server/)
 
-Pull
-----
+Pull image
+----------
 
-You can pull the image by:
+You can pull an server image by:
 
-	sudo docker pull simplicite/server
+	sudo docker pull simplicite/server[:tag]
+
+See [DockerHub page](https://hub.docker.com/r/simplicite/server/) for details on available tags.
 
 Add an instance
 ---------------
 
-To add a Simplicit&eacute;&reg; platform instance you need to create a dedicated `Dockerfile`:
+There are two approaches to run Simplicit&eacute; platform using these server images:
+
+### Build a custom image
+
+To add a Simplicit&eacute;&reg; platform instance to the server image you need to create an image from the server image:
 
 	vi Dockerfile
 
@@ -32,14 +39,25 @@ With this content:
 
 ```
 FROM simplicite/server
-ADD <location of your Simplict&eacute;&reg; application package> /usr/local/tomcat/webapps/ROOT
+ADD <path to your Simplict&eacute;&reg; webapp> /usr/local/tomcat/webapps/ROOT
 ```
+
+> **Note**: the above path must be inside the build directory
 
 Then you can build your instance's image by:
 
 	sudo docker build -t simplicite/<my application name> .
 
-The image is configured to exposes the following ports for different usage:
+And run it
+
+### Use external Git repository
+
+You can directly mount a template Git repository into your server container (see bellow).
+
+Exposed ports
+-------------
+
+The images are configured to exposes the following ports for different usage:
 
 - Tomcat HTTP port `8080` for direct access or to be exposed thru an HTTP reverse proxy (Apache, NGINX, ...)
 - Tomcat HTTP port `8443` to be exposed thru an HTTPS reverse proxy (Apache, NGINX, ...)
@@ -54,7 +72,7 @@ Run
 
 Run the container in "sandbox" mode with an embedded database by:
 
-	sudo docker run [-it --rm | -d] -p <public port, e.g. 8080>:8080 [-p <secured HTTP port, e.g. 8443>:8443] [-p <AJP port, e.g. 8009>:8009] [-p <admin port, e.g. 8005>:8005] [-p <JPDA port, e.g. 8000>:8000] simplicite/<my application name>
+	sudo docker run [-it --rm | -d] -p <public port, e.g. 8080>:8080 [-p <secured HTTP port, e.g. 8443>:8443] [-p <AJP port, e.g. 8009>:8009] [-p <admin port, e.g. 8005>:8005] [-p <JPDA port, e.g. 8000>:8000] simplicite/<server | my application name>[:tag]
 
 ### Standard mode
 
@@ -67,6 +85,14 @@ You can also run the container in standard mode with an external database by add
 	-e DB_USER=<database username>
 	-e DB_PASSWORD=<database username's password>
 	-e DB_NAME=<database name>
+
+### Using a template Git repository
+
+In this case you can directly run a **server image** with `-v <path to your template Git repository>:/usr/local/template:ro`.
+
+The container will create the webapp from this template when starting for the first time.
+
+Then, at each restart of the container, it will upgrade the webapp from the Git repository (if needed).
 
 ### Others
 
