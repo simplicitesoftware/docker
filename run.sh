@@ -19,9 +19,16 @@ then
 		git pull
 		echo "...done"
 	fi
-	echo "Upgrading webapp..."
-	ant -Dtomcat.root=$TOMCAT_DIR upgrade-war
-	echo "...done"
+	if [ ! -d $TOMCAT_DIR/webapps/ROOT ]
+	then
+		echo "Deploying webapp..."
+		ant -Dtomcat.root=$TOMCAT_DIR deploy-war
+		echo "...done"
+	else
+		echo "Upgrading webapp..."
+		ant -Dtomcat.root=$TOMCAT_DIR upgrade-war
+		echo "...done"
+	fi
 fi
 
 cd /usr/local/tomcat
