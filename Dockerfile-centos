@@ -1,7 +1,7 @@
 FROM centos
-LABEL org.label-schema.name="simplicite" \\
-      org.label-schema.vendor="Simplicite Software" \\
-      org.label-schema.url="https://www.simplicite.io" \\
+LABEL org.label-schema.name="simplicite" \
+      org.label-schema.vendor="Simplicite Software" \
+      org.label-schema.url="https://www.simplicite.io" \
       org.label-schema.description="Simplicite server (centos)"
 RUN yum upgrade -y && yum install -y epel-release && yum -y install bash git curl ca-certificates java-1.8.0-openjdk-devel ant mariadb postgresql postfix && yum clean all && rm -rf /var/cache/yum
 RUN sed -i 's/^inet_protocols = all/inet_protocols = ipv4/' /etc/postfix/main.cf
