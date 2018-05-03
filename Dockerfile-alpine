@@ -1,5 +1,5 @@
 FROM openjdk:alpine
-RUN apk update && apk upgrade && apk add --update bash git curl ca-certificates mysql-client postgresql-client postfix && rm -rf /var/cache/apk/*
+RUN apk update && apk upgrade && apk add --update bash git curl ca-certificates mysql-client postgresql-client apache-ant postfix && rm -rf /var/cache/apk/*
 # JAVA_HOME is defined by default
 COPY run.sh /usr/local/run.sh
 COPY tomcat /usr/local/tomcat

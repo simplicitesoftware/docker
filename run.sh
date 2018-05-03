@@ -2,7 +2,7 @@
 
 if [ "$LOCAL_SMTP_SERVER" = "true" ]
 then
-	echo "Starting postfix SMTP server..."
+	echo "Starting SMTP server..."
 	postfix start
 	echo "...done"
 fi
@@ -10,18 +10,17 @@ fi
 TOMCAT_DIR=/usr/local/tomcat
 [ ! -d $TOMCAT_DIR/webapps ] && mkdir $TOMCAT_DIR/webapps
 TEMPLATE_DIR=/usr/local/template
-if [ -d $TEMPLATE_DIR/.git ]
+if [ -d $TEMPLATE_DIR ]
 then
-	echo "Pulling up-to-date version..."
 	cd $TEMPLATE_DIR
-	git pull
-	echo "...done"
+	if [ -w $TEMPLATE_DIR ]
+	then
+		echo "Pulling template..."
+		git pull
+		echo "...done"
+	fi
 	echo "Upgrading webapp..."
-	SYNC_OPTS=""
-	[ -d $TOMCAT_DIR/webapps/ROOT ] && SYNC_OPTS="--delete --exclude='META-INF/context.xml' --exclude='WEB-INF/web.xml' --exclude='WEB-INF/classes/log4j.xml' --exclude='WEB-INF/db/' --exclude='WEB-INF/dbdoc/'"
-	rsync -arW --no-compress $SYNC_OPTS $TEMPLATE_DIR/app/ $TOMCAT_DIR/webapps/ROOT
-	RES=$?
-	[ $RES -ne 0 ] && exit $RES
+	ant -Dtomcat.root=$TOMCAT_DIR upgrade-war
 	echo "...done"
 fi
 
