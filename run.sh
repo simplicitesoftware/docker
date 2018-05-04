@@ -9,7 +9,14 @@ fi
 
 TOMCAT_DIR=/usr/local/tomcat
 [ ! -d $TOMCAT_DIR/webapps ] && mkdir $TOMCAT_DIR/webapps
+
 TEMPLATE_DIR=/usr/local/template
+if [ ! -d $TEMPLATE_DIR -a "$GIT_URL" != "" ]
+then
+	echo "Cloning template..."
+	git clone --single-branch $GIT_URL $TEMPLATE_DIR
+	echo "...done"
+fi
 if [ -d $TEMPLATE_DIR ]
 then
 	cd $TEMPLATE_DIR
@@ -31,5 +38,5 @@ then
 	fi
 fi
 
-cd /usr/local/tomcat
+cd $TOMCAT_DIR
 ./run.sh -t
