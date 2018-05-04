@@ -13,8 +13,10 @@ TOMCAT_DIR=/usr/local/tomcat
 TEMPLATE_DIR=/usr/local/template
 if [ ! -d $TEMPLATE_DIR -a "$GIT_URL" != "" ]
 then
-	echo "Cloning template..."
-	git clone --single-branch $GIT_URL $TEMPLATE_DIR
+	BRANCH="master"
+	[ "$GIT_BRANCH" != "" ] && BRANCH=$GIT_BRANCH
+	echo "Cloning template (branch $BRANCH)..."
+	git clone --single-branch --branch $BRANCH $GIT_URL $TEMPLATE_DIR
 	echo "...done"
 fi
 if [ -d $TEMPLATE_DIR ]
