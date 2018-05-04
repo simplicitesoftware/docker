@@ -6,13 +6,11 @@ then
 	exit 0
 fi
 
-GIT=0
 if [ "$1" = "master" -o "$1" = "nightly" ]
 then
 	BRANCH=master
 	TAGS=centos
 	SRVS=tomcat9
-	[ "$DOCKER_GIT_URL" != "" ] && GIT=1
 else
 	BRANCH=release
 	TAGS="centos alpine"
@@ -53,13 +51,8 @@ LABEL org.label-schema.name="simplicite" \\
       org.label-schema.version="$VERSION.$PATCHLEVEL (revision $REVISION)" \\
       org.label-schema.license="https://www.simplicite.io/resources/license.md" \\
       org.label-schema.build-date="$DATE"
+COPY app /usr/local/tomcat/webapps/ROOT
 EOF
-		if [ $GIT -eq 1 ]
-		then
-			echo "RUN git clone --single-branch $DOCKER_GIT_URL /usr/local/template" >> Dockerfile
-		else
-			echo "COPY app /usr/local/tomcat/webapps/ROOT" >> Dockerfile
-		fi
 		sudo docker build -f Dockerfile -t $PLATFORM:$PFTAG .
 		rm -f Dockerfile
 		echo "Done"
