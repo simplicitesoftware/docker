@@ -90,7 +90,7 @@ You can also run the container in standard mode with an external database by add
 
 In this case you can directly run a **server image** either with:
 
-- `-v <path to the template Git repository>:/usr/local/template:ro` to mount the template repository located **outside** of the container
+- `-v <path to the template Git repository>:/usr/local/template:ro` to read-only mount the template repository located **outside** of the container
 - `-e GIT_URL=<Git URL of the template repository>` to clone the template repository **inside** the container
 
 When starting for the first time, the container will create the webapp from the template repository (after cloning it when it is located inside the container).
