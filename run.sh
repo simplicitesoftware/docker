@@ -1,5 +1,12 @@
 #!/bin/bash
 
+echo "  ___ _            _ _    _ _    __   _"
+echo " / __(_)_ __  _ __| (_)__(_) |_ /_/  (_)___"
+echo " \\__ \\ | '  \\| '_ \\ | / _| |  _/ -_)_| / _ \\"
+echo " |___/_|_|_|_| .__/_|_\\__|_|\\__\\___(_)_\\___/"
+echo "             |_|"
+echo ""
+
 if [ "$LOCAL_SMTP_SERVER" = "true" ]
 then
 	echo "Starting SMTP server..."
