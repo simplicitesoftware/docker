@@ -92,6 +92,7 @@ In this case you can directly run a **server image** either with:
 
 - `-v <path to the template Git repository>:/usr/local/template:ro` to read-only mount the template repository located **outside** of the container
 - `-e GIT_URL=<Git URL of the template repository>` to clone the template repository **inside** the container
+  (optionaly you can specify a branch with `-e GIT_BRANCH=<branch name>` otherwise the default `master` branch is used)
 
 When starting for the first time, the container will create the webapp from the template repository (after cloning it when it is located inside the container).
 Then, at each restart, it will upgrade the webapp from the template repository (after pulling it when it is located inside the container).
