@@ -5,11 +5,11 @@ LABEL org.label-schema.name="simplicite" \
       org.label-schema.description="Simplicite server (alpine)"
 RUN apk update && apk upgrade && apk add --update bash git curl ca-certificates mysql-client postgresql-client apache-ant postfix && rm -rf /var/cache/apk/*
 # JAVA_HOME is defined by default
-COPY run.sh /usr/local/run.sh
+COPY run.sh /usr/local/bin/run
 COPY tomcat /usr/local/tomcat
 RUN sed -i '/${tomcat.ajpport}/s/<!-- /</;/${tomcat.ajpport}/s/ -->/>/' /usr/local/tomcat/conf/server.xml
-RUN chmod +x /usr/local/run.sh /usr/local/tomcat/run.sh /usr/local/tomcat/bin/*.sh
+RUN chmod +x /usr/local/bin/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh
 COPY *.crt /usr/local/share/ca-certificates/
 RUN update-ca-certificates
 EXPOSE 8080 8443 8009 8005 8000
-CMD /usr/local/run.sh
+CMD /usr/local/bin/run

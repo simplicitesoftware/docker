@@ -26,7 +26,7 @@ then
 		git pull
 		echo "...done"
 	fi
-	if [ ! -d $TOMCAT_DIR/webapps/ROOT ]
+	if [ ! -f $TOMCAT_DIR/webapps/ROOT/META-INF/context.xml ]
 	then
 		echo "Deploying webapp..."
 		ant -Dtomcat.root=$TOMCAT_DIR deploy-war
@@ -38,5 +38,4 @@ then
 	fi
 fi
 
-cd $TOMCAT_DIR
-./run.sh -t
+cd $TOMCAT_DIR && ./run.sh -t
