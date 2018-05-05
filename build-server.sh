@@ -52,6 +52,7 @@ do
 		then
 			echo "sudo docker tag $SERVER:$TAG$TAGEXT $SERVER:latest"
 			echo "sudo docker push $SERVER:latest"
+			echo "sudo docker rmi $SERVER:latest"
 		fi
 		echo ""
 	done

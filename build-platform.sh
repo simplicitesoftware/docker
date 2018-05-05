@@ -81,10 +81,12 @@ do
 		then
 			echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:latest"
 			echo "sudo docker push $PLATFORM:latest"
+			echo "sudo docker rmi $PLATFORM:latest"
 			# ZZZ Temporary ZZZZZZZZZZZZZZZZZZZZ
 			DT=`date +%Y%m%d`
 			echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$PFTAG-$DT"
 			echo "sudo docker push $PLATFORM:$PFTAG-$DT"
+			echo "sudo docker rmi $PLATFORM:$PFTAG-$DT"
 			# ZZZ Temporary ZZZZZZZZZZZZZZZZZZZZ
 		fi
 		echo ""
