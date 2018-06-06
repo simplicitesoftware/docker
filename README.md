@@ -72,7 +72,7 @@ Run
 
 Run the container in sandbox mode with an embedded database by:
 
-	sudo docker run [-it --rm | -d] -p <public port, e.g. 8080>:8080 [-p <secured HTTP port, e.g. 8443>:8443] [-p <AJP port, e.g. 8009>:8009] [-p <admin port, e.g. 8005>:8005] [-p <JPDA port, e.g. 8000>:8000] simplicite/<server | my application name>[:tag]
+	sudo docker run [-it --rm | -d] -p <public port, e.g. 8080>:8080 [-p <secured HTTP port, e.g. 8443>:8443] [-p <AJP port, e.g. 8009>:8009] [-p <admin port, e.g. 8005>:8005] [-e JPDA=true -p <JPDA port, e.g. 8000>:8000] simplicite/<server | my application name>[:tag]
 
 ### Standard mode
 
