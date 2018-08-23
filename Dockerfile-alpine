@@ -7,7 +7,6 @@ RUN apk update && apk upgrade && apk add --update bash git curl ca-certificates 
 # JAVA_HOME is defined by default
 COPY run.sh /usr/local/bin/run
 COPY tomcat /usr/local/tomcat
-RUN sed -i '/${tomcat.ajpport}/s/<!-- /</;/${tomcat.ajpport}/s/ -->/>/' /usr/local/tomcat/conf/server.xml
 RUN chmod +x /usr/local/bin/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh
 COPY *.crt /usr/local/share/ca-certificates/
 RUN update-ca-certificates
