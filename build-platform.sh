@@ -2,13 +2,18 @@
 
 if [ "$1" = "--help" ]
 then
-	echo "Usage: `basename $0` [master|<tag(s)> [<server(s)>]]" >&2
+	echo "Usage: `basename $0` [master|prerelease|<tag(s)> [<server(s)>]]" >&2
 	exit 0
 fi
 
-if [ "$1" = "master" -o "$1" = "nightly" ]
+if [ "$1" = "master" -o "$1" = "alpha" ]
 then
 	BRANCH=master
+	TAGS=centos
+	SRVS=tomcat9
+elif [ "$1" = "prerelease" -o "$1" = "beta" ]
+then
+	BRANCH=prerelease
 	TAGS=centos
 	SRVS=tomcat9
 else
@@ -33,7 +38,8 @@ do
 	for TAG in $TAGS
 	do
 		PFTAG=$TAG$TAGEXT
-		[ $BRANCH = "master" ] && PFTAG="nightly"
+		[ $BRANCH = "master" ] && PFTAG="alpha"
+		[ $BRANCH = "prerelease" ] && PFTAG="beta"
 		echo "========================================================"
 		echo "Building $PLATFORM:$TAG$TAGEXT image..."
 		echo "========================================================"
@@ -71,7 +77,8 @@ do
 	for TAG in $TAGS
 	do
 		PFTAG=$TAG$TAGEXT
-		[ $BRANCH = "master" ] && PFTAG="nightly"
+		[ $BRANCH = "master" ] && PFTAG="alpha"
+		[ $BRANCH = "prerelease" ] && PFTAG="beta"
 		echo "-- $PLATFORM:$PFTAG ------------------"
 		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 $PLATFORM:$PFTAG"
 		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 -e DB_SETUP=true -e DB_VENDOR=mysql -e DB_HOST=$IP -e DB_PORT=3306 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$PFTAG"
