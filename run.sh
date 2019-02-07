@@ -7,13 +7,6 @@ echo " |___/_|_|_|_| .__/_|_\\__|_|\\__\\___(_)_\\___/"
 echo "             |_|"
 echo ""
 
-if [ "$LOCAL_SMTP_SERVER" = "true" ]
-then
-	echo "Starting SMTP server..."
-	postfix start
-	echo "...done"
-fi
-
 TOMCAT_DIR=/usr/local/tomcat
 [ ! -d $TOMCAT_DIR/webapps ] && mkdir $TOMCAT_DIR/webapps
 
