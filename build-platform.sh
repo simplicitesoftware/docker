@@ -18,7 +18,7 @@ then
 	SRVS=tomcat9
 else
 	BRANCH=release
-	TAGS="centos alpine"
+	TAGS="4.0.Pxx-centos 4.0.Pxx-alpine"
 	[ "$1" != "" ] && TAGS=$1
 	SRVS="tomcat tomee"
 	[ "$2" != "" ] && SRVS=$2
@@ -48,19 +48,20 @@ do
 		VERSION=`grep platform.version $PROPS | awk -F= '{print $2}'`
 		PATCHLEVEL=`grep platform.patchlevel $PROPS | awk -F= '{print $2}'`
 		REVISION=`grep platform.revision $PROPS | awk -F= '{print $2}'`
-		cat > Dockerfile << EOF
+		cat > Dockerfile.$$ << EOF
 FROM $SERVER:$TAG$TAGEXT
 LABEL org.label-schema.name="simplicite" \\
       org.label-schema.vendor="Simplicite Software" \\
       org.label-schema.url="https://www.simplicite.io" \\
       org.label-schema.description="Simplicite platform $BRANCH / $TAG / $SRV" \\
-      org.label-schema.version="$VERSION.$PATCHLEVEL (revision $REVISION)" \\
+      org.label-schema.version="$VERSION.$PATCHLEVEL" \\
+      org.label-schema.vcs-ref="$REVISION" \\
       org.label-schema.license="https://www.simplicite.io/resources/license.md" \\
       org.label-schema.build-date="$DATE"
 COPY app /usr/local/tomcat/webapps/ROOT
 EOF
-		sudo docker build -f Dockerfile -t $PLATFORM:$PFTAG .
-		rm -f Dockerfile
+		sudo docker build -f Dockerfile.$$ -t $PLATFORM:$PFTAG .
+		rm -f Dockerfile.$$
 		echo "Done"
 	done
 done

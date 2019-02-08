@@ -101,12 +101,30 @@ Then, at each restart, it will upgrade the webapp from the template repository (
 
 You can force the timezone of the application server by using `-e TOMCAT_TIMEZONE=<timezone, e.g. Europe/paris>`
 
-You can start a local Postfix SMTP server by using `-e LOCAL_SMTP_SERVER=true`
-
-You can adjust any other required JVM options by using `-e JAVA_OPTS="<other JVM options, e.g. -Xms...>"`
+You can adjust any required JVM options by using `-e JAVA_OPTS="<other JVM options, e.g. -Xms...>"`
 
 If you experience network issues within your container it is likely to be a DNS configuration issue
-that you can solve by adding `--dns=8.8.8.8` to your run command above.
+that you can solve by adding an explict DNS serveur IP address e.g. `--dns=8.8.8.8`
+
+If required (e.g. in development) you can start a local Postfix SMTP server within the container by using `-e LOCAL_SMTP_SERVER=true`.
+Using this feature requires that you build an extended image including the Postfix Package:
+
+For CentOS-based image:
+
+```
+FROM simplicite/platform-4.0.Pxx-centos
+RUN yum -y install postfix && yum clean all && rm -rf /var/cache/yum
+RUN sed -i 's/^inet_protocols = all/inet_protocols = ipv4/' /etc/postfix/main.cf
+```
+
+For Alpine-based image:
+
+```
+FROM simplicite/platform-4.0.Pxx-alpine
+RUN apk add --update postfix && rm -rf /var/cache/apk/*
+```
+
+> **Note**: starting a Postfix process within the container is only not suitable for production where an external SMTP service must be used instead.
 
 Licenses
 --------
