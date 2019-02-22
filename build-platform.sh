@@ -18,9 +18,10 @@ then
 	SRVS=tomcat9
 else
 	BRANCH=release
-	TAGS="4.0.Pxx-centos 4.0.Pxx-alpine"
+	TAGS="centos alpine"
 	[ "$1" != "" ] && TAGS=$1
-	SRVS="tomcat tomee"
+	#SRVS="tomcat tomee"
+	SRVS="tomcat"
 	[ "$2" != "" ] && SRVS=$2
 fi
 
@@ -87,15 +88,18 @@ do
 		echo "sudo docker push $PLATFORM:$PFTAG"
 		if [ $BRANCH = "release" -a $TAG = "centos" -a $SRV = "tomcat" ]
 		then
+			echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:4.0.Pxx-$TAG (change xx with patch level)"
 			echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:latest"
+			echo "sudo docker push $PLATFORM:4.0.Pxx-$TAG (change xx with patch level)"
 			echo "sudo docker push $PLATFORM:latest"
+			echo "sudo docker rmi $PLATFORM:4.0.Pxx-$TAG (change xx with patch level)"
 			echo "sudo docker rmi $PLATFORM:latest"
-			# ZZZ Temporary ZZZZZZZZZZZZZZZZZZZZ
-			DT=`date +%Y%m%d`
-			echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$PFTAG-$DT"
-			echo "sudo docker push $PLATFORM:$PFTAG-$DT"
-			echo "sudo docker rmi $PLATFORM:$PFTAG-$DT"
-			# ZZZ Temporary ZZZZZZZZZZZZZZZZZZZZ
+		fi
+		if [ $BRANCH = "release" -a $TAG = "alpine" -a $SRV = "tomcat" ]
+		then
+			echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:4.0.Pxx-$TAG (change xx with patch level)"
+			echo "sudo docker push $PLATFORM:4.0.Pxx-$TAG (change xx with patch level)"
+			echo "sudo docker rmi $PLATFORM:4.0.Pxx-$TAG (change xx with patch level)"
 		fi
 		echo ""
 	done
