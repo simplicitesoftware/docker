@@ -14,7 +14,6 @@ if [ "$TIMEZONE" != "" ]
 then
 	echo "Setting timezone..."
 	timedatectl set-timezone $TIMEZONE
-	[ f $TOMCAT_DIR/webapps/ROOT/META-INF/context.xml ] && sed -i 's/timezone=
 	echo "...done"
 fi
 TIMEZONE=`timedatectl | grep "Time zone" | awk '{print $3}'`
