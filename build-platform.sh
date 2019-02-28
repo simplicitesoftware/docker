@@ -3,7 +3,7 @@
 if [ "$1" = "--help" ]
 then
 	echo "Usage: `basename $0` [master|prerelease|<tag(s)> [<server(s)>]]" >&2
-	exit 0
+	exit 1
 fi
 
 if [ "$1" = "master" -o "$1" = "alpha" ]
@@ -25,12 +25,24 @@ else
 	[ "$2" != "" ] && SRVS=$2
 fi
 
-TEMPLATE=template-4.0-$BRANCH
+TEMPLATE=template-4.0
 SERVER=simplicite/server
 PLATFORM=simplicite/platform
 
+if [ ! -d $TEMPLATE.git ]
+then
+	echo "Git repository for template $TEMPLATE not cloned: git clone --bare <path to $TEMPLATE>.git" >&2
+	exit 2
+fi
+
+cd $TEMPLATE.git
+git config remote.origin.fetch 'refs/heads/*:refs/heads/*'
+git fetch --verbose --all --force
+cd ..
+rm -fr $TEMPLATE
+mkdir $TEMPLATE
+git --work-tree=$TEMPLATE --git-dir=$TEMPLATE.git checkout -f $BRANCH
 cd $TEMPLATE
-git pull
 
 for SRV in $SRVS
 do
@@ -60,6 +72,7 @@ LABEL org.label-schema.name="simplicite" \\
       org.label-schema.license="https://www.simplicite.io/resources/license.md" \\
       org.label-schema.build-date="$DATE"
 COPY app /usr/local/tomcat/webapps/ROOT
+#VOLUME /usr/local/tomcat/webapps/ROOT/WEB-INF/db /usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc
 EOF
 		sudo docker build -f Dockerfile.$$ -t $PLATFORM:$PFTAG .
 		rm -f Dockerfile.$$
