@@ -99,20 +99,17 @@ do
 		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 -e DB_SETUP=true -e DB_VENDOR=mysql -e DB_HOST=$IP -e DB_PORT=3306 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$PFTAG"
 		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 -e DB_SETUP=true -e DB_VENDOR=postgresql -e DB_HOST=$IP -e DB_PORT=5432 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$PFTAG"
 		echo "sudo docker push $PLATFORM:$PFTAG"
-		if [ $BRANCH = "release" -a $TAG = "centos" -a $SRV = "tomcat" ]
+		if [ $BRANCH = "release" -a $SRV = "tomcat" ]
 		then
-			echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:4.0.Pxx-$TAG (change xx with patch level)"
-			echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:latest"
-			echo "sudo docker push $PLATFORM:4.0.Pxx-$TAG (change xx with patch level)"
-			echo "sudo docker push $PLATFORM:latest"
-			echo "sudo docker rmi $PLATFORM:4.0.Pxx-$TAG (change xx with patch level)"
-			echo "sudo docker rmi $PLATFORM:latest"
-		fi
-		if [ $BRANCH = "release" -a $TAG = "alpine" -a $SRV = "tomcat" ]
-		then
-			echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:4.0.Pxx-$TAG (change xx with patch level)"
-			echo "sudo docker push $PLATFORM:4.0.Pxx-$TAG (change xx with patch level)"
-			echo "sudo docker rmi $PLATFORM:4.0.Pxx-$TAG (change xx with patch level)"
+			echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION.$PATCHLEVEL-$TAG"
+			echo "sudo docker push $PLATFORM:$VERSION.$PATCHLEVEL-$TAG"
+			echo "sudo docker rmi $PLATFORM:$VERSION.$PATCHLEVEL-$TAG"
+			if [ $TAG = "centos" ]
+			then
+				echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:latest"
+				echo "sudo docker push $PLATFORM:latest"
+				echo "sudo docker rmi $PLATFORM:latest"
+			fi
 		fi
 		echo ""
 	done
