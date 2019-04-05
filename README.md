@@ -9,25 +9,19 @@ Using Simplicit&eacute;&reg; server image
 Introduction
 ------------
 
-This repository contains tools to build **server** [Docker](http://www.docker.com) images that contains a pre-configured
-[Tomcat](http://tomcat.apache.org/) or [TomEE](http://tomee.apache.org) server on which you can run
-a [Simplicit&eacute;&reg;](http://www.simplicitesoftware.com) low code platform instance.
+This repository contains tools to **build** [Docker](http://www.docker.com) images that contains a pre-configured
+[Tomcat](http://tomcat.apache.org/) server on which you can run a [Simplicit&eacute;&reg;](http://www.simplicitesoftware.com)
+low code platform instance.
 
-The images built using these tools are available on [DockerHub](https://hub.docker.com/r/simplicite/server/)
+The images built using these tools are **available on [DockerHub](https://hub.docker.com/r/simplicite/)**.
 
-Pull image
-----------
+> **Warning**: Chances are what you are looking for are the above **pre-built server images**
+> or, more likely, the private **pre-built platform images** also available on DockerHub.
 
-You can pull an server image by:
+Add Simplicit&eacute;&reg; platform
+-----------------------------------
 
-	sudo docker pull simplicite/server[:tag]
-
-See [DockerHub page](https://hub.docker.com/r/simplicite/server/) for details on available tags.
-
-Add an instance
----------------
-
-There are two approaches to run Simplicit&eacute; platform using these server images:
+There are two approaches to add Simplicit&eacute; platform to these **server** images:
 
 ### Build a custom image
 
@@ -38,8 +32,8 @@ To add a Simplicit&eacute;&reg; platform instance to the server image you need t
 With this content:
 
 ```
-FROM simplicite/server
-ADD <path to your Simplict&eacute;&reg; webapp> /usr/local/tomcat/webapps/ROOT
+FROM simplicite/server[:<tag>]
+ADD <path to your Simplicit&eacute;&reg; webapp> /usr/local/tomcat/webapps/ROOT
 ```
 
 > **Note**: the above path must be inside the build directory
@@ -68,13 +62,15 @@ The images are configured to exposes the following ports for different usage:
 Run
 ---
 
-### Sandbox mode
+See [DockerHub](https://hub.docker.com/r/simplicite/) for run instructions of the standard pre-built iamges.
+
+### Run in sandbox mode
 
 Run the container in sandbox mode with an embedded database by:
 
-	sudo docker run [-it --rm | -d] -p <public port, e.g. 8080>:8080 [-p <secured HTTP port, e.g. 8443>:8443] [-p <AJP port, e.g. 8009>:8009] [-p <admin port, e.g. 8005>:8005] [-e JPDA=true -p <JPDA port, e.g. 8000>:8000] simplicite/<server | my application name>[:tag]
+	sudo docker run [-it --rm | -d] -p <public port, e.g. 8080>:8080 [-p <secured HTTP port, e.g. 8443>:8443] [-p <AJP port, e.g. 8009>:8009] [-p <admin port, e.g. 8005>:8005] [-e JPDA=true -p <JPDA port, e.g. 8000>:8000] simplicite/<my application name>
 
-### Standard mode
+### Runn in standard mode
 
 You can also run the container in standard mode with an external database by adding these arguments to the above run command:
 
@@ -88,7 +84,7 @@ You can also run the container in standard mode with an external database by add
 
 ### Using a template Git repository
 
-In this case you can directly run a **server image** either with:
+In this case you can directly run a pre-built **server image** (`simplicite/server[:<tag>]`) either with:
 
 - `-v <path to the template Git repository>:/usr/local/template:ro` to read-only mount the template repository located **outside** of the container
 - `-e GIT_URL=<Git URL of the template repository>` to clone the template repository **inside** the container
@@ -147,7 +143,7 @@ Third party components
 The base server images are based on the official [centos image](https://hub.docker.com/_/centos/) and [openjdk:alpine image](https://hub.docker.com/_/openjdk/)
 and their standard additional packages. It also contains the following custom components:
 
-- Apache Tomcat or TomEE released under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0)
+- Apache Tomcat released under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0)
 - HyperSQL (HSQLDB) engine and JDBC driver released under [a custom BSD style license](http://hsqldb.org/web/hsqlLicense.html)
 - MySQL connector/J JDBC driver released under [LGPL license](https://www.gnu.org/licenses/lgpl-3.0.en.html)
 - PostgreSQL JDBC driver released under [a custom BSD style license](https://jdbc.postgresql.org/about/license.html)
