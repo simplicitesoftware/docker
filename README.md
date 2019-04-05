@@ -10,13 +10,15 @@ Introduction
 ------------
 
 This repository contains tools to **build** [Docker](http://www.docker.com) images that contains a pre-configured
-[Tomcat](http://tomcat.apache.org/) server on which you can run a [Simplicit&eacute;&reg;](http://www.simplicitesoftware.com)
+[Tomcat](http://tomcat.apache.org/) server on which can be run a [Simplicit&eacute;&reg;](http://www.simplicitesoftware.com)
 low code platform instance.
 
-The images built using these tools are **available on [DockerHub](https://hub.docker.com/r/simplicite/)**.
+The images built using these tools are **available on [DockerHub](https://hub.docker.com/r/simplicite/)**:
 
-> **Warning**: Chances are what you are looking for are the above **pre-built server images**
-> or, more likely, the private **pre-built platform images** also available on DockerHub.
+- Public **server** images (not containing the Simplicit&eacute; platform)
+- Private **platform** images (containing the Simplicit&eacute; platform)
+
+> **Warning**: Chances are what you are looking for are the above **pre-built images** available on **DockerHub**.
 
 Add Simplicit&eacute;&reg; platform
 -----------------------------------
