@@ -20,8 +20,8 @@ The images built using these tools are **available on [DockerHub](https://hub.do
 
 > **Warning**: Chances are what you are looking for are the above **pre-built images** available on **DockerHub**.
 
-Add Simplicit&eacute;&reg; platform
------------------------------------
+Add Simplicit&eacute;&reg; platform to a server image
+-----------------------------------------------------
 
 There are two approaches to add Simplicit&eacute; platform to these **server** images:
 
@@ -46,7 +46,7 @@ Then you can build your instance's image by:
 
 And run it
 
-### Use external Git repository
+### Use an external Git repository
 
 You can directly mount a template Git repository into your server container (see bellow).
 
@@ -72,7 +72,7 @@ Run the container in sandbox mode with an embedded database by:
 
 	sudo docker run [-it --rm | -d] -p <public port, e.g. 8080>:8080 [-p <secured HTTP port, e.g. 8443>:8443] [-p <AJP port, e.g. 8009>:8009] [-p <admin port, e.g. 8005>:8005] [-e JPDA=true -p <JPDA port, e.g. 8000>:8000] simplicite/<my application name>
 
-### Runn in standard mode
+### Run in standard mode
 
 You can also run the container in standard mode with an external database by adding these arguments to the above run command:
 
