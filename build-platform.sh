@@ -10,7 +10,7 @@ if [ "$1" = "master" -o "$1" = "alpha" ]
 then
 	BRANCH=master
 	TAGS=centos
-	SRVS=tomcat9
+	SRVS=tomcat
 elif [ "$1" = "prerelease" -o "$1" = "beta" ]
 then
 	BRANCH=prerelease
@@ -21,7 +21,7 @@ else
 	TAGS="centos alpine"
 	[ "$1" != "" ] && TAGS=$1
 	#SRVS="tomcat tomee"
-	SRVS="tomcat"
+	SRVS=tomcat
 	[ "$2" != "" ] && SRVS=$2
 fi
 
