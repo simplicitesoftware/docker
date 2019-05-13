@@ -15,7 +15,7 @@ elif [ "$1" = "prerelease" -o "$1" = "beta" ]
 then
 	BRANCH=prerelease
 	TAGS=centos
-	SRVS=tomcat9
+	SRVS=tomcat
 else
 	BRANCH=release
 	TAGS="centos alpine"
