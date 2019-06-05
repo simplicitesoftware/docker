@@ -57,6 +57,7 @@ do
 	do
 		PFTAG=$TAG$TAGEXT
 		[ $BRANCH = "master" ] && PFTAG="alpha"
+		[ $BRANCH = "master-light" ] && PFTAG="alpha-light"
 		[ $BRANCH = "prerelease" ] && PFTAG="beta"
 		echo "========================================================"
 		echo "Building $PLATFORM:$TAG$TAGEXT image..."
