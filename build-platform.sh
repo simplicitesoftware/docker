@@ -11,6 +11,11 @@ then
 	BRANCH=master
 	TAGS=centos
 	SRVS=tomcat
+elif [ "$1" = "master-light" -o "$1" = "alpha-light" ]
+then
+	BRANCH=master-light
+	TAGS=centos
+	SRVS=tomcat
 elif [ "$1" = "prerelease" -o "$1" = "beta" ]
 then
 	BRANCH=prerelease
@@ -93,6 +98,7 @@ do
 	do
 		PFTAG=$TAG$TAGEXT
 		[ $BRANCH = "master" ] && PFTAG="alpha"
+		[ $BRANCH = "master-light" ] && PFTAG="alpha-light"
 		[ $BRANCH = "prerelease" ] && PFTAG="beta"
 		echo "-- $PLATFORM:$PFTAG ------------------"
 		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 $PLATFORM:$PFTAG"
