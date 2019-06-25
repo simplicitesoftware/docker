@@ -3,8 +3,8 @@ LABEL org.label-schema.name="simplicite" \
       org.label-schema.vendor="Simplicite Software" \
       org.label-schema.url="https://www.simplicite.io" \
       org.label-schema.description="Simplicite server (centos)"
-RUN yum upgrade -y && yum install -y epel-release && yum -y install bash git curl ca-certificates java-1.8.0-openjdk-devel ant mariadb postgresql && yum clean all && rm -rf /var/cache/yum
-ENV LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 JAVA_HOME=/usr/lib/jvm/java-1.8.0
+RUN yum upgrade -y && yum install -y epel-release && yum -y install bash git curl ca-certificates java-latest-openjdk-devel mariadb postgresql && yum clean all && rm -rf /var/cache/yum
+ENV LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 JAVA_HOME=/usr/lib/jvm/java
 COPY run.sh /usr/local/bin/run
 COPY tomcat /usr/local/tomcat
 RUN chmod +x /usr/local/bin/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh
