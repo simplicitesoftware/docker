@@ -1,4 +1,4 @@
-FROM openjdk:alpine
+FROM openjdk:12-alpine
 LABEL org.label-schema.name="simplicite" \
       org.label-schema.vendor="Simplicite Software" \
       org.label-schema.url="https://www.simplicite.io" \
