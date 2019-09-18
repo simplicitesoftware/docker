@@ -16,7 +16,7 @@ SERVER=simplicite/server
 
 echo "Updating base images..."
 sudo docker pull docker.io/centos
-sudo docker pull docker.io/openjdk:alpine
+sudo docker pull docker.io/openjdk:13-alpine
 echo "Done"
 
 for SRV in $SRVS
