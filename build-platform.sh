@@ -21,6 +21,11 @@ then
 	BRANCH=prerelease
 	TAGS=centos
 	SRVS=tomcat
+elif [ "$1" = "prerelease-light" -o "$1" = "beta-light" ]
+then
+	BRANCH=prerelease-light
+	TAGS=centos
+	SRVS=tomcat
 else
 	BRANCH=release
 	TAGS="centos alpine"
@@ -59,6 +64,7 @@ do
 		[ $BRANCH = "master" ] && PFTAG="alpha"
 		[ $BRANCH = "master-light" ] && PFTAG="alpha-light"
 		[ $BRANCH = "prerelease" ] && PFTAG="beta"
+		[ $BRANCH = "prerelease-light" ] && PFTAG="beta-light"
 		echo "========================================================"
 		echo "Building $PLATFORM:$TAG$TAGEXT image..."
 		echo "========================================================"
@@ -101,6 +107,7 @@ do
 		[ $BRANCH = "master" ] && PFTAG="alpha"
 		[ $BRANCH = "master-light" ] && PFTAG="alpha-light"
 		[ $BRANCH = "prerelease" ] && PFTAG="beta"
+		[ $BRANCH = "prerelease-light" ] && PFTAG="beta-light"
 		echo "-- $PLATFORM:$PFTAG ------------------"
 		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 $PLATFORM:$PFTAG"
 		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 -e DB_SETUP=true -e DB_VENDOR=mysql -e DB_HOST=$IP -e DB_PORT=3306 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$PFTAG"
