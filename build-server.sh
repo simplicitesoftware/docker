@@ -3,8 +3,16 @@
 if [ "$1" = "--help" ]
 then
 	echo "Usage: `basename $0` [<tag(s)> [<server(s)>]]" >&2
-	exit 0
+	exit 1
 fi
+
+LOCK=/tmp/`basename $0 .sh`.lck
+if [ -f $LOCK ]
+then
+	echo "A build process is in process since `cat $LOCK`" >&2
+	exit 2
+fi
+date > $LOCK
 
 TAGS="centos alpine"
 [ "$1" != "" ] && TAGS=$1
@@ -59,4 +67,5 @@ do
 	done
 done
 
+rm -f $LOCK
 exit 0
