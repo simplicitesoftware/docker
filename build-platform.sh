@@ -6,6 +6,14 @@ then
 	exit 1
 fi
 
+LOCK=/tmp/`basename $0 .sh`.lck
+if [ -f $LOCK ]
+then
+	echo "A build process is in process since `cat $LOCK`" >&2
+	exit 2
+fi
+date > $LOCK
+
 if [ "$1" = "master" -o "$1" = "alpha" ]
 then
 	BRANCH=master
@@ -42,7 +50,8 @@ PLATFORM=simplicite/platform
 if [ ! -d $TEMPLATE.git ]
 then
 	echo "Git repository for template $TEMPLATE not cloned: git clone --bare <path to $TEMPLATE>.git" >&2
-	exit 2
+	rm -f $LOCK
+	exit 3
 fi
 
 cd $TEMPLATE.git
@@ -129,4 +138,5 @@ do
 	done
 done
 
+rm -f $LOCK
 exit 0
