@@ -23,7 +23,7 @@ SRVS=tomcat
 SERVER=simplicite/server
 
 echo "Updating base images..."
-sudo docker pull docker.io/centos
+sudo docker pull docker.io/centos:7
 sudo docker pull docker.io/openjdk:8-alpine
 sudo docker pull docker.io/openjdk:12-alpine
 sudo docker pull docker.io/openjdk:13-alpine
