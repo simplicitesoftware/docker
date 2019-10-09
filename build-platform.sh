@@ -14,27 +14,44 @@ then
 fi
 date > $LOCK
 
-if [ "$1" = "master" -o "$1" = "alpha" ]
+if [ "$1" = "3.1" ]
 then
+	VERSION=3.1
+	BRANCH=master
+	TAGS=centos
+	SRVS=tomcat
+elif [ "$1" = "3.2" ]
+then
+	VERSION=3.2
+	BRANCH=master
+	TAGS=centos
+	SRVS=tomcat
+elif [ "$1" = "master" -o "$1" = "alpha" ]
+then
+	VERSION=4.0
 	BRANCH=master
 	TAGS=centos
 	SRVS=tomcat
 elif [ "$1" = "master-light" -o "$1" = "alpha-light" ]
 then
+	VERSION=4.0
 	BRANCH=master-light
 	TAGS=centos
 	SRVS=tomcat
 elif [ "$1" = "prerelease" -o "$1" = "beta" ]
 then
+	VERSION=4.0
 	BRANCH=prerelease
 	TAGS=centos
 	SRVS=tomcat
 elif [ "$1" = "prerelease-light" -o "$1" = "beta-light" ]
 then
+	VERSION=4.0
 	BRANCH=prerelease-light
 	TAGS=centos
 	SRVS=tomcat
 else
+	VERSION=4.0
 	BRANCH=release
 	TAGS="centos alpine"
 	[ "$1" != "" ] && TAGS=$1
@@ -43,9 +60,9 @@ else
 	[ "$2" != "" ] && SRVS=$2
 fi
 
-TEMPLATE=template-4.0
 SERVER=simplicite/server
 PLATFORM=simplicite/platform
+TEMPLATE=template-$VERSION
 
 if [ ! -d $TEMPLATE.git ]
 then
@@ -70,10 +87,12 @@ do
 	for TAG in $TAGS
 	do
 		PFTAG=$TAG$TAGEXT
-		[ $BRANCH = "master" ] && PFTAG="alpha"
-		[ $BRANCH = "master-light" ] && PFTAG="alpha-light"
-		[ $BRANCH = "prerelease" ] && PFTAG="beta"
-		[ $BRANCH = "prerelease-light" ] && PFTAG="beta-light"
+		[ $VERSION = "3.1" ] && PFTAG="3.1-maintenance"
+		[ $VERSION = "3.2" ] && PFTAG="3.2-maintenance"
+		[ $VERSION = "4.0" -a $BRANCH = "master" ] && PFTAG="alpha"
+		[ $VERSION = "4.0" -a $BRANCH = "master-light" ] && PFTAG="alpha-light"
+		[ $VERSION = "4.0" -a $BRANCH = "prerelease" ] && PFTAG="beta"
+		[ $VERSION = "4.0" -a $BRANCH = "prerelease-light" ] && PFTAG="beta-light"
 		echo "========================================================"
 		echo "Building $PLATFORM:$TAG$TAGEXT image..."
 		echo "========================================================"
@@ -102,6 +121,7 @@ EOF
 done
 
 cd ..
+rm -fr $TEMPLATE
 
 echo ""
 DB=docker
@@ -113,10 +133,12 @@ do
 	for TAG in $TAGS
 	do
 		PFTAG=$TAG$TAGEXT
-		[ $BRANCH = "master" ] && PFTAG="alpha"
-		[ $BRANCH = "master-light" ] && PFTAG="alpha-light"
-		[ $BRANCH = "prerelease" ] && PFTAG="beta"
-		[ $BRANCH = "prerelease-light" ] && PFTAG="beta-light"
+		[ $VERSION = "3.1" ] && PFTAG="3.1-maintenance"
+		[ $VERSION = "3.2" ] && PFTAG="3.2-maintenance"
+		[ $VERSION = "4.0" -a $BRANCH = "master" ] && PFTAG="alpha"
+		[ $VERSION = "4.0" -a $BRANCH = "master-light" ] && PFTAG="alpha-light"
+		[ $VERSION = "4.0" -a $BRANCH = "prerelease" ] && PFTAG="beta"
+		[ $VERSION = "4.0" -a $BRANCH = "prerelease-light" ] && PFTAG="beta-light"
 		echo "-- $PLATFORM:$PFTAG ------------------"
 		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 $PLATFORM:$PFTAG"
 		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 -e DB_SETUP=true -e DB_VENDOR=mysql -e DB_HOST=$IP -e DB_PORT=3306 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$PFTAG"
