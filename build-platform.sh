@@ -20,14 +20,14 @@ then
 	BRANCH=master
 	TAGS=centos
 	SRVS=tomcat
-	PFTAG=3.1-maintenace
+	PFTAG=3.1-maintenance
 elif [ "$1" = "3.2" ]
 then
 	VERSION=3.2
 	BRANCH=master
 	TAGS=centos
 	SRVS=tomcat
-	PFTAG=3.2-maintenace
+	PFTAG=3.2-maintenance
 elif [ "$1" = "test" ]
 then
 	VERSION=4.0
