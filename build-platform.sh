@@ -88,13 +88,19 @@ then
 	exit 3
 fi
 
+echo "Updating $TEMPLATE"
 cd $TEMPLATE.git
 git config remote.origin.fetch 'refs/heads/*:refs/heads/*'
 git fetch --verbose --all --force
 cd ..
+echo "Done"
+
+echo "Checkouting $TEMPLATE..."
 rm -fr $TEMPLATE
 mkdir $TEMPLATE
 git --work-tree=$TEMPLATE --git-dir=$TEMPLATE.git checkout -f $BRANCH
+echo "Done"
+
 cd $TEMPLATE
 
 for SRV in $SRVS

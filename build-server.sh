@@ -30,7 +30,14 @@ echo "Done"
 
 for SRV in $SRVS
 do
-	echo "Copying $SRV..."
+	echo "Updating $SRV.git"
+	cd $SRV.git
+	git config remote.origin.fetch 'refs/heads/*:refs/heads/*'
+	git fetch --verbose --all --force
+	cd ..
+	echo "Done"
+
+	echo "Checkouting $SRV as tomcat..."
 	rm -fr tomcat
 	mkdir tomcat
 	git --work-tree=tomcat --git-dir=$SRV.git checkout -f master
