@@ -12,5 +12,5 @@ COPY tomcat /usr/local/tomcat
 RUN chmod +x /usr/local/bin/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh
 COPY *.crt /etc/pki/ca-trust/source/anchors/
 RUN /bin/update-ca-trust extract
-EXPOSE 8080 8443 8483 8009 8005 8000
+EXPOSE 8080 8443 8444 8009 8005 8000
 CMD /usr/local/bin/run
