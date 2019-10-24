@@ -3,7 +3,7 @@ LABEL org.label-schema.name="simplicite" \
       org.label-schema.vendor="Simplicite Software" \
       org.label-schema.url="https://www.simplicite.io" \
       org.label-schema.description="Simplicite server (alpine)"
-RUN apk update && _\
+RUN apk update && \
     apk upgrade && \
     apk add --update bash git curl ca-certificates libjpeg mysql-client postgresql-client && \
     rm -rf /var/cache/apk/*
