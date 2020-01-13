@@ -130,7 +130,7 @@ LABEL org.label-schema.name="simplicite" \\
       org.label-schema.build-date="$DATE"
 COPY app /usr/local/tomcat/webapps/ROOT
 EOF
-		sudo docker build -f Dockerfile.$$ -t $PLATFORM:$PFTAG$EXT .
+		sudo docker build --network host -f Dockerfile.$$ -t $PLATFORM:$PFTAG$EXT .
 		rm -f Dockerfile.$$
 		echo "Done"
 	done

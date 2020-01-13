@@ -50,7 +50,7 @@ do
 		echo "========================================================"
 		echo "Building $SERVER:$TAG$TAGEXT image..."
 		echo "========================================================"
-		sudo docker build -f Dockerfile-$TAG -t $SERVER:$TAG$TAGEXT .
+		sudo docker build --network host -f Dockerfile-$TAG -t $SERVER:$TAG$TAGEXT .
 		echo "Done"
 	done
 done
