@@ -74,7 +74,7 @@ elif [ "$1" = "release-light" -o "$1" = "latest-light" ]
 then
 	VERSION=4.0
 	BRANCH=release-light
-	TAGS="centos alpine"
+	TAGS=centos
 	SRVS=tomcat
 	PFTAG=latest-light
 else
