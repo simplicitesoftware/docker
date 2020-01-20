@@ -68,9 +68,15 @@ then
 	VERSION=4.0
 	BRANCH=release
 	TAGS="centos alpine"
-	#SRVS="tomcat tomee"
 	SRVS=tomcat
 	PFTAG=latest
+elif [ "$1" = "release-light" -o "$1" = "latest-light" ]
+then
+	VERSION=4.0
+	BRANCH=release-light
+	TAGS="centos alpine"
+	SRVS=tomcat
+	PFTAG=latest-light
 else
 	echo "Unknown variant: $1" >&2
 	rm -f $LOCK
@@ -159,6 +165,18 @@ do
 			echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION"
 			echo "sudo docker push $PLATFORM:$VERSION"
 			echo "sudo docker rmi $PLATFORM:$VERSION"
+			echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION.$PATCHLEVEL"
+			echo "sudo docker push $PLATFORM:$VERSION.$PATCHLEVEL"
+			echo "sudo docker rmi $PLATFORM:$VERSION.$PATCHLEVEL"
+		fi
+		if [ $PFTAG = "latest-light" -a $TAG = "centos" -a $SRV = "tomcat" ]
+		then
+			echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION-light"
+			echo "sudo docker push $PLATFORM:$VERSION-light"
+			echo "sudo docker rmi $PLATFORM:$VERSION-light"
+			echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION.$PATCHLEVEL-light"
+			echo "sudo docker push $PLATFORM:$VERSION.$PATCHLEVEL-light"
+			echo "sudo docker rmi $PLATFORM:$VERSION.$PATCHLEVEL-light"
 		fi
 		echo ""
 	done
