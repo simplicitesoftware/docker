@@ -168,8 +168,7 @@ do
 			echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION.$PATCHLEVEL"
 			echo "sudo docker push $PLATFORM:$VERSION.$PATCHLEVEL"
 			echo "sudo docker rmi $PLATFORM:$VERSION.$PATCHLEVEL"
-		fi
-		if [ $PFTAG = "latest-light" -a $TAG = "centos" -a $SRV = "tomcat" ]
+		elif [ $PFTAG = "latest-light" -a $TAG = "centos" -a $SRV = "tomcat" ]
 		then
 			echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION-light"
 			echo "sudo docker push $PLATFORM:$VERSION-light"
@@ -178,6 +177,7 @@ do
 			echo "sudo docker push $PLATFORM:$VERSION.$PATCHLEVEL-light"
 			echo "sudo docker rmi $PLATFORM:$VERSION.$PATCHLEVEL-light"
 		fi
+		echo "sudo docker rmi $PLATFORM:$PFTAG$EXT"
 		echo ""
 	done
 done
