@@ -52,7 +52,8 @@ do
 		echo "========================================================"
 		echo "Building $SERVER:$TAG$TAGEXT image..."
 		echo "========================================================"
-		sudo docker build --network host -f Dockerfile-$TAG -t $SERVER:$TAG$TAGEXT .
+		DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
+		sudo docker build --network host -f Dockerfile-$TAG -t $SERVER:$TAG$TAGEXT --build-arg BUILD_DATE="$DATE" .
 		echo "Done"
 	done
 done
