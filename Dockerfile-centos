@@ -1,6 +1,8 @@
 FROM centos:7
-LABEL org.opencontainers.image.title="simplicite" \
-      org.opencontainers.image.description="Tomcat server"
+LABEL org.label-schema.name="simplicite" \
+      org.opencontainers.image.ref.name="simplicite-server" \
+      org.opencontainers.image.title="Simplicite server" \
+      org.opencontainers.image.description="Simplicite Tomcat server"
 RUN yum upgrade -y && \
     yum clean all && \
     yum install -y epel-release && \

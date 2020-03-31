@@ -126,7 +126,9 @@ do
 		REVISION=`grep platform.revision $PROPS | awk -F= '{print $2}'`
 		cat > Dockerfile.$$ << EOF
 FROM $SERVER:$TAG
-LABEL org.opencontainers.image.title="simplicite" \\
+LABEL org.label-schema.name="simplicite" \\
+      org.opencontainers.image.ref.name="simplicite-platform" \\
+      org.opencontainers.image.title="Simplicite" \\
       org.opencontainers.image.description="Simplicite platform $BRANCH / $TAG / $SRV" \\
       org.opencontainers.image.vendor="Simplicite Software" \\
       org.opencontainers.image.url="https://www.simplicite.io" \\

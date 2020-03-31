@@ -1,6 +1,8 @@
 FROM openjdk:13-alpine
-LABEL org.opencontainers.image.title="simplicite" \
-      org.opencontainers.image.description="Tomcat server"
+LABEL org.label-schema.name="simplicite" \
+      org.opencontainers.image.ref.name="simplicite-server" \
+      org.opencontainers.image.title="Simplicite server" \
+      org.opencontainers.image.description="Simplicite Tomcat server"
 RUN apk update && \
     apk upgrade && \
     apk add --update bash git curl ca-certificates libjpeg mysql-client postgresql-client && \
