@@ -1,12 +1,13 @@
 FROM centos:7
+ARG date
 LABEL org.label-schema.name="simplicite-server" \
       org.label-schema.vendor="Simplicite Software" \
-      org.label-schema.build-date="$BUILD_DATE" \
+      org.label-schema.build-date="$date" \
       org.opencontainers.image.ref.name="simplicite-server" \
       org.opencontainers.image.title="Simplicite server" \
       org.opencontainers.image.description="Simplicite server" \
       org.opencontainers.image.vendor="Simplicite Software" \
-      org.opencontainers.image.created="$BUILD_DATE"
+      org.opencontainers.image.created="$date"
 RUN yum upgrade -y && \
     yum clean all && \
     yum install -y epel-release && \
