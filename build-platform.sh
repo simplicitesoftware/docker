@@ -127,6 +127,8 @@ do
 		cat > Dockerfile.$$ << EOF
 FROM $SERVER:$TAG
 LABEL org.label-schema.name="simplicite" \\
+      org.label-schema.vendor="Simplicite Software" \\
+      org.label-schema.build-date="$DATE" \\
       org.opencontainers.image.ref.name="simplicite-platform" \\
       org.opencontainers.image.title="Simplicite platform" \\
       org.opencontainers.image.description="Simplicite platform $BRANCH / $TAG / $SRV" \\
