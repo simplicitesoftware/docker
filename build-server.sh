@@ -41,6 +41,7 @@ do
 	rm -fr tomcat
 	mkdir tomcat
 	git --work-tree=tomcat --git-dir=$SRV.git checkout -f master
+	rm -f tomcat/*.bat tomcat/bin/*.bat tomcat/bin/*.exe tomcat/bin/*.dll
 	echo "Done"
 
 	TAGEXT=""
