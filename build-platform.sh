@@ -32,7 +32,7 @@ elif [ "$1" = "test" ]
 then
 	VERSION=4.0
 	BRANCH=master
-	TAGS=centos8
+	TAGS="centos8 alpine14"
 	SRVS=tomcat
 	PFTAG=test
 elif [ "$1" = "master" -o "$1" = "alpha" ]
