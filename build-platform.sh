@@ -126,14 +126,15 @@ do
 		REVISION=`grep platform.revision $PROPS | awk -F= '{print $2}'`
 		cat > Dockerfile.$$ << EOF
 FROM $SERVER:$TAG
-LABEL org.label-schema.name="simplicite" \\
-      org.label-schema.vendor="Simplicite Software" \\
-      org.label-schema.url="https://www.simplicite.io" \\
-      org.label-schema.description="Simplicite platform $BRANCH / $TAG / $SRV" \\
-      org.label-schema.version="$VERSION.$PATCHLEVEL" \\
-      org.label-schema.vcs-ref="$REVISION" \\
-      org.label-schema.license="https://www.simplicite.io/resources/license.md" \\
-      org.label-schema.build-date="$DATE"
+LABEL org.opencontainers.image.title="simplicite" \\
+      org.opencontainers.image.description="Simplicite platform $BRANCH / $TAG / $SRV" \\
+      org.opencontainers.image.vendor="Simplicite Software" \\
+      org.opencontainers.image.url="https://www.simplicite.io" \\
+      org.opencontainers.image.version="$VERSION.$PATCHLEVEL" \\
+      org.opencontainers.image.revision="$REVISION" \\
+      org.opencontainers.image.documentation="https://docs.simplicite.io" \\
+      org.opencontainers.image.licenses="https://docs.simplicite.io/license.md" \\
+      org.opencontainers.image.created="$DATE"
 COPY app /usr/local/tomcat/webapps/ROOT
 EOF
 		sudo docker build --network host -f Dockerfile.$$ -t $PLATFORM:$PFTAG$EXT .
