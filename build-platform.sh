@@ -128,7 +128,7 @@ do
 FROM $SERVER:$TAG
 LABEL org.label-schema.name="simplicite" \\
       org.opencontainers.image.ref.name="simplicite-platform" \\
-      org.opencontainers.image.title="Simplicite" \\
+      org.opencontainers.image.title="Simplicite platform" \\
       org.opencontainers.image.description="Simplicite platform $BRANCH / $TAG / $SRV" \\
       org.opencontainers.image.vendor="Simplicite Software" \\
       org.opencontainers.image.url="https://www.simplicite.io" \\
