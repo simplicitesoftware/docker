@@ -26,6 +26,7 @@ echo "Updating base images..."
 sudo docker pull docker.io/centos:7
 sudo docker pull docker.io/centos:8
 sudo docker pull docker.io/openjdk:13-alpine
+sudo docker pull docker.io/openjdk:14-alpine
 echo "Done"
 
 for SRV in $SRVS
