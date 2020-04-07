@@ -22,13 +22,6 @@ SRVS=tomcat
 
 SERVER=simplicite/server
 
-echo "Updating base images..."
-sudo docker pull docker.io/centos:7
-sudo docker pull docker.io/centos:8
-sudo docker pull docker.io/openjdk:13-alpine
-sudo docker pull docker.io/openjdk:14-alpine
-echo "Done"
-
 for SRV in $SRVS
 do
 	echo "Updating $SRV.git"
@@ -53,6 +46,8 @@ do
 		echo "Building $SERVER:$TAG$TAGEXT image..."
 		echo "========================================================"
 		DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
+		FROM=`grep FROM Dockerfile-$TAG | awk '{ print $2 }'`
+		sudo docker pull $FROM
 		sudo docker build --network host -f Dockerfile-$TAG -t $SERVER:$TAG$TAGEXT --build-arg date=$DATE .
 		echo "Done"
 	done

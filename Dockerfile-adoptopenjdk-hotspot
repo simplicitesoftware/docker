@@ -1,0 +1,23 @@
+FROM adoptopenjdk:hotspot
+ARG date
+LABEL org.label-schema.name="simplicite" \
+      org.label-schema.vendor="Simplicite Software" \
+      org.label-schema.build-date="$date" \
+      org.opencontainers.image.ref.name="simplicite-server" \
+      org.opencontainers.image.title="Simplicite server" \
+      org.opencontainers.image.description="Simplicite server" \
+      org.opencontainers.image.vendor="Simplicite Software" \
+      org.opencontainers.image.created="$date"
+RUN apt-get update && \
+    apt-get upgrade -y&& \
+    apt-get install -y bash git curl ca-certificates libjpeg-dev mysql-client postgresql-client && \
+    apt-get clean
+ENV LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8
+# JAVA_HOME is defined by default
+COPY run.sh /usr/local/bin/run
+COPY tomcat /usr/local/tomcat
+RUN chmod +x /usr/local/bin/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh
+COPY *.crt /usr/local/share/ca-certificates/
+RUN update-ca-certificates
+EXPOSE 8080 8443 8444 8009 8005 8000 8555
+CMD /usr/local/bin/run
