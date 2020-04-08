@@ -20,63 +20,63 @@ then
 	BRANCH=master
 	TAGS=centos
 	SRVS=tomcat
-	PFTAG=3.1
+	PFTAG=$1
 elif [ "$1" = "3.2" ]
 then
 	VERSION=3.2
 	BRANCH=master
 	TAGS=centos
 	SRVS=tomcat
-	PFTAG=3.2
-elif [ "$1" = "test" ]
-then
-	VERSION=4.0
-	BRANCH=master
-	TAGS="centos8 alpine14 adoptopenjdk-hotspot adoptopenjdk-openj9"
-	SRVS=tomcat
-	PFTAG=test
-elif [ "$1" = "master" -o "$1" = "alpha" ]
+	PFTAG=$1
+elif [ "$1" = "alpha" ]
 then
 	VERSION=4.0
 	BRANCH=master
 	TAGS=centos
 	SRVS=tomcat
-	PFTAG=alpha
-elif [ "$1" = "master-light" -o "$1" = "alpha-light" ]
+	PFTAG=$1
+elif [ "$1" = "alpha-light" ]
 then
 	VERSION=4.0
 	BRANCH=master-light
 	TAGS=centos
 	SRVS=tomcat
-	PFTAG=alpha-light
-elif [ "$1" = "prerelease" -o "$1" = "beta" ]
+	PFTAG=$1
+elif [ "$1" = "alpha-test" ]
+then
+	VERSION=4.0
+	BRANCH=master
+	TAGS="centos8 alpine14 adoptopenjdk-hotspot adoptopenjdk-openj9"
+	SRVS=tomcat
+	PFTAG=$1
+elif [ "$1" = "beta" ]
 then
 	VERSION=4.0
 	BRANCH=prerelease
 	TAGS=centos
 	SRVS=tomcat
-	PFTAG=beta
-elif [ "$1" = "prerelease-light" -o "$1" = "beta-light" ]
+	PFTAG=$1
+elif [ "$1" = "beta-light" ]
 then
 	VERSION=4.0
 	BRANCH=prerelease-light
 	TAGS=centos
 	SRVS=tomcat
-	PFTAG=beta-light
-elif [ "$1" = "release" -o "$1" = "latest" ]
+	PFTAG=$1
+elif [ "$1" = "latest" ]
 then
 	VERSION=4.0
 	BRANCH=release
 	TAGS="centos alpine"
 	SRVS=tomcat
-	PFTAG=latest
-elif [ "$1" = "release-light" -o "$1" = "latest-light" ]
+	PFTAG=$1
+elif [ "$1" = "latest-light" ]
 then
 	VERSION=4.0
 	BRANCH=release-light
 	TAGS="centos alpine"
 	SRVS=tomcat
-	PFTAG=latest-light
+	PFTAG=$1
 else
 	echo "Unknown variant: $1" >&2
 	rm -f $LOCK
