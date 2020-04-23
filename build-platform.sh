@@ -46,7 +46,7 @@ elif [ "$1" = "alpha-test" ]
 then
 	VERSION=4.0
 	BRANCH=master
-	TAGS="centos8 alpine14 adoptopenjdk-hotspot adoptopenjdk-openj9"
+	TAGS="centos8 adoptopenjdk-hotspot adoptopenjdk-openj9"
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "beta" ]
