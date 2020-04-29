@@ -14,7 +14,7 @@ then
 fi
 date > $LOCK
 
-TAGS="centos alpine"
+TAGS="centos centos8 alpine adoptopenjdk-hotspot adoptopenjdk-openj9"
 [ "$1" != "" ] && TAGS=$1
 #SRVS="tomcat tomee"
 SRVS=tomcat
