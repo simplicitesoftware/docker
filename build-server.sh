@@ -66,9 +66,15 @@ do
 		echo "sudo docker push $SERVER:$TAG$TAGEXT"
 		if [ $TAG = "centos" -a $SRV = "tomcat" ]
 		then
-			echo "sudo docker tag $SERVER:$TAG$TAGEXT $SERVER:latest"
+			echo "sudo docker tag $SERVER:$TAG $SERVER:latest"
 			echo "sudo docker push $SERVER:latest"
 			echo "sudo docker rmi $SERVER:latest"
+			echo ""
+			echo "sudo docker build --network-host -f Dockerfile-$TAG-devel -t $SERVER:$TAG-devel"
+			echo "sudo docker push $SERVER:$TAG-devel"
+			echo "sudo docker tag $SERVER:$TAG-devel $SERVER:latest-devel"
+			echo "sudo docker push $SERVER:latest-devel"
+			echo "sudo docker rmi $SERVER:latest-devel"
 		fi
 		echo ""
 	done
