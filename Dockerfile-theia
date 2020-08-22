@@ -1,0 +1,43 @@
+ARG NODE_VERSION=12.18.3
+FROM node:$NODE_VERSION
+
+RUN apt-get update && \
+  apt-get install -y curl wget apt-transport-https && \
+  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+  echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+  apt-get update && apt-get install -y yarn && \
+  rm -rf /var/lib/apt/lists/*
+
+RUN wget -qO- https://download.java.net/java/GA/jdk14.0.2/205943a0976c4ed48cb16f1043c5c647/12/GPL/openjdk-14.0.2_linux-x64_bin.tar.gz | tar xfz - -C /opt
+ENV JAVA_HOME=/opt/jdk-14.0.2 PATH=/opt/jdk-14.0.2/bin/:$PATH
+
+ARG ANT_VERSION=1.10.8
+RUN wget -qO- https://www-eu.apache.org/dist/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz | tar xfz - -C /opt
+ENV ANT_HOME=/opt/apache-ant-$ANT_VERSION PATH=/opt/apache-ant-$ANT_VERSION/bin/:$PATH
+
+ARG MAVEN_VERSION=3.6.3
+RUN wget -qO- https://www-eu.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xfz - -C /opt
+ENV MAVEN_HOME=/opt/apache-maven-$MAVEN_VERSION PATH=/opt/apache-maven-$MAVEN_VERSION/bin/:$PATH
+
+ARG GRADLE_VERSION=6.6
+RUN cd /opt && wget -q https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip && unzip -q gradle-$GRADLE_VERSION-bin.zip && rm -f gradle-$GRADLE_VERSION-bin.zip
+ENV GRADLE_HOME=/opt/gradle-$GRADLE_VERSION PATH=/opt/gradle-$GRADLE_VERSION/bin/:$PATH
+
+# See : https://github.com/theia-ide/theia-apps/issues/34
+RUN adduser --disabled-password --gecos '' theia
+RUN chmod g+rw /home && \
+    mkdir -p /home/project && \
+    chown -R theia:theia /home/theia && \
+    chown -R theia:theia /home/project;
+WORKDIR /home/theia
+USER theia
+
+ADD theia-package.json ./package.json
+ARG GITHUB_TOKEN
+RUN yarn --cache-folder ./ycache && rm -rf ./ycache && \
+    NODE_OPTIONS="--max_old_space_size=4096" yarn theia build ; \
+    yarn theia download:plugins
+EXPOSE 3000
+ENV SHELL=/bin/bash \
+    THEIA_DEFAULT_PLUGINS=local-dir:/home/theia/plugins
+ENTRYPOINT [ "yarn", "theia", "start", "/home/project", "--hostname=0.0.0.0" ]
