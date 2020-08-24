@@ -70,7 +70,7 @@ do
 			echo "sudo docker push $SERVER:latest"
 			echo "sudo docker rmi $SERVER:latest"
 			echo ""
-			echo "sudo docker build --network-host -f Dockerfile-$TAG-devel -t $SERVER:$TAG-devel"
+			echo "sudo docker build --network host -f Dockerfile-$TAG-devel -t $SERVER:$TAG-devel ."
 			echo "sudo docker push $SERVER:$TAG-devel"
 			echo "sudo docker tag $SERVER:$TAG-devel $SERVER:latest-devel"
 			echo "sudo docker push $SERVER:latest-devel"
