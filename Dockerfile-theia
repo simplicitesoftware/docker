@@ -1,6 +1,6 @@
-ARG NODE_VERSION=12.18.3
-FROM node:$NODE_VERSION
+FROM node:12.18.3
 
+ARG date
 LABEL org.label-schema.name="simplicite" \
       org.label-schema.vendor="Simplicite Software" \
       org.label-schema.build-date="$date" \
@@ -41,6 +41,7 @@ RUN chmod g+rw /home && \
 WORKDIR /home/theia
 USER theia
 
+ARG tag
 ADD theia-$tag-package.json ./package.json
 ARG GITHUB_TOKEN
 RUN yarn --cache-folder ./ycache && rm -rf ./ycache && \
