@@ -2,7 +2,7 @@
 
 if [ "$1" = "" -o "$1" = "--help" ]
 then
-	echo "Usage: `basename $0` alpha[-light]|beta[-light]|latest" >&2
+	echo "Usage: `basename $0` alpha[-light]|beta[-light]|latest[-light]" >&2
 	exit 1
 fi
 
