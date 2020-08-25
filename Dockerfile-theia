@@ -1,6 +1,15 @@
 ARG NODE_VERSION=12.18.3
 FROM node:$NODE_VERSION
 
+LABEL org.label-schema.name="simplicite" \
+      org.label-schema.vendor="Simplicite Software" \
+      org.label-schema.build-date="$date" \
+      org.opencontainers.image.ref.name="simplicite-theia" \
+      org.opencontainers.image.title="Simplicite Theia IDE" \
+      org.opencontainers.image.description="Simplicite Theia IDE" \
+      org.opencontainers.image.vendor="Simplicite Software" \
+      org.opencontainers.image.created="$date"
+
 RUN apt-get update && \
   apt-get install -y curl wget apt-transport-https && \
   curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
