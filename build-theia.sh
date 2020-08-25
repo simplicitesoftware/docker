@@ -14,17 +14,22 @@ then
 fi
 date > $LOCK
 
-IMG=simplicite/theia:latest
+TAGS="latest next"
+[ "$1" != "" ] && TAGS=$1
 
-echo "-- $IMG ------------------"
-DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
-FROM=`grep FROM Dockerfile-theia | awk '{ print $2 }'`
-sudo docker pull $FROM
-sudo docker build --network host -f Dockerfile-theia -t $IMG --build-arg date=$DATE .
-echo "Done"
-echo "sudo docker run -it --rm -p 3000:3000 $IMG"
-echo "sudo docker push $IMG"
-echo ""
+for TAG in $TAGS
+do
+	IMG=simplicite/theia:$TAG
+	echo "-- $IMG ------------------"
+	DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
+	FROM=`grep FROM Dockerfile-theia | awk '{ print $2 }'`
+	sudo docker pull $FROM
+	sudo docker build --network host -f Dockerfile-theia -t $IMG --build-arg tag=$TAG --build-arg date=$DATE .
+	echo "Done"
+	echo "sudo docker run -it --rm -p 3000:3000 $IMG"
+	echo "sudo docker push $IMG"
+	echo ""
+done
 
 rm -f $LOCK
 exit 0
