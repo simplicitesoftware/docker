@@ -47,7 +47,9 @@ ARG GITHUB_TOKEN
 RUN yarn --cache-folder ./ycache && rm -rf ./ycache && \
     NODE_OPTIONS="--max_old_space_size=4096" yarn theia build ; \
     yarn theia download:plugins
-EXPOSE 3000
+EXPOSE 3030
+EXPOSE 3100 8080
+COPY default.theia-workspace /home/project/default.theia-workspace
 ENV SHELL=/bin/bash \
     THEIA_DEFAULT_PLUGINS=local-dir:/home/theia/plugins
-ENTRYPOINT [ "yarn", "theia", "start", "/home/project", "--hostname=0.0.0.0" ]
+ENTRYPOINT [ "yarn", "theia", "start", "/home/project/default.theia-workspace", "--hostname=0.0.0.0", "--port=3030" ]
