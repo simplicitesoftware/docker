@@ -44,7 +44,7 @@ RUN git config --global user.name "Simplicite Theia IDE" && \
     git config --global http.sslVerify "false"
 
 ARG tag
-ADD theia-$tag-package.json ./package.json
+COPY theia-$tag-package.json ./package.json
 ARG GITHUB_TOKEN
 RUN yarn --cache-folder ./ycache && rm -rf ./ycache && \
     NODE_OPTIONS="--max_old_space_size=4096" yarn theia build ; \
