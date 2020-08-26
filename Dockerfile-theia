@@ -27,7 +27,6 @@ ENV ANT_HOME=/opt/apache-ant-$ANT_VERSION PATH=/opt/apache-ant-$ANT_VERSION/bin/
 ARG MAVEN_VERSION=3.6.3
 RUN wget -qO- https://www-eu.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xfz - -C /opt
 ENV MAVEN_HOME=/opt/apache-maven-$MAVEN_VERSION PATH=/opt/apache-maven-$MAVEN_VERSION/bin/:$PATH
-RUN sed -i 's~<localRepository>/path/to/local/repo</localRepository>~--><localRepository>/home/project/.m2/repository</localRepository><!--~' /opt/apache-maven-$MAVEN_VERSION/conf/settings.xml
 
 ARG GRADLE_VERSION=6.6
 RUN cd /opt && wget -q https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip && unzip -q gradle-$GRADLE_VERSION-bin.zip && rm -f gradle-$GRADLE_VERSION-bin.zip
@@ -37,7 +36,7 @@ ARG THEIA_TAG
 COPY theia-$THEIA_TAG-package.json /home/theia/package.json
 
 RUN adduser --disabled-password --gecos '' theia && echo "theia ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-RUN chmod g+rw /home && mkdir -p /home/project/.m2/repository
+RUN chmod g+rw /home && mkdir -p /home/project/.m2/repository && ln -s /home/project/.m2 /home/theia/.m2
 COPY default.theia-workspace /home/project/default.theia-workspace
 RUN chown -R theia:theia /home/theia /home/project
 
