@@ -17,10 +17,6 @@ RUN apt-get update && \
   apt-get update && apt-get install -y yarn && \
   rm -rf /var/lib/apt/lists/*
 
-RUN git config --global user.name "Simplicite Theia IDE" && \
-    git config --global user.name "contact@simplicitesoftware.com" && \
-    git config --global http.sslVerify "false"
-
 RUN wget -qO- https://download.java.net/java/GA/jdk14.0.2/205943a0976c4ed48cb16f1043c5c647/12/GPL/openjdk-14.0.2_linux-x64_bin.tar.gz | tar xfz - -C /opt
 ENV JAVA_HOME=/opt/jdk-14.0.2 PATH=/opt/jdk-14.0.2/bin/:$PATH
 
@@ -36,14 +32,17 @@ ARG GRADLE_VERSION=6.6
 RUN cd /opt && wget -q https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip && unzip -q gradle-$GRADLE_VERSION-bin.zip && rm -f gradle-$GRADLE_VERSION-bin.zip
 ENV GRADLE_HOME=/opt/gradle-$GRADLE_VERSION PATH=/opt/gradle-$GRADLE_VERSION/bin/:$PATH
 
-# See : https://github.com/theia-ide/theia-apps/issues/34
-RUN adduser --disabled-password --gecos '' theia && usermod -a -G sudo theia
-RUN chmod g+rw /home && \
-    mkdir -p /home/project && \
-    chown -R theia:theia /home/theia && \
-    chown -R theia:theia /home/project;
+RUN adduser --disabled-password --gecos '' theia && echo "theia ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+RUN chmod g+rw /home && mkdir -p /home/project
+COPY default.theia-workspace /home/project/default.theia-workspace
+RUN chown -R theia:theia /home/theia /home/project
 WORKDIR /home/theia
+
 USER theia
+RUN git config --global user.name "Simplicite Theia IDE" && \
+    git config --global user.name "contact@simplicitesoftware.com" && \
+    git config --global http.sslVerify "false"
+
 
 ARG tag
 ADD theia-$tag-package.json ./package.json
@@ -51,9 +50,7 @@ ARG GITHUB_TOKEN
 RUN yarn --cache-folder ./ycache && rm -rf ./ycache && \
     NODE_OPTIONS="--max_old_space_size=4096" yarn theia build ; \
     yarn theia download:plugins
-EXPOSE 3030
-EXPOSE 3100 8080
-COPY default.theia-workspace /home/project/default.theia-workspace
+EXPOSE 3030 3000 8080
 ENV SHELL=/bin/bash \
     THEIA_DEFAULT_PLUGINS=local-dir:/home/theia/plugins
 ENTRYPOINT [ "yarn", "theia", "start", "/home/project/default.theia-workspace", "--hostname=0.0.0.0", "--port=3030" ]
