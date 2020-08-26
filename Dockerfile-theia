@@ -1,14 +1,14 @@
 FROM node:12.18.3
 
-ARG date
+ARG BUILD_DATE
 LABEL org.label-schema.name="simplicite" \
       org.label-schema.vendor="Simplicite Software" \
-      org.label-schema.build-date="$date" \
+      org.label-schema.build-date="$BUILD_DATE" \
       org.opencontainers.image.ref.name="simplicite-theia" \
       org.opencontainers.image.title="Simplicite Theia IDE" \
       org.opencontainers.image.description="Simplicite Theia IDE" \
       org.opencontainers.image.vendor="Simplicite Software" \
-      org.opencontainers.image.created="$date"
+      org.opencontainers.image.created="$BUILD_DATE"
 
 RUN apt-get update && \
   apt-get install -y sudo vim zip unzip curl wget apt-transport-https && \
@@ -27,24 +27,27 @@ ENV ANT_HOME=/opt/apache-ant-$ANT_VERSION PATH=/opt/apache-ant-$ANT_VERSION/bin/
 ARG MAVEN_VERSION=3.6.3
 RUN wget -qO- https://www-eu.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xfz - -C /opt
 ENV MAVEN_HOME=/opt/apache-maven-$MAVEN_VERSION PATH=/opt/apache-maven-$MAVEN_VERSION/bin/:$PATH
+ENV MAVEN_OPTS="-Dmaven.repo.local=/home/project/.m2/repository"
 
 ARG GRADLE_VERSION=6.6
 RUN cd /opt && wget -q https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip && unzip -q gradle-$GRADLE_VERSION-bin.zip && rm -f gradle-$GRADLE_VERSION-bin.zip
 ENV GRADLE_HOME=/opt/gradle-$GRADLE_VERSION PATH=/opt/gradle-$GRADLE_VERSION/bin/:$PATH
 
+ARG THEIA_TAG
+COPY theia-$THEIA_TAG-package.json ./package.json
+
 RUN adduser --disabled-password --gecos '' theia && echo "theia ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-RUN chmod g+rw /home && mkdir -p /home/project
+RUN chmod g+rw /home && mkdir -p /home/project/.m2/repository
 COPY default.theia-workspace /home/project/default.theia-workspace
 RUN chown -R theia:theia /home/theia /home/project
-WORKDIR /home/theia
 
+WORKDIR /home/theia
 USER theia
+
 RUN git config --global user.name "Simplicite Theia IDE" && \
     git config --global user.name "contact@simplicitesoftware.com" && \
     git config --global http.sslVerify "false"
 
-ARG tag
-COPY theia-$tag-package.json ./package.json
 ARG GITHUB_TOKEN
 RUN yarn --cache-folder ./ycache && rm -rf ./ycache && \
     NODE_OPTIONS="--max_old_space_size=4096" yarn theia build ; \
