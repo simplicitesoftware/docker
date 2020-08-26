@@ -11,11 +11,15 @@ LABEL org.label-schema.name="simplicite" \
       org.opencontainers.image.created="$date"
 
 RUN apt-get update && \
-  apt-get install -y curl wget apt-transport-https && \
+  apt-get install -y sudo vim zip unzip curl wget apt-transport-https && \
   curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
   echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
   apt-get update && apt-get install -y yarn && \
   rm -rf /var/lib/apt/lists/*
+
+RUN git config --global user.name "Simplicite Theia IDE" && \
+    git config --global user.name "contact@simplicitesoftware.com" && \
+    git config --global http.sslVerify "false"
 
 RUN wget -qO- https://download.java.net/java/GA/jdk14.0.2/205943a0976c4ed48cb16f1043c5c647/12/GPL/openjdk-14.0.2_linux-x64_bin.tar.gz | tar xfz - -C /opt
 ENV JAVA_HOME=/opt/jdk-14.0.2 PATH=/opt/jdk-14.0.2/bin/:$PATH
@@ -33,7 +37,7 @@ RUN cd /opt && wget -q https://services.gradle.org/distributions/gradle-$GRADLE_
 ENV GRADLE_HOME=/opt/gradle-$GRADLE_VERSION PATH=/opt/gradle-$GRADLE_VERSION/bin/:$PATH
 
 # See : https://github.com/theia-ide/theia-apps/issues/34
-RUN adduser --disabled-password --gecos '' theia
+RUN adduser --disabled-password --gecos '' theia && usermod -a -G sudo theia
 RUN chmod g+rw /home && \
     mkdir -p /home/project && \
     chown -R theia:theia /home/theia && \

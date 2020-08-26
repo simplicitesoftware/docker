@@ -26,7 +26,7 @@ do
 	sudo docker pull $FROM
 	sudo docker build --network host -f Dockerfile-theia -t $IMG --build-arg tag=$TAG --build-arg date=$DATE .
 	echo "Done"
-	echo "sudo docker run -it --rm -p 3000:3000 $IMG"
+	echo "sudo docker run -it --rm -p 3030:3030 $IMG"
 	echo "sudo docker push $IMG"
 	echo ""
 done
