@@ -54,22 +54,26 @@ alias mv="mv -i"\n\
 alias cp="cp -i\n"' > .bashrc
 
 RUN echo '{\n\
-   "rootPath": "/home/theia/projects",\n\
-   "folders": [],\n\
-   "settings": {\n\
-      "java.configuration.updateBuildConfiguration": "automatic",\n\
-      "launch": {\n\
-         "configurations": [\n\
+  "folders": [],\n\
+  "settings": {\n\
+     "java.configuration.updateBuildConfiguration": "automatic",\n\
+     "launch": {\n\
+        "configurations": [\n\
             {\n\
-               "type": "java",\n\
-               "name": "Debug (remote)",\n\
-               "request": "attach",\n\
-               "hostName": "_a_remote_hostname_ior_ip_address_",\n\
-               "port": 8000\n\
-            }\n\
-         ]\n\
-      }\n\
-   }\n\
+              "type": "java",\n\
+              "name": "Debug (remote)",\n\
+              "request": "attach",\n\
+              "hostName": "_a_remote_hostname_ior_ip_address_",\n\
+              "port": 8000\n\
+           }\n\
+        ]\n\
+     },\n\
+     "files.exclude": {\n\
+        "**/.classpath": true,\n\
+        "**/.project": true,\n\
+        "**/.settings": true\n\
+     }\n\
+  }\n\
 }' > projects/default.theia-workspace
 
 RUN git config --global user.name "Simplicite Theia IDE" && \

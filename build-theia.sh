@@ -20,13 +20,21 @@ TAGS="latest next"
 for TAG in $TAGS
 do
 	IMG=simplicite/theia:$TAG
-	echo "-- $IMG ------------------"
+	echo "========================================================"
+	echo "Building $IMG image..."
+	echo "========================================================"
 	DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
 	FROM=`grep FROM Dockerfile-theia | awk '{ print $2 }'`
 	sudo docker pull $FROM
 	sudo docker build --network host -f Dockerfile-theia -t $IMG --build-arg THEIA_TAG=$TAG --build-arg BUILD_DATE=$DATE .
 	echo "Done"
-	echo "sudo docker run -it --rm -p 3030:3030 $IMG"
+done
+
+for TAG in $TAGS
+do
+	IMG=simplicite/theia:$TAG
+	echo "-- $IMG ------------------"
+	echo "sudo docker run -it --rm --init -p 3030:3030 $IMG"
 	echo "sudo docker push $IMG"
 	echo ""
 done
