@@ -57,6 +57,8 @@ RUN echo '{\n\
   "folders": [],\n\
   "settings": {\n\
      "java.configuration.updateBuildConfiguration": "automatic",\n\
+	 "editor.fontSize": 12,\n\
+	 "terminal.integrated.fontSize": 12,\n\
      "launch": {\n\
         "configurations": [\n\
             {\n\
