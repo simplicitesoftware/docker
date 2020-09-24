@@ -1,6 +1,8 @@
-SETUP=/tmp/setup.sh.$$
+[ "$DB_SETUP" != "true" ] && exit
 
-cat << EOF > $SETUP
+CREATEDB=/tmp/createdb.$$
+
+cat << EOF > $CREATEDB
 create database ${DB_NAME:-simplicite}
 go
 use ${DB_NAME:-simplicite}
@@ -15,19 +17,30 @@ grant control to ${DB_USER:-simplicite}
 go
 EOF
 
-cat $SETUP
-
-for i in {1..50}
+for i in {1..60}
 do
-	/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $SA_PASSWORD -i $SETUP
+	/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $SA_PASSWORD -i $CREATEDB
 	if [ $? -eq 0 ]
 	then
-		echo "setup completed"
+		echo "Database ${DB_NAME:-simplicite} created"
 		break
 	else
-		echo "not ready yet..."
-		sleep 5
+		echo "Not ready yet..."
+		sleep 3
 	fi
 done
 
-rm -f $SETUP
+rm -f $CREATEDB
+
+SETUP=/opt/mssql/setup/${DB_SETUP_SCRIPT:-simplicite-mssql.sql}
+if [ -f $SETUP ]
+then
+	/opt/mssql-tools/bin/sqlcmd -S localhost -U ${DB_USER:-simplicite} -P $${DB_PASSWORD:-simplicite} -d ${DB_NAME:-simplicite} -i $SETUP
+	RES=$?
+	if [ $? -eq 0 ]
+	then
+		echo "Setup script succeeded"
+	else
+		echo "Setup script error: $RES"
+	fi
+fi
