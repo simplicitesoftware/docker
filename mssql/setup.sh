@@ -23,7 +23,6 @@ do
 	if [ $? -eq 0 ]
 	then
 		echo "Database ${DB_NAME:-simplicite} created"
-		touc
 		break
 	else
 		echo "Not ready yet..."
