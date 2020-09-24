@@ -1,4 +1,4 @@
-[ "$DB_SETUP" != "true" ] && exit
+[ ! -f /var/opt/mssql/data/${DB_NAME:-simplicite}.mdf ] && exit
 
 CREATEDB=/tmp/createdb.$$
 
@@ -23,6 +23,7 @@ do
 	if [ $? -eq 0 ]
 	then
 		echo "Database ${DB_NAME:-simplicite} created"
+		touc
 		break
 	else
 		echo "Not ready yet..."
@@ -40,6 +41,7 @@ then
 	if [ $? -eq 0 ]
 	then
 		echo "Setup script succeeded"
+		rm -f $SETUP
 	else
 		echo "Setup script error: $RES"
 	fi
