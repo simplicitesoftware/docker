@@ -1,4 +1,4 @@
-[ ! -f /var/opt/mssql/data/${DB_NAME:-simplicite}.mdf ] && exit
+[ -f /var/opt/mssql/data/${DB_NAME:-simplicite}.mdf ] && exit
 
 CREATEDB=/tmp/createdb.$$
 
