@@ -1,0 +1,1 @@
+/opt/mssql/bin/sqlservr.sh & /opt/mssql/bin/setup.sh

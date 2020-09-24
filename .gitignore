@@ -1,7 +1,7 @@
 tomcat*
 tomee*
 template*
-Dockerfile
+./Dockerfile
 *.crt
 **/Thumbs.db
 **.bak
