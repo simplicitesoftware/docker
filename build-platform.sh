@@ -30,14 +30,14 @@ then
 	PFTAG=$1
 elif [ "$1" = "alpha" ]
 then
-	VERSION=4.0
+	VERSION=5
 	BRANCH=master
 	TAGS=centos
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "alpha-light" ]
 then
-	VERSION=4.0
+	VERSION=5
 	BRANCH=master-light
 	TAGS=centos
 	SRVS=tomcat
