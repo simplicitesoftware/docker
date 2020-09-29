@@ -182,7 +182,7 @@ LABEL org.label-schema.name="simplicite" \\
       org.opencontainers.image.licenses="https://docs.simplicite.io/license.md" \\
       org.opencontainers.image.created="$DATE"
 COPY tools/convert-mssql.sh /usr/local/bin
-COPY tools/convert-oracle /usr/local/bin
+COPY tools/convert-oracle.sh /usr/local/bin
 COPY app /usr/local/tomcat/webapps/ROOT
 EOF
 		sudo docker build --network host -f Dockerfile.$$ -t $PLATFORM:$PFTAG$EXT .
