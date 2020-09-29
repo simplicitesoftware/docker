@@ -60,14 +60,14 @@ elif [ "$1" = "4.0-latest" ]
 then
 	VERSION=4.0
 	BRANCH=release
-	TAGS="centos alpine"
+	TAGS=centos
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "4.0-latest-light" ]
 then
 	VERSION=4.0
 	BRANCH=release-light
-	TAGS="centos alpine"
+	TAGS=centos
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-alpha" ]
@@ -109,14 +109,14 @@ elif [ "$1" = "5-latest" ]
 then
 	VERSION=5
 	BRANCH=release
-	TAGS="centos alpine"
+	TAGS=centos
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-latest-light" ]
 then
 	VERSION=5
 	BRANCH=release-light
-	TAGS="centos alpine"
+	TAGS=centos
 	SRVS=tomcat
 	PFTAG=$1
 else
