@@ -2,7 +2,7 @@
 
 if [ "$1" = "" -o "$1" = "--help" ]
 then
-	echo "Usage: `basename $0` alpha[-light]|beta[-light]|latest[-light]" >&2
+	echo "Usage: `basename $0` 3.1|3.2|[4.0|5]-alpha[-light]|[4.0|5]-beta[-light]|[4.0|5]-latest[-light]" >&2
 	exit 1
 fi
 
@@ -28,51 +28,93 @@ then
 	TAGS=centos
 	SRVS=tomcat
 	PFTAG=$1
-elif [ "$1" = "alpha" ]
+elif [ "$1" = "4.0-alpha" ]
 then
-	VERSION=5
+	VERSION=4.0
 	BRANCH=master
 	TAGS=centos
 	SRVS=tomcat
 	PFTAG=$1
-elif [ "$1" = "alpha-light" ]
+elif [ "$1" = "4.0-alpha-light" ]
 then
-	VERSION=5
+	VERSION=4.0
 	BRANCH=master-light
 	TAGS=centos
 	SRVS=tomcat
 	PFTAG=$1
-elif [ "$1" = "alpha-test" ]
-then
-	VERSION=4.0
-	BRANCH=master
-	TAGS="centos8 adoptopenjdk-hotspot adoptopenjdk-openj9"
-	SRVS=tomcat
-	PFTAG=$1
-elif [ "$1" = "beta" ]
+elif [ "$1" = "4.0-beta" ]
 then
 	VERSION=4.0
 	BRANCH=prerelease
 	TAGS=centos
 	SRVS=tomcat
 	PFTAG=$1
-elif [ "$1" = "beta-light" ]
+elif [ "$1" = "4.0-beta-light" ]
 then
 	VERSION=4.0
 	BRANCH=prerelease-light
 	TAGS=centos
 	SRVS=tomcat
 	PFTAG=$1
-elif [ "$1" = "latest" ]
+elif [ "$1" = "4.0-latest" ]
 then
 	VERSION=4.0
 	BRANCH=release
 	TAGS="centos alpine"
 	SRVS=tomcat
 	PFTAG=$1
-elif [ "$1" = "latest-light" ]
+elif [ "$1" = "4.0-latest-light" ]
 then
 	VERSION=4.0
+	BRANCH=release-light
+	TAGS="centos alpine"
+	SRVS=tomcat
+	PFTAG=$1
+elif [ "$1" = "5-alpha" ]
+then
+	VERSION=5
+	BRANCH=master
+	TAGS=centos
+	SRVS=tomcat
+	PFTAG=$1
+elif [ "$1" = "5-alpha-light" ]
+then
+	VERSION=5
+	BRANCH=master-light
+	TAGS=centos
+	SRVS=tomcat
+	PFTAG=$1
+elif [ "$1" = "5-alpha-test" ]
+then
+	VERSION=5
+	BRANCH=master
+	TAGS="centos8 adoptopenjdk-hotspot adoptopenjdk-openj9"
+	SRVS=tomcat
+	PFTAG=$1
+elif [ "$1" = "5-beta" ]
+then
+	VERSION=5
+	BRANCH=prerelease
+	TAGS=centos
+	SRVS=tomcat
+	PFTAG=$1
+elif [ "$1" = "5-beta-light" ]
+then
+	VERSION=5
+	BRANCH=prerelease-light
+	TAGS=centos
+	SRVS=tomcat
+	PFTAG=$1
+elif [ "$1" = "5-latest" ]
+then
+	VERSION=5
+	BRANCH=release
+	TAGS="centos alpine"
+	SRVS=tomcat
+	PFTAG=$1
+elif [ "$1" = "5-latest-light" ]
+then
+	VERSION=5
 	BRANCH=release-light
 	TAGS="centos alpine"
 	SRVS=tomcat
@@ -167,22 +209,25 @@ do
 		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 -e DB_SETUP=true -e DB_VENDOR=mysql -e DB_HOST=$IP -e DB_PORT=3306 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$PFTAG$EXT"
 		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 -e DB_SETUP=true -e DB_VENDOR=postgresql -e DB_HOST=$IP -e DB_PORT=5432 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$PFTAG$EXT"
 		echo "sudo docker push $PLATFORM:$PFTAG$EXT"
-		if [ $PFTAG = "latest" -a $TAG = "centos" -a $SRV = "tomcat" ]
+		if [ $TAG = "centos" -a $SRV = "tomcat" ]
 		then
-			echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION"
-			echo "sudo docker push $PLATFORM:$VERSION"
-			echo "sudo docker rmi $PLATFORM:$VERSION"
-			echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION.$PATCHLEVEL"
-			echo "sudo docker push $PLATFORM:$VERSION.$PATCHLEVEL"
-			echo "sudo docker rmi $PLATFORM:$VERSION.$PATCHLEVEL"
-		elif [ $PFTAG = "latest-light" -a $TAG = "centos" -a $SRV = "tomcat" ]
-		then
-			echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION-light"
-			echo "sudo docker push $PLATFORM:$VERSION-light"
-			echo "sudo docker rmi $PLATFORM:$VERSION-light"
-			echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION.$PATCHLEVEL-light"
-			echo "sudo docker push $PLATFORM:$VERSION.$PATCHLEVEL-light"
-			echo "sudo docker rmi $PLATFORM:$VERSION.$PATCHLEVEL-light"
+			if [ $PFTAG = "4.0-latest" -o $PFTAG = "5-latest" ]
+			then
+				echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION"
+				echo "sudo docker push $PLATFORM:$VERSION"
+				echo "sudo docker rmi $PLATFORM:$VERSION"
+				echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION.$PATCHLEVEL"
+				echo "sudo docker push $PLATFORM:$VERSION.$PATCHLEVEL"
+				echo "sudo docker rmi $PLATFORM:$VERSION.$PATCHLEVEL"
+			elif [ $PFTAG = "4.0-latest-light" -o $PFTAG = "5-latest-light" ]
+			then
+				echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION-light"
+				echo "sudo docker push $PLATFORM:$VERSION-light"
+				echo "sudo docker rmi $PLATFORM:$VERSION-light"
+				echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION.$PATCHLEVEL-light"
+				echo "sudo docker push $PLATFORM:$VERSION.$PATCHLEVEL-light"
+				echo "sudo docker rmi $PLATFORM:$VERSION.$PATCHLEVEL-light"
+			fi
 		fi
 		echo "sudo docker rmi $PLATFORM:$PFTAG$EXT"
 		echo ""
