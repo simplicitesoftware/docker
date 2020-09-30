@@ -28,7 +28,7 @@ ARG MAVEN_VERSION=3.6.3
 RUN wget -qO- https://www-eu.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xfz - -C /opt
 ENV MAVEN_HOME=/opt/apache-maven-$MAVEN_VERSION PATH=/opt/apache-maven-$MAVEN_VERSION/bin/:$PATH
 
-ARG GRADLE_VERSION=6.6
+ARG GRADLE_VERSION=6.6.1
 RUN cd /opt && wget -q https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip && unzip -q gradle-$GRADLE_VERSION-bin.zip && rm -f gradle-$GRADLE_VERSION-bin.zip
 ENV GRADLE_HOME=/opt/gradle-$GRADLE_VERSION PATH=/opt/gradle-$GRADLE_VERSION/bin/:$PATH
 
