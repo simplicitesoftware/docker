@@ -1,13 +1,13 @@
 FROM node:lts
 
 ARG BUILD_DATE
-LABEL org.label-schema.name="simplicite" \
-      org.label-schema.vendor="Simplicite Software" \
+LABEL org.label-schema.name="simplicite-theia" \
+      org.label-schema.vendor="Theia / Simplicite Software" \
       org.label-schema.build-date="$BUILD_DATE" \
       org.opencontainers.image.ref.name="simplicite-theia" \
-      org.opencontainers.image.title="Simplicite Theia IDE" \
-      org.opencontainers.image.description="Simplicite Theia IDE" \
-      org.opencontainers.image.vendor="Simplicite Software" \
+      org.opencontainers.image.title="Theia IDE for Simplicite" \
+      org.opencontainers.image.description="Theia IDE for Simplicite" \
+      org.opencontainers.image.vendor="Theia / Simplicite Software" \
       org.opencontainers.image.created="$BUILD_DATE"
 
 RUN apt-get update && \
