@@ -14,6 +14,8 @@ then
 fi
 date > $LOCK
 
+cd theia
+
 TAGS="latest next"
 [ "$1" != "" ] && TAGS=$1
 
@@ -38,6 +40,8 @@ do
 	echo "sudo docker push $IMG"
 	echo ""
 done
+
+cd ..
 
 rm -f $LOCK
 exit 0

@@ -33,7 +33,7 @@ RUN cd /opt && wget -q https://services.gradle.org/distributions/gradle-$GRADLE_
 ENV GRADLE_HOME=/opt/gradle-$GRADLE_VERSION PATH=/opt/gradle-$GRADLE_VERSION/bin/:$PATH
 
 ARG THEIA_TAG
-COPY theia-$THEIA_TAG-package.json /home/theia/package.json
+COPY $THEIA_TAG-package.json /home/theia/package.json
 
 RUN adduser --disabled-password --gecos '' theia && echo "theia ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 RUN chmod g+rw /home && \
