@@ -88,7 +88,7 @@ elif [ "$1" = "5-alpha-test" ]
 then
 	VERSION=5
 	BRANCH=master
-	TAGS="centos8 adoptopenjdk-hotspot adoptopenjdk-openj9"
+	TAGS="centos-openjdk centos8 adoptopenjdk-hotspot adoptopenjdk-openj9"
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-beta" ]

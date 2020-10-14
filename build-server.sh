@@ -14,7 +14,7 @@ then
 fi
 date > $LOCK
 
-TAGS="centos centos8 adoptopenjdk-hotspot adoptopenjdk-openj9"
+TAGS="centos centos-openjdk centos8 adoptopenjdk-hotspot adoptopenjdk-openj9"
 [ "$1" != "" ] && TAGS=$1
 #SRVS="tomcat tomee"
 SRVS=tomcat
@@ -69,12 +69,12 @@ do
 			echo "sudo docker tag $SERVER:$TAG $SERVER:latest"
 			echo "sudo docker push $SERVER:latest"
 			echo "sudo docker rmi $SERVER:latest"
+		fi
+		if [ $TAG = "centos-openjdk" -a $SRV = "tomcat" ]
+		then
 			echo ""
-			echo "sudo docker build --network host -f Dockerfile-$TAG-devel -t $SERVER:$TAG-devel ."
-			echo "sudo docker push $SERVER:$TAG-devel"
-			echo "sudo docker tag $SERVER:$TAG-devel $SERVER:latest-devel"
-			echo "sudo docker push $SERVER:latest-devel"
-			echo "sudo docker rmi $SERVER:latest-devel"
+			echo "sudo docker build --network host -f Dockerfile-centos-devel -t $SERVER:centos-devel ."
+			echo "sudo docker push $SERVER:centos-devel"
 		fi
 		echo ""
 	done
