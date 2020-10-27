@@ -17,7 +17,7 @@ RUN apt-get update && \
   apt-get update && apt-get install -y yarn && \
   rm -rf /var/lib/apt/lists/*
 
-RUN wget -qO- https://download.java.net/java/GA/jdk15/779bf45e88a44cbd9ea6621d33e33db1/36/GPL/openjdk-15_linux-x64_bin.tar.gz | tar xfz - -C /opt
+RUN wget -qO- https://download.java.net/java/GA/jdk15.0.1/51f4f36ad4ef43e39d0dfdbaf6549e32/9/GPL/openjdk-15.0.1_linux-x64_bin.tar.gz | tar xfz - -C /opt
 ENV JAVA_HOME=/opt/jdk-15 PATH=/opt/jdk-15/bin/:$PATH
 
 ARG ANT_VERSION=1.10.9
