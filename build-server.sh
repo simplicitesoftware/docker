@@ -49,6 +49,10 @@ do
 		FROM=`grep FROM Dockerfile-$TAG | awk '{ print $2 }'`
 		sudo docker pull $FROM
 		sudo docker build --network host -f Dockerfile-$TAG -t $SERVER:$TAG$TAGEXT --build-arg date=$DATE .
+		if [ $TAG = "centos-openjdk" -a $SRV = "tomcat" ]
+		then
+			sudo docker build --network host -f Dockerfile-centos-devel -t $SERVER:centos-devel .
+		fi
 		echo "Done"
 	done
 done
@@ -72,8 +76,6 @@ do
 		fi
 		if [ $TAG = "centos-openjdk" -a $SRV = "tomcat" ]
 		then
-			echo ""
-			echo "sudo docker build --network host -f Dockerfile-centos-devel -t $SERVER:centos-devel ."
 			echo "sudo docker push $SERVER:centos-devel"
 		fi
 		echo ""

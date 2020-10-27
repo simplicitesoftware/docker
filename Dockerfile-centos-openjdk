@@ -17,7 +17,7 @@ RUN yum upgrade -y && \
     package-cleanup --oldkernels --count=1 && \
     rpm -i http://mirrors.ircam.fr/pub/dag/redhat/el7/en/x86_64/rpmforge/RPMS/uni2ascii-4.18-1.el7.rf.x86_64.rpm && \
     wget -qO- https://download.java.net/java/GA/jdk15.0.1/51f4f36ad4ef43e39d0dfdbaf6549e32/9/GPL/openjdk-15.0.1_linux-x64_bin.tar.gz | tar xfz - -C /opt
-ENV JAVA_HOME=/opt/jdk-15 PATH=/opt/jdk-15/bin/:$PATH LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8
+ENV JAVA_HOME=/opt/jdk-15.0.1 PATH=/opt/jdk-15.0.1/bin/:$PATH LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8
 COPY run.sh /usr/local/bin/run
 COPY tomcat /usr/local/tomcat
 RUN chmod +x /usr/local/bin/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh
