@@ -18,7 +18,7 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 
 RUN wget -qO- https://download.java.net/java/GA/jdk15.0.1/51f4f36ad4ef43e39d0dfdbaf6549e32/9/GPL/openjdk-15.0.1_linux-x64_bin.tar.gz | tar xfz - -C /opt
-ENV JAVA_HOME=/opt/jdk-15 PATH=/opt/jdk-15/bin/:$PATH
+ENV JAVA_HOME=/opt/jdk-15.0.1 PATH=/opt/jdk-15.0.1/bin/:$PATH
 
 ARG ANT_VERSION=1.10.9
 RUN wget -qO- https://www-eu.apache.org/dist/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz | tar xfz - -C /opt
