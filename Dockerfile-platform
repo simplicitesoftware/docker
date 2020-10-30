@@ -1,4 +1,4 @@
-ARG tag
+ARG tag=centos
 FROM simplicite/server:$tag
 
 ARG date
@@ -7,20 +7,21 @@ ARG version
 ARG patchlevel
 ARG revision
 ARG commitid
-LABEL org.label-schema.name="simplicite" \\
-      org.label-schema.vendor="Simplicite Software" \\
-      org.label-schema.build-date="$date" \\
-      org.opencontainers.image.ref.name="simplicite-platform" \\
-      org.opencontainers.image.title="Simplicite platform" \\
-      org.opencontainers.image.description="Simplicite platform (branch: $branch)" \\
-      org.opencontainers.image.vendor="Simplicite Software" \\
-      org.opencontainers.image.url="https://www.simplicite.io" \\
-      org.opencontainers.image.version="$version.$patchlevel.$revision" \\
-      org.opencontainers.image.revision="$commitid" \\
-      org.opencontainers.image.documentation="https://docs.simplicite.io" \\
-      org.opencontainers.image.licenses="https://docs.simplicite.io/license.md" \\
+LABEL org.label-schema.name="simplicite" \
+      org.label-schema.vendor="Simplicite Software" \
+      org.label-schema.build-date="$date" \
+      org.opencontainers.image.ref.name="simplicite-platform" \
+      org.opencontainers.image.title="Simplicite platform" \
+      org.opencontainers.image.description="Simplicite platform (branch: $branch)" \
+      org.opencontainers.image.vendor="Simplicite Software" \
+      org.opencontainers.image.url="https://www.simplicite.io" \
+      org.opencontainers.image.version="$version.$patchlevel.$revision" \
+      org.opencontainers.image.revision="$commitid" \
+      org.opencontainers.image.documentation="https://docs.simplicite.io" \
+      org.opencontainers.image.licenses="https://docs.simplicite.io/license.md" \
       org.opencontainers.image.created="$date"
 
-COPY template-$version/tools/convert-mssql.sh /usr/local/bin
-COPY template-$version/tools/convert-oracle.sh /usr/local/bin
-COPY template-$version/app /usr/local/tomcat/webapps/ROOT
+ARG template
+COPY $template/tools/convert-mssql.sh /usr/local/bin
+COPY $template/tools/convert-oracle.sh /usr/local/bin
+COPY $template/app /usr/local/tomcat/webapps/ROOT
