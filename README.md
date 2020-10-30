@@ -44,9 +44,11 @@ The SQLServer client is not freely redistributable, if you want to use SQLServer
 
 ```
 FROM simplicite/<server|platform>:<tag>
-RUN curl https://packages.microsoft.com/config/rhel/8/prod.repo > /etc/yum.repos.d/msprod.repo && \
+RUN curl https://packages.microsoft.com/config/rhel/7/prod.repo > /etc/yum.repos.d/msprod.repo && \
     sudo yum install mssql-tools unixODBC-devel
 ```
+
+NB: the above URL may change
 
 ### Add Oracle client
 
@@ -57,7 +59,7 @@ FROM simplicite/<server|platform>:<tag>
 RUN rpm -i https://download.oracle.com/otn_software/linux/instantclient/19600/oracle-instantclient19.6-basic-19.6.0.0.0-1.x86_64.rpm
 ```
 
-NB: l'URL ci-dessus est suceptible d'évoluer
+NB: the above URL may change
 
 ### Add a local email server
 
