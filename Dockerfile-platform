@@ -1,7 +1,12 @@
-ARG date branch tag srv version patchlevel revision commitid
+ARG tag
 FROM simplicite/server:$tag
 
 ARG date
+ARG branch
+ARG version
+ARG patchlevel
+ARG revision
+ARG commitid
 LABEL org.label-schema.name="simplicite" \\
       org.label-schema.vendor="Simplicite Software" \\
       org.label-schema.build-date="$date" \\
