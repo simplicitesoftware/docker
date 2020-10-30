@@ -149,9 +149,7 @@ mkdir $TEMPLATE
 git --work-tree=$TEMPLATE --git-dir=$TEMPLATE.git checkout -f $BRANCH
 echo "Done"
 
-cd $TEMPLATE
-
-PROPS=app/WEB-INF/classes/com/simplicite/globals.properties
+PROPS=$TEMPLATE/app/WEB-INF/classes/com/simplicite/globals.properties
 VERSION=`grep platform.version $PROPS | awk -F= '{print $2}'`
 PATCHLEVEL=`grep platform.patchlevel $PROPS | awk -F= '{print $2}'`
 REVISION=`grep platform.revision $PROPS | awk -F= '{print $2}'`
@@ -174,8 +172,9 @@ do
 	done
 done
 
-cd ..
+echo "Removing $TEMPLATE..."
 rm -fr $TEMPLATE
+echo "Done"
 
 echo ""
 DB=docker
