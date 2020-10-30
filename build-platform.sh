@@ -167,7 +167,7 @@ do
 		echo "Building $PLATFORM:$PFTAG$EXT image..."
 		echo "========================================================"
 		DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
-		sudo docker build --network host -f Dockerfile-platform --build-arg date=$DATE --build-arg tag=$PFTAG$EXT --build-arg version=$VERSION --build-arg patchlevel=$PATCHLEVEL --build-arg revision=$REVISION --build-arg commitid=$COMMITID -t $PLATFORM:$PFTAG$EXT .
+		sudo docker build --network host -f Dockerfile-platform --build-arg date=$DATE --build-arg tag=$TAG --build-arg version=$VERSION --build-arg patchlevel=$PATCHLEVEL --build-arg revision=$REVISION --build-arg commitid=$COMMITID --build-arg template=$TEMPLATE -t $PLATFORM:$PFTAG$EXT .
 		echo "Done"
 	done
 done
