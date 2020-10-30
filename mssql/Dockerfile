@@ -7,7 +7,7 @@ LABEL org.label-schema.name="simplicite-mssql" \
       org.opencontainers.image.ref.name="simplicite-mssql" \
       org.opencontainers.image.title="Microsoft SQL server for Simplicite" \
       org.opencontainers.image.description="Microsoft SQL server for Simplicite " \
-      org.opencontainers.image.vendor="iMicrosoft / Simplicite Software" \
+      org.opencontainers.image.vendor="Microsoft / Simplicite Software" \
       org.opencontainers.image.created="$BUILD_DATE"
 
 ENV ACCEPT_EULA=Y

@@ -23,15 +23,13 @@ The images built using these tools are **available on [DockerHub](https://hub.do
 Add Simplicit&eacute;&reg; platform to a server image
 -----------------------------------------------------
 
-To add a Simplicit&eacute;&reg; platform instance to the server image you need to create an image from the server image:
+> **Note**: consider using the `simplicite/platform:<tag>` images prior to rebuilding your own images like described here.
 
-	vi Dockerfile
-
-With this content:
+To add a Simplicit&eacute;&reg; platform instance to the server image you need to create an image from the server image using:
 
 ```
-FROM simplicite/server[:<tag>]
-ADD <path to your Simplicit&eacute;&reg; webapp> /usr/local/tomcat/webapps/ROOT
+FROM simplicite/server:<tag>
+COPY <path to your Simplicit&eacute;&reg; webapp> /usr/local/tomcat/webapps/ROOT
 ```
 
 > **Note**: the above path must be inside the build directory
@@ -40,24 +38,39 @@ Then you can build your instance's image by:
 
 	sudo docker build -t simplicite/<my application name> .
 
-> **Note**: alternatively you can also run the server image with a link to the Simplicit&eacute;&reg; webapp template Git repository
-> using `-e GIT_URL=<Git URL>`.
+### Add SQLServer client
 
-### Add an email server
+The SQLServer client is not freely redistributable, if you want to use SQLServer with your images **in initial setup mode** you need to add the SQLServer client by building a custom image
+
+```
+FROM simplicite/<server|platform>:<tag>
+# TODO
+```
+
+### Add Oracle client
+
+The Oracle client is not freely redistributable, if you want to use Oracle with your images **in initial setup mode** you need to add the Oracle client by building a custom image
+
+```
+FROM simplicite/<server|platform>:<tag>
+# TODO
+```
+
+### Add a local email server
 
 If required (e.g. in development) you can start a local Postfix SMTP server within the container by using `-e LOCAL_SMTP_SERVER=true`.
 
-Using this feature requires that you build an **extended image** including the Postfix Package:
+Using this feature requires that you build a custom image including the Postfix Package:
 
-For CentOS-based image:
+For CentOS-based images:
 
 ```
-FROM simplicite/platform-4.0.Pxx-centos
+FROM simplicite/platform:<tag>
 RUN yum -y install postfix && yum clean all && rm -rf /var/cache/yum
 RUN sed -i 's/^inet_protocols = all/inet_protocols = ipv4/' /etc/postfix/main.cf
 ```
 
-For Alpine-based image:
+For Debian-based image:
 
 ```
 FROM simplicite/platform-4.0.Pxx-alpine
