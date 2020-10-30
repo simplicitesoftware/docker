@@ -151,6 +151,13 @@ echo "Done"
 
 cd $TEMPLATE
 
+PROPS=app/WEB-INF/classes/com/simplicite/globals.properties
+VERSION=`grep platform.version $PROPS | awk -F= '{print $2}'`
+PATCHLEVEL=`grep platform.patchlevel $PROPS | awk -F= '{print $2}'`
+REVISION=`grep platform.revision $PROPS | awk -F= '{print $2}'`
+COMMITID=`grep platform.commitid $PROPS | awk -F= '{print $2}'`
+[ "$COMMITID" = "" ] && COMMITID=$REVISION
+
 for SRV in $SRVS
 do
 	for TAG in $TAGS
@@ -162,31 +169,7 @@ do
 		echo "Building $PLATFORM:$PFTAG$EXT image..."
 		echo "========================================================"
 		DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
-		PROPS=app/WEB-INF/classes/com/simplicite/globals.properties
-		VERSION=`grep platform.version $PROPS | awk -F= '{print $2}'`
-		PATCHLEVEL=`grep platform.patchlevel $PROPS | awk -F= '{print $2}'`
-		REVISION=`grep platform.revision $PROPS | awk -F= '{print $2}'`
-		cat > Dockerfile.$$ << EOF
-FROM $SERVER:$TAG
-LABEL org.label-schema.name="simplicite" \\
-      org.label-schema.vendor="Simplicite Software" \\
-      org.label-schema.build-date="$DATE" \\
-      org.opencontainers.image.ref.name="simplicite-platform" \\
-      org.opencontainers.image.title="Simplicite platform" \\
-      org.opencontainers.image.description="Simplicite platform $BRANCH / $TAG / $SRV" \\
-      org.opencontainers.image.vendor="Simplicite Software" \\
-      org.opencontainers.image.url="https://www.simplicite.io" \\
-      org.opencontainers.image.version="$VERSION.$PATCHLEVEL" \\
-      org.opencontainers.image.revision="$REVISION" \\
-      org.opencontainers.image.documentation="https://docs.simplicite.io" \\
-      org.opencontainers.image.licenses="https://docs.simplicite.io/license.md" \\
-      org.opencontainers.image.created="$DATE"
-COPY tools/convert-mssql.sh /usr/local/bin
-COPY tools/convert-oracle.sh /usr/local/bin
-COPY app /usr/local/tomcat/webapps/ROOT
-EOF
-		sudo docker build --network host -f Dockerfile.$$ -t $PLATFORM:$PFTAG$EXT .
-		rm -f Dockerfile.$$
+		sudo docker build --network host -f Dockerfile-platform --build-arg date=$DATE --build-arg tag=$$PFTAG$EXT --build-arg version=$VERSION --build-arg patchlevel=$PATCHLEVEL --build-arg revision=$REVISION --build-arg commitid=$COMMITID -t $PLATFORM:$PFTAG$EXT .
 		echo "Done"
 	done
 done

@@ -1,0 +1,21 @@
+ARG date branch tag srv version patchlevel revision commitid
+FROM simplicite/server:$tag
+
+ARG date
+LABEL org.label-schema.name="simplicite" \\
+      org.label-schema.vendor="Simplicite Software" \\
+      org.label-schema.build-date="$date" \\
+      org.opencontainers.image.ref.name="simplicite-platform" \\
+      org.opencontainers.image.title="Simplicite platform" \\
+      org.opencontainers.image.description="Simplicite platform (branch: $branch, tag: $tag)" \\
+      org.opencontainers.image.vendor="Simplicite Software" \\
+      org.opencontainers.image.url="https://www.simplicite.io" \\
+      org.opencontainers.image.version="$version.$patchlevel.$revision" \\
+      org.opencontainers.image.revision="$commitid" \\
+      org.opencontainers.image.documentation="https://docs.simplicite.io" \\
+      org.opencontainers.image.licenses="https://docs.simplicite.io/license.md" \\
+      org.opencontainers.image.created="$date"
+
+COPY tools/convert-mssql.sh /usr/local/bin
+COPY tools/convert-oracle.sh /usr/local/bin
+COPY app /usr/local/tomcat/webapps/ROOT
