@@ -1,4 +1,5 @@
-FROM node:lts
+# ZZZ current theia requires node < 14
+FROM node:12
 
 ARG BUILD_DATE
 LABEL org.label-schema.name="simplicite-theia" \
