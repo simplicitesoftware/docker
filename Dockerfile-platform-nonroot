@@ -3,7 +3,6 @@ FROM simplicite/platform:$tag
 
 ARG ctx=simplicite
 RUN mv /usr/local/tomcat/webapps/ROOT /usr/local/tomcat/webapps/$ctx && \
-    sed -i 's/\/ROOT\//\/$ctx\//g' /usr/local/tomcat/webapps/$ctx/META-INF/context.xml && \
-    sed -i 's/\/ROOT\//\/$ctx\//g' /usr/local/tomcat/webapps/$ctx/WEB-INF/classes/log4j.xml && \
-    sed -i 's/\/ROOT\//\/$ctx\//g' /usr/local/tomcat/webapps/$ctx/WEB-INF/classes/logging.properties && \
-    echo "<% response.sendRedirect(\"/$ctx\"); %>" > /usr/local/tomcat/webapps/ROOT/index.jsp
+    sed -i "s/\/ROOT\//\/$ctx\//g" /usr/local/tomcat/webapps/$ctx/META-INF/context.xml && \
+    sed -i "s/\/ROOT\//\/$ctx\//g" /usr/local/tomcat/webapps/$ctx/WEB-INF/classes/log4j.xml && \
+    sed -i "s/\/ROOT\//\/$ctx\//g" /usr/local/tomcat/webapps/$ctx/WEB-INF/classes/logging.properties
