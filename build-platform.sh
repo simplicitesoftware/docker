@@ -7,6 +7,7 @@ then
 fi
 
 LOCK=/tmp/`basename $0 .sh`.lck
+trap "rm -f $LOCK" TERM INT QUIT HUP
 if [ -f $LOCK ]
 then
 	echo "A build process is in process since `cat $LOCK`" >&2
