@@ -2,7 +2,7 @@
 
 if [ "$1" = "--help" ]
 then
-	echo "Usage: `basename $0`" >&2
+	echo "Usage: `basename $0` [<tag(s)>]" >&2
 	exit 1
 fi
 
