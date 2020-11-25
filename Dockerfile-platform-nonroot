@@ -6,3 +6,4 @@ RUN mv /usr/local/tomcat/webapps/ROOT /usr/local/tomcat/webapps/$ctx && \
     sed -i "s/\/ROOT\//\/$ctx\//g" /usr/local/tomcat/webapps/$ctx/META-INF/context.xml && \
     sed -i "s/\/ROOT\//\/$ctx\//g" /usr/local/tomcat/webapps/$ctx/WEB-INF/classes/log4j.xml && \
     sed -i "s/\/ROOT\//\/$ctx\//g" /usr/local/tomcat/webapps/$ctx/WEB-INF/classes/logging.properties
+    sed -i "s/webapps\/ROOT/webapps\/$ctx/g" /usr/local/tomcat/run.sh
