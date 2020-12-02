@@ -47,4 +47,4 @@ then
 	fi
 fi
 
-cd $TOMCAT_DIR && ./run.sh -t
+cd $TOMCAT_DIR && ./start.sh -t
