@@ -16,6 +16,7 @@ fi
 date > $LOCK
 
 cd theia
+rm -f *.package.json
 
 TAGS="latest next"
 [ "$1" != "" ] && TAGS=$1
@@ -26,8 +27,9 @@ do
 	echo "========================================================"
 	echo "Building $IMG image..."
 	echo "========================================================"
+	wget https://raw.githubusercontent.com/theia-ide/theia-apps/master/theia-docker/$TAG.package.json
 	DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
-	FROM=`grep FROM Dockerfile | awk '{ print $2 }'`
+	FROM=`grep '^FROM' Dockerfile | awk '{ print $2 }'`
 	sudo docker pull $FROM
 	sudo docker build --network host -t $IMG --build-arg THEIA_TAG=$TAG --build-arg BUILD_DATE=$DATE .
 	echo "Done"

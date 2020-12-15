@@ -1,5 +1,6 @@
 # ZZZ current theia requires node < 14
-FROM node:12
+#FROM node:12
+FROM node:latest
 
 ARG BUILD_DATE
 LABEL org.label-schema.name="simplicite-theia" \
@@ -33,9 +34,6 @@ ARG GRADLE_VERSION=6.7.1
 RUN cd /opt && wget -q https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip && unzip -q gradle-$GRADLE_VERSION-bin.zip && rm -f gradle-$GRADLE_VERSION-bin.zip
 ENV GRADLE_HOME=/opt/gradle-$GRADLE_VERSION PATH=/opt/gradle-$GRADLE_VERSION/bin/:$PATH
 
-ARG THEIA_TAG
-COPY $THEIA_TAG-package.json /home/theia/package.json
-
 RUN adduser --disabled-password --gecos '' theia && echo "theia ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 RUN chmod g+rw /home && \
     mkdir -p /home/theia/projects/.m2/repository && \
@@ -44,6 +42,9 @@ RUN chmod g+rw /home && \
 
 WORKDIR /home/theia
 USER theia
+
+ARG THEIA_TAG
+COPY $THEIA_TAG.package.json package.json
 
 RUN echo 'alias ls="ls --color=auto"\n\
 alias dir="ls -alF"\n\
