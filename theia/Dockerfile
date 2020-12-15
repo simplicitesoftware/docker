@@ -1,6 +1,5 @@
 # ZZZ current theia requires node < 14
-#FROM node:12
-FROM node:latest
+FROM node:12
 
 ARG BUILD_DATE
 LABEL org.label-schema.name="simplicite-theia" \
@@ -41,7 +40,6 @@ RUN chmod g+rw /home && \
     chown -R theia:theia /home/theia
 
 WORKDIR /home/theia
-USER theia
 
 ARG THEIA_TAG
 COPY $THEIA_TAG.package.json package.json
@@ -84,10 +82,20 @@ RUN git config --global user.name "Simplicite Theia IDE" && \
     git config --global user.name "contact@simplicitesoftware.com" && \
     git config --global http.sslVerify "false"
 
-RUN yarn --cache-folder ./ycache && rm -rf ./ycache && \
-    NODE_OPTIONS="--max_old_space_size=4096" yarn theia build ; \
-    yarn theia download:plugins
+RUN yarn --pure-lockfile && \
+    NODE_OPTIONS="--max_old_space_size=4096" yarn theia build && \
+    yarn theia download:plugins && \
+    yarn --production && \
+    yarn autoclean --init && \
+    echo *.ts >> .yarnclean && \
+    echo *.ts.map >> .yarnclean && \
+    echo *.spec.* >> .yarnclean && \
+    yarn autoclean --force && \
+    yarn cache clean
+
 EXPOSE 3030 3000 8080
 ENV SHELL=/bin/bash \
     THEIA_DEFAULT_PLUGINS=local-dir:/home/theia/plugins
+
+USER theia
 ENTRYPOINT [ "yarn", "theia", "start", "/home/theia/projects/default.theia-workspace", "--hostname=0.0.0.0", "--port=3030" ]

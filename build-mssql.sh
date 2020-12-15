@@ -22,7 +22,7 @@ echo "========================================================"
 echo "Building $IMG image..."
 echo "========================================================"
 DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
-FROM=`grep FROM Dockerfile | awk '{ print $2 }'`
+FROM=`grep '^FROM' Dockerfile | awk '{ print $2 }'`
 sudo docker pull $FROM
 sudo docker build --network host -t $IMG --build-arg BUILD_DATE=$DATE .
 echo "Done"

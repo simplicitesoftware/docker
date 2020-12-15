@@ -47,7 +47,7 @@ do
 		echo "Building $SERVER:$TAG$TAGEXT image..."
 		echo "========================================================"
 		DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
-		FROM=`grep FROM Dockerfile-$TAG | awk '{ print $2 }'`
+		FROM=`grep '^FROM' Dockerfile-$TAG | awk '{ print $2 }'`
 		sudo docker pull $FROM
 		sudo docker build --network host -f Dockerfile-$TAG -t $SERVER:$TAG$TAGEXT --build-arg date=$DATE .
 		if [ $TAG = "centos-openjdk" -a $SRV = "tomcat" ]
