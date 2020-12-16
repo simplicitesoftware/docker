@@ -12,7 +12,7 @@ LABEL org.label-schema.name="simplicite-theia" \
       org.opencontainers.image.created="$BUILD_DATE"
 
 USER root
-RUN apt-get update && apt-get install -y vim curl wget
+RUN apt-get update && apt-get install -y vim curl wget nmap && apt-get clean
 
 USER theia
 RUN echo 'alias ls="ls --color=auto"\n\
@@ -32,7 +32,8 @@ RUN ln -s /home/project /home/theia && echo '{\n\
      "files.exclude": {\n\
         "**/.classpath": true,\n\
         "**/.project": true,\n\
-        "**/.settings": true\n\
+        "**/.settings": true,\n\
+        "**/.factorypath": true\n\
      }\n\
   }\n\
 }' > /home/project/default.theia-workspace
