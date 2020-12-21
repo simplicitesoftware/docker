@@ -2,7 +2,7 @@
 
 if [ "$1" = "--help" ]
 then
-	echo "Usage: `basename $0` [<tag(s)> [<server(s)>]]" >&2
+	echo "Usage: `basename $0` [\"<variants(s), defaults to all>\" [\"<server(s)>, defaults to tomcat]\" [<JVM version, default to latest>]]" >&2
 	exit 1
 fi
 
@@ -15,11 +15,24 @@ then
 fi
 date > $LOCK
 
+echo ""
+echo "--------------------------------------------------------"
+
 TAGS="centos centos-openjdk centos8 centos8-openjdk adoptopenjdk-hotspot adoptopenjdk-openj9"
 [ "$1" != "" ] && TAGS=$1
+echo "Variants(s) = $TAGS"
+
 #SRVS="tomcat tomee"
 SRVS=tomcat
 [ "$2" != "" ] && SRVS=$2
+echo "Server(s) = $SRVS"
+
+JVM=latest
+[ "$3" != "" ] && JVM=$3
+echo "JVM = $JVM"
+
+echo "--------------------------------------------------------"
+echo ""
 
 SERVER=simplicite/server
 
@@ -41,6 +54,7 @@ do
 
 	TAGEXT=""
 	[ $SRV != "tomcat" ] && TAGEXT="-$SRV"
+	[ $JVM != "latest" ] && TAGEXT="$TAGEXT-openjdk-$JVM"
 	for TAG in $TAGS
 	do
 		echo "========================================================"
@@ -49,7 +63,7 @@ do
 		DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
 		FROM=`grep '^FROM' Dockerfile-$TAG | awk '{ print $2 }'`
 		sudo docker pull $FROM
-		sudo docker build --network host -f Dockerfile-$TAG -t $SERVER:$TAG$TAGEXT --build-arg date=$DATE .
+		sudo docker build --network host -f Dockerfile-$TAG -t $SERVER:$TAG$TAGEXT --build-arg date=$DATE --build-arg jvm=${JVM} .
 		if [ $TAG = "centos-openjdk" -a $SRV = "tomcat" ]
 		then
 			sudo docker build --network host -f Dockerfile-centos-devel -t $SERVER:centos-devel .
@@ -64,6 +78,7 @@ for SRV in $SRVS
 do
 	TAGEXT=""
 	[ $SRV != "tomcat" ] && TAGEXT="-$SRV"
+	[ $JVM != "latest" ] && TAGEXT="$TAGEXT-openjdk-$JVM"
 	for TAG in $TAGS
 	do
 		echo "-- $SERVER:$TAG$TAGEXT ------------------"
