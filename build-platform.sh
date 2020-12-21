@@ -129,7 +129,7 @@ fi
 SERVER=simplicite/server
 PLATFORM=simplicite/platform
 TEMPLATE=template-$VERSION
-[ "$JVM" = "" ] && JVM=""
+[ "$JVM" = "latest" ] && JVM=""
 
 if [ ! -d $TEMPLATE.git ]
 then
@@ -165,7 +165,7 @@ do
 		EXT=""
 		[ $TAG != "centos" ] && EXT="-$TAG"
 		[ $SRV != "tomcat" ] && EXT="$EXT-$SRV"
-		[ $JVM != "" ] && EXT="$EXT-openjdk-$JVM"
+		[ "$JVM" != "" ] && EXT="$EXT-openjdk-$JVM"
 		echo "========================================================"
 		echo "Building $PLATFORM:$PFTAG$EXT image..."
 		echo "========================================================"
@@ -189,7 +189,7 @@ do
 		EXT=""
 		[ $TAG != "centos" ] && EXT="-$TAG"
 		[ $SRV != "tomcat" ] && EXT="$EXT-$SRV"
-		[ $JVM != "" ] && EXT="$EXT-openjdk-$JVM"
+		[ "$JVM" != "" ] && EXT="$EXT-openjdk-$JVM"
 		echo "-- $PLATFORM:$PFTAG$EXT ------------------"
 		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 $PLATFORM:$PFTAG$EXT"
 		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 -e DB_SETUP=true -e DB_VENDOR=mysql -e DB_HOST=$IP -e DB_PORT=3306 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$PFTAG$EXT"
