@@ -4,9 +4,9 @@ ARG date
 LABEL org.label-schema.name="simplicite" \
       org.label-schema.vendor="Simplicite Software" \
       org.label-schema.build-date="$date" \
-      org.opencontainers.image.ref.name="simplicite-server" \
-      org.opencontainers.image.title="Simplicite server" \
-      org.opencontainers.image.description="Simplicite server" \
+      org.opencontainers.image.ref.name="simplicite-server-centos7-openjdk" \
+      org.opencontainers.image.title="Simplicite server / CentOS 7 / OpenJDK from java.net" \
+      org.opencontainers.image.description="Simplicite server / CentOS 7 / OpenJDK from java.net" \
       org.opencontainers.image.vendor="Simplicite Software" \
       org.opencontainers.image.created="$date"
 
