@@ -61,14 +61,14 @@ elif [ "$1" = "4.0-latest" ]
 then
 	VERSION=4.0
 	BRANCH=release
-	TAGS=centos
+	TAGS="centos centos-openjdk-11"
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "4.0-latest-light" ]
 then
 	VERSION=4.0
 	BRANCH=release-light
-	TAGS=centos
+	TAGS="centos centos-openjdk-11 centos-openjdk-1.8.0"
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-alpha" ]
@@ -110,14 +110,14 @@ elif [ "$1" = "5-latest" ]
 then
 	VERSION=5
 	BRANCH=release
-	TAGS=centos
+	TAGS="centos centos-openjdk-11"
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-latest-light" ]
 then
 	VERSION=5
 	BRANCH=release-light
-	TAGS=centos
+	TAGS="centos centos-openjdk-11"
 	SRVS=tomcat
 	PFTAG=$1
 else
@@ -129,7 +129,6 @@ fi
 SERVER=simplicite/server
 PLATFORM=simplicite/platform
 TEMPLATE=template-$VERSION
-[ "$JVM" = "latest" ] && JVM=""
 
 if [ ! -d $TEMPLATE.git ]
 then
@@ -163,14 +162,13 @@ do
 	for TAG in $TAGS
 	do
 		EXT=""
-		[ $TAG != "centos" ] && EXT="-$TAG"
+		[ $TAG != "centos" ] && EXT="-`echo $TAG | sed 's/centos-//'`"
 		[ $SRV != "tomcat" ] && EXT="$EXT-$SRV"
-		[ "$JVM" != "" ] && EXT="$EXT-openjdk-$JVM"
 		echo "========================================================"
-		echo "Building $PLATFORM:$PFTAG$EXT image..."
+		echo "Building $PLATFORM:$PFTAG$EXT image from $SERVER:$TAG..."
 		echo "========================================================"
 		DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
-		sudo docker build --network host -f Dockerfile-platform --build-arg date=$DATE --build-arg tag=$TAG$EXT --build-arg version=$VERSION --build-arg patchlevel=$PATCHLEVEL --build-arg revision=$REVISION --build-arg commitid=$COMMITID --build-arg template=$TEMPLATE -t $PLATFORM:$PFTAG$EXT .
+		sudo docker build --network host -f Dockerfile-platform --build-arg date=$DATE --build-arg tag=$TAG --build-arg version=$VERSION --build-arg branch=$BRANCH --build-arg patchlevel=$PATCHLEVEL --build-arg revision=$REVISION --build-arg commitid=$COMMITID --build-arg template=$TEMPLATE -t $PLATFORM:$PFTAG$EXT .
 		echo "Done"
 	done
 done
@@ -187,15 +185,14 @@ do
 	for TAG in $TAGS
 	do
 		EXT=""
-		[ $TAG != "centos" ] && EXT="-$TAG"
+		[ $TAG != "centos" ] && EXT="-`echo $TAG | sed 's/centos-//'`"
 		[ $SRV != "tomcat" ] && EXT="$EXT-$SRV"
-		[ "$JVM" != "" ] && EXT="$EXT-openjdk-$JVM"
 		echo "-- $PLATFORM:$PFTAG$EXT ------------------"
 		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 $PLATFORM:$PFTAG$EXT"
 		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 -e DB_SETUP=true -e DB_VENDOR=mysql -e DB_HOST=$IP -e DB_PORT=3306 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$PFTAG$EXT"
 		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 -e DB_SETUP=true -e DB_VENDOR=postgresql -e DB_HOST=$IP -e DB_PORT=5432 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$PFTAG$EXT"
 		echo "sudo docker push $PLATFORM:$PFTAG$EXT"
-		if [ $TAG = "centos" -a $SRV = "tomcat" -a "$JVM" = "" ]
+		if [ $TAG = "centos" -a $SRV = "tomcat" ]
 		then
 			if [ $PFTAG = "4.0-latest" -o $PFTAG = "5-latest" ]
 			then
