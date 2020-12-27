@@ -7,7 +7,7 @@ ARG version
 ARG patchlevel
 ARG revision
 ARG commitid
-LABEL org.label-schema.name="simplicite" \
+LABEL org.label-schema.name="simplicite-platform-$version-$branch" \
       org.label-schema.vendor="Simplicite Software" \
       org.label-schema.build-date="$date" \
       org.opencontainers.image.ref.name="simplicite-platform-$version-$branch" \

@@ -1,7 +1,7 @@
 FROM adoptopenjdk:15-openj9
 
 ARG date
-LABEL org.label-schema.name="simplicite" \
+LABEL org.label-schema.name="simplicite-server-adoptopenjdk-openj9" \
       org.label-schema.vendor="Simplicite Software" \
       org.label-schema.build-date="$date" \
       org.opencontainers.image.ref.name="simplicite-server-adoptopenjdk-openj9" \
