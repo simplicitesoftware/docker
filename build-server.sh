@@ -18,7 +18,7 @@ date > $LOCK
 echo ""
 echo "--------------------------------------------------------"
 
-TAGS="centos centos-openjdk centos8 centos8-openjdk adoptopenjdk-hotspot adoptopenjdk-openj9"
+TAGS="centos centos8 adoptopenjdk-hotspot adoptopenjdk-openj9 devel"
 [ "$1" != "" ] && TAGS=$1
 echo "Variants(s) = $TAGS"
 
@@ -68,10 +68,6 @@ do
 			FROM=`grep '^FROM' Dockerfile-$TAG | awk '{ print $2 }'`
 			sudo docker pull $FROM
 			sudo docker build --network host -f Dockerfile-$TAG -t $SERVER:$TAG$SRVEXT$JVMEXT --build-arg date=$DATE --build-arg jvm=${JVM} .
-			if [ $TAG = "centos-openjdk" -a $SRV = "tomcat" ]
-			then
-				sudo docker build --network host -f Dockerfile-centos-devel -t $SERVER:centos-devel .
-			fi
 			echo "Done"
 		done
 	done
@@ -102,10 +98,6 @@ do
 				echo "sudo docker tag $SERVER:$TAG $SERVER:latest"
 				echo "sudo docker push $SERVER:latest"
 				echo "sudo docker rmi $SERVER:latest"
-			fi
-			if [ $TAG = "centos-openjdk" -a $SRV = "tomcat" ]
-			then
-				echo "sudo docker push $SERVER:centos-devel"
 			fi
 			echo ""
 		done

@@ -1,0 +1,50 @@
+FROM centos:8
+
+ARG date
+LABEL org.label-schema.name="simplicite-server-devel" \
+      org.label-schema.vendor="Simplicite Software" \
+      org.label-schema.build-date="$date" \
+      org.opencontainers.image.ref.name="simplicite-server-devel" \
+      org.opencontainers.image.title="Simplicite server (devel)" \
+      org.opencontainers.image.description="Simplicite server (devel)" \
+      org.opencontainers.image.vendor="Simplicite Software" \
+      org.opencontainers.image.created="$date"
+
+ARG jvm=latest
+RUN dnf upgrade -y && \
+    dnf clean all && \
+    dnf install -y epel-release && \
+    dnf install -y bash git curl wget ca-certificates libjpeg mariadb postgresql && \
+    dnf -y install vim-enhanced gcc gcc-c++ make zip unzip nmap && dnf clean all && \
+    dnf clean all && \
+    rpm -i http://mirrors.ircam.fr/pub/dag/redhat/el7/en/x86_64/rpmforge/RPMS/uni2ascii-4.18-1.el7.rf.x86_64.rpm
+ENV LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8
+
+RUN wget -qO- https://download.java.net/java/GA/jdk15.0.1/51f4f36ad4ef43e39d0dfdbaf6549e32/9/GPL/openjdk-15.0.1_linux-x64_bin.tar.gz | tar xfz - -C /opt
+ENV JAVA_HOME=/opt/jdk-15.0.1 PATH=/opt/jdk-15.0.1/bin/:$PATH
+
+ARG ANT_VERSION=1.10.9
+RUN wget -qO- https://www-eu.apache.org/dist/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz | tar xfz - -C /opt
+ENV ANT_HOME=/opt/apache-ant-$ANT_VERSION PATH=/opt/apache-ant-$ANT_VERSION/bin/:$PATH
+
+ARG MAVEN_VERSION=3.6.3
+RUN wget -qO- https://www-eu.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xfz - -C /opt
+ENV MAVEN_HOME=/opt/apache-maven-$MAVEN_VERSION PATH=/opt/apache-maven-$MAVEN_VERSION/bin/:$PATH
+
+ARG GRADLE_VERSION=6.7.1
+RUN cd /opt && wget -q https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip && unzip -q gradle-$GRADLE_VERSION-bin.zip && rm -f gradle-$GRADLE_VERSION-bin.zip
+ENV GRADLE_HOME=/opt/gradle-$GRADLE_VERSION PATH=/opt/gradle-$GRADLE_VERSION/bin/:$PATH
+
+ARG NODE_VERSION=v14.15.1
+RUN wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - -C /opt
+ENV NODE_HOME=/opt/node-$NODE_VERSION-linux-x64 PATH=/opt/node-$NODE_VERSION-linux-x64/bin/:$PATH
+RUN npm install -g yarn
+
+COPY run.sh /usr/local/bin/run
+COPY tomcat /usr/local/tomcat
+RUN chmod +x /usr/local/bin/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh
+COPY *.crt /etc/pki/ca-trust/source/anchors/
+RUN /bin/update-ca-trust extract
+
+EXPOSE 8080 8443 8444 8009 8005 8000 8555
+CMD [ "/usr/local/bin/run" ]
