@@ -17,7 +17,7 @@ fi
 TOMCAT_DIR=/usr/local/tomcat
 [ ! -d $TOMCAT_DIR/webapps ] && mkdir $TOMCAT_DIR/webapps
 
-TEMPLATE_DIR=/usr/local/template
+TEMPLATE_DIR=/usr/local/tomcat/template
 if [ ! -d $TEMPLATE_DIR -a "$GIT_URL" != "" ]
 then
 	BRANCH="master"
