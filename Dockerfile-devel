@@ -44,8 +44,8 @@ COPY run.sh /usr/local/bin/run
 COPY tomcat /usr/local/tomcat
 COPY *.crt /etc/pki/ca-trust/source/anchors/
 RUN /bin/update-ca-trust extract && \
-    groupadd tomcat && useradd -g tomcat tomcat && \
     chmod +x /usr/local/bin/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh && \
+    groupadd tomcat && useradd -g tomcat tomcat && \
     chown -R tomcat:tomcat /usr/local/tomcat && \
     echo "alias vi=vim\n\
 alias rm='rm -i'\n\

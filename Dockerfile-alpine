@@ -16,11 +16,12 @@ RUN apk update && \
     rm -rf /var/cache/apk/*
 ENV LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8
 # JAVA_HOME is defined by default
+
 COPY run.sh /usr/local/bin/run
 COPY tomcat /usr/local/tomcat
-RUN chmod +x /usr/local/bin/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh
 COPY *.crt /usr/local/share/ca-certificates/
-RUN update-ca-certificates
+RUN update-ca-certificates && \
+    chmod +x /usr/local/bin/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh
 
 EXPOSE 8080 8443 8444 8009 8005 8000 8555
 CMD [ "/usr/local/bin/run" ]
