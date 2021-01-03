@@ -47,7 +47,4 @@ then
 	fi
 fi
 
-# Redirecting console output to the catalina.out file is useless in Docker containers
-[ "$CATALINA_OUT" = "" -a "$CATALINA_OUT_CMD" = "" ] && export CATALINA_OUT=/dev/null
-
 cd $TOMCAT_DIR && ./start.sh -t

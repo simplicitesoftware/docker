@@ -40,12 +40,12 @@ RUN wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64
 ENV NODE_HOME=/opt/node-$NODE_VERSION-linux-x64 PATH=/opt/node-$NODE_VERSION-linux-x64/bin/:$PATH
 RUN npm install -g yarn
 
-COPY run.sh /usr/local/bin/run
 COPY tomcat /usr/local/tomcat
+COPY run.sh /usr/local/tomcat/run
 COPY *.crt /etc/pki/ca-trust/source/anchors/
 RUN /bin/update-ca-trust extract && \
-    chmod +x /usr/local/bin/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh && \
     groupadd tomcat && useradd -g tomcat tomcat && \
+    chmod +x /usr/local/tomcat/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh && \
     chown -R tomcat:tomcat /usr/local/tomcat && \
     echo "alias vi=vim\n\
 alias rm='rm -i'\n\
@@ -57,4 +57,4 @@ USER tomcat
 WORKDIR /usr/local/tomcat
 
 EXPOSE 8080 8443 8444 8009 8005 8000 8555
-CMD [ "/usr/local/bin/run" ]
+CMD [ "/usr/local/tomcat/run" ]
