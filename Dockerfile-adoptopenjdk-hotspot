@@ -16,11 +16,17 @@ RUN apt-get update && \
     apt-get clean
 ENV LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8
 # JAVA_HOME is defined by default
-COPY run.sh /usr/local/bin/run
+
 COPY tomcat /usr/local/tomcat
-RUN chmod +x /usr/local/bin/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh
+COPY run.sh /usr/local/tomcat/run
 COPY *.crt /usr/local/share/ca-certificates/
-RUN update-ca-certificates
+RUN update-ca-certificates && \
+    groupadd tomcat && useradd -g tomcat tomcat && \
+    chmod +x /usr/local/tomcat/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh && \
+    chown -R tomcat:tomcat /usr/local/tomcat
+
+USER tomcat
+WORKDIR /usr/local/tomcat
 
 EXPOSE 8080 8443 8444 8009 8005 8000 8555
-CMD [ "/usr/local/bin/run" ]
+CMD [ "/usr/local/tomcat/run" ]
