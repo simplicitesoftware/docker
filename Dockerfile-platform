@@ -25,6 +25,4 @@ ARG template
 COPY $template/tools/convert-mssql.sh /usr/local/tomcat
 COPY $template/tools/convert-oracle.sh /usr/local/tomcat
 COPY $template/app /usr/local/tomcat/webapps/ROOT
-USER root
-RUN chmod +x /usr/local/tomcat/convert-*.sh && chown -R tomcat:tomcat /usr/local/tomcat
-USER tomcat
+RUN chmod +x /usr/local/tomcat/convert-*.sh

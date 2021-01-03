@@ -25,11 +25,8 @@ COPY tomcat /usr/local/tomcat
 COPY run.sh /usr/local/tomcat/run
 COPY *.crt /etc/pki/ca-trust/source/anchors/
 RUN /bin/update-ca-trust extract && \
-    groupadd tomcat && useradd -g tomcat tomcat && \
-    chmod +x /usr/local/tomcat/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh && \
-    chown -R tomcat:tomcat /usr/local/tomcat
+    chmod +x /usr/local/tomcat/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh
 
-USER tomcat
 WORKDIR /usr/local/tomcat
 
 EXPOSE 8080 8443 8444 8009 8005 8000 8555

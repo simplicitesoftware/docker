@@ -44,16 +44,13 @@ COPY tomcat /usr/local/tomcat
 COPY run.sh /usr/local/tomcat/run
 COPY *.crt /etc/pki/ca-trust/source/anchors/
 RUN /bin/update-ca-trust extract && \
-    groupadd tomcat && useradd -g tomcat tomcat && \
     chmod +x /usr/local/tomcat/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh && \
-    chown -R tomcat:tomcat /usr/local/tomcat && \
     echo "alias vi=vim\n\
 alias rm='rm -i'\n\
 alias cp='cp -i'\n\
 alias mv='mv -i'\n\
-alias dir='ls -alF --color=always'" >> /home/tomcat/.bashrc
+alias dir='ls -alF --color=always'" >> /root/.bashrc
 
-USER tomcat
 WORKDIR /usr/local/tomcat
 
 EXPOSE 8080 8443 8444 8009 8005 8000 8555
