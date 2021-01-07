@@ -12,4 +12,6 @@ LABEL org.label-schema.name="simplicite-postfix" \
 
 RUN yum -y update && yum -y install postfix && yum clean all && rm -rf /var/cache/yum
 RUN sed -i 's/^inet_protocols = all/inet_protocols = ipv4/' /etc/postfix/main.cf
+
+EXPOSE 25
 CMD [ "postfix start-fg" ]
