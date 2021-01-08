@@ -12,7 +12,7 @@ LABEL org.label-schema.name="simplicite-server-adoptopenjdk-openj9" \
 
 RUN apt-get update && \
     apt-get upgrade -y&& \
-    apt-get install -y bash git curl wget ca-certificates libjpeg-dev mysql-client uni2ascii postgresql-client && \
+    apt-get install -y bash git curl wget zip unzip ca-certificates libjpeg-dev mysql-client uni2ascii postgresql-client && \
     apt-get clean
 ENV LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8
 # JAVA_HOME is defined by default

@@ -12,7 +12,7 @@ LABEL org.label-schema.name="simplicite-server-alpine" \
 
 RUN apk update && \
     apk upgrade && \
-    apk add --update bash git curl wget ca-certificates libjpeg mysql-client postgresql-client && \
+    apk add --update bash git curl wget zip unzip ca-certificates libjpeg mysql-client postgresql-client && \
     rm -rf /var/cache/apk/*
 ENV LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8
 # JAVA_HOME is defined by default
