@@ -38,7 +38,7 @@ Then you can build your instance's image by:
 
 	sudo docker build -t simplicite/<my application name> .
 
-### Add SQLServer client
+### Add the SQLServer client
 
 The SQLServer client is not freely redistributable, if you want to use SQLServer with your images **in initial setup mode** you need to add the SQLServer client by building a custom image
 
@@ -50,7 +50,7 @@ RUN curl https://packages.microsoft.com/config/rhel/7/prod.repo > /etc/yum.repos
 
 NB: the above URL may change
 
-### Add Oracle client
+### Add the Oracle client
 
 The Oracle client is not freely redistributable, if you want to use Oracle with your images **in initial setup mode** you need to add the Oracle client by building a custom image
 
@@ -61,9 +61,9 @@ RUN rpm -i https://download.oracle.com/otn_software/linux/instantclient/19600/or
 
 NB: the above URL may change
 
-### Add a local email server
+### Add a local email server for developement
 
-If required (e.g. in development) you can start a local Postfix SMTP server within the container by using `-e LOCAL_SMTP_SERVER=true`.
+If required in development, you can start a local Postfix SMTP server within the container by using `-e LOCAL_SMTP_SERVER=true`.
 
 Using this feature requires that you build a custom image including the Postfix Package:
 
@@ -82,7 +82,7 @@ FROM simplicite/platform-4.0.Pxx-alpine
 RUN apk add --update postfix && rm -rf /var/cache/apk/*
 ```
 
-> **Note**: starting a Postfix process within the container is only not suitable for production where an external SMTP service must be used instead.
+> **Note**: starting a Postfix process within the container is **not suitable for production** where an external SMTP service must be used instead.
 
 Usage
 -----
