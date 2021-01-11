@@ -199,17 +199,17 @@ do
 				echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION"
 				echo "sudo docker push $PLATFORM:$VERSION"
 				echo "sudo docker rmi $PLATFORM:$VERSION"
-				echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION.$PATCHLEVEL"
-				echo "sudo docker push $PLATFORM:$VERSION.$PATCHLEVEL"
-				echo "sudo docker rmi $PLATFORM:$VERSION.$PATCHLEVEL"
+				#echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION.$PATCHLEVEL"
+				#echo "sudo docker push $PLATFORM:$VERSION.$PATCHLEVEL"
+				#echo "sudo docker rmi $PLATFORM:$VERSION.$PATCHLEVEL"
 			elif [ $PFTAG = "4.0-latest-light" -o $PFTAG = "5-latest-light" ]
 			then
 				echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION-light"
 				echo "sudo docker push $PLATFORM:$VERSION-light"
 				echo "sudo docker rmi $PLATFORM:$VERSION-light"
-				echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION.$PATCHLEVEL-light"
-				echo "sudo docker push $PLATFORM:$VERSION.$PATCHLEVEL-light"
-				echo "sudo docker rmi $PLATFORM:$VERSION.$PATCHLEVEL-light"
+				#echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION.$PATCHLEVEL-light"
+				#echo "sudo docker push $PLATFORM:$VERSION.$PATCHLEVEL-light"
+				#echo "sudo docker rmi $PLATFORM:$VERSION.$PATCHLEVEL-light"
 			fi
 		fi
 		echo "sudo docker rmi $PLATFORM:$PFTAG$EXT"
