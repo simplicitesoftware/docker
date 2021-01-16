@@ -91,7 +91,9 @@ do
 			[ $JVM != "latest" ] && JVMEXT="-openjdk-$JVM"
 
 			echo "-- $SERVER:$TAG$SRVEXT$JVMEXT ------------------"
+			echo ""
 			echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 $SERVER:$TAG$SRVEXT$JVMEXT"
+			echo ""
 			echo "sudo docker push $SERVER:$TAG$SRVEXT$JVMEXT"
 			if [ $TAG = "centos" -a $SRV = "tomcat" -a $JVM = "latest" ]
 			then

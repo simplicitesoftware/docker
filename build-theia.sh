@@ -37,7 +37,9 @@ for TAG in $TAGS
 do
 	IMG=simplicite/theia:$TAG
 	echo "-- $IMG ------------------"
+	echo ""
 	echo "sudo docker run -it --rm --init -p 3030:3030 $IMG"
+	echo ""
 	echo "sudo docker push $IMG"
 	echo ""
 done

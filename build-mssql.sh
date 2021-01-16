@@ -28,7 +28,9 @@ sudo docker build --network host -t $IMG --build-arg BUILD_DATE=$DATE .
 echo "Done"
 
 echo "-- $IMG ------------------"
+echo ""
 echo "sudo docker run -it --rm -e SA_PASSWORD="A_Str0ng_Passw0rd_for_SA" -p 1433:1433 $IMG"
+echo ""
 echo "sudo docker push $IMG"
 echo ""
 
