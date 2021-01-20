@@ -6,8 +6,3 @@ ENV ACCEPT_EULA=Y
 ADD https://packages.microsoft.com/config/rhel/7/prod.repo /etc/yum.repos.d/msprod.repo
 RUN yum install -y mssql-tools unixODBC-devel && yum clean all
 ENV PATH="/opt/mssql-tools/bin:${PATH}"
-
-# Generate the SQLServer database script
-RUN /usr/local/tomcat/convert-mssql.sh simplicite /usr/local/tomcat/webapps/ROOT/WEB-INF/db/simplicite.script && \
-    rm -f /usr/local/tomcat/convert-*.sh /usr/local/tomcat/webapps/ROOT/WEB-INF/db/*.dmp
-ENV DB_VENDOR=mssql

@@ -25,4 +25,7 @@ ARG template
 COPY $template/tools/convert-mssql.sh /usr/local/tomcat
 COPY $template/tools/convert-oracle.sh /usr/local/tomcat
 COPY $template/app /usr/local/tomcat/webapps/ROOT
-RUN chmod +x /usr/local/tomcat/convert-*.sh
+RUN chmod +x /usr/local/tomcat/convert-*.sh && \
+    /usr/local/tomcat/convert-mssql.sh simplicite /usr/local/tomcat/webapps/ROOT/WEB-INF/db/simplicite.script && \
+    /usr/local/tomcat/convert-oracle.sh simplicite /usr/local/tomcat/webapps/ROOT/WEB-INF/db/simplicite.script && \
+    rm -f /usr/local/tomcat/convert-*.sh

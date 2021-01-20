@@ -31,17 +31,3 @@ do
 done
 
 rm -f $CREATEDB
-
-SETUP=/opt/mssql/setup/${DB_SETUP_SCRIPT:-simplicite-mssql.sql}
-if [ -f $SETUP ]
-then
-	/opt/mssql-tools/bin/sqlcmd -S localhost -U ${DB_USER:-simplicite} -P $${DB_PASSWORD:-simplicite} -d ${DB_NAME:-simplicite} -i $SETUP
-	RES=$?
-	if [ $? -eq 0 ]
-	then
-		echo "Setup script succeeded"
-		rm -f $SETUP
-	else
-		echo "Setup script error: $RES"
-	fi
-fi
