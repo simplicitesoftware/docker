@@ -15,8 +15,7 @@ then
 fi
 date > $LOCK
 
-LATEST=4.0
-#LATEST=5
+LATEST=5
 
 if [ "$1" = "3.1" ]
 then
