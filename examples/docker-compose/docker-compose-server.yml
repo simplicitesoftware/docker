@@ -1,0 +1,7 @@
+version: "3"
+services:
+  server:
+    image: simplicite/server:latest
+    environment:
+      FOO: "foo\\bar"
+      BAR: 'foo\\bar'

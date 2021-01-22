@@ -1,0 +1,25 @@
+version: "3"
+services:
+  nginx: 
+    image: nginx:latest
+    restart: always
+    container_name: myrp
+    ports:
+      - 81:80
+      - 444:443
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./server.crt:/etc/ssl/server.crt
+      - ./server.key:/etc/ssl/server.key
+  simplicite:
+    image: simplicite/platform:5-alpha
+    restart: always
+    container_name: myapp
+    volumes:
+      - myapp_db:/usr/local/tomcat/webapps/ROOT/WEB-INF/db
+      - myapp_dbdoc:/usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc
+      - myapp_git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
+volumes:
+  myapp_db:
+  myapp_dbdoc:
+  myapp_git:

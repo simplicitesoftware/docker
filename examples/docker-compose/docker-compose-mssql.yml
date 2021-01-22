@@ -1,0 +1,34 @@
+version: "3"
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    restart: always
+    container_name: myapp-mssql-database
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: "A_Str0ng_Passw0rd!!"
+    volumes:
+    - myapp-mssql:/var/opt/mssql
+  simplicite:
+    image: simplicite/platform:5-alpha
+    restart: always
+    container_name: myapp-mssql-webapp
+    environment:
+      DB_SETUP: "true"
+      DB_VENDOR: "mssql"
+      DB_HOST: db
+      DB_USER: "simplicite"
+      DB_PASSWORD: "simplicite"
+      DB_NAME: "simplicite"
+      DB_WAIT: 100
+    ports:
+    - 127.0.0.1:8080:8080
+    - 127.0.0.1:8443:8443
+    volumes:
+    - myapp-mssql-setup:/usr/local/tomcat/webapps/ROOT/WEB-INF/db
+    - myapp-mssql-git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
+    depends_on:
+    - db
+volumes:
+  myapp-mssql-db:
+  myapp-mssql-git:

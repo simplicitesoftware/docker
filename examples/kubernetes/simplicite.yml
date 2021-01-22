@@ -1,0 +1,92 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: simplicite-git-volume
+  labels:
+    type: local
+    app: simplicite
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt/git"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: simplicite-git-claim
+  labels:
+    app: simplicite
+spec:
+  volumeName: simplicite-git-volume
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: simplicite
+  name: simplicite
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: simplicite
+        date: "2019-05-22"
+    spec:
+      containers:
+        - name: simplicite
+          image: simplicite/platform:5-alpha
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: simplicite
+            - name: DB_PASSWORD
+              value: simplicite
+            - name: DB_SETUP
+              value: "true"
+            - name: DB_USER
+              value: simplicite
+            - name: DB_VENDOR
+              value: postgresql
+            - name: DB_WAIT
+              value: "100"
+          volumeMounts:
+            - mountPath: /usr/local/tomcat/webapps/ROOT/WEB-INF/git
+              name: simplicite-git
+      imagePullSecrets:
+        - name: regcred
+      volumes:
+        - name: simplicite-git
+          persistentVolumeClaim:
+            claimName: simplicite-git-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: simplicite
+  name: simplicite
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: simplicite
+status:
+  loadBalancer: {}

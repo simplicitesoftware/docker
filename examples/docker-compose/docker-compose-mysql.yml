@@ -1,0 +1,36 @@
+version: "3"
+services:
+  db:
+    image: mysql:latest
+    restart: always
+    container_name: myapp-mysql-database
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: "simplicite"
+      MYSQL_DATABASE: "simplicite"
+      MYSQL_USER: "simplicite"
+      MYSQL_PASSWORD: "simplicite"
+    volumes:
+    - myapp-mysql-db:/var/lib/mysql
+  simplicite:
+    image: simplicite/platform:5-alpha
+    restart: always
+    container_name: myapp-mysql-webapp
+    environment:
+      DB_SETUP: "true"
+      DB_VENDOR: "mysql"
+      DB_HOST: db
+      DB_USER: "simplicite"
+      DB_PASSWORD: "simplicite"
+      DB_NAME: "simplicite"
+      DB_WAIT: 100
+    ports:
+     - 127.0.0.1:8080:8080
+     - 127.0.0.1:8443:8443
+    volumes:
+    - myapp-mysql-git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
+    depends_on:
+    - db
+volumes:
+  myapp-mysql-db:
+  myapp-mysql-git:

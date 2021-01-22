@@ -1,0 +1,35 @@
+version: "3"
+services:
+  db:
+    image: mariadb:latest
+    restart: always
+    container_name: myapp-mariadb-database
+    environment:
+      MYSQL_ROOT_PASSWORD: "simplicite"
+      MYSQL_DATABASE: "simplicite"
+      MYSQL_USER: "simplicite"
+      MYSQL_PASSWORD: "simplicite"
+    volumes:
+    - myapp-mariadb-db:/var/lib/mariadb
+  simplicite:
+    image: simplicite/platform:5-alpha
+    restart: always
+    container_name: myapp-mariadb-webapp
+    environment:
+      DB_SETUP: "true"
+      DB_VENDOR: "mysql"
+      DB_HOST: db
+      DB_USER: "simplicite"
+      DB_PASSWORD: "simplicite"
+      DB_NAME: "simplicite"
+      DB_WAIT: 100
+    ports:
+     - 127.0.0.1:8080:8080
+     - 127.0.0.1:8443:8443
+    volumes:
+    - myapp-mariadb-git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
+    depends_on:
+    - db
+volumes:
+  myapp-mariadb-db:
+  myapp-mariadb-git:

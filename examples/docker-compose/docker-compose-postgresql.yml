@@ -1,0 +1,34 @@
+version: "3"
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    container_name: myapp-postgresql-database
+    environment:
+      POSTGRES_USER: "simplicite"
+      POSTGRES_PASSWORD: "simplicite"
+      POSTGRES_DB: "simplicite"
+    volumes:
+    - myapp-postgresql-db:/var/lib/postgresql/data
+  simplicite:
+    image: simplicite/platform:5-alpha
+    restart: always
+    container_name: myapp-postgresql-webapp
+    environment:
+      DB_SETUP: "true"
+      DB_VENDOR: "postgresql"
+      DB_HOST: db
+      DB_USER: "simplicite"
+      DB_PASSWORD: "simplicite"
+      DB_NAME: "simplicite"
+      DB_WAIT: 100
+    ports:
+     - 127.0.0.1:8080:8080
+     - 127.0.0.1:8443:8443
+    volumes:
+    - myapp-postgresql-git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
+    depends_on:
+    - db
+volumes:
+  myapp-postgresql-db:
+  myapp-postgresql-git:
