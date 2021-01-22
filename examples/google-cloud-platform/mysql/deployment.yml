@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    name: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: mysql
+  template:
+    metadata:
+      labels:
+        service: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8
+        args:
+        - "--default-authentication-plugin=mysql_native_password"
+        volumeMounts:
+        - name: mysql-volume-mount
+          mountPath: /var/lib/mysql
+          subPath: data
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: simplicite
+        - name: MYSQL_DATABASE
+          value: simplicite
+        - name: MYSQL_USER
+          value: simplicite
+        - name: MYSQL_PASSWORD
+          value: simplicite
+      restartPolicy: Always
+      volumes:
+      - name: mysql-volume-mount
+        persistentVolumeClaim:
+          claimName: mysql-volume-claim
