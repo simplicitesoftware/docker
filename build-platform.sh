@@ -206,6 +206,7 @@ do
 				then
 					echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:latest"
 					echo "sudo docker push $PLATFORM:latest"
+					echo "sudo docker rmi $PLATFORM:latest"
 				fi
 				echo "sudo docker rmi $PLATFORM:$VERSION"
 			elif [ $PFTAG = "4.0-latest-light" -o $PFTAG = "5-latest-light" ]
@@ -216,6 +217,7 @@ do
 				then
 					echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:latest-light"
 					echo "sudo docker push $PLATFORM:latest-light"
+					echo "sudo docker rmi $PLATFORM:latest-light"
 				fi
 				echo "sudo docker rmi $PLATFORM:$VERSION-light"
 			fi
