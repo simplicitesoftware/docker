@@ -13,7 +13,7 @@ then
 	exit 1
 fi
 
-ORG=simplicite
+ORG=${ORG:-simplicite}
 REPOS=$1
 [ "$REPOS" = "" ] && REPOS= `curl -s -H "Authorization: JWT $TOKEN" https://hub.docker.com/v2/repositories/$ORG/?page_size=20 | jq -r '.results[].name' | sort`
 
