@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ "$1" = "--help" ]
+then
+	echo "Usage: `basename $0` [\"<repository, e.g. simplicite/platfom, default to all repositories>\"]" >&2
+	exit 1
+fi
+
 TOKEN=`curl -s -H "Content-Type: application/json" -X POST -d '{"username": "'$DOCKERHUB_USERNAME'", "password": "'$DOCKERHUB_PASSWORD'"}' https://hub.docker.com/v2/users/login/ | jq -r '.token'`
 if [ "$TOKEN" = "" ]
 then
