@@ -2,7 +2,7 @@
 
 if [ "$1" = "--help" ]
 then
-	echo "Usage: `basename $0` [\"<repository, e.g. simplicite/platfom, default to all repositories>\"]" >&2
+	echo "Usage: `basename $0` [\"<repository, e.g. platfom or server, default to all repositories>\"]" >&2
 	exit 1
 fi
 
@@ -14,13 +14,12 @@ then
 fi
 
 ORG=simplicite
-[ -x /usr/bin/figlet ] && echo "" && /usr/bin/figlet -f small ${ORG^}
-
-REPOS=$1
+[ "$1" != "" ] && REPOS=$ORG/$1
 [ "$REPOS" = "" ] && REPOS= `curl -s -H "Authorization: JWT $TOKEN" https://hub.docker.com/v2/repositories/$ORG/?page_size=20 | jq -r '.results[].name' | sort`
 
+[ -x /usr/bin/figlet ] && echo "" && /usr/bin/figlet -f small ${ORG^}
 echo ""
-for REP in `curl -s -H "Authorization: JWT $TOKEN" https://hub.docker.com/v2/repositories/$ORG/?page_size=20 | jq -r '.results[].name' | sort`
+for REP in $REPOS
 do
 	echo "========================================================"
 	printf "== \033[1m%-50s\033[0m ==\n" $ORG/$REP
