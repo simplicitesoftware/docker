@@ -14,7 +14,7 @@ then
 fi
 
 ORG=simplicite
-[ "$1" != "" ] && REPOS=$ORG/$1
+REPOS=$1
 [ "$REPOS" = "" ] && REPOS= `curl -s -H "Authorization: JWT $TOKEN" https://hub.docker.com/v2/repositories/$ORG/?page_size=20 | jq -r '.results[].name' | sort`
 
 [ -x /usr/bin/figlet ] && echo "" && /usr/bin/figlet -f small ${ORG^}
