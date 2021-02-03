@@ -2,7 +2,7 @@
 
 if [ "$1" = "" -o "$1" = "--help" ]
 then
-	echo "Usage: `basename $0` 3.1|3.2|[4.0|5]-alpha[-light]|[4.0|5]-beta[-light]|[4.0|5]-latest[-light]" >&2
+	echo "Usage: `basename $0` 3.1|3.2|<4.0|5>-alpha[-light]|<4.0|5>-beta[-light]|<4.0|5>-latest[-light]|<4.0|5>-devel" >&2
 	exit 1
 fi
 
@@ -29,6 +29,13 @@ then
 	VERSION=3.2
 	BRANCH=master
 	TAGS=centos
+	SRVS=tomcat
+	PFTAG=$1
+elif [ "$1" = "4.0-devel" ]
+then
+	VERSION=4.0
+	BRANCH=master
+	TAGS=devel
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "4.0-alpha" ]
@@ -71,6 +78,13 @@ then
 	VERSION=4.0
 	BRANCH=release-light
 	TAGS="centos centos-openjdk-11 centos-openjdk-1.8.0"
+	SRVS=tomcat
+	PFTAG=$1
+elif [ "$1" = "5-devel" ]
+then
+	VERSION=5
+	BRANCH=master
+	TAGS=devel
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-alpha" ]
