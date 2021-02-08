@@ -1,24 +1,18 @@
-FROM centos:8
+FROM simplicite/server:centos8
 
 ARG date
+
 LABEL org.label-schema.name="simplicite-server-devel" \
       org.label-schema.vendor="Simplicite Software" \
-      org.label-schema.build-date="$date" \
+      org.label-schema.build-date="${date}" \
       org.opencontainers.image.ref.name="simplicite-server-devel" \
       org.opencontainers.image.title="Simplicite server (devel)" \
       org.opencontainers.image.description="Simplicite server (devel)" \
       org.opencontainers.image.vendor="Simplicite Software" \
-      org.opencontainers.image.created="$date"
+      org.opencontainers.image.created="${date}"
 
-ARG jvm=latest
-RUN dnf upgrade -y && \
-    dnf clean all && \
-    dnf install -y epel-release && \
-    dnf install -y bash git curl wget zip unzip ca-certificates libjpeg mariadb postgresql && \
-    dnf -y install vim-enhanced gcc gcc-c++ make nmap && dnf clean all && \
-    dnf clean all && \
-    rpm -i http://mirrors.ircam.fr/pub/dag/redhat/el7/en/x86_64/rpmforge/RPMS/uni2ascii-4.18-1.el7.rf.x86_64.rpm
-ENV LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8
+RUN dnf -y install vim-enhanced gcc gcc-c++ make nmap && dnf clean all && \
+    dnf clean all
 
 RUN wget -qO- https://download.java.net/java/GA/jdk15.0.1/51f4f36ad4ef43e39d0dfdbaf6549e32/9/GPL/openjdk-15.0.1_linux-x64_bin.tar.gz | tar xfz - -C /opt
 ENV JAVA_HOME=/opt/jdk-15.0.1 PATH=/opt/jdk-15.0.1/bin/:$PATH
@@ -40,18 +34,8 @@ RUN wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64
 ENV NODE_HOME=/opt/node-$NODE_VERSION-linux-x64 PATH=/opt/node-$NODE_VERSION-linux-x64/bin/:$PATH
 RUN npm install -g yarn
 
-COPY tomcat /usr/local/tomcat
-COPY run.sh /usr/local/tomcat/run
-COPY *.crt /etc/pki/ca-trust/source/anchors/
-RUN /bin/update-ca-trust extract && \
-    chmod +x /usr/local/tomcat/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh && \
-    echo "alias vi=vim\n\
+RUN echo "alias vi=vim\n\
 alias rm='rm -i'\n\
 alias cp='cp -i'\n\
 alias mv='mv -i'\n\
 alias dir='ls -alF --color=always'" >> /root/.bashrc
-
-WORKDIR /usr/local/tomcat
-
-EXPOSE 8080 8443 8444 8009 8005 8000 8555
-CMD [ "/usr/local/tomcat/run" ]

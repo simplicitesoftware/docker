@@ -1,33 +1,20 @@
-FROM centos:7
+FROM simplicite/server:centos-base
 
 ARG date
-LABEL org.label-schema.name="simplicite-server-centos7-openjdk-$jvm" \
-      org.label-schema.vendor="Simplicite Software" \
-      org.label-schema.build-date="$date" \
-      org.opencontainers.image.ref.name="simplicite-server-centos7-openjdk-$jvm" \
-      org.opencontainers.image.title="Simplicite server / CentOS 7 / OpenJDK = $jvm" \
-      org.opencontainers.image.description="Simplicite server / CentOS 7 / OpenJDK = $jvm" \
-      org.opencontainers.image.vendor="Simplicite Software" \
-      org.opencontainers.image.created="$date"
-
 ARG jvm=latest
-RUN yum upgrade -y && \
+
+LABEL org.label-schema.name="simplicite-server-centos7-openjdk-${jvm}-jdk" \
+      org.label-schema.vendor="Simplicite Software" \
+      org.label-schema.build-date="${date}" \
+      org.opencontainers.image.ref.name="simplicite-server-centos7-openjdk-${jvm}-jdk" \
+      org.opencontainers.image.title="Simplicite server / CentOS 7 / OpenJDK = ${jvm} (JDK)" \
+      org.opencontainers.image.description="Simplicite server / CentOS 7 / OpenJDK = ${jvm} (JDK)" \
+      org.opencontainers.image.vendor="Simplicite Software" \
+      org.opencontainers.image.created="${date}"
+
+RUN yum install -y java-${jvm}-openjdk-devel && \
     yum clean all && \
-    yum install -y epel-release && \
-    yum install -y yum-utils bash git curl wget zip unzip ca-certificates libjpeg java-${jvm}-openjdk-devel mariadb postgresql && \
-    yum clean all && \
-    rm -rf /var/cache/yum && \
-    package-cleanup --oldkernels --count=1 && \
-    rpm -i http://mirrors.ircam.fr/pub/dag/redhat/el7/en/x86_64/rpmforge/RPMS/uni2ascii-4.18-1.el7.rf.x86_64.rpm
-ENV LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 JAVA_HOME=/usr/lib/jvm/java
+    rm -rf /var/cache/yum
+ENV JAVA_HOME=/usr/lib/jvm/java
 
-COPY tomcat /usr/local/tomcat
-COPY run.sh /usr/local/tomcat/run
-COPY *.crt /etc/pki/ca-trust/source/anchors/
-RUN /bin/update-ca-trust extract && \
-    chmod +x /usr/local/tomcat/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh
-
-WORKDIR /usr/local/tomcat
-
-EXPOSE 8080 8443 8444 8009 8005 8000 8555
-CMD [ "/usr/local/tomcat/run" ]
+EXPOSE 8000
