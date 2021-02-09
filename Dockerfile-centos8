@@ -1,4 +1,5 @@
-FROM simplicite/server:centos8-base
+ARG variant
+FROM simplicite/server:centos8${variant}-jre
 
 ARG date
 ARG jvm=latest

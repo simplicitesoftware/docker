@@ -18,7 +18,7 @@ date > $LOCK
 echo ""
 echo "--------------------------------------------------------"
 
-TAGS="centos-base centos-jre centos centos8-base centos8-jre centos8 devel adoptopenjdk-hotspot adoptopenjdk-openj9"
+TAGS="centos-base centos centos8-base centos8 devel adoptopenjdk-hotspot adoptopenjdk-openj9"
 [ "$1" != "" ] && TAGS=$1
 echo "Variants(s) = $TAGS"
 
@@ -61,13 +61,28 @@ do
 			JVMEXT=""
 			[ $JVM != "latest" ] && JVMEXT="-openjdk-$JVM"
 
+			if [ $TAG = "centos" -o $TAG = "centos8" ]
+			then
+				echo "========================================================"
+				echo "Building $SERVER:$TAG$SRVEXT$JVMEXT-jre image..."
+				echo "========================================================"
+				DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
+				sudo docker build --network host -f Dockerfile-$TAG-jre -t $SERVER:$TAG$SRVEXT$JVMEXT-jre --build-arg date=$DATE --build-arg jvm=$JVM .
+				echo "Done"
+			fi
+
 			echo "========================================================"
 			echo "Building $SERVER:$TAG$SRVEXT$JVMEXT image..."
 			echo "========================================================"
 			DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
-			FROM=`grep '^FROM' Dockerfile-$TAG | awk '{ print $2 }'`
-			[ `echo $FROM | cut -d/ -f1` != "simplicite" ] && sudo docker pull $FROM
-			sudo docker build --network host -f Dockerfile-$TAG -t $SERVER:$TAG$SRVEXT$JVMEXT --build-arg date=$DATE --build-arg jvm=${JVM} .
+			if [ $TAG != "centos" -a $TAG != "centos8" ]
+			then
+				FROM=`grep '^FROM' Dockerfile-$TAG | awk '{ print $2 }'`
+				sudo docker pull $FROM
+			fi
+			V=""
+			[ $JVM != "latest" ] && V=$JVM
+			sudo docker build --network host -f Dockerfile-$TAG -t $SERVER:$TAG$SRVEXT$JVMEXT --build-arg date=$DATE --build-arg variant=$V --build-arg jvm=$JVM .
 			echo "Done"
 		done
 	done
