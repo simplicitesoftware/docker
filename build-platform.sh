@@ -70,14 +70,14 @@ elif [ "$1" = "4.0-latest" ]
 then
 	VERSION=4.0
 	BRANCH=release
-	TAGS="centos centos-jre centos-openjdk-11"
+	TAGS="centos centos-jre centos-openjdk-11 centos-openjdk-11-jre"
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "4.0-latest-light" ]
 then
 	VERSION=4.0
 	BRANCH=release-light
-	TAGS="centos centos-jre centos-openjdk-11 centos-openjdk-1.8.0"
+	TAGS="centos centos-jre centos-openjdk-11 centos-openjdk-11-jre centos-openjdk-1.8.0 centos-openjdk-1.8.0-jre"
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-devel" ]
@@ -126,14 +126,14 @@ elif [ "$1" = "5-latest" ]
 then
 	VERSION=5
 	BRANCH=release
-	TAGS="centos centos-jre centos-openjdk-11"
+	TAGS="centos centos-jre centos-openjdk-11 centos-openjdk-11-jre"
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-latest-light" ]
 then
 	VERSION=5
 	BRANCH=release-light
-	TAGS="centos centos-jre centos-openjdk-11"
+	TAGS="centos centos-jre centos-openjdk-11 centos-openjdk-11-jre"
 	SRVS=tomcat
 	PFTAG=$1
 else
