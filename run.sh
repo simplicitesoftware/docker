@@ -17,11 +17,16 @@ fi
 TOMCAT_DIR=/usr/local/tomcat
 [ ! -d $TOMCAT_DIR/webapps ] && mkdir $TOMCAT_DIR/webapps
 
-if [ -d $TOMCAT_DIR/.ssh ]
+[ -d $TOMCAT_DIR/.ssh ] && cp -r $TOMCAT_DIR/.ssh /root || mkdir /root/.ssh
+if [ ! -z "$SSH_KNOWN_HOSTS" ]
 then
-	cp -r $TOMCAT_DIR/.ssh /root
-	chmod -R go-rwX /root/.ssh
+	touch /root/.ssh/known_hosts
+	for HOST in $SSH_KNOWN_HOSTS
+	do
+		ssh-keyscan -t rsa $HOST >> /root/.ssh/known_hosts
+	done
 fi
+chmod -R go-rwX /root/.ssh
 
 TEMPLATE_DIR=/usr/local/tomcat/template
 if [ ! -d $TEMPLATE_DIR -a "$GIT_URL" != "" ]
