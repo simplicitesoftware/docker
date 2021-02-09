@@ -109,8 +109,16 @@ do
 			then
 				echo "-- $SERVER:$TAG$SRVEXT$JVMEXT ------------------"
 				echo ""
+				if [ $TAG = "centos" -o $TAG = "centos8" ]
+				then
+					echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 $SERVER:$TAG$SRVEXT$JVMEXT-jre"
+				fi
 				echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 $SERVER:$TAG$SRVEXT$JVMEXT"
 				echo ""
+				if [ $TAG = "centos" -o $TAG = "centos8" ]
+				then
+					echo "sudo docker push $SERVER:$TAG$SRVEXT$JVMEXT-jre"
+				fi
 				echo "sudo docker push $SERVER:$TAG$SRVEXT$JVMEXT"
 				if [ $TAG = "centos" -a $SRV = "tomcat" -a $JVM = "latest" ]
 				then
