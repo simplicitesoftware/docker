@@ -17,13 +17,15 @@ fi
 TOMCAT_DIR=/usr/local/tomcat
 [ ! -d $TOMCAT_DIR/webapps ] && mkdir $TOMCAT_DIR/webapps
 
-[ -d $TOMCAT_DIR/.ssh ] && cp -r $TOMCAT_DIR/.ssh /root || mkdir /root/.ssh
+[ -d $TOMCAT_DIR/.ssh ] && cp -r $TOMCAT_DIR/.ssh /root
 if [ ! -z "$SSH_KNOWN_HOSTS" ]
 then
+	[ ! -d /root/.ssh ] && mkdir /root/.ssh
 	touch /root/.ssh/known_hosts
 	for HOST in $SSH_KNOWN_HOSTS
 	do
-		[ `grep "^$HOST " /root/.ssh/known_hosts` = "" ] && ssh-keyscan -t rsa $HOST >> /root/.ssh/known_hosts
+		H=`grep "^$HOST " /root/.ssh/known_hosts`
+		[ "$H" = "" ] && ssh-keyscan -t rsa $HOST >> /root/.ssh/known_hosts
 	done
 fi
 chmod -R go-rwX /root/.ssh
