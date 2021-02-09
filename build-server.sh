@@ -81,7 +81,7 @@ do
 				sudo docker pull $FROM
 			fi
 			V=""
-			[ $JVM != "latest" ] && V=$JVM
+			[ $JVM != "latest" ] && V="-$JVM"
 			sudo docker build --network host -f Dockerfile-$TAG -t $SERVER:$TAG$SRVEXT$JVMEXT --build-arg date=$DATE --build-arg variant=$V --build-arg jvm=$JVM .
 			echo "Done"
 		done
