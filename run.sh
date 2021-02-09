@@ -17,6 +17,12 @@ fi
 TOMCAT_DIR=/usr/local/tomcat
 [ ! -d $TOMCAT_DIR/webapps ] && mkdir $TOMCAT_DIR/webapps
 
+if [ -d $TOMCAT_DIR/.ssh ]
+then
+	cp -r $TOMCAT_DIR/.ssh /root
+	chmod -R go-rwX /root/.ssh
+fi
+
 TEMPLATE_DIR=/usr/local/tomcat/template
 if [ ! -d $TEMPLATE_DIR -a "$GIT_URL" != "" ]
 then
