@@ -23,7 +23,7 @@ then
 	touch /root/.ssh/known_hosts
 	for HOST in $SSH_KNOWN_HOSTS
 	do
-		ssh-keyscan -t rsa $HOST >> /root/.ssh/known_hosts
+		[ `grep "^$HOST " /root/.ssh/known_hosts` = "" ] && ssh-keyscan -t rsa $HOST >> /root/.ssh/known_hosts
 	done
 fi
 chmod -R go-rwX /root/.ssh
