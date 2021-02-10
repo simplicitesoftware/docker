@@ -34,19 +34,32 @@ SERVER=simplicite/server
 
 for SRV in $SRVS
 do
-	echo "Updating $SRV.git"
-	cd $SRV.git
-	git config remote.origin.fetch 'refs/heads/*:refs/heads/*'
-	git fetch --verbose --all --force
-	cd ..
-	echo "Done"
+	if [ -d $SRV.git ]
+	then
+		echo "Updating $SRV.git"
+		cd $SRV.git
+		git config remote.origin.fetch 'refs/heads/*:refs/heads/*'
+		git fetch --verbose --all --force
+		cd ..
+		echo "Done"
 
-	echo "Checkouting $SRV as tomcat..."
-	rm -fr tomcat
-	mkdir tomcat
-	git --work-tree=tomcat --git-dir=$SRV.git checkout -f master
-	rm -f tomcat/*.bat tomcat/bin/*.bat tomcat/bin/*.exe tomcat/bin/*.dll
-	echo "Done"
+		echo "Checkouting $SRV as tomcat..."
+		rm -fr tomcat
+		mkdir tomcat
+		git --work-tree=tomcat --git-dir=$SRV.git checkout -f master
+		rm -f tomcat/*.bat tomcat/bin/*.bat tomcat/bin/*.exe tomcat/bin/*.dll
+		echo "Done"
+	elif [ -d $SRV ]
+	then
+		echo "Copying $SRV as tomcat..."
+		rm -fr tomcat
+		cp -r $SRV tomcat
+		echo "Done"
+	else
+		echo "Unknown server $SRV, aborting" >&2
+		rm -f $LOCK
+		exit 3
+	fi
 
 	SRVEXT=""
 	[ $SRV != "tomcat" ] && SRVEXT="-$SRV"

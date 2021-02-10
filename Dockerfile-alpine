@@ -1,4 +1,4 @@
-FROM openjdk:15-alpine
+FROM alpine:latest
 
 ARG date
 LABEL org.label-schema.name="simplicite-server-alpine" \
@@ -12,10 +12,9 @@ LABEL org.label-schema.name="simplicite-server-alpine" \
 
 RUN apk update && \
     apk upgrade && \
-    apk add --update bash openssh git curl wget zip unzip ca-certificates libjpeg mysql-client postgresql-client && \
+    apk add --update bash openssh-client git curl wget zip unzip ca-certificates libjpeg openjdk11-jre mysql-client postgresql-client && \
     rm -rf /var/cache/apk/*
-ENV LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8
-# JAVA_HOME is defined by default
+ENV LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8 JAVA_HOME=/usr/lib/jvm/default-jvm
 
 COPY tomcat /usr/local/tomcat
 COPY run.sh /usr/local/tomcat/run
@@ -25,5 +24,5 @@ RUN update-ca-certificates && \
 
 WORKDIR /usr/local/tomcat
 
-EXPOSE 8080 8443 8444 8009 8005 8000 8555
+EXPOSE 8080 8443 8444 8009 8005 8555
 CMD [ "/usr/local/tomcat/run" ]
