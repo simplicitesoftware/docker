@@ -77,7 +77,7 @@ elif [ "$1" = "4.0-latest-light" ]
 then
 	VERSION=4.0
 	BRANCH=release-light
-	TAGS="centos centos-jre centos-openjdk-11 centos-openjdk-11-jre centos-openjdk-1.8.0 centos-openjdk-1.8.0-jre"
+	TAGS="centos centos-jre centos-openjdk-11 centos-openjdk-11-jre centos-openjdk-1.8.0"
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-devel" ]
