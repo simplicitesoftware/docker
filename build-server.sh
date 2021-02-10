@@ -18,13 +18,11 @@ date > $LOCK
 echo ""
 echo "--------------------------------------------------------"
 
-TAGS="centos-base centos centos8-base centos8 devel adoptopenjdk-hotspot adoptopenjdk-openj9"
-[ "$1" != "" ] && TAGS=$1
+TAGS=${1:-centos-base centos centos8-base centos8 devel adoptopenjdk-hotspot adoptopenjdk-openj9}
 echo "Variants(s) = $TAGS"
 
-#SRVS="tomcat tomee"
-SRVS=tomcat
-[ "$2" != "" ] && SRVS=$2
+#SRVS=${2:-tomcat tomee}
+SRVS=${2:-tomcat}
 echo "Server(s) = $SRVS"
 
 echo "--------------------------------------------------------"

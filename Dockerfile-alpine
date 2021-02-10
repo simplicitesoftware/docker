@@ -14,7 +14,7 @@ RUN apk update && \
     apk upgrade && \
     apk add --update bash openssh-client git curl wget zip unzip ca-certificates libjpeg openjdk11-jre mysql-client postgresql-client && \
     rm -rf /var/cache/apk/*
-ENV LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8 JAVA_HOME=/usr/lib/jvm/default-jvm
+ENV ALPINE=alpine LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8 JAVA_HOME=/usr/lib/jvm/default-jvm
 
 COPY tomcat /usr/local/tomcat
 COPY run.sh /usr/local/tomcat/run

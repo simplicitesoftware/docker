@@ -2,7 +2,7 @@
 
 if [ "$1" = "" -o "$1" = "--help" ]
 then
-	echo "Usage: `basename $0` 3.1|3.2|<4.0|5>-alpha[-light]|<4.0|5>-beta[-light]|<4.0|5>-latest[-light]|<4.0|5>-devel" >&2
+	echo "Usage: `basename $0` 3.1|3.2|<4.0|5>-alpha[-light]|<4.0|5>-beta[-light]|<4.0|5>-latest[-light]|<4.0|5>-devel [<server image tag(s)>]" >&2
 	exit 1
 fi
 
@@ -21,14 +21,14 @@ if [ "$1" = "3.1" ]
 then
 	VERSION=3.1
 	BRANCH=master
-	TAGS=centos
+	TAGS=${2:-centos}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "3.2" ]
 then
 	VERSION=3.2
 	BRANCH=master
-	TAGS=centos
+	TAGS=${2:-centos}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "4.0-devel" ]
@@ -42,42 +42,42 @@ elif [ "$1" = "4.0-alpha" ]
 then
 	VERSION=4.0
 	BRANCH=master
-	TAGS=centos
+	TAGS=${2:-centos}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "4.0-alpha-light" ]
 then
 	VERSION=4.0
 	BRANCH=master-light
-	TAGS=centos
+	TAGS=${2:-centos}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "4.0-beta" ]
 then
 	VERSION=4.0
 	BRANCH=prerelease
-	TAGS=centos
+	TAGS=${2:-centos}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "4.0-beta-light" ]
 then
 	VERSION=4.0
 	BRANCH=prerelease-light
-	TAGS=centos
+	TAGS=${2:-centos}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "4.0-latest" ]
 then
 	VERSION=4.0
 	BRANCH=release
-	TAGS="centos centos-jre centos-openjdk-11 centos-openjdk-11-jre"
+	TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "4.0-latest-light" ]
 then
 	VERSION=4.0
 	BRANCH=release-light
-	TAGS="centos centos-jre centos-openjdk-11 centos-openjdk-11-jre centos-openjdk-1.8.0"
+	TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre centos-openjdk-1.8.0}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-devel" ]
@@ -91,49 +91,49 @@ elif [ "$1" = "5-alpha" ]
 then
 	VERSION=5
 	BRANCH=master
-	TAGS=centos
+	TAGS=${2:-centos}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-alpha-light" ]
 then
 	VERSION=5
 	BRANCH=master-light
-	TAGS=centos
+	TAGS=${2:-centos}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-alpha-test" ]
 then
 	VERSION=5
 	BRANCH=master
-	TAGS="centos8 adoptopenjdk-hotspot adoptopenjdk-openj9"
+	TAGS=${2:-centos8 adoptopenjdk-hotspot adoptopenjdk-openj9}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-beta" ]
 then
 	VERSION=5
 	BRANCH=prerelease
-	TAGS=centos
+	TAGS=${2:-centos}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-beta-light" ]
 then
 	VERSION=5
 	BRANCH=prerelease-light
-	TAGS=centos
+	TAGS=${2:-centos}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-latest" ]
 then
 	VERSION=5
 	BRANCH=release
-	TAGS="centos centos-jre centos-openjdk-11 centos-openjdk-11-jre"
+	TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-latest-light" ]
 then
 	VERSION=5
 	BRANCH=release-light
-	TAGS="centos centos-jre centos-openjdk-11 centos-openjdk-11-jre"
+	TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre}
 	SRVS=tomcat
 	PFTAG=$1
 else
