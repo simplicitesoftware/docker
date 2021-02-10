@@ -11,8 +11,7 @@ LABEL org.label-schema.name="simplicite-server-devel" \
       org.opencontainers.image.vendor="Simplicite Software" \
       org.opencontainers.image.created="${date}"
 
-RUN dnf -y install vim-enhanced gcc gcc-c++ make nmap && dnf clean all && \
-    dnf clean all
+RUN dnf install -y vim-enhanced gcc gcc-c++ make nmap && dnf clean all
 
 RUN wget -qO- https://download.java.net/java/GA/jdk15.0.1/51f4f36ad4ef43e39d0dfdbaf6549e32/9/GPL/openjdk-15.0.1_linux-x64_bin.tar.gz | tar xfz - -C /opt
 ENV JAVA_HOME=/opt/jdk-15.0.1 PATH=/opt/jdk-15.0.1/bin/:$PATH

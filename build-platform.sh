@@ -164,6 +164,12 @@ echo "Checkouting $TEMPLATE..."
 rm -fr $TEMPLATE
 mkdir $TEMPLATE
 git --work-tree=$TEMPLATE --git-dir=$TEMPLATE.git checkout -f $BRANCH
+chmod +x $TEMPLATE/tools/*.sh && \
+echo "Done"
+
+echo "Generating Oracle and SQLServer scripts in $TEMPLATE..."
+$TEMPLATE/tools/convert-mssql.sh simplicite $TEMPLATE/app/WEB-INF/db/simplicite.script
+$TEMPLATE/tools/convert-oracle.sh simplicite $TEMPLATE/app/WEB-INF/db/simplicite.script
 echo "Done"
 
 PROPS=$TEMPLATE/app/WEB-INF/classes/com/simplicite/globals.properties
