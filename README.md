@@ -19,7 +19,7 @@ The images built using these tools are **available on [DockerHub](https://hub.do
 - Public **server** images (not containing the Simplicit&eacute; platform)
 - Private **platform** images (containing the Simplicit&eacute; platform)
 
-It also contains other scripts for building other Simpicit&eacute;&reg;-related images.
+It also contains other scripts for building other Simplicit&eacute;&reg;-related images.
 
 Usage
 -----
