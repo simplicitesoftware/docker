@@ -45,10 +45,9 @@ limitations under the License.
 Third party components
 ----------------------
 
-The base server images are based on the official [centos image](https://hub.docker.com/_/centos/) and [openjdk:alpine image](https://hub.docker.com/_/openjdk/)
-and their standard additional packages. It also contains the following custom components:
+The base server images are based on the official CentOS, AdoptOpenJDK and Apline images and their standard additional packages.
+They also contain the following additional components:
 
-- Apache Tomcat released under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0)
-- HyperSQL (HSQLDB) engine and JDBC driver released under [a custom BSD style license](http://hsqldb.org/web/hsqlLicense.html)
-- MySQL connector/J JDBC driver released under [LGPL license](https://www.gnu.org/licenses/lgpl-3.0.en.html)
-- PostgreSQL JDBC driver released under [a custom BSD style license](https://jdbc.postgresql.org/about/license.html)
+- Apache Tomcat released under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0) with:
+	- the MySQL connector/J JDBC driver released under [LGPL license](https://www.gnu.org/licenses/lgpl-3.0.en.html)
+	- the PostgreSQL JDBC driver released under [a custom BSD style license](https://jdbc.postgresql.org/about/license.html)
