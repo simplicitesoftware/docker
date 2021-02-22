@@ -9,7 +9,7 @@ Using Simplicit&eacute;&reg; server image
 Introduction
 ------------
 
-This repository contains tools to **build** [Docker](http://www.docker.com) images that contains a pre-configured
+This repository contains the scripts used to **build** [Docker](http://www.docker.com) images that contains a pre-configured
 [Tomcat](http://tomcat.apache.org/) server on which can be run a [Simplicit&eacute;&reg;](http://www.simplicitesoftware.com)
 low code platform instance.
 
@@ -18,7 +18,7 @@ The images built using these tools are **available on [DockerHub](https://hub.do
 - Public **server** images (not containing the Simplicit&eacute; platform)
 - Private **platform** images (containing the Simplicit&eacute; platform)
 
-> **Warning**: Chances are what you are looking for are the above **pre-built images** available on **DockerHub**.
+It also contains other scripts for building other Simpicit&eacute;&reg;-related images.
 
 Usage
 -----
