@@ -1,5 +1,5 @@
 ARG jvm
-FROM adoptopenjdk:${jvm}-openj9
+FROM adoptopenjdk:${jvm}-hotspot
 
 ARG date
 LABEL org.label-schema.name="simplicite-server-adoptopenjdk-${jvm}" \

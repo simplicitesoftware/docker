@@ -25,13 +25,13 @@ echo "Variants(s) = $TAGS"
 SRVS=${2:-tomcat}
 echo "Server(s) = $SRVS"
 
+JVMS_CENTOS="latest 11 1.8.0"
+JVMS_ADOPTOPENJDK="15 15-jre 11 11-jre 8"
+
 echo "--------------------------------------------------------"
 echo ""
 
 SERVER=simplicite/server
-JVMS_CENTOS="latest 11 1.8.0"
-#JVMS_ADOPTOPENJDK="15-hotspot 15-jre-hotspot 15-openj9 15-jre-openj9 11-hotspot 11-jre-hotspot 11-openj9 11-jre-openj9 8-hotspot 8-jre-hotspot 8-openj9 8-jre-openj9"
-JVMS_ADOPTOPENJDK="15 15-jre 11 11-jre 8 8-jre"
 
 for SRV in $SRVS
 do
