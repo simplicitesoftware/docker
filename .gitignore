@@ -1,6 +1,7 @@
 tomcat*
 tomee*
 template*
+test*
 ./Dockerfile
 *.crt
 **/Thumbs.db
