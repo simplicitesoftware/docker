@@ -22,6 +22,7 @@ COPY tomcat /usr/local/tomcat
 COPY run.sh /usr/local/tomcat/run
 COPY *.crt /usr/local/share/ca-certificates/
 RUN update-ca-certificates && \
+    mkdir /usr/local/tomcat/work /usr/local/tomcat/temp /usr/local/tomcat/logs /usr/local/tomcat/conf/Catalina && \
     chmod +x /usr/local/tomcat/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh
 
 WORKDIR /usr/local/tomcat

@@ -1,0 +1,22 @@
+version: "3"
+services:
+  simplicite:
+    image: simplicite/platform:<tag, e.g. 5-latest>
+    restart: always
+    container_name: myapp
+    environment:
+      DB_SETUP: "true"
+      DB_VENDOR: "<mysql|postgresql|mssql|oracle>"
+      DB_HOST: "<your database server hostname or IP address>"
+      DB_PORT: "<your database server hostname or IP address>"
+      DB_USER: "<your database username>"
+      DB_PASSWORD: "<your database password>"
+      DB_NAME: "<your database name>"
+      DB_WAIT: 100
+    ports:
+     - 127.0.0.1:8080:8080
+     - 127.0.0.1:8443:8443
+    volumes:
+    - myapp_git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
+volumes:
+  myapp_git:

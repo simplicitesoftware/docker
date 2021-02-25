@@ -17,18 +17,23 @@ fi
 TOMCAT_DIR=/usr/local/tomcat
 [ ! -d $TOMCAT_DIR/webapps ] && mkdir $TOMCAT_DIR/webapps
 
-[ -d $TOMCAT_DIR/.ssh ] && cp -fr $TOMCAT_DIR/.ssh /root
-[ ! -d /root/.ssh ] && mkdir /root/.ssh
 if [ ! -z "$SSH_KNOWN_HOSTS" ]
 then
-	touch /root/.ssh/known_hosts
-	for HOST in $SSH_KNOWN_HOSTS
-	do
-		H=`grep "^$HOST " /root/.ssh/known_hosts`
-		[ "$H" = "" ] && ssh-keyscan -t rsa $HOST >> /root/.ssh/known_hosts
-	done
+	if [ -w /root ]
+	then
+		[ -d $TOMCAT_DIR/.ssh ] && cp -fr $TOMCAT_DIR/.ssh /root
+		[ ! -d /root/.ssh ] && mkdir /root/.ssh
+		touch /root/.ssh/known_hosts
+		for HOST in $SSH_KNOWN_HOSTS
+		do
+			H=`grep "^$HOST " /root/.ssh/known_hosts`
+			[ "$H" = "" ] && ssh-keyscan -t rsa $HOST >> /root/.ssh/known_hosts
+		done
+		chmod -R go-rwX /root/.ssh
+	else
+		echo "Warning: /root is read-only, unable to register known hosts"
+	fi
 fi
-chmod -R go-rwX /root/.ssh
 
 TEMPLATE_DIR=/usr/local/tomcat/template
 if [ ! -d $TEMPLATE_DIR -a "$GIT_URL" != "" ]

@@ -10,7 +10,7 @@ services:
     volumes:
     - myapp-mssql:/var/opt/mssql
   simplicite:
-    image: simplicite/platform:5-alpha
+    image: simplicite/platform:<tag, e.g. 5-latest>
     restart: always
     container_name: myapp-mssql-webapp
     environment:

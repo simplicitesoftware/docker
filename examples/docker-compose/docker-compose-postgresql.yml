@@ -11,7 +11,7 @@ services:
     volumes:
     - myapp-postgresql-db:/var/lib/postgresql/data
   simplicite:
-    image: simplicite/platform:5-alpha
+    image: simplicite/platform:<tag, e.g. 5-latest>
     restart: always
     container_name: myapp-postgresql-webapp
     environment:
