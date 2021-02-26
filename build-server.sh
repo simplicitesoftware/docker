@@ -125,9 +125,9 @@ do
 				echo ""
 				if [ $TAG = "centos" -o $TAG = "centos8" ]
 				then
-					echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 $SERVER:$TAG$SRVEXT$JVMEXT-jre"
+					echo "sudo docker run -it --memory=128m -p 9090:8080 -p 9443:8443 --name simplicite $SERVER:$TAG$SRVEXT$JVMEXT-jre"
 				fi
-				echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 $SERVER:$TAG$SRVEXT$JVMEXT"
+				echo "sudo docker run -it --rm --memory=128m -p 9090:8080 -p 9443:8443 --name=simplicite $SERVER:$TAG$SRVEXT$JVMEXT"
 				echo ""
 				if [ $TAG = "centos" -o $TAG = "centos8" ]
 				then

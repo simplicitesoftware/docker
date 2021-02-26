@@ -29,7 +29,7 @@ echo "Done"
 
 echo "-- $IMG ------------------"
 echo ""
-echo "sudo docker run -it --rm -p 9901:9001 $IMG"
+echo "sudo docker run -it --rm -p 9901:9001 --name hsqldb $IMG"
 echo ""
 echo "sudo docker push $IMG"
 echo ""
