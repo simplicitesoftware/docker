@@ -31,7 +31,7 @@ then
 		done
 		chmod -R go-rwX /root/.ssh
 	else
-		echo "Warning: /root is read-only, unable to register known hosts"
+		echo "WARNING: /root is read-only, unable to register known hosts"
 	fi
 fi
 
