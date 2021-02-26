@@ -62,6 +62,12 @@ do
 		exit 3
 	fi
 
+	for DIR in work work/Catalina conf/Cataline temp logs
+	do
+		[ ! -d tomcat/$DIR ] && mkdir tomcat/$DIR
+	done
+	echo 'CATALINA_PID="$CATALINA_BASE/work/catalina.pid"' > tomcat/bin/setenv.sh
+
 	SRVEXT=""
 	[ $SRV != "tomcat" ] && SRVEXT="-$SRV"
 
