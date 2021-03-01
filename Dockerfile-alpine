@@ -10,18 +10,16 @@ LABEL org.label-schema.name="simplicite-server-alpine" \
       org.opencontainers.image.vendor="Simplicite Software" \
       org.opencontainers.image.created="$date"
 
-RUN apk update && \
-    apk upgrade && \
+RUN apk update && apk upgrade && \
     apk add --update bash openssh-client git curl wget zip unzip ca-certificates libjpeg openjdk11-jre mysql-client postgresql-client && \
-    rm -rf /var/cache/apk/*
+    rm -rf /var/cache/apk/* && \
+    mkdir /root/.ssh && chmod 700 /root/.ssh
 ENV ALPINE=alpine LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8 JAVA_HOME=/usr/lib/jvm/default-jvm
 
 COPY tomcat /usr/local/tomcat
 COPY run.sh /usr/local/tomcat/run
 COPY *.crt /usr/local/share/ca-certificates/
-RUN update-ca-certificates && \
-    mkdir /usr/local/tomcat/work /usr/local/tomcat/temp /usr/local/tomcat/logs /usr/local/tomcat/conf/Catalina && \
-    chmod +x /usr/local/tomcat/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh
+RUN update-ca-certificates && chmod +x /usr/local/tomcat/run
 
 WORKDIR /usr/local/tomcat
 

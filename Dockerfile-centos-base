@@ -15,15 +15,14 @@ RUN yum upgrade -y && \
     yum install -y epel-release && \
     yum install -y yum-utils bash openssh-clients git curl wget zip unzip ca-certificates libjpeg mariadb postgresql && \
     yum clean all && rm -rf /var/cache/yum && \
-    package-cleanup --oldkernels --count=1
+    package-cleanup --oldkernels --count=1 && \
+    mkdir /root/.ssh && chmod 700 /root/.ssh
 ENV CENTOS=7 LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8
 
 COPY tomcat /usr/local/tomcat
 COPY run.sh /usr/local/tomcat/run
 COPY *.crt /etc/pki/ca-trust/source/anchors/
-RUN /bin/update-ca-trust extract && \
-    mkdir /usr/local/tomcat/work /usr/local/tomcat/temp /usr/local/tomcat/logs /usr/local/tomcat/conf/Catalina && \
-    chmod +x /usr/local/tomcat/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh
+RUN /bin/update-ca-trust extract && chmod +x /usr/local/tomcat/run
 
 WORKDIR /usr/local/tomcat
 

@@ -18,7 +18,7 @@ date > $LOCK
 echo ""
 echo "--------------------------------------------------------"
 
-TAGS=${1:-centos-base centos centos8-base centos8 devel adoptopenjdk}
+TAGS=${1:-alpine centos-base centos centos8-base centos8 devel adoptopenjdk}
 echo "Variants(s) = $TAGS"
 
 #SRVS=${2:-tomcat tomee}
@@ -62,7 +62,8 @@ do
 		exit 3
 	fi
 
-	for DIR in work work/Catalina conf/Cataline temp logs
+	chmod +x tomcat/*.sh tomcat/bin/*.sh
+	for DIR in work work/Catalina conf/Cataline temp logs webapps
 	do
 		[ ! -d tomcat/$DIR ] && mkdir tomcat/$DIR
 	done

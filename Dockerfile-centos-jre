@@ -12,7 +12,5 @@ LABEL org.label-schema.name="simplicite-server-centos7-openjdk-${jvm}-jre" \
       org.opencontainers.image.vendor="Simplicite Software" \
       org.opencontainers.image.created="${date}"
 
-RUN yum install -y java-${jvm}-openjdk && \
-    yum clean all && \
-    rm -rf /var/cache/yum
+RUN yum install -y java-${jvm}-openjdk && yum clean all && rm -rf /var/cache/yum
 ENV JAVA_HOME=/usr/lib/jvm/jre

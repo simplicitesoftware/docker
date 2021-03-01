@@ -139,6 +139,15 @@ git --work-tree=$TEMPLATE --git-dir=$TEMPLATE.git checkout -f $BRANCH
 chmod +x $TEMPLATE/tools/*.sh && \
 echo "Done"
 
+echo "Enabling console logging in $TEMPLATE..."
+# Log4J version 1.x
+LOG4J="$TEMPLATE/app/WEB-INF/classes/log4j.xml"
+[ -f $LOG4J ] && sed -i 's/<!-- appender-ref ref="SIMPLICITE-CONSOLE"\/ -->/<appender-ref ref="SIMPLICITE-CONSOLE"\/>/' $LOG4J
+# Log4J version 2.x
+LOG4J2="$TEMPLATE/app/WEB-INF/classes/log4j2.xml"
+[ -f $LOG4J2 ] && sed -i 's/<!-- AppenderRef ref="SIMPLICITE-CONSOLE"\/ -->/<AppenderRef ref="SIMPLICITE-CONSOLE"\/>/' $LOG4J2
+echo "Done"
+
 echo "Generating Oracle and SQLServer scripts in $TEMPLATE..."
 $TEMPLATE/tools/convert-mssql.sh simplicite $TEMPLATE/app/WEB-INF/db/simplicite.script
 $TEMPLATE/tools/convert-oracle.sh simplicite $TEMPLATE/app/WEB-INF/db/simplicite.script

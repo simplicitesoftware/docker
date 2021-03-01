@@ -19,10 +19,14 @@ TOMCAT_DIR=/usr/local/tomcat
 
 if [ ! -z "$SSH_KNOWN_HOSTS" ]
 then
-	if [ -w /root ]
+	if [ -w /root -a ! -d /root/.ssh ]
 	then
-		[ -d $TOMCAT_DIR/.ssh ] && cp -fr $TOMCAT_DIR/.ssh /root
-		[ ! -d /root/.ssh ] && mkdir /root/.ssh
+		mkdir /root/.ssh
+		chmod go-rwX /root/.ssh
+	fi
+	if [ -w /root/.ssh ]
+	then
+		[ -d $TOMCAT_DIR/.ssh ] && cp -fr $TOMCAT_DIR/.ssh/* /root/.ssh/
 		touch /root/.ssh/known_hosts
 		for HOST in $SSH_KNOWN_HOSTS
 		do
@@ -31,7 +35,7 @@ then
 		done
 		chmod -R go-rwX /root/.ssh
 	else
-		echo "WARNING: /root is read-only, unable to register known hosts"
+		echo "WARNING: /root/.ssh is read-only, unable to register keys and/or known hosts"
 	fi
 fi
 

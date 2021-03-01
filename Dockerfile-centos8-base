@@ -14,15 +14,14 @@ LABEL org.label-schema.name="simplicite-server-centos8-base" \
 RUN dnf upgrade -y && \
     dnf install -y epel-release && \
     dnf install -y bash openssh-clients git curl wget zip unzip ca-certificates libjpeg mariadb postgresql && \
-    dnf clean all
+    dnf clean all && \
+    mkdir /root/.ssh && chmod 700 /root/.ssh
 ENV CENTOS=8 LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8
 
 COPY tomcat /usr/local/tomcat
 COPY run.sh /usr/local/tomcat/run
 COPY *.crt /etc/pki/ca-trust/source/anchors/
-RUN /bin/update-ca-trust extract && \
-    mkdir /usr/local/tomcat/work /usr/local/tomcat/temp /usr/local/tomcat/logs /usr/local/tomcat/conf/Catalina && \
-    chmod +x /usr/local/tomcat/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh
+RUN /bin/update-ca-trust extract && chmod +x /usr/local/tomcat/run
 
 WORKDIR /usr/local/tomcat
 
