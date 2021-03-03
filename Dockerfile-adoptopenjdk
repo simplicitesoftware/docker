@@ -14,16 +14,15 @@ LABEL org.label-schema.name="simplicite-server-adoptopenjdk-${jvm}" \
 RUN apt-get update && \
     apt-get upgrade -y&& \
     apt-get install -y bash openssh-client git curl wget zip unzip ca-certificates libjpeg-dev mysql-client postgresql-client && \
-    apt-get clean
+    apt-get clean && \
+    mkdir /root/.ssh && chmod 700 /root/.ssh
 ENV ADOPTOPENJDK=${jvm} LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8
 # JAVA_HOME is defined by default
 
 COPY tomcat /usr/local/tomcat
 COPY run.sh /usr/local/tomcat/run
 COPY *.crt /usr/local/share/ca-certificates/
-RUN update-ca-certificates && \
-    mkdir /usr/local/tomcat/work /usr/local/tomcat/temp /usr/local/tomcat/logs /usr/local/tomcat/conf/Catalina && \
-    chmod +x /usr/local/tomcat/run /usr/local/tomcat/*.sh /usr/local/tomcat/bin/*.sh
+RUN update-ca-certificates && chmod +x /usr/local/tomcat/run
 
 WORKDIR /usr/local/tomcat
 

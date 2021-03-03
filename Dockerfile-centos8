@@ -13,8 +13,7 @@ LABEL org.label-schema.name="simplicite-server-centos8-openjdk-${jvm}-jdk" \
       org.opencontainers.image.vendor="Simplicite Software" \
       org.opencontainers.image.created="${date}"
 
-RUN dnf install -y java-${jvm}-openjdk-devel && \
-    dnf clean all
+RUN dnf install -y java-${jvm}-openjdk-devel && dnf clean all
 ENV JAVA_HOME=/usr/lib/jvm/java
 
 EXPOSE 8000
