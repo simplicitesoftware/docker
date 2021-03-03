@@ -29,6 +29,7 @@ then
 			H=`grep "^$HOST " /root/.ssh/known_hosts`
 			[ "$H" = "" ] && ssh-keyscan -t rsa $HOST >> /root/.ssh/known_hosts
 		done
+		[ -f /root/.ssh/id_rsa ] && grep -q 'BEGIN OPENSSH PRIVATE KEY' /root/.ssh/id_rsa && ssh-keygen -p -N "" -m pem -f /root/.ssh/id_rsa
 		chmod -R go-rwX /root/.ssh
 	else
 		echo "WARNING: /root is read-only, unable to register known hosts"
