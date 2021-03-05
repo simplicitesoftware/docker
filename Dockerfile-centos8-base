@@ -16,7 +16,7 @@ RUN dnf upgrade -y && \
     dnf install -y bash openssh-clients git curl wget zip unzip ca-certificates libjpeg mariadb postgresql && \
     dnf clean all && \
     mkdir /root/.ssh && chmod 700 /root/.ssh
-ENV CENTOS=8 LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8
+ENV DOCKER=centos8 LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8
 
 COPY tomcat /usr/local/tomcat
 COPY run.sh /usr/local/tomcat/run

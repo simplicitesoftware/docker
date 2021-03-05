@@ -16,7 +16,7 @@ RUN apt-get update && \
     apt-get install -y bash openssh-client git curl wget zip unzip ca-certificates libjpeg-dev mysql-client postgresql-client && \
     apt-get clean && \
     mkdir /root/.ssh && chmod 700 /root/.ssh
-ENV ADOPTOPENJDK=${jvm} LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8
+ENV DOCKER=adoptopenjdk${jvm} LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8
 # JAVA_HOME is defined by default
 
 COPY tomcat /usr/local/tomcat
