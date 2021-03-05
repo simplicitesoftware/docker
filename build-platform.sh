@@ -70,7 +70,7 @@ elif [ "$1" = "5-alpha-test" ]
 then
 	VERSION=5
 	BRANCH=master
-	TAGS=${2:-centos8}
+	TAGS=${2:-centos8 alpine}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-devel" ]
@@ -148,9 +148,21 @@ LOG4J2="$TEMPLATE/app/WEB-INF/classes/log4j2.xml"
 [ -f $LOG4J2 ] && sed -i 's/<!-- AppenderRef ref="SIMPLICITE-CONSOLE"\/ -->/<AppenderRef ref="SIMPLICITE-CONSOLE"\/>/' $LOG4J2
 echo "Done"
 
+grep -q '<!-- database -->' $TEMPLATE/app/META-INF/context.xml
+if [ $? = 0 ]
+then
+	echo "Removing old databases resources..."
+	for DB in hsqldb mysql postgresql oracle mssql
+	do
+		sed -i "/<!-- $DB --></,/><!-- $DB -->/d" $TEMPLATE/app/META-INF/context.xml
+	done
+	sed -i "s/<!-- database --><!-- /<!-- database --></;s/ --><!-- database -->/><!-- database -->/" $TEMPLATE/app/META-INF/context.xml
+	echo "Done"
+fi
+
 echo "Generating Oracle and SQLServer scripts in $TEMPLATE..."
-$TEMPLATE/tools/convert-mssql.sh simplicite $TEMPLATE/app/WEB-INF/db/simplicite.script
-$TEMPLATE/tools/convert-oracle.sh simplicite $TEMPLATE/app/WEB-INF/db/simplicite.script
+$TEMPLATE/tools/convert-mssql.sh simplicite $TEMPLATE/app/WEB-INF/db/simplicite.script > /dev/null
+$TEMPLATE/tools/convert-oracle.sh simplicite $TEMPLATE/app/WEB-INF/db/simplicite.script > /dev/null
 echo "Done"
 
 PROPS=$TEMPLATE/app/WEB-INF/classes/com/simplicite/globals.properties

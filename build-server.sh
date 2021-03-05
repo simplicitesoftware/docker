@@ -69,6 +69,9 @@ do
 	done
 	echo 'CATALINA_PID="$CATALINA_BASE/work/catalina.pid"' > tomcat/bin/setenv.sh
 
+	sed -i 's/<!-- SSL Connector/<Connector/;s/Connector SSL -->/Connector>/' tomcat/conf/server.xml
+	sed -i 's/<!-- AJP Connector/<Connector/;s/Connector AJP -->/Connector>/' tomcat/conf/server.xml
+
 	SRVEXT=""
 	[ $SRV != "tomcat" ] && SRVEXT="-$SRV"
 
