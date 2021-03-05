@@ -5,6 +5,13 @@ services:
     restart: always
     container_name: myapp
     environment:
+      DB_SETUP: "true"
+      DB_VENDOR: "<database vendor, e.g. mysql or postgresql>"
+      DB_HOST: "<database host>"
+      DB_PORT: "<database port>"
+      DB_USER: "<database user>"
+      DB_PASSWORD: "<database password>"
+      DB_NAME: "<database name>"
       IO_PASSWORD: "<a very strong password dedicated to I/O access (only if needed)>"
     ports:
       - 127.0.0.1:8080:8080
