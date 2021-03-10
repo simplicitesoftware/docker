@@ -17,27 +17,27 @@ fi
 TOMCAT_ROOT=/usr/local/tomcat
 [ ! -d $TOMCAT_ROOT/webapps ] && mkdir $TOMCAT_ROOT/webapps
 
-if [ ! -z "$SSH_KNOWN_HOSTS" ]
+if [ -w /root -a ! -d /root/.ssh ]
 then
-	if [ -w /root -a ! -d /root/.ssh ]
+	mkdir /root/.ssh
+	chmod go-rwX /root/.ssh
+fi
+if [ -w /root/.ssh ]
+then
+	[ -d $TOMCAT_ROOT/.ssh ] && cp -fr $TOMCAT_ROOT/.ssh/* /root/.ssh/
+	[ -f /root/.ssh/id_rsa ] && grep -q 'BEGIN OPENSSH PRIVATE KEY' /root/.ssh/id_rsa && ssh-keygen -p -N "" -m pem -f /root/.ssh/id_rsa
+	touch /root/.ssh/known_hosts
+	if [ ! -z "$SSH_KNOWN_HOSTS" ]
 	then
-		mkdir /root/.ssh
-		chmod go-rwX /root/.ssh
-	fi
-	if [ -w /root/.ssh ]
-	then
-		[ -d $TOMCAT_ROOT/.ssh ] && cp -fr $TOMCAT_ROOT/.ssh/* /root/.ssh/
-		touch /root/.ssh/known_hosts
 		for HOST in $SSH_KNOWN_HOSTS
 		do
 			H=`grep "^$HOST " /root/.ssh/known_hosts`
 			[ "$H" = "" ] && ssh-keyscan -t rsa $HOST >> /root/.ssh/known_hosts
 		done
-		[ -f /root/.ssh/id_rsa ] && grep -q 'BEGIN OPENSSH PRIVATE KEY' /root/.ssh/id_rsa && ssh-keygen -p -N "" -m pem -f /root/.ssh/id_rsa
-		chmod -R go-rwX /root/.ssh
-	else
-		echo "WARNING: /root/.ssh is read-only, unable to register keys and/or known hosts"
 	fi
+	chmod -R go-rwX /root/.ssh
+else
+	echo "WARNING: /root/.ssh is read-only, unable to register keys and/or known hosts"
 fi
 
 TEMPLATE_DIR=/usr/local/tomcat/template
