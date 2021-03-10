@@ -1,0 +1,23 @@
+version: "3"
+services:
+  simplicite:
+    image: simplicite/platform:<tag, e.g. 5-latest>
+    restart: always
+    container_name: myapp
+    environment:
+      JPDA: "true"
+      #JPDA_SUSPEND: "y"
+      SSH_KNOWN_HOSTS: "github.com gitlab.com"
+    ports:
+      - 127.0.0.1:8080:8080
+      - 127.0.0.1:8443:8443
+      - 8000:8000
+    volumes:
+      - myapp_db:/usr/local/tomcat/webapps/ROOT/WEB-INF/db
+      - myapp_dbdoc:/usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc
+      - myapp_git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
+      - ~/.ssh:/usr/local/tomcat/.ssh:ro
+volumes:
+  myapp_db:
+  myapp_dbdoc:
+  myapp_git:
