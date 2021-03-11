@@ -100,7 +100,7 @@ do
 			echo "Building $SERVER:$TAG$SRVEXT$JVMEXT image..."
 			echo "========================================================"
 			DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
-			if [ $TAG != "centos" -a $TAG != "centos8" ]
+			if [ $TAG != "centos" -a $TAG != "centos8" -a $TAG != "devel" ]
 			then
 				FROM=`grep '^FROM' Dockerfile-$TAG | awk '{ print $2 }'`
 				sudo docker pull $FROM
