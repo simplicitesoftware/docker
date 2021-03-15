@@ -31,25 +31,18 @@ then
 	TAGS=${2:-centos}
 	SRVS=tomcat
 	PFTAG=$1
-elif [ "$1" = "4.0-latest" ]
+elif [ "$1" = "4.0" -o "$1" = "4.0-latest" ]
 then
 	VERSION=4.0
 	BRANCH=release
 	TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre adoptopenjdk-openjdk-15 adoptopenjdk-openjdk-11}
 	SRVS=tomcat
 	PFTAG=$1
-elif [ "$1" = "4.0-latest-light" ]
+elif [ "$1" = "4.0-light" -o "$1" = "4.0-latest-light" ]
 then
 	VERSION=4.0
 	BRANCH=release-light
 	TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre centos-openjdk-1.8.0 adoptopenjdk-openjdk-15 adoptopenjdk-openjdk-11 adoptopenjdk-openjdk-8}
-	SRVS=tomcat
-	PFTAG=$1
-elif [ "$1" = "4.0-devel" ]
-then
-	VERSION=4.0
-	BRANCH=master
-	TAGS=devel
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-alpha" ]
