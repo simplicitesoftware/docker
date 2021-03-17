@@ -7,3 +7,6 @@ ADD https://download.oracle.com/otn_software/linux/instantclient/211000/oracle-i
 RUN yum install -y libaio && yum clean all && \
     rpm -i /tmp/oracle-instantclient-basic-21.1.0.0.0-1.x86_64.rpm /tmp/oracle-instantclient-sqlplus-21.1.0.0.0-1.x86_64.rpm && \
     rm -f /tmp/*.rpm
+
+# Set Oracle encoding to UTF-8
+ENV NLS_LANG=.AL32UTF8
