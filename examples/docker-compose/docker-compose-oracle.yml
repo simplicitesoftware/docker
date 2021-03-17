@@ -1,0 +1,30 @@
+version: "3"
+services:
+  # ZZZ Prerequisites:
+  #
+  # 1) deploy an oracle database (for instance as a Docker image, see the /oraclexe directory for an example Oracle XE 11g image)
+  #    create a user with appropriate grants (see the /oraclexe/init.sql for an example)
+  #
+  # 2) build a platform image with the Oracle client using the /Dockerfile-platform-oracle:
+  #    > sudo docker build -t simplicite/platform:5-oracle -f Dockerfile-platform-oracle .
+  #
+  simplicite:
+    image: simplicite/platform:<tag, e.g. 5-latest-oracle>
+    restart: always
+    container_name: myapp-oracle-webapp
+    environment:
+      DB_SETUP: "true"
+      DB_VENDOR: "oracle"
+      DB_HOST: "<oracle server hostname or IP address>"
+      DB_PORT: "<oracle server port>"
+      DB_USER: "<user name, e.g. simplicite>"
+      DB_PASSWORD: "<password, e.g. simplicite>"
+      DB_NAME: "<SID, e.g. xe>"
+      DB_WAIT: 100
+    ports:
+    - 127.0.0.1:8080:8080
+    - 127.0.0.1:8443:8443
+    volumes:
+    - myapp-oracle-git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
+volumes:
+  myapp-mssql-git:
