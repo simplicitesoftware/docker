@@ -1,13 +1,13 @@
+# ZZZ Prerequisites:
+#
+# 1) deploy an oracle database (for instance from a Docker image, see the /oraclexe directory for an example f custom Oracle XE 11g image)
+#    create a user with appropriate grants (see the /oraclexe/init.sql for an example)
+#
+# 2) build a platform image with the Oracle client using the /Dockerfile-platform-oracle:
+#    > sudo docker build -t simplicite/platform:5-latest-oracle -f Dockerfile-platform-oracle .
+#
 version: "3"
 services:
-  # ZZZ Prerequisites:
-  #
-  # 1) deploy an oracle database (for instance as a Docker image, see the /oraclexe directory for an example Oracle XE 11g image)
-  #    create a user with appropriate grants (see the /oraclexe/init.sql for an example)
-  #
-  # 2) build a platform image with the Oracle client using the /Dockerfile-platform-oracle:
-  #    > sudo docker build -t simplicite/platform:5-oracle -f Dockerfile-platform-oracle .
-  #
   simplicite:
     image: simplicite/platform:<tag, e.g. 5-latest-oracle>
     restart: always

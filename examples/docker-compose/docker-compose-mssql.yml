@@ -1,3 +1,8 @@
+# ZZZ Prerequisites:
+#
+# build a platform image with the Oracle client using the /Dockerfile-platform-mssql:
+# > sudo docker build -t simplicite/platform:5-latest-mssql -f Dockerfile-platform-mssql .
+#
 version: "3"
 services:
   db:
@@ -10,7 +15,7 @@ services:
     volumes:
     - myapp-mssql:/var/opt/mssql
   simplicite:
-    image: simplicite/platform:<tag, e.g. 5-latest>
+    image: simplicite/platform:<tag, e.g. 5-latest-mssql>
     restart: always
     container_name: myapp-mssql-webapp
     environment:

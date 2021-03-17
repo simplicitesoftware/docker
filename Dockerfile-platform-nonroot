@@ -1,4 +1,4 @@
-ARG tag=latest
+ARG tag=5-latest
 FROM simplicite/platform:$tag
 
 ARG ctx=simplicite
