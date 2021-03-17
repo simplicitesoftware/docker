@@ -13,7 +13,7 @@ services:
       ACCEPT_EULA: Y
       SA_PASSWORD: "A_Str0ng_Passw0rd!!"
     volumes:
-    - myapp-mssql:/var/opt/mssql
+      - myapp-mssql:/var/opt/mssql
   simplicite:
     image: simplicite/platform:<tag, e.g. 5-latest-mssql>
     restart: always
@@ -27,12 +27,12 @@ services:
       DB_NAME: "simplicite"
       DB_WAIT: 100
     ports:
-    - 127.0.0.1:8080:8080
-    - 127.0.0.1:8443:8443
+      - 127.0.0.1:8080:8080
+      - 127.0.0.1:8443:8443
     volumes:
-    - myapp-mssql-git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
+      - myapp-mssql-git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
     depends_on:
-    - db
+      - db
 volumes:
   myapp-mssql-db:
   myapp-mssql-git:

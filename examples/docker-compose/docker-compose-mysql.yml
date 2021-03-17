@@ -10,8 +10,11 @@ services:
       MYSQL_DATABASE: "simplicite"
       MYSQL_USER: "simplicite"
       MYSQL_PASSWORD: "simplicite"
+    # Uncomment if you need to access the database from the host
+    #ports:
+    #  - 127.0.0.1:3306:3306
     volumes:
-    - myapp-mysql-db:/var/lib/mysql
+      - myapp-mysql-db:/var/lib/mysql
   simplicite:
     image: simplicite/platform:<tag, e.g. 5-latest>
     restart: always
@@ -25,12 +28,12 @@ services:
       DB_NAME: "simplicite"
       DB_WAIT: 100
     ports:
-     - 127.0.0.1:8080:8080
-     - 127.0.0.1:8443:8443
+      - 127.0.0.1:8080:8080
+      - 127.0.0.1:8443:8443
     volumes:
-    - myapp-mysql-git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
+      - myapp-mysql-git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
     depends_on:
-    - db
+      - db
 volumes:
   myapp-mysql-db:
   myapp-mysql-git:

@@ -14,9 +14,9 @@ services:
       DB_NAME: "<your database name>"
       DB_WAIT: 100
     ports:
-     - 127.0.0.1:8080:8080
-     - 127.0.0.1:8443:8443
+      - 127.0.0.1:8080:8080
+      - 127.0.0.1:8443:8443
     volumes:
-    - myapp_git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
+      - myapp_git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
 volumes:
   myapp_git:
