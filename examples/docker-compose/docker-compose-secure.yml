@@ -50,10 +50,14 @@ services:
       - /usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc/export
       - /usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc/index
     volumes:
-      - myapp_db:/usr/local/tomcat/webapps/ROOT/WEB-INF/db
-      - myapp_dbdoc:/usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc
+      # For HSQLDB only
+      #- myapp_db:/usr/local/tomcat/webapps/ROOT/WEB-INF/db
+      # For HSQLDB or non-BLOB deployments only
+      #- myapp_dbdoc:/usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc
       - myapp_git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
 volumes:
-  myapp_db:
-  myapp_dbdoc:
+  # For HSQLDB only
+  #myapp_db:
+  # For HSQLDB or non-BLOB deployments only
+  #myapp_dbdoc:
   myapp_git:
