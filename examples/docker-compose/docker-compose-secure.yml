@@ -7,15 +7,15 @@ services:
     environment:
       IO_PASSWORD: "<a very strong password dedicated to I/O access (only if needed)>"
       DB_SETUP: "true"
-      DB_VENDOR: "<database vendor, e.g. hsqldb, mysql, postgresql, oracle, msssql>"
-      # The following variables are not required with embedded HSQLDB
+      DB_VENDOR: "<database vendor: hsqldb, mysql, postgresql, oracle or msssql>"
+      # The following variables are *not* required with embedded HSQLDB
       DB_HOST: "<database host>"
       DB_PORT: "<database port>"
       DB_USER: "<database user>"
       DB_PASSWORD: "<database password>"
       DB_NAME: "<database name>"
     ports:
-      # For non SSL endoint of HTTP reverse proxying
+      # For *non* SSL endoint of HTTP reverse proxying
       - 127.0.0.1:8080:8080
       # For SSL endpoint of HTTP reverse proxying
       - 127.0.0.1:8443:8443
@@ -55,14 +55,14 @@ services:
       - /usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc/export
       - /usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc/index
     volumes:
-      # For embedded HSQLDB only
+      # For embedded HSQLDB *only*
       #- myapp_db:/usr/local/tomcat/webapps/ROOT/WEB-INF/db
-      # For embedded HSQLDB or non-BLOB deployments only
+      # For embedded HSQLDB or non-BLOB deployments *only*
       #- myapp_dbdoc:/usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc
       - myapp_git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
 volumes:
-  # For embedded HSQLDB only
+  # For embedded HSQLDB *only*
   #myapp_db:
-  # For embedded HSQLDB or non-BLOB deployments only
+  # For embedded HSQLDB or non-BLOB deployments *only*
   #myapp_dbdoc:
   myapp_git:
