@@ -7,13 +7,13 @@ Oracle XE example
 Build the custom image:
 
 ```bash
-sudo docker build -t oraclexe .
+sudo docker build -t myoraclexe .
 ```
 
 Run a container:
 
 ```bash
-sudo docker run -it --rm -p 127.0.0.1:1521:1521 oraclexe
+sudo docker run -it --rm -p 127.0.0.1:1521:1521 myoraclexe
 ```
 
 If you have SQL*Plus installed you can now connect to this database as `simplicite` with:
