@@ -1,7 +1,7 @@
 Oracle XE example
 ------------------
 
-> **Warning**: this is just an example to launch an **epthemereal** Oracle 11g XE database from an **unofficial** Docker image.
+> **Warning**: this is just an example to launch an **ephemeral** Oracle 11g XE database from an **unofficial** Docker image.
 > **Never** use this example for production!
 
 Build the custom image:

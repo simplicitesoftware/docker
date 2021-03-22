@@ -1,7 +1,7 @@
 SQLServer example
 -----------------
 
-> **Warning**: this is just an example to launch an **epthemereal** SQLServer 2019 database.
+> **Warning**: this is just an example to launch an **ephemeral** SQLServer 2019 database.
 > **Never** use this example for production!
 
 Build the custom image:

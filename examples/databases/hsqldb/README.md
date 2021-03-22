@@ -1,7 +1,7 @@
 Non embedded (server) HSQLDB example
 ------------------------------------
 
-> **Warning**: this is just an example to launch an **epthemereal** HSQLDB database.
+> **Warning**: this is just an example to launch an **ephemeral** HSQLDB database.
 > **Never** use this example for production!
 
 Build the custom image:
