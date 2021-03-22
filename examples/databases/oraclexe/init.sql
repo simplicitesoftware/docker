@@ -1,3 +1,6 @@
+-- Required for Oracle 18c XE
+alter session set "_ORACLE_SCRIPT"=true;
+
 create user simplicite identified by simplicite;
 grant connect, resource to simplicite;
 grant create sequence to simplicite;
