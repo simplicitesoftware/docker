@@ -29,3 +29,5 @@ If you have SQL*Plus installed you can now connect to this database as `simplici
 ```bash
 sqlplus simplicite/simplicite@127.0.0.1:1521/xe
 ```
+
+> **Note**: the persistence can be managed by mounting a persistent volume on `/opt/oracle/oradata`
