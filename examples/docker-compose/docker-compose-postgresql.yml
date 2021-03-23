@@ -26,8 +26,12 @@ services:
       DB_NAME: "simplicite"
       DB_WAIT: 100
     ports:
+      # For *non* SSL endoint of HTTP reverse proxying
       - 127.0.0.1:8080:8080
+      # For SSL endpoint of HTTP reverse proxying
       - 127.0.0.1:8443:8443
+      # For AJP reverse proxying
+      - 127.0.0.1:8009:8009
     volumes:
       - myapp-postgresql-git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
     depends_on:

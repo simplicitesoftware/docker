@@ -7,11 +7,11 @@ SQLServer example
 Build the custom image:
 
 ```bash
-sudo docker build -t mysqlserver .
+sudo docker build -t mymssql .
 ```
 
 Run a container:
 
 ```bash
-sudo docker run -it --rm -p 127.0.0.1:1433:1433 mysqlserver
+sudo docker run -it --rm -p 127.0.0.1:1433:1433 mymssql
 ```

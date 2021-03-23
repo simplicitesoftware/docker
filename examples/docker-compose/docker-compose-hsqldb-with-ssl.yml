@@ -5,8 +5,8 @@ services:
     restart: always
     container_name: myapp
     ports:
-      - 81:8080
-      - 444:8444
+      - 80:8080
+      - 443:8444
     environment:
       SSL: "true"
       KEYSTORE_FILE: "/usr/local/tomcat/cert/manager.simplicite.io.jks"
