@@ -6,7 +6,7 @@ services:
     restart: always
     container_name: myapp-mssql-database
     volumes:
-      - myapp-mssql:/var/opt/mssql
+      - myapp-mssql-db:/var/opt/mssql
   simplicite:
     build:
       context: .
