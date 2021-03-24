@@ -26,7 +26,7 @@ SRVS=${2:-tomcat}
 echo "Server(s) = $SRVS"
 
 JVMS_CENTOS="latest 11 1.8.0"
-JVMS_ADOPTOPENJDK="15 11 8"
+JVMS_ADOPTOPENJDK="openjdk16 openjdk11"
 
 echo "--------------------------------------------------------"
 echo ""
@@ -84,7 +84,15 @@ do
 		for JVM in $JVMS
 		do
 			JVMEXT=""
-			[ $JVM != "latest" ] && JVMEXT="-openjdk-$JVM"
+			if [ $JVM != "latest" ]
+			then
+				if [ $TAG = "adoptopenjdk" ]
+				then
+					JVMEXT="-$JVM"
+				else
+					JVMEXT="-openjdk-$JVM"
+				fi
+			fi
 
 			if [ $TAG = "centos" -o $TAG = "centos8" ]
 			then
@@ -92,7 +100,7 @@ do
 				echo "Building $SERVER:$TAG$SRVEXT$JVMEXT-jre image..."
 				echo "========================================================"
 				DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
-				sudo docker build --network host -f Dockerfile-$TAG-jre -t $SERVER:$TAG$SRVEXT$JVMEXT-jre --build-arg date=$DATE --build-arg jvm=$JVM .
+				sudo docker build --network host -f Dockerfile-$TAG-jre -t $SERVER:$TAG$SRVEXT$JVMEXT-jre --build-arg date="$DATE" --build-arg jvm="$JVM" .
 				echo "Done"
 			fi
 
@@ -105,7 +113,7 @@ do
 				FROM=`grep '^FROM' Dockerfile-$TAG | awk '{ print $2 }'`
 				sudo docker pull $FROM
 			fi
-			sudo docker build --network host -f Dockerfile-$TAG -t $SERVER:$TAG$SRVEXT$JVMEXT --build-arg date=$DATE --build-arg variant=$JVMEXT --build-arg jvm=$JVM .
+			sudo docker build --network host -f Dockerfile-$TAG -t $SERVER:$TAG$SRVEXT$JVMEXT --build-arg date="$DATE" --build-arg variant="$JVMEXT" --build-arg jvm="$JVM" .
 			echo "Done"
 		done
 	done
@@ -127,7 +135,15 @@ do
 		for JVM in $JVMS
 		do
 			JVMEXT=""
-			[ $JVM != "latest" ] && JVMEXT="-openjdk-$JVM"
+			if [ $JVM != "latest" ]
+			then
+				if [ $TAG = "adoptopenjdk" ]
+				then
+					JVMEXT="-$JVM"
+				else
+					JVMEXT="-openjdk-$JVM"
+				fi
+			fi
 
 			if [ $TAG != "centos-base" -a $TAG != "centos8-base" ]
 			then
