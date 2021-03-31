@@ -63,7 +63,7 @@ elif [ "$1" = "5-alpha-test" ]
 then
 	VERSION=5
 	BRANCH=master
-	TAGS=${2:-centos8 alpine}
+	TAGS=${2:-centos8 alpine adoptopenjdk-openjdk16}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-devel" ]
