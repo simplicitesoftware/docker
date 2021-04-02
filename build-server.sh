@@ -26,7 +26,7 @@ SRVS=${2:-tomcat}
 echo "Server(s) = $SRVS"
 
 JVMS_CENTOS="latest 11 1.8.0"
-JVMS_ADOPTOPENJDK="openjdk16 openjdk15 openjdk11 openjdk8"
+JVMS_ADOPTOPENJDK="openjdk16 openjdk11 openjdk8"
 
 echo "--------------------------------------------------------"
 echo ""
