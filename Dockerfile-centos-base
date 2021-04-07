@@ -11,11 +11,11 @@ LABEL org.label-schema.name="simplicite-server-centos7-base" \
       org.opencontainers.image.vendor="Simplicite Software" \
       org.opencontainers.image.created="${date}"
 
-RUN yum upgrade -y && \
-    yum install -y epel-release && \
-    yum install -y yum-utils bash openssh-clients git curl wget zip unzip ca-certificates libjpeg mariadb postgresql && \
-    yum clean all && rm -rf /var/cache/yum && \
-    package-cleanup --oldkernels --count=1 && \
+RUN yum install -y dnf && yum clean all && rm -rf /var/cache/yum && \
+    dnf upgrade -y && \
+    dnf install -y epel-release && \
+    dnf install -y bash openssh-clients git curl wget zip unzip ca-certificates libjpeg mariadb postgresql && \
+    dnf clean all && \
     mkdir /root/.ssh && chmod 700 /root/.ssh
 ENV DOCKER=centos7 LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8
 
