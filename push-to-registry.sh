@@ -16,12 +16,12 @@ do
 		docker push simplicite/$IMG$TAG
 		echo "Done"
 
-		if [ "$DOCKER_PRIVATE_REGISTRY_URL" != "" ]
+		if [ "$DOCKER_PRIVATE_REGISTRY_HOST" != "" ]
 		then
-			echo "Pushing image $IMG$TAG to local registry $DOCKER_PRIVATE_REGISTRY_URL"
-			docker tag simplicite/$IMG$TAG $DOCKER_PRIVATE_REGISTRY_URL/$IMG$TAG
-			docker push $DOCKER_PRIVATE_REGISTRY_URL/$IMG$TAG
-			docker rmi $DOCKER_PRIVATE_REGISTRY_URL/$IMG$TAG
+			echo "Pushing image $IMG$TAG to local registry $DOCKER_PRIVATE_REGISTRY_HOST"
+			docker tag simplicite/$IMG$TAG $DOCKER_PRIVATE_REGISTRY_HOST/$IMG$TAG
+			docker push $DOCKER_PRIVATE_REGISTRY_HOST/$IMG$TAG
+			docker rmi $DOCKER_PRIVATE_REGISTRY_HOST/$IMG$TAG
 			echo "Done"
 		fi
 	done
