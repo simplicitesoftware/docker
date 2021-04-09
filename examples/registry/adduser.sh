@@ -6,7 +6,7 @@ then
 	exit -1
 fi
 
-DIR=${REGISTRY_AUTH:-/mnt/registry/auth}
+DIR=${REGISTRY_DIR:-/mnt/registry}
 
 USER=$1
 PWD=$2
