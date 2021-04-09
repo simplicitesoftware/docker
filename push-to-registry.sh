@@ -11,7 +11,7 @@ do
 
 	for TAG in `docker images | grep "^simplicite.$IMG" | awk '{print ":"$2}'`
 	do
-	echo ""
+		echo ""
 		echo "Pushing image $IMG$TAG to DockerHub registry"
 		docker push simplicite/$IMG$TAG
 		echo "Done"
