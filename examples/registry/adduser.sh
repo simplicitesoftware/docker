@@ -6,9 +6,7 @@ then
 	exit -1
 fi
 
-pushd `dirname $0` > /dev/null
-DIR=`pwd`
-popd > /dev/null
+DIR=${REGISTRY_AUTH:-/mnt/registry/auth}
 
 USER=$1
 PWD=$2

@@ -1,4 +1,4 @@
 ARG tag=5-latest
 FROM simplicite/platform:$tag
-RUN yum -y install openssl xorg-x11-fonts-75dpi && yum clean all && \
+RUN dnf -y install openssl xorg-x11-fonts-75dpi && dnf clean all && \
     rpm -i https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox-0.12.6-1.centos7.x86_64.rpm
