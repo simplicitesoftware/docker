@@ -13,7 +13,7 @@ do
 	do
 	echo ""
 		echo "Pushing image $IMG$TAG to DockerHub registry"
-		sudo docker push simplicite/$IMG$TAG
+		docker push simplicite/$IMG$TAG
 		echo "Done"
 
 		if [ "$DOCKER_PRIVATE_REGISTRY_URL" != "" ]

@@ -9,19 +9,19 @@ Build the base Oracle 18c XE image (see [this document](https://blogs.oracle.com
 ```bash
 git clone https://github.com/oracle/docker-images.git
 cd docker-images/OracleDatabase/SingleInstance/dockerfiles
-sudo ./buildContainerImage.sh -v 18.4.0 -x
+./buildContainerImage.sh -v 18.4.0 -x
 ```
 
 Build the custom image:
 
 ```bash
-sudo docker build -t myoraclexe .
+docker build -t myoraclexe .
 ```
 
 Run a **test** ephemeral container:
 
 ```bash
-sudo docker run -it --rm -p 127.0.0.1:1521:1521 myoraclexe
+docker run -it --rm -p 127.0.0.1:1521:1521 myoraclexe
 ```
 
 If you have SQL*Plus installed on your host machine you can now connect to this database with:

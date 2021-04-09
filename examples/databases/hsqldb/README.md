@@ -7,11 +7,11 @@ Non embedded (server) HSQLDB example
 Build the custom image:
 
 ```bash
-sudo docker build -t myhsqldb .
+docker build -t myhsqldb .
 ```
 
 Run a container:
 
 ```bash
-sudo docker run -it --rm -p 127.0.0.1:9001:9001 myhsqldb
+docker run -it --rm -p 127.0.0.1:9001:9001 myhsqldb
 ```

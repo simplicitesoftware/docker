@@ -100,7 +100,7 @@ do
 				echo "Building $SERVER:$TAG$SRVEXT$JVMEXT-jre image..."
 				echo "========================================================"
 				DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
-				sudo docker build --network host -f Dockerfile-$TAG-jre -t $SERVER:$TAG$SRVEXT$JVMEXT-jre --build-arg date="$DATE" --build-arg jvm="$JVM" .
+				docker build --network host -f Dockerfile-$TAG-jre -t $SERVER:$TAG$SRVEXT$JVMEXT-jre --build-arg date="$DATE" --build-arg jvm="$JVM" .
 				echo "Done"
 			fi
 
@@ -111,9 +111,9 @@ do
 			if [ $TAG != "centos" -a $TAG != "centos8" -a $TAG != "devel" ]
 			then
 				FROM=`grep '^FROM' Dockerfile-$TAG | awk '{ print $2 }'`
-				sudo docker pull $FROM
+				docker pull $FROM
 			fi
-			sudo docker build --network host -f Dockerfile-$TAG -t $SERVER:$TAG$SRVEXT$JVMEXT --build-arg date="$DATE" --build-arg variant="$JVMEXT" --build-arg jvm="$JVM" .
+			docker build --network host -f Dockerfile-$TAG -t $SERVER:$TAG$SRVEXT$JVMEXT --build-arg date="$DATE" --build-arg variant="$JVMEXT" --build-arg jvm="$JVM" .
 			echo "Done"
 		done
 	done
@@ -151,20 +151,20 @@ do
 				echo ""
 				if [ $TAG = "centos" -o $TAG = "centos8" ]
 				then
-					echo "sudo docker run -it --memory=128m -p 9090:8080 -p 9443:8443 --name simplicite $SERVER:$TAG$SRVEXT$JVMEXT-jre"
+					echo "docker run -it --memory=128m -p 9090:8080 -p 9443:8443 --name simplicite $SERVER:$TAG$SRVEXT$JVMEXT-jre"
 				fi
-				echo "sudo docker run -it --rm --memory=128m -p 9090:8080 -p 9443:8443 --name=simplicite $SERVER:$TAG$SRVEXT$JVMEXT"
+				echo "docker run -it --rm --memory=128m -p 9090:8080 -p 9443:8443 --name=simplicite $SERVER:$TAG$SRVEXT$JVMEXT"
 				echo ""
 				if [ $TAG = "centos" -o $TAG = "centos8" ]
 				then
-					echo "sudo docker push $SERVER:$TAG$SRVEXT$JVMEXT-jre"
+					echo "docker push $SERVER:$TAG$SRVEXT$JVMEXT-jre"
 				fi
-				echo "sudo docker push $SERVER:$TAG$SRVEXT$JVMEXT"
+				echo "docker push $SERVER:$TAG$SRVEXT$JVMEXT"
 				if [ $TAG = "centos" -a $SRV = "tomcat" -a $JVM = "latest" ]
 				then
-					echo "sudo docker tag $SERVER:$TAG $SERVER:latest"
-					echo "sudo docker push $SERVER:latest"
-					echo "sudo docker rmi $SERVER:latest"
+					echo "docker tag $SERVER:$TAG $SERVER:latest"
+					echo "docker push $SERVER:latest"
+					echo "docker rmi $SERVER:latest"
 				fi
 			fi
 			echo ""

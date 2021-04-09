@@ -28,8 +28,8 @@ do
 	echo "========================================================"
 	DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
 	FROM=`grep '^FROM' Dockerfile | awk '{ print $2 }'`
-	sudo docker pull $FROM
-	sudo docker build --network host -t $IMG --build-arg THEIA_TAG=$TAG --build-arg BUILD_DATE=$DATE .
+	docker pull $FROM
+	docker build --network host -t $IMG --build-arg THEIA_TAG=$TAG --build-arg BUILD_DATE=$DATE .
 	echo "Done"
 done
 
@@ -38,9 +38,9 @@ do
 	IMG=simplicite/theia:$TAG
 	echo "-- $IMG ------------------"
 	echo ""
-	echo "sudo docker run -it --rm --init -p 3030:3030 --name=theia  $IMG"
+	echo "docker run -it --rm --init -p 3030:3030 --name=theia  $IMG"
 	echo ""
-	echo "sudo docker push $IMG"
+	echo "docker push $IMG"
 	echo ""
 done
 

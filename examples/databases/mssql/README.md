@@ -7,13 +7,13 @@ SQLServer example
 Build the custom image:
 
 ```bash
-sudo docker build -t mymssql .
+docker build -t mymssql .
 ```
 
 Run a **test** ephemeral container:
 
 ```bash
-sudo docker run -it --rm -p 127.0.0.1:1433:1433 mymssql
+docker run -it --rm -p 127.0.0.1:1433:1433 mymssql
 ```
 
 If you have SQLServer client installed on your host machine you can now connect to this database with:

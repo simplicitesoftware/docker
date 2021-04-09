@@ -176,7 +176,7 @@ do
 		echo "Building $PLATFORM:$PFTAG$EXT image from $SERVER:$TAG..."
 		echo "========================================================"
 		DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
-		sudo docker build --network host -f Dockerfile-platform --build-arg date=$DATE --build-arg tag=$TAG --build-arg version=$VERSION --build-arg branch=$BRANCH --build-arg patchlevel=$PATCHLEVEL --build-arg revision=$REVISION --build-arg commitid=$COMMITID --build-arg template=$TEMPLATE -t $PLATFORM:$PFTAG$EXT .
+		docker build --network host -f Dockerfile-platform --build-arg date=$DATE --build-arg tag=$TAG --build-arg version=$VERSION --build-arg branch=$BRANCH --build-arg patchlevel=$PATCHLEVEL --build-arg revision=$REVISION --build-arg commitid=$COMMITID --build-arg template=$TEMPLATE -t $PLATFORM:$PFTAG$EXT .
 		echo "Done"
 	done
 done
@@ -197,38 +197,38 @@ do
 		[ $SRV != "tomcat" ] && EXT="$EXT-$SRV"
 		echo "-- $PLATFORM:$PFTAG$EXT ------------------"
 		echo ""
-		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 --name=simplicite $PLATFORM:$PFTAG$EXT"
-		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 --name=simplicite -e DB_SETUP=true -e DB_VENDOR=mysql -e DB_HOST=$IP -e DB_PORT=3306 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$PFTAG$EXT"
-		echo "sudo docker run -it --rm -p 9090:8080 -p 9443:8443 --name=simplicite -e DB_SETUP=true -e DB_VENDOR=postgresql -e DB_HOST=$IP -e DB_PORT=5432 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$PFTAG$EXT"
+		echo "docker run -it --rm -p 9090:8080 -p 9443:8443 --name=simplicite $PLATFORM:$PFTAG$EXT"
+		echo "docker run -it --rm -p 9090:8080 -p 9443:8443 --name=simplicite -e DB_SETUP=true -e DB_VENDOR=mysql -e DB_HOST=$IP -e DB_PORT=3306 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$PFTAG$EXT"
+		echo "docker run -it --rm -p 9090:8080 -p 9443:8443 --name=simplicite -e DB_SETUP=true -e DB_VENDOR=postgresql -e DB_HOST=$IP -e DB_PORT=5432 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$PFTAG$EXT"
 		echo ""
-		echo "sudo docker push $PLATFORM:$PFTAG$EXT"
+		echo "docker push $PLATFORM:$PFTAG$EXT"
 		if [ $TAG = "centos" -a $SRV = "tomcat" ]
 		then
 			if [ $PFTAG = "4.0-latest" -o $PFTAG = "5-latest" ]
 			then
-				echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION"
-				echo "sudo docker push $PLATFORM:$VERSION"
+				echo "docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION"
+				echo "docker push $PLATFORM:$VERSION"
 				if [ $PFTAG = "$LATEST-latest" ]
 				then
-					echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:latest"
-					echo "sudo docker push $PLATFORM:latest"
-					echo "sudo docker rmi $PLATFORM:latest"
+					echo "docker tag $PLATFORM:$PFTAG $PLATFORM:latest"
+					echo "docker push $PLATFORM:latest"
+					echo "docker rmi $PLATFORM:latest"
 				fi
-				echo "sudo docker rmi $PLATFORM:$VERSION"
+				echo "docker rmi $PLATFORM:$VERSION"
 			elif [ $PFTAG = "4.0-latest-light" -o $PFTAG = "5-latest-light" ]
 			then
-				echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION-light"
-				echo "sudo docker push $PLATFORM:$VERSION-light"
+				echo "docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION-light"
+				echo "docker push $PLATFORM:$VERSION-light"
 				if [ $PFTAG = "$LATEST-latest-light" ]
 				then
-					echo "sudo docker tag $PLATFORM:$PFTAG $PLATFORM:latest-light"
-					echo "sudo docker push $PLATFORM:latest-light"
-					echo "sudo docker rmi $PLATFORM:latest-light"
+					echo "docker tag $PLATFORM:$PFTAG $PLATFORM:latest-light"
+					echo "docker push $PLATFORM:latest-light"
+					echo "docker rmi $PLATFORM:latest-light"
 				fi
-				echo "sudo docker rmi $PLATFORM:$VERSION-light"
+				echo "docker rmi $PLATFORM:$VERSION-light"
 			fi
 		fi
-		echo "sudo docker rmi $PLATFORM:$PFTAG$EXT"
+		echo "docker rmi $PLATFORM:$PFTAG$EXT"
 		echo ""
 	done
 done
