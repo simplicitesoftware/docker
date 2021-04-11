@@ -17,18 +17,25 @@ date > $LOCK
 
 LATEST=5
 
-if [ "$1" = "3.1" ]
+if [ "$1" = "3.0" ]
+then
+	VERSION=3.0
+	BRANCH=master
+	TAGS=${2:-centos-openjdk-1.8.0}
+	SRVS=tomcat
+	PFTAG=$1
+elif [ "$1" = "3.1" ]
 then
 	VERSION=3.1
 	BRANCH=master
-	TAGS=${2:-centos}
+	TAGS=${2:-centos-openjdk-1.8.0}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "3.2" ]
 then
 	VERSION=3.2
 	BRANCH=master
-	TAGS=${2:-centos}
+	TAGS=${2:-centos-openjdk-1.8.0}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "4.0" -o "$1" = "4.0-latest" ]
@@ -153,10 +160,19 @@ then
 	echo "Done"
 fi
 
-echo "Generating Oracle and SQLServer scripts in $TEMPLATE..."
-$TEMPLATE/tools/convert-mssql.sh simplicite $TEMPLATE/app/WEB-INF/db/simplicite.script > /dev/null
-$TEMPLATE/tools/convert-oracle.sh simplicite $TEMPLATE/app/WEB-INF/db/simplicite.script > /dev/null
-echo "Done"
+if [ -x $TEMPLATE/tools/convert-oracle.sh ]
+then
+	echo "Generating Oracle script in $TEMPLATE..."
+	$TEMPLATE/tools/convert-oracle.sh simplicite $TEMPLATE/app/WEB-INF/db/simplicite.script > /dev/null
+	echo "Done"
+fi
+
+if [ -x $TEMPLATE/tools/convert-mssql.sh ]
+then
+	echo "Generating SQLServer script in $TEMPLATE..."
+	$TEMPLATE/tools/convert-mssql.sh simplicite $TEMPLATE/app/WEB-INF/db/simplicite.script > /dev/null
+	echo "Done"
+fi
 
 PROPS=$TEMPLATE/app/WEB-INF/classes/com/simplicite/globals.properties
 VERSION=`grep platform.version $PROPS | awk -F= '{print $2}'`
