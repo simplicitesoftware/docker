@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$1" = "" ]
+if [ "$1" = "" -o "$1" = "--help" ]
 then
 	echo "Usage: `basename $0` <all|alpha|beta|latest>" >&2 
 	exit -1
