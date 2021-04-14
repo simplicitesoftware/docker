@@ -2,8 +2,15 @@
 
 if [ "$1" = "" -o "$1" = "--help" ]
 then
-	echo "Usage: `basename $0` 3.1|3.2|4.0-latest[-light]|5-<alpha|beta|latest>[-light]|<4.0|5>-devel [<server image tag(s)>]" >&2
+	echo "Usage: `basename $0` [--delete] 3.1|3.2|4.0-latest[-light]|5-<alpha|beta|latest>[-light]|<4.0|5>-devel [<server image tag(s)>]" >&2
 	exit 1
+fi
+
+DEL=0
+if [ "$1" = "--delete" ]
+then
+	DEL=1
+	shift
 fi
 
 LOCK=/tmp/`basename $0 .sh`.lck
@@ -192,6 +199,7 @@ do
 		echo "Building $PLATFORM:$PFTAG$EXT image from $SERVER:$TAG..."
 		echo "========================================================"
 		DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
+		[ $DEL = 1 ] && docker rmi $PLATFORM:$PFTAG$EXT
 		docker build --network host -f Dockerfile-platform --build-arg date=$DATE --build-arg tag=$TAG --build-arg version=$VERSION --build-arg branch=$BRANCH --build-arg patchlevel=$PATCHLEVEL --build-arg revision=$REVISION --build-arg commitid=$COMMITID --build-arg template=$TEMPLATE -t $PLATFORM:$PFTAG$EXT .
 		echo "Done"
 	done
