@@ -2,8 +2,15 @@
 
 if [ "$1" = "--help" ]
 then
-	echo "Usage: `basename $0` [\"<variants(s), defaults to all>\" [\"<server(s)>, defaults to tomcat]\"]" >&2
+	echo "Usage: `basename $0` [--delete] [\"<variants(s), defaults to all>\" [\"<server(s)>, defaults to tomcat]\"]" >&2
 	exit 1
+fi
+
+DEL=0
+if [ "$1" = "--delete" ]
+then
+	DEL=1
+	shift
 fi
 
 LOCK=/tmp/`basename $0 .sh`.lck
@@ -94,12 +101,19 @@ do
 				fi
 			fi
 
+			if [ $TAG != "centos" -a $TAG != "centos8" -a $TAG != "devel" ]
+			then
+				FROM=`grep '^FROM' Dockerfile-$TAG | awk '{ print $2 }'`
+				docker pull $FROM
+			fi
+
 			if [ $TAG = "centos" -o $TAG = "centos8" ]
 			then
 				echo "========================================================"
 				echo "Building $SERVER:$TAG$SRVEXT$JVMEXT-jre image..."
 				echo "========================================================"
 				DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
+				[ $DEL = 1 ] && docker rmi $SERVER:$TAG$SRVEXT$JVMEXT-jre
 				docker build --network host -f Dockerfile-$TAG-jre -t $SERVER:$TAG$SRVEXT$JVMEXT-jre --build-arg date="$DATE" --build-arg jvm="$JVM" .
 				echo "Done"
 			fi
@@ -108,11 +122,7 @@ do
 			echo "Building $SERVER:$TAG$SRVEXT$JVMEXT image..."
 			echo "========================================================"
 			DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
-			if [ $TAG != "centos" -a $TAG != "centos8" -a $TAG != "devel" ]
-			then
-				FROM=`grep '^FROM' Dockerfile-$TAG | awk '{ print $2 }'`
-				docker pull $FROM
-			fi
+			[ $DEL = 1 ] && docker rmi $SERVER:$TAG$SRVEXT$JVMEXT
 			docker build --network host -f Dockerfile-$TAG -t $SERVER:$TAG$SRVEXT$JVMEXT --build-arg date="$DATE" --build-arg variant="$JVMEXT" --build-arg jvm="$JVM" .
 			echo "Done"
 		done
@@ -151,9 +161,9 @@ do
 				echo ""
 				if [ $TAG = "centos" -o $TAG = "centos8" ]
 				then
-					echo "docker run -it --memory=128m -p 9090:8080 -p 9443:8443 --name simplicite $SERVER:$TAG$SRVEXT$JVMEXT-jre"
+					echo "docker run -it --memory=128m -p 8080:8080 -p 127.0.0.1:8443:8443 --name simplicite $SERVER:$TAG$SRVEXT$JVMEXT-jre"
 				fi
-				echo "docker run -it --rm --memory=128m -p 9090:8080 -p 9443:8443 --name=simplicite $SERVER:$TAG$SRVEXT$JVMEXT"
+				echo "docker run -it --rm --memory=128m -p 8080:8080 -p 127.0.0.1:8443:8443 --name=simplicite $SERVER:$TAG$SRVEXT$JVMEXT"
 				echo ""
 				if [ $TAG = "centos" -o $TAG = "centos8" ]
 				then
