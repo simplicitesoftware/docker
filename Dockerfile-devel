@@ -13,15 +13,15 @@ LABEL org.label-schema.name="simplicite-server-devel" \
 
 RUN dnf install -y vim-enhanced gcc gcc-c++ make nmap && dnf clean all
 
-ARG ANT_VERSION=1.10.9
+ARG ANT_VERSION=1.10.10
 RUN wget -qO- https://www-eu.apache.org/dist/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz | tar xfz - -C /opt
 ENV ANT_HOME=/opt/apache-ant-$ANT_VERSION PATH=/opt/apache-ant-$ANT_VERSION/bin/:$PATH
 
-ARG MAVEN_VERSION=3.6.3
+ARG MAVEN_VERSION=3.8.1
 RUN wget -qO- https://www-eu.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xfz - -C /opt
 ENV MAVEN_HOME=/opt/apache-maven-$MAVEN_VERSION PATH=/opt/apache-maven-$MAVEN_VERSION/bin/:$PATH
 
-ARG GRADLE_VERSION=6.8.3
+ARG GRADLE_VERSION=7.0
 RUN cd /opt && wget -q https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip && unzip -q gradle-$GRADLE_VERSION-bin.zip && rm -f gradle-$GRADLE_VERSION-bin.zip
 ENV GRADLE_HOME=/opt/gradle-$GRADLE_VERSION PATH=/opt/gradle-$GRADLE_VERSION/bin/:$PATH
 
