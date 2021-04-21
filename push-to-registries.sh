@@ -7,10 +7,11 @@ then
 fi
 
 IMG=$1
+shift
 
 [ -x /usr/bin/figlet ] && echo "" && /usr/bin/figlet -f small ${IMG^}
 
-TAGS=$2
+TAGS=$*
 [ "$TAGS" = "" ] && TAGS=`docker images | grep "^simplicite.$IMG" | awk '{print $2}'`
 
 for TAG in $TAGS
