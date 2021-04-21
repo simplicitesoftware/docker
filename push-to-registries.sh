@@ -1,13 +1,20 @@
 #!/bin/bash
 
+USAGE="Usage: `basename $0` <server|platform|theia> [<tags>]"
 if [ "$1" = "" -o "$1" = "--help" ]
 then
-	echo "Usage: `basename $0` <server|platform|theia> [<tags>]" >&2
+	echo $USAGE >&2
 	exit -1
 fi
 
 IMG=$1
 shift
+
+if [ $IMG != "server" -a $IMG != "platform" -a $IMG != "theia" ]
+then
+	echo $USAGE >&2
+	exit -1
+fi
 
 [ -x /usr/bin/figlet ] && echo "" && /usr/bin/figlet -f small ${IMG^}
 
