@@ -2,7 +2,7 @@
 
 if [ "$1" = "" -o "$1" = "--help" ]
 then
-	echo "Usage: `basename $0` [--delete] 3.1|3.2|4.0-latest[-light]|5-<alpha|beta|latest>[-light]|<4.0|5>-devel [<server image tag(s)>]" >&2
+	echo "Usage: `basename $0` [--delete] 3.0|3.1|3.2|4.0-latest[-light]|5-<alpha|beta|latest>[-light]|<4.0|5>-devel [<server image tag(s)>]" >&2
 	exit 1
 fi
 

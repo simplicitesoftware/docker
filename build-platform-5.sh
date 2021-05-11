@@ -39,7 +39,7 @@ then
 	docker rmi simplicite/platform:latest-light
 	docker tag simplicite/platform:5-latest-light simplicite/platform:latest-light
 
-	./push-to-registries.sh platform 5-latest-light-adoptopenjdk-openjdk11 5-latest-light-adoptopenjdk-openjdk16 5-latest-light-openjdk-11-jre 5-latest-light-openjdk-11 5-latest-light-jre 5-latest-light 5-light
+	./push-to-registries.sh platform 5-latest-light-adoptopenjdk-openjdk11 5-latest-light-adoptopenjdk-openjdk16 5-latest-light-openjdk-11-jre 5-latest-light-openjdk-11 5-latest-light-jre 5-latest-light 5-light latest-light
 fi
 
 exit 0
