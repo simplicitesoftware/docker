@@ -23,3 +23,4 @@ LABEL org.label-schema.name="simplicite-platform-$version-$branch" \
 
 ARG template
 COPY $template/app /usr/local/tomcat/webapps/ROOT
+COPY $template/tools/sqltool-*.jar /usr/local/tomcat
