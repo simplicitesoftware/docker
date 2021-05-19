@@ -38,12 +38,13 @@ do
 		docker tag simplicite/$IMG:$TAG $DOCKER_PRIVATE_REGISTRY_HOST/$IMG:$TAG
 		docker push $DOCKER_PRIVATE_REGISTRY_HOST/$IMG:$TAG
 		docker rmi $DOCKER_PRIVATE_REGISTRY_HOST/$IMG:$TAG
-		# Garbage collection if local private registry
-		[ "$DOCKER_PRIVATE_REGISTRY_CONTAINER" != "" ] && docker exec $DOCKER_PRIVATE_REGISTRY_CONTAINER /bin/registry garbage-collect -m /etc/docker/registry/config.yml
 		echo "Done"
 	fi
 done
 echo ""
+		
+# Garbage collection if local private registry
+[ "$DOCKER_PRIVATE_REGISTRY_CONTAINER" != "" ] && docker exec $DOCKER_PRIVATE_REGISTRY_CONTAINER /bin/registry garbage-collect -m /etc/docker/registry/config.yml
 
 exit 0
 
