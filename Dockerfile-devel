@@ -21,11 +21,11 @@ ARG MAVEN_VERSION=3.8.1
 RUN wget -qO- https://www-eu.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xfz - -C /opt
 ENV MAVEN_HOME=/opt/apache-maven-$MAVEN_VERSION PATH=/opt/apache-maven-$MAVEN_VERSION/bin/:$PATH
 
-ARG GRADLE_VERSION=7.0
+ARG GRADLE_VERSION=7.0.2
 RUN cd /opt && wget -q https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip && unzip -q gradle-$GRADLE_VERSION-bin.zip && rm -f gradle-$GRADLE_VERSION-bin.zip
 ENV GRADLE_HOME=/opt/gradle-$GRADLE_VERSION PATH=/opt/gradle-$GRADLE_VERSION/bin/:$PATH
 
-ARG NODE_VERSION=v14.16.1
+ARG NODE_VERSION=v14.17.0
 RUN wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - -C /opt
 ENV NODE_HOME=/opt/node-$NODE_VERSION-linux-x64 PATH=/opt/node-$NODE_VERSION-linux-x64/bin/:$PATH
 RUN npm install -g yarn
