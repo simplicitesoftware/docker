@@ -25,7 +25,7 @@ ARG GRADLE_VERSION=7.1
 RUN cd /opt && wget -q https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip && unzip -q gradle-$GRADLE_VERSION-bin.zip && rm -f gradle-$GRADLE_VERSION-bin.zip
 ENV GRADLE_HOME=/opt/gradle-$GRADLE_VERSION PATH=/opt/gradle-$GRADLE_VERSION/bin/:$PATH
 
-ARG NODE_VERSION=v14.17.1
+ARG NODE_VERSION=v14.17.2
 RUN wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - -C /opt
 ENV NODE_HOME=/opt/node-$NODE_VERSION-linux-x64 PATH=/opt/node-$NODE_VERSION-linux-x64/bin/:$PATH
 RUN npm install -g yarn
