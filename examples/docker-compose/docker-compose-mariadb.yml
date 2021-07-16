@@ -15,7 +15,7 @@ services:
     volumes:
       - myapp-mariadb-db:/var/lib/mariadb
   simplicite:
-    image: simplicite/platform:<tag, e.g. 5-latest>
+    image: <simplicite|registry.simplicite.io>/platform:<tag, e.g. 5-latest>
     restart: always
     container_name: myapp-mariadb-webapp
     environment:
