@@ -46,7 +46,7 @@ spec:
     spec:
       containers:
         - name: simplicite
-          image: simplicite/platform:<tag, e.g. 5-latest>
+          image: <simplicite|registry.simplicite.io>/platform:<tag, e.g. 5-latest>
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

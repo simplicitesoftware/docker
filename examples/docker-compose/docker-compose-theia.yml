@@ -1,7 +1,7 @@
 version: "3"
 services:
   simplicite:
-    image: simplicite/platform:<tag, e.g. 5-latest>
+    image: <simplicite|registry.simplicite.io>/platform:<tag, e.g. 5-latest>
     restart: always
     container_name: myapp
     environment:
@@ -18,7 +18,7 @@ services:
       - myapp_dbdoc:/usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc
       - myapp_git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
   theia:
-    image: simplicite/theia:latest
+    image: <simplicite|registry.simplicite.io>/theia:latest
     restart: always
     container_name: myide
     ports:

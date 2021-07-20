@@ -12,7 +12,7 @@ services:
       - ./server.crt:/etc/ssl/server.crt
       - ./server.key:/etc/ssl/server.key
   simplicite:
-    image: simplicite/platform:<tag, e.g. 5-latest>
+    image: <simplicite|registry.simplicite.io>/platform:<tag, e.g. 5-latest>
     restart: always
     container_name: myapp
     volumes:
