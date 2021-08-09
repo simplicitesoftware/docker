@@ -125,6 +125,10 @@ do
 			[ $DEL = 1 ] && docker rmi $SERVER:$TAG$SRVEXT$JVMEXT
 			docker build --network host -f Dockerfile-$TAG -t $SERVER:$TAG$SRVEXT$JVMEXT --build-arg date="$DATE" --build-arg variant="$JVMEXT" --build-arg jvm="$JVM" .
 			echo "Done"
+			if [ $TAG = "centos" -a $SRV = "tomcat" -a $JVM = "latest" ]
+			then
+				docker tag $SERVER:$TAG$SRVEXT$JVMEXT $SERVER:latest
+			fi
 		done
 	done
 done
@@ -172,9 +176,7 @@ do
 				echo "docker push $SERVER:$TAG$SRVEXT$JVMEXT"
 				if [ $TAG = "centos" -a $SRV = "tomcat" -a $JVM = "latest" ]
 				then
-					echo "docker tag $SERVER:$TAG $SERVER:latest"
 					echo "docker push $SERVER:latest"
-					echo "docker rmi $SERVER:latest"
 				fi
 			fi
 			echo ""
