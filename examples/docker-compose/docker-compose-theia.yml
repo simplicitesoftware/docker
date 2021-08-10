@@ -25,7 +25,7 @@ services:
       - 127.0.0.1:3030:3030
       - 127.0.0.1:3000:3000
     volumes:
-      - myide_project:/home/theia/projects
+      - myide_project:/home/theia/project
 volumes:
   myapp_db:
   myapp_dbdoc:
