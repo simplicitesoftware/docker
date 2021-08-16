@@ -59,6 +59,13 @@ then
 	TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre centos-openjdk-1.8.0 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11 adoptopenjdk-openjdk8}
 	SRVS=tomcat
 	PFTAG=$1
+elif [ "$1" = "4.0-devel" ]
+then
+	VERSION=4.0
+	BRANCH=master
+	TAGS=devel
+	SRVS=tomcat
+	PFTAG=$1
 elif [ "$1" = "5-alpha" ]
 then
 	VERSION=5
@@ -193,7 +200,7 @@ do
 	for TAG in $TAGS
 	do
 		EXT=""
-		[ $TAG != "centos" ] && EXT="-`echo $TAG | sed 's/centos-//'`"
+		[ $TAG != "centos" -a $TAG != "devel" ] && EXT="-`echo $TAG | sed 's/centos-//'`"
 		[ $SRV != "tomcat" ] && EXT="$EXT-$SRV"
 		echo "========================================================"
 		echo "Building $PLATFORM:$PFTAG$EXT image from $SERVER:$TAG..."
@@ -217,7 +224,7 @@ do
 	for TAG in $TAGS
 	do
 		EXT=""
-		[ $TAG != "centos" ] && EXT="-`echo $TAG | sed 's/centos-//'`"
+		[ $TAG != "centos" -a $TAG != "devel" ] && EXT="-`echo $TAG | sed 's/centos-//'`"
 		[ $SRV != "tomcat" ] && EXT="$EXT-$SRV"
 		echo "-- $PLATFORM:$PFTAG$EXT ------------------"
 		echo ""
