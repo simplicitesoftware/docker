@@ -2,7 +2,7 @@
 
 if [ "$1" = "" -o "$1" = "--help" ]
 then
-	echo "Usage: `basename $0` <all|alpha|beta|latest>" >&2 
+	echo "Usage: `basename $0` <all|alpha|devel|beta|latest>" >&2 
 	exit -1
 fi
 
@@ -13,6 +13,11 @@ then
 	./build-platform.sh --delete 5-alpha-test
 
 	./push-to-registries.sh platform 5-alpha-test-alpine 5-alpha-test-centos8 5-alpha-light 5-alpha
+fi
+
+if [ "$1" = "devel" ]
+then
+	./build-platform.sh --delete 5-devel
 fi
 
 if [ "$1" = "beta" -o "$1" = "all" ]
