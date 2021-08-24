@@ -31,20 +31,35 @@ fi
 if [ "$1" = "latest" -o "$1" = "all" ]
 then
 	./build-platform.sh --delete 5-latest
-	docker rmi simplicite/platform:5
+	docker rmi simplicite/platform:5 simplicite/platform:latest
 	docker tag simplicite/platform:5-latest simplicite/platform:5
-	docker rmi simplicite/platform:latest
 	docker tag simplicite/platform:5-latest simplicite/platform:latest
 
 	./push-to-registries.sh platform 5-latest-adoptopenjdk-openjdk11 5-latest-adoptopenjdk-openjdk16 5-latest-openjdk-11-jre 5-latest-openjdk-11 5-latest-jre 5-latest 5 latest 
 
 	./build-platform.sh --delete 5-latest-light
-	docker rmi simplicite/platform:5-light
+	docker rmi simplicite/platform:5-light simplicite/platform:latest-light
 	docker tag simplicite/platform:5-latest-light simplicite/platform:5-light
-	docker rmi simplicite/platform:latest-light
 	docker tag simplicite/platform:5-latest-light simplicite/platform:latest-light
 
 	./push-to-registries.sh platform 5-latest-light-adoptopenjdk-openjdk11 5-latest-light-adoptopenjdk-openjdk16 5-latest-light-openjdk-11-jre 5-latest-light-openjdk-11 5-latest-light-jre 5-latest-light 5-light latest-light
+
+	# ZZZ temporary
+	docker rmi simplicite/platform:5.0 simplicite/platform:5.0-light
+	docker tag simplicite/platform:5 simplicite/platform:5.0
+	docker tag simplicite/platform:5-light simplicite/platform:5.0-light
+	./push-to-registries.sh platform 5.0 5.0-light
 fi
+
+# Legacy versions
+
+# ZZZ temporary inhibited
+#if [ "$1" = "5.0" ]
+#then
+#	./build-platform.sh --delete 5.0
+#	./build-platform.sh --delete 5.0-light
+#
+#	./push-to-registries.sh platform 5.0 5.0-light
+#fi
 
 exit 0
