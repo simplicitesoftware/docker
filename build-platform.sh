@@ -122,6 +122,20 @@ then
 	TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
 	SRVS=tomcat
 	PFTAG=$1
+elif [ "$1" = "5.0" ]
+then
+	VERSION=5
+	BRANCH=5.0
+	TAGS=${2:-centos}
+	SRVS=tomcat
+	PFTAG=$1
+elif [ "$1" = "5.0-light" ]
+then
+	VERSION=5
+	BRANCH=5.0-light
+	TAGS=${2:-centos}
+	SRVS=tomcat
+	PFTAG=$1
 else
 	echo "Unknown variant: $1" >&2
 	rm -f $LOCK

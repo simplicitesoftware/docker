@@ -43,23 +43,16 @@ then
 	docker tag simplicite/platform:5-latest-light simplicite/platform:latest-light
 
 	./push-to-registries.sh platform 5-latest-light-adoptopenjdk-openjdk11 5-latest-light-adoptopenjdk-openjdk16 5-latest-light-openjdk-11-jre 5-latest-light-openjdk-11 5-latest-light-jre 5-latest-light 5-light latest-light
-
-	# ZZZ temporary
-	docker rmi simplicite/platform:5.0 simplicite/platform:5.0-light
-	docker tag simplicite/platform:5 simplicite/platform:5.0
-	docker tag simplicite/platform:5-light simplicite/platform:5.0-light
-	./push-to-registries.sh platform 5.0 5.0-light
 fi
 
 # Legacy versions
 
-# ZZZ temporary inhibited
-#if [ "$1" = "5.0" ]
-#then
-#	./build-platform.sh --delete 5.0
-#	./build-platform.sh --delete 5.0-light
+if [ "$1" = "5.0" ]
+then
+	./build-platform.sh --delete 5.0
+	./build-platform.sh --delete 5.0-light
 #
-#	./push-to-registries.sh platform 5.0 5.0-light
-#fi
+	./push-to-registries.sh platform 5.0 5.0-light
+fi
 
 exit 0
