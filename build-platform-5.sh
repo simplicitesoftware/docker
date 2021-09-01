@@ -51,7 +51,7 @@ if [ "$1" = "5.0" ]
 then
 	./build-platform.sh --delete 5.0
 	./build-platform.sh --delete 5.0-light
-#
+
 	./push-to-registries.sh platform 5.0 5.0-light
 fi
 
