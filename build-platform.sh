@@ -272,9 +272,9 @@ do
 		[ $SRV != "tomcat" ] && EXT="$EXT-$SRV"
 		echo "-- $PLATFORM:$PFTAG$EXT ------------------"
 		echo ""
-		echo "docker run -it --rm -p 8080:8080 -p 127.0.0.1:8443:8443 --name=simplicite $PLATFORM:$PFTAG$EXT"
-		echo "docker run -it --rm -p 8080:8080 -p 127.0.0.1:8443:8443 --name=simplicite -e DB_SETUP=true -e DB_VENDOR=mysql -e DB_HOST=$IP -e DB_PORT=3306 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$PFTAG$EXT"
-		echo "docker run -it --rm -p 8080:8080 -p 127.0.0.1:8443:8443 --name=simplicite -e DB_SETUP=true -e DB_VENDOR=postgresql -e DB_HOST=$IP -e DB_PORT=5432 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$PFTAG$EXT"
+		echo "docker run -it --rm -p 127.0.0.1:8080:8080 -p 127.0.0.1:8443:8443 --name=simplicite $PLATFORM:$PFTAG$EXT"
+		echo "docker run -it --rm -p 127.0.0.1:8080:8080 -p 127.0.0.1:8443:8443 --name=simplicite -e DB_SETUP=true -e DB_VENDOR=mysql -e DB_HOST=$IP -e DB_PORT=3306 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$PFTAG$EXT"
+		echo "docker run -it --rm -p 127.0.0.1:8080:8080 -p 127.0.0.1:8443:8443 --name=simplicite -e DB_SETUP=true -e DB_VENDOR=postgresql -e DB_HOST=$IP -e DB_PORT=5432 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$PFTAG$EXT"
 		echo ""
 		echo "docker push $PLATFORM:$PFTAG$EXT"
 		if [ $TAG = "centos" -a $SRV = "tomcat" ]
