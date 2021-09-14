@@ -2,7 +2,7 @@
 
 if [ "$1" = "" -o "$1" = "--help" ]
 then
-	echo "Usage: `basename $0` <all|alpha|devel|beta|latest>" >&2 
+	echo "Usage: `basename $0` <all|alpha|devel|beta|latest> [<additional tags for latest, e.g. \"5.x 5.x.y\">]" >&2 
 	exit -1
 fi
 
@@ -43,6 +43,16 @@ then
 	docker tag simplicite/platform:5-latest-light simplicite/platform:latest-light
 
 	./push-to-registries.sh platform 5-latest-light-adoptopenjdk-openjdk11 5-latest-light-adoptopenjdk-openjdk16 5-latest-light-openjdk-11-jre 5-latest-light-openjdk-11 5-latest-light-jre 5-latest-light 5-light latest-light
+
+	# Additional tags
+	for TAG in $2
+	do
+		docker rmi simplicite/platform:$TAG simplicite/platform:$TAG-light
+		docker tag simplicite/platform:5-latest simplicite/platform:$TAG
+		docker tag simplicite/platform:5-latest-light simplicite/platform:$TAG-light
+		./push-to-registries.sh platform simplicite/platform:$TAG simplicite/platform:$TAG-light
+
+	done
 fi
 
 # Legacy versions
