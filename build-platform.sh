@@ -2,7 +2,7 @@
 
 if [ "$1" = "" -o "$1" = "--help" ]
 then
-	echo "Usage: `basename $0` [--delete] 3.0|3.1|3.2|4.0-latest[-light]|5-<alpha|beta|latest>[-light]|<4.0|5>-devel [<server image tag(s)>]" >&2
+	echo "Usage: `basename $0` [--delete] 3.0|3.1|3.2|4.0-latest[-light]|5-<alpha|beta|latest>[-light]|<4.0|5>-devel [<server image tag(s)> [<platform Git tag (only applicable to 5-latest and 5-latest-light>]]" >&2
 	exit 1
 fi
 
@@ -23,6 +23,7 @@ fi
 date > $LOCK
 
 LATEST=5
+GITTAG=
 
 if [ "$1" = "3.0" ]
 then
@@ -31,6 +32,7 @@ then
 	TAGS=${2:-centos-openjdk-1.8.0}
 	SRVS=tomcat
 	PFTAG=$1
+	CHECKOUT=$BRANCH
 elif [ "$1" = "3.1" ]
 then
 	VERSION=3.1
@@ -38,6 +40,7 @@ then
 	TAGS=${2:-centos-openjdk-1.8.0}
 	SRVS=tomcat
 	PFTAG=$1
+	CHECKOUT=$BRANCH
 elif [ "$1" = "3.2" ]
 then
 	VERSION=3.2
@@ -45,6 +48,7 @@ then
 	TAGS=${2:-centos-openjdk-1.8.0}
 	SRVS=tomcat
 	PFTAG=$1
+	CHECKOUT=$BRANCH
 elif [ "$1" = "4.0" -o "$1" = "4.0-latest" ]
 then
 	VERSION=4.0
@@ -52,6 +56,7 @@ then
 	TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
 	SRVS=tomcat
 	PFTAG=$1
+	CHECKOUT=$BRANCH
 elif [ "$1" = "4.0-light" -o "$1" = "4.0-latest-light" ]
 then
 	VERSION=4.0
@@ -59,6 +64,7 @@ then
 	TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre centos-openjdk-1.8.0 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11 adoptopenjdk-openjdk8}
 	SRVS=tomcat
 	PFTAG=$1
+	CHECKOUT=$BRANCH
 elif [ "$1" = "4.0-devel" ]
 then
 	VERSION=4.0
@@ -66,6 +72,7 @@ then
 	TAGS=devel
 	SRVS=tomcat
 	PFTAG=$1
+	CHECKOUT=$BRANCH
 elif [ "$1" = "5-alpha" ]
 then
 	VERSION=5
@@ -73,6 +80,7 @@ then
 	TAGS=${2:-centos}
 	SRVS=tomcat
 	PFTAG=$1
+	CHECKOUT=$BRANCH
 elif [ "$1" = "5-alpha-light" ]
 then
 	VERSION=5
@@ -80,6 +88,7 @@ then
 	TAGS=${2:-centos}
 	SRVS=tomcat
 	PFTAG=$1
+	CHECKOUT=$BRANCH
 elif [ "$1" = "5-alpha-test" ]
 then
 	VERSION=5
@@ -87,6 +96,7 @@ then
 	TAGS=${2:-centos8 alpine}
 	SRVS=tomcat
 	PFTAG=$1
+	CHECKOUT=$BRANCH
 elif [ "$1" = "5-devel" ]
 then
 	VERSION=5
@@ -94,6 +104,7 @@ then
 	TAGS=devel
 	SRVS=tomcat
 	PFTAG=$1
+	CHECKOUT=$BRANCH
 elif [ "$1" = "5-beta" ]
 then
 	VERSION=5
@@ -101,6 +112,7 @@ then
 	TAGS=${2:-centos}
 	SRVS=tomcat
 	PFTAG=$1
+	CHECKOUT=$BRANCH
 elif [ "$1" = "5-beta-light" ]
 then
 	VERSION=5
@@ -108,20 +120,35 @@ then
 	TAGS=${2:-centos}
 	SRVS=tomcat
 	PFTAG=$1
-elif [ "$1" = "5-latest" ]
+	CHECKOUT=$BRANCH
+elif [ "$1" = "5-latest" -o "$1" = "5" ]
 then
 	VERSION=5
 	BRANCH=release
 	TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
 	SRVS=tomcat
 	PFTAG=$1
-elif [ "$1" = "5-latest-light" ]
+	CHECKOUT=$BRANCH
+	GITTAG=$3
+	if [ "$GITTAG" != "" ]
+	then
+		PFTAG=$GITTAG
+		CHECKOUT=$GITTAG
+	fi
+elif [ "$1" = "5-latest-light" -o "$1" = "5-light" ]
 then
 	VERSION=5
 	BRANCH=release-light
 	TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
 	SRVS=tomcat
 	PFTAG=$1
+	CHECKOUT=$BRANCH
+	GITTAG=$3
+	if [ "$GITTAG" != "" ]
+	then
+		PFTAG=$GITTAG-light
+		CHECKOUT=$GITTAG
+	fi
 elif [ "$1" = "5.0" ]
 then
 	VERSION=5
@@ -129,13 +156,15 @@ then
 	TAGS=${2:-centos}
 	SRVS=tomcat
 	PFTAG=$1
-elif [ "$1" = "5.0-light" ]
+	CHECKOUT=$BRANCH
+elif [ "$1" = "5.0-light" ]V
 then
 	VERSION=5
 	BRANCH=5.0-light
 	TAGS=${2:-centos}
 	SRVS=tomcat
 	PFTAG=$1
+	CHECKOUT=$BRANCH
 else
 	echo "Unknown variant: $1" >&2
 	rm -f $LOCK
@@ -157,13 +186,14 @@ echo "Updating $TEMPLATE"
 cd $TEMPLATE.git
 git config remote.origin.fetch 'refs/heads/*:refs/heads/*'
 git fetch --verbose --all --force
+git fetch --verbose --all --tags
 cd ..
 echo "Done"
 
 echo "Checkouting $TEMPLATE..."
 rm -fr $TEMPLATE
 mkdir $TEMPLATE
-git --work-tree=$TEMPLATE --git-dir=$TEMPLATE.git checkout -f $BRANCH
+git --work-tree=$TEMPLATE --git-dir=$TEMPLATE.git checkout -f $CHECKOUT
 chmod +x $TEMPLATE/tools/*.sh && \
 echo "Done"
 
