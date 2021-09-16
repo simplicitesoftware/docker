@@ -25,7 +25,7 @@ date > $LOCK
 echo ""
 echo "--------------------------------------------------------"
 
-TAGS=${1:-alpine centos-base centos centos8-base centos8 devel adoptopenjdk}
+TAGS=${1:-alpine centos-base centos centos8-base centos8 devel adoptopenjdk openjdk}
 echo "Variants(s) = $TAGS"
 
 #SRVS=${2:-tomcat tomee}
@@ -34,6 +34,7 @@ echo "Server(s) = $SRVS"
 
 JVMS_CENTOS="latest 11 1.8.0"
 JVMS_ADOPTOPENJDK="openjdk16 openjdk11 openjdk8"
+JVMS_OPENJDK="17"
 
 echo "--------------------------------------------------------"
 echo ""
@@ -87,13 +88,14 @@ do
 		JVMS="latest"
 		[ $TAG = "centos" -o $TAG = "centos8" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "adoptopenjdk" ] && JVMS=$JVMS_ADOPTOPENJDK
+		[ $TAG = "openjdk" ] && JVMS=$JVMS_OPENJDK
 
 		for JVM in $JVMS
 		do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "adoptopenjdk" ]
+				if [ $TAG = "adoptopenjdk" -o $TAG = "openjdk" ]
 				then
 					JVMEXT="-$JVM"
 				else
@@ -145,13 +147,14 @@ do
 		JVMS="latest"
 		[ $TAG = "centos" -o $TAG = "centos8" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "adoptopenjdk" ] && JVMS=$JVMS_ADOPTOPENJDK
+		[ $TAG = "openjdk" ] && JVMS=$JVMS_OPENJDK
 
 		for JVM in $JVMS
 		do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "adoptopenjdk" ]
+				if [ $TAG = "adoptopenjdk" -o $TAG = "openjdk" ]
 				then
 					JVMEXT="-$JVM"
 				else
@@ -165,9 +168,9 @@ do
 				echo ""
 				if [ $TAG = "centos" -o $TAG = "centos8" ]
 				then
-					echo "docker run -it --memory=128m -p 8080:8080 -p 127.0.0.1:8443:8443 --name simplicite $SERVER:$TAG$SRVEXT$JVMEXT-jre"
+					echo "docker run -it --memory=128m -p 127.0.0.1:8080:8080 -p 127.0.0.1:8443:8443 --name simplicite $SERVER:$TAG$SRVEXT$JVMEXT-jre"
 				fi
-				echo "docker run -it --rm --memory=128m -p 8080:8080 -p 127.0.0.1:8443:8443 --name=simplicite $SERVER:$TAG$SRVEXT$JVMEXT"
+				echo "docker run -it --rm --memory=128m -p 127.0.0.1:8080:8080 -p 127.0.0.1:8443:8443 --name=simplicite $SERVER:$TAG$SRVEXT$JVMEXT"
 				echo ""
 				if [ $TAG = "centos" -o $TAG = "centos8" ]
 				then

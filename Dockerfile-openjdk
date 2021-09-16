@@ -1,0 +1,28 @@
+ARG jvm
+FROM openjdk:${jvm}-alpine
+
+ARG date
+LABEL org.label-schema.name="simplicite-server-openjdk${jvm}" \
+      org.label-schema.vendor="Simplicite Software" \
+      org.label-schema.build-date="$date" \
+      org.opencontainers.image.ref.name="simplicite-server-openjdk${jvm}" \
+      org.opencontainers.image.title="Simplicite server / OpenJDK ${jvm}" \
+      org.opencontainers.image.description="Simplicite server / OpenJDK ${jvm}" \
+      org.opencontainers.image.vendor="Simplicite Software" \
+      org.opencontainers.image.created="$date"
+
+RUN apk update && apk upgrade && \
+    apk add --update bash openssh-client git curl wget zip unzip ca-certificates libjpeg mysql-client postgresql-client && \
+    rm -rf /var/cache/apk/* && \
+    mkdir /root/.ssh && chmod 700 /root/.ssh
+ENV DOCKER=openjdk LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8
+
+COPY tomcat /usr/local/tomcat
+COPY run.sh /usr/local/tomcat/run
+COPY *.crt /usr/local/share/ca-certificates/
+RUN update-ca-certificates && chmod +x /usr/local/tomcat/run
+
+WORKDIR /usr/local/tomcat
+
+EXPOSE 8080 8443 8444 8009 8005 8555
+CMD [ "/usr/local/tomcat/run" ]
