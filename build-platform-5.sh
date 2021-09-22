@@ -45,7 +45,7 @@ then
 	./push-to-registries.sh platform 5-latest-light-adoptopenjdk-openjdk11 5-latest-light-adoptopenjdk-openjdk16 5-latest-light-openjdk-11-jre 5-latest-light-openjdk-11 5-latest-light-jre 5-latest-light 5-light latest-light
 
 	# Additional tags
-	for TAG in $2
+	for TAG in ${@:2}
 	do
 		docker rmi simplicite/platform:$TAG simplicite/platform:$TAG-light
 		docker tag simplicite/platform:5-latest simplicite/platform:$TAG
