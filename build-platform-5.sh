@@ -50,7 +50,7 @@ then
 		docker rmi simplicite/platform:$TAG simplicite/platform:$TAG-light
 		docker tag simplicite/platform:5-latest simplicite/platform:$TAG
 		docker tag simplicite/platform:5-latest-light simplicite/platform:$TAG-light
-		./push-to-registries.sh platform simplicite/platform:$TAG simplicite/platform:$TAG-light
+		./push-to-registries.sh platform $TAG $TAG-light
 
 	done
 fi
