@@ -25,7 +25,7 @@ date > $LOCK
 echo ""
 echo "--------------------------------------------------------"
 
-TAGS=${1:-alpine centos-base centos centos8-base centos8 devel adoptopenjdk openjdk}
+TAGS=${1:-alpine centos-base centos centos8-base centos8 devel adoptopenjdk temurin}
 echo "Variants(s) = $TAGS"
 
 #SRVS=${2:-tomcat tomee}
@@ -34,7 +34,7 @@ echo "Server(s) = $SRVS"
 
 JVMS_CENTOS="latest 11 1.8.0"
 JVMS_ADOPTOPENJDK="openjdk16 openjdk11 openjdk8"
-JVMS_OPENJDK="17"
+JVMS_TEMURIN="11 17"
 
 echo "--------------------------------------------------------"
 echo ""
@@ -88,14 +88,14 @@ do
 		JVMS="latest"
 		[ $TAG = "centos" -o $TAG = "centos8" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "adoptopenjdk" ] && JVMS=$JVMS_ADOPTOPENJDK
-		[ $TAG = "openjdk" ] && JVMS=$JVMS_OPENJDK
+		[ $TAG = "temurin" ] && JVMS=$JVMS_TEMURIN
 
 		for JVM in $JVMS
 		do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "adoptopenjdk" -o $TAG = "openjdk" ]
+				if [ $TAG = "adoptopenjdk" -o $TAG = "temurin" ]
 				then
 					JVMEXT="-$JVM"
 				else
@@ -105,8 +105,10 @@ do
 
 			if [ $TAG != "centos" -a $TAG != "centos8" -a $TAG != "devel" ]
 			then
-				FROM=`grep '^FROM' Dockerfile-$TAG | awk '{ print $2 }'`
+				FROM=`grep '^FROM' Dockerfile-$TAG | awk '{ print $2 }' | sed "s/.{jvm}/$JVM/"`
+				echo "Pulling image: $FROM"
 				docker pull $FROM
+				echo "Done"
 			fi
 
 			if [ $TAG = "centos" -o $TAG = "centos8" ]
@@ -147,14 +149,14 @@ do
 		JVMS="latest"
 		[ $TAG = "centos" -o $TAG = "centos8" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "adoptopenjdk" ] && JVMS=$JVMS_ADOPTOPENJDK
-		[ $TAG = "openjdk" ] && JVMS=$JVMS_OPENJDK
+		[ $TAG = "temurin" ] && JVMS=$JVMS_TEMURIN
 
 		for JVM in $JVMS
 		do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "adoptopenjdk" -o $TAG = "openjdk" ]
+				if [ $TAG = "adoptopenjdk" -o $TAG = "temurin" ]
 				then
 					JVMEXT="-$JVM"
 				else

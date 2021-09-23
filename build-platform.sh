@@ -93,7 +93,7 @@ elif [ "$1" = "5-alpha-test" ]
 then
 	VERSION=5
 	BRANCH=master
-	TAGS=${2:-centos8 alpine}
+	TAGS=${2:-centos8 alpine temurin-11 temurin-17}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
@@ -186,7 +186,7 @@ echo "Updating $TEMPLATE"
 cd $TEMPLATE.git
 git config remote.origin.fetch 'refs/heads/*:refs/heads/*'
 git fetch --verbose --all --force
-git fetch --verbose --all --tags
+git fetch --verbose --all --force --tags
 cd ..
 echo "Done"
 
