@@ -93,7 +93,7 @@ elif [ "$1" = "5-alpha-test" ]
 then
 	VERSION=5
 	BRANCH=master
-	TAGS=${2:-centos8 alpine temurin-11 temurin-17}
+	TAGS=${2:-centos8 alpine}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
@@ -125,7 +125,7 @@ elif [ "$1" = "5-latest" -o "$1" = "5" ]
 then
 	VERSION=5
 	BRANCH=release
-	TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
+	TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre temurin-17 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
@@ -139,7 +139,7 @@ elif [ "$1" = "5-latest-light" -o "$1" = "5-light" ]
 then
 	VERSION=5
 	BRANCH=release-light
-	TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
+	TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre temurin-17 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
