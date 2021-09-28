@@ -157,7 +157,7 @@ then
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
-elif [ "$1" = "5.0-light" ]V
+elif [ "$1" = "5.0-light" ]
 then
 	VERSION=5
 	BRANCH=5.0-light
