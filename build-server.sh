@@ -25,7 +25,7 @@ date > $LOCK
 echo ""
 echo "--------------------------------------------------------"
 
-TAGS=${1:-alpine centos-base centos centos8-base centos8 devel adoptopenjdk temurin}
+TAGS=${1:-alpine centos-base centos centos8-base centos8 devel adoptopenjdk temurin openjdk}
 echo "Variants(s) = $TAGS"
 
 #SRVS=${2:-tomcat tomee}
@@ -35,6 +35,7 @@ echo "Server(s) = $SRVS"
 JVMS_CENTOS="latest 11 1.8.0"
 JVMS_ADOPTOPENJDK="openjdk16 openjdk11 openjdk8"
 JVMS_TEMURIN="11 17"
+JVMS_OPENJDK="17"
 
 echo "--------------------------------------------------------"
 echo ""
@@ -89,13 +90,14 @@ do
 		[ $TAG = "centos" -o $TAG = "centos8" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "adoptopenjdk" ] && JVMS=$JVMS_ADOPTOPENJDK
 		[ $TAG = "temurin" ] && JVMS=$JVMS_TEMURIN
+		[ $TAG = "openjdk" ] && JVMS=$JVMS_OPENJDK
 
 		for JVM in $JVMS
 		do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "adoptopenjdk" -o $TAG = "temurin" ]
+				if [ $TAG = "adoptopenjdk" -o $TAG = "temurin" -o $TAG = "openjdk" ]
 				then
 					JVMEXT="-$JVM"
 				else
@@ -150,13 +152,14 @@ do
 		[ $TAG = "centos" -o $TAG = "centos8" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "adoptopenjdk" ] && JVMS=$JVMS_ADOPTOPENJDK
 		[ $TAG = "temurin" ] && JVMS=$JVMS_TEMURIN
+		[ $TAG = "openjdk" ] && JVMS=$JVMS_OPENJDK
 
 		for JVM in $JVMS
 		do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "adoptopenjdk" -o $TAG = "temurin" ]
+				if [ $TAG = "adoptopenjdk" -o $TAG = "temurin" -o $TAG = "openjdk" ]
 				then
 					JVMEXT="-$JVM"
 				else
