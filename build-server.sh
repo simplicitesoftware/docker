@@ -105,7 +105,7 @@ do
 				fi
 			fi
 
-			if [ $TAG != "centos" -a $TAG != "centos8" -a $TAG != "devel" ]
+			if [ $TAG != "centos" -a $TAG != "centos8"  $TAG != "centos-temurin" -a $TAG != "centos8-temurin" -a $TAG != "devel" ]
 			then
 				FROM=`grep '^FROM' Dockerfile-$TAG | awk '{ print $2 }' | sed "s/.{jvm}/$JVM/"`
 				echo "Pulling image: $FROM"
