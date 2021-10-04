@@ -3,6 +3,7 @@ tomee*
 template*
 test*
 tmp
+jdk*
 ./Dockerfile
 *.crt
 **/Thumbs.db

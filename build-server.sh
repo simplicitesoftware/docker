@@ -35,7 +35,6 @@ echo "Server(s) = $SRVS"
 JVMS_CENTOS="latest 11 1.8.0"
 JVMS_ADOPTOPENJDK="openjdk16 openjdk11 openjdk8"
 JVMS_TEMURIN="11 17"
-JVMS_OPENJDK="17"
 
 echo "--------------------------------------------------------"
 echo ""
@@ -90,14 +89,13 @@ do
 		[ $TAG = "centos" -o $TAG = "centos8" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "adoptopenjdk" ] && JVMS=$JVMS_ADOPTOPENJDK
 		[ $TAG = "temurin" ] && JVMS=$JVMS_TEMURIN
-		[ $TAG = "openjdk" -o $TAG = "openjdkslim" ] && JVMS=$JVMS_OPENJDK
 
 		for JVM in $JVMS
 		do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "adoptopenjdk" -o $TAG = "temurin" -o $TAG = "openjdk" -o $TAG = "openjdkslim" ]
+				if [ $TAG = "adoptopenjdk" -o $TAG = "temurin" ]
 				then
 					JVMEXT="-$JVM"
 				else
@@ -152,14 +150,13 @@ do
 		[ $TAG = "centos" -o $TAG = "centos8" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "adoptopenjdk" ] && JVMS=$JVMS_ADOPTOPENJDK
 		[ $TAG = "temurin" ] && JVMS=$JVMS_TEMURIN
-		[ $TAG = "openjdk" -o $TAG = "openjdkslim" ] && JVMS=$JVMS_OPENJDK
 
 		for JVM in $JVMS
 		do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "adoptopenjdk" -o $TAG = "temurin" -o $TAG = "openjdk" -o $TAG = "openjdkslim" ]
+				if [ $TAG = "adoptopenjdk" -o $TAG = "temurin" ]
 				then
 					JVMEXT="-$JVM"
 				else
