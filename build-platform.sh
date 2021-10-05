@@ -53,7 +53,8 @@ elif [ "$1" = "4.0" -o "$1" = "4.0-latest" ]
 then
 	VERSION=4.0
 	BRANCH=release
-	TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
+	#TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
+	TAGS=${2:-centos centos-openjdk-11 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
@@ -61,7 +62,8 @@ elif [ "$1" = "4.0-light" -o "$1" = "4.0-latest-light" ]
 then
 	VERSION=4.0
 	BRANCH=release-light
-	TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre centos-openjdk-1.8.0 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11 adoptopenjdk-openjdk8}
+	#TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre centos-openjdk-1.8.0 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11 adoptopenjdk-openjdk8}
+	TAGS=${2:-centos centos-openjdk-11 centos-openjdk-1.8.0 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11 adoptopenjdk-openjdk8}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
@@ -125,7 +127,8 @@ elif [ "$1" = "5-latest" -o "$1" = "5" ]
 then
 	VERSION=5
 	BRANCH=release
-	TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre temurin-17 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
+	#TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre temurin-17 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
+	TAGS=${2:-centos centos-openjdk-11 temurin-17 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
@@ -139,7 +142,8 @@ elif [ "$1" = "5-latest-light" -o "$1" = "5-light" ]
 then
 	VERSION=5
 	BRANCH=release-light
-	TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre temurin-17 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
+	#TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre temurin-17 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
+	TAGS=${2:-centos centos-openjdk-11 temurin-17 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH

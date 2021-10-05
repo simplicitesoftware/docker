@@ -14,3 +14,5 @@ LABEL org.label-schema.name="simplicite-server-centos7-openjdk-${jvm}" \
 
 COPY jdk-${jvm} /usr/local/jdk
 ENV JAVA_HOME=/usr/local/jdk
+
+EXPOSE 8000
