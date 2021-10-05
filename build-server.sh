@@ -25,7 +25,7 @@ date > $LOCK
 echo ""
 echo "--------------------------------------------------------"
 
-TAGS=${1:-alpine centos-base centos centos-temurin centos8-base centos8 centos8-temurin adoptopenjdk temurin}
+TAGS=${1:-alpine centos-base centos centos-temurin centos8-base centos8 centos8-temurin adoptopenjdk adoptium}
 echo "Variants(s) = $TAGS"
 
 #SRVS=${2:-tomcat tomee}
@@ -86,18 +86,18 @@ do
 
 	for TAG in $TAGS
 	do
-		JVMS="latest"
+		JVMS=""
 		[ $TAG = "centos" -o $TAG = "centos8" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" ] && JVMS=$JVMS_CENTOS_TEMURIN
 		[ $TAG = "adoptopenjdk" ] && JVMS=$JVMS_ADOPTOPENJDK
-		[ $TAG = "temurin" ] && JVMS=$JVMS_TEMURIN
+		[ $TAG = "adoptium" ] && JVMS=$JVMS_TEMURIN
 
 		for JVM in $JVMS
 		do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" -o $TAG = "adoptopenjdk" -o $TAG = "temurin" ]
+				if [ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" -o $TAG = "adoptopenjdk" -o $TAG = "adoptium" ]
 				then
 					JVMEXT="-$JVM"
 				else
@@ -148,18 +148,18 @@ do
 
 	for TAG in $TAGS
 	do
-		JVMS="latest"
+		JVMS=""
 		[ $TAG = "centos" -o $TAG = "centos8" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" ] && JVMS=$JVMS_CENTOS_TEMURIN
 		[ $TAG = "adoptopenjdk" ] && JVMS=$JVMS_ADOPTOPENJDK
-		[ $TAG = "temurin" ] && JVMS=$JVMS_TEMURIN
+		[ $TAG = "adoptium" ] && JVMS=$JVMS_TEMURIN
 
 		for JVM in $JVMS
 		do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" -o $TAG = "adoptopenjdk" -o $TAG = "temurin" ]
+				if [ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" -o $TAG = "adoptopenjdk" -o $TAG = "adoptium" ]
 				then
 					JVMEXT="-$JVM"
 				else
@@ -176,16 +176,6 @@ do
 					echo "docker run -it --memory=128m -p 127.0.0.1:8080:8080 -p 127.0.0.1:8443:8443 --name simplicite $SERVER:$TAG$SRVEXT$JVMEXT-jre"
 				fi
 				echo "docker run -it --rm --memory=128m -p 127.0.0.1:8080:8080 -p 127.0.0.1:8443:8443 --name=simplicite $SERVER:$TAG$SRVEXT$JVMEXT"
-				echo ""
-				if [ $TAG = "centos" -o $TAG = "centos8" ]
-				then
-					echo "docker push $SERVER:$TAG$SRVEXT$JVMEXT-jre"
-				fi
-				echo "docker push $SERVER:$TAG$SRVEXT$JVMEXT"
-				if [ $TAG = "centos" -a $SRV = "tomcat" -a $JVM = "latest" ]
-				then
-					echo "docker push $SERVER:latest"
-				fi
 			fi
 			echo ""
 		done

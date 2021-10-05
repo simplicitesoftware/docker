@@ -53,8 +53,7 @@ elif [ "$1" = "4.0" -o "$1" = "4.0-latest" ]
 then
 	VERSION=4.0
 	BRANCH=release
-	#TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
-	TAGS=${2:-centos centos-openjdk-11 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
+	TAGS=${2:-centos centos-openjdk-11 adoptium-17 adoptium-11 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
@@ -62,8 +61,7 @@ elif [ "$1" = "4.0-light" -o "$1" = "4.0-latest-light" ]
 then
 	VERSION=4.0
 	BRANCH=release-light
-	#TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre centos-openjdk-1.8.0 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11 adoptopenjdk-openjdk8}
-	TAGS=${2:-centos centos-openjdk-11 centos-openjdk-1.8.0 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11 adoptopenjdk-openjdk8}
+	TAGS=${2:-centos centos-openjdk-11 centos-openjdk-1.8.0 centos-temurin-17 adoptium-17 adoptium-11 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11 adoptopenjdk-openjdk8}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
@@ -79,7 +77,7 @@ elif [ "$1" = "5-alpha" ]
 then
 	VERSION=5
 	BRANCH=master
-	TAGS=${2:-centos}
+	TAGS=${2:-centos centos-temurin-17}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
@@ -87,7 +85,7 @@ elif [ "$1" = "5-alpha-light" ]
 then
 	VERSION=5
 	BRANCH=master-light
-	TAGS=${2:-centos}
+	TAGS=${2:-centos centos-temurin-17}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
@@ -95,7 +93,7 @@ elif [ "$1" = "5-alpha-test" ]
 then
 	VERSION=5
 	BRANCH=master
-	TAGS=${2:-centos8 alpine openjdk-17}
+	TAGS=${2:-centos8 alpine}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
@@ -111,7 +109,7 @@ elif [ "$1" = "5-beta" ]
 then
 	VERSION=5
 	BRANCH=prerelease
-	TAGS=${2:-centos}
+	TAGS=${2:-centos centos-temurin-17}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
@@ -119,7 +117,7 @@ elif [ "$1" = "5-beta-light" ]
 then
 	VERSION=5
 	BRANCH=prerelease-light
-	TAGS=${2:-centos}
+	TAGS=${2:-centos centos-temurin-17}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
@@ -127,8 +125,7 @@ elif [ "$1" = "5-latest" -o "$1" = "5" ]
 then
 	VERSION=5
 	BRANCH=release
-	#TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre temurin-17 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
-	TAGS=${2:-centos centos-openjdk-11 temurin-17 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
+	TAGS=${2:-centos centos-temurin-17 centos-openjdk-11 centos-temurin-11 adoptium-17 adoptium-11 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
@@ -142,8 +139,7 @@ elif [ "$1" = "5-latest-light" -o "$1" = "5-light" ]
 then
 	VERSION=5
 	BRANCH=release-light
-	#TAGS=${2:-centos centos-jre centos-openjdk-11 centos-openjdk-11-jre temurin-17 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
-	TAGS=${2:-centos centos-openjdk-11 temurin-17 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
+	TAGS=${2:-centos centos-temurin-17 centos-openjdk-11 centos-temurin-11 adoptium-17 adoptium-11 adoptopenjdk-openjdk16 adoptopenjdk-openjdk11}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
@@ -157,7 +153,7 @@ elif [ "$1" = "5.0" ]
 then
 	VERSION=5
 	BRANCH=5.0
-	TAGS=${2:-centos}
+	TAGS=${2:-centos centos-temurin-17}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
@@ -165,7 +161,7 @@ elif [ "$1" = "5.0-light" ]
 then
 	VERSION=5
 	BRANCH=5.0-light
-	TAGS=${2:-centos}
+	TAGS=${2:-centos centos-temurin-17}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
@@ -279,35 +275,6 @@ do
 		echo "docker run -it --rm -p 127.0.0.1:8080:8080 -p 127.0.0.1:8443:8443 --name=simplicite $PLATFORM:$PFTAG$EXT"
 		echo "docker run -it --rm -p 127.0.0.1:8080:8080 -p 127.0.0.1:8443:8443 --name=simplicite -e DB_SETUP=true -e DB_VENDOR=mysql -e DB_HOST=$IP -e DB_PORT=3306 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$PFTAG$EXT"
 		echo "docker run -it --rm -p 127.0.0.1:8080:8080 -p 127.0.0.1:8443:8443 --name=simplicite -e DB_SETUP=true -e DB_VENDOR=postgresql -e DB_HOST=$IP -e DB_PORT=5432 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$PFTAG$EXT"
-		echo ""
-		echo "docker push $PLATFORM:$PFTAG$EXT"
-		if [ $TAG = "centos" -a $SRV = "tomcat" ]
-		then
-			if [ $PFTAG = "4.0-latest" -o $PFTAG = "5-latest" ]
-			then
-				echo "docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION"
-				echo "docker push $PLATFORM:$VERSION"
-				if [ $PFTAG = "$LATEST-latest" ]
-				then
-					echo "docker tag $PLATFORM:$PFTAG $PLATFORM:latest"
-					echo "docker push $PLATFORM:latest"
-					echo "docker rmi $PLATFORM:latest"
-				fi
-				echo "docker rmi $PLATFORM:$VERSION"
-			elif [ $PFTAG = "4.0-latest-light" -o $PFTAG = "5-latest-light" ]
-			then
-				echo "docker tag $PLATFORM:$PFTAG $PLATFORM:$VERSION-light"
-				echo "docker push $PLATFORM:$VERSION-light"
-				if [ $PFTAG = "$LATEST-latest-light" ]
-				then
-					echo "docker tag $PLATFORM:$PFTAG $PLATFORM:latest-light"
-					echo "docker push $PLATFORM:latest-light"
-					echo "docker rmi $PLATFORM:latest-light"
-				fi
-				echo "docker rmi $PLATFORM:$VERSION-light"
-			fi
-		fi
-		echo "docker rmi $PLATFORM:$PFTAG$EXT"
 		echo ""
 	done
 done

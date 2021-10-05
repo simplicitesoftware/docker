@@ -1,7 +1,7 @@
 FROM simplicite/server:centos-base
 
 ARG date
-ARG jvm
+ARG jvm=latest
 
 LABEL org.label-schema.name="simplicite-server-centos7-openjdk-${jvm}" \
       org.label-schema.vendor="Simplicite Software" \
