@@ -35,7 +35,7 @@ echo "Server(s) = $SRVS"
 JVMS_CENTOS="latest 11 1.8.0"
 JVMS_ADOPTOPENJDK="openjdk16 openjdk11 openjdk8"
 JVMS_CENTOS_TEMURIN="17 11 8"
-JVMS_TEMURIN="17 11"
+JVMS_TEMURIN="17 11 8"
 
 echo "--------------------------------------------------------"
 echo ""
@@ -86,7 +86,7 @@ do
 
 	for TAG in $TAGS
 	do
-		JVMS=""
+		JVMS="latest"
 		[ $TAG = "centos" -o $TAG = "centos8" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" ] && JVMS=$JVMS_CENTOS_TEMURIN
 		[ $TAG = "adoptopenjdk" ] && JVMS=$JVMS_ADOPTOPENJDK
@@ -105,7 +105,7 @@ do
 				fi
 			fi
 
-			if [ $TAG != "centos" -a $TAG != "centos8"  $TAG != "centos-temurin" -a $TAG != "centos8-temurin" -a $TAG != "devel" ]
+			if [ $TAG != "centos" -a $TAG != "centos8" -a $TAG != "centos-temurin" -a $TAG != "centos8-temurin" -a $TAG != "devel" ]
 			then
 				FROM=`grep '^FROM' Dockerfile-$TAG | awk '{ print $2 }' | sed "s/.{jvm}/$JVM/"`
 				echo "Pulling image: $FROM"
@@ -148,7 +148,7 @@ do
 
 	for TAG in $TAGS
 	do
-		JVMS=""
+		JVMS="latest"
 		[ $TAG = "centos" -o $TAG = "centos8" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" ] && JVMS=$JVMS_CENTOS_TEMURIN
 		[ $TAG = "adoptopenjdk" ] && JVMS=$JVMS_ADOPTOPENJDK
