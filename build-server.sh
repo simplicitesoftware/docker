@@ -72,7 +72,7 @@ do
 	fi
 
 	chmod +x tomcat/*.sh tomcat/bin/*.sh
-	for DIR in work work/Catalina conf/Cataline temp logs webapps
+	for DIR in work work/Catalina conf/Catalina temp logs webapps
 	do
 		[ ! -d tomcat/$DIR ] && mkdir tomcat/$DIR
 	done

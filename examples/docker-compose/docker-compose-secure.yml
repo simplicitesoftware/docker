@@ -34,7 +34,8 @@ services:
       - /tmp
       # Tomcat work dirs
       - /usr/local/tomcat/temp
-      - /usr/local/tomcat/work
+      - /usr/local/tomcat/work/Catalina
+      - /usr/local/tomcat/conf/Catalina
       # Tomcat log dir, may be mounted as a persistent volume if needed
       - /usr/local/tomcat/logs
       # Simplicite work dirs
