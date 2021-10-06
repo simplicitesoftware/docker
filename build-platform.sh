@@ -93,7 +93,7 @@ elif [ "$1" = "5-alpha-test" ]
 then
 	VERSION=5
 	BRANCH=master
-	TAGS=${2:-centos8 alpine alpine-temurin}
+	TAGS=${2:-centos8 rockylinux alpine alpine-temurin}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
