@@ -9,10 +9,16 @@ fi
 if [ "$1" = "alpha" -o "$1" = "all" ]
 then
 	./build-platform.sh --delete 5-alpha
+
+	./push-to-registries.sh platform 5-alpha-temurin-17 5-alpha
+
 	./build-platform.sh --delete 5-alpha-light
+
+	./push-to-registries.sh platform 5-alpha-light-temurin-17 5-alpha-light
+
 	./build-platform.sh --delete 5-alpha-test
 
-	./push-to-registries.sh platform 5-alpha-test-alpine 5-alpha-test-centos8 5-alpha-light 5-alpha
+	./push-to-registries.sh platform 5-alpha-test-alpine 5-alpha-test-alpine-temurin 5-alpha-test-centos8
 fi
 
 if [ "$1" = "devel" ]
@@ -23,9 +29,12 @@ fi
 if [ "$1" = "beta" -o "$1" = "all" ]
 then
 	./build-platform.sh --delete 5-beta
+
+	./push-to-registries.sh platform 5-beta
+
 	./build-platform.sh --delete 5-beta-light
 
-	./push-to-registries.sh platform 5-beta-light 5-beta
+	./push-to-registries.sh platform 5-beta-light
 fi
 
 if [ "$1" = "latest" -o "$1" = "all" ]
@@ -35,14 +44,24 @@ then
 	docker tag simplicite/platform:5-latest simplicite/platform:5
 	docker tag simplicite/platform:5-latest simplicite/platform:latest
 
-	./push-to-registries.sh platform 5-latest-adoptium-17 5-latest-adoptopenjdk-openjdk11 5-latest-adoptopenjdk-openjdk16 5-latest-openjdk-11 5-latest-temurin-17 5-latest 5 latest
+	./push-to-registries.sh platform \
+		5-latest-adoptium-11 5-latest-adoptium-17 \
+		5-latest-adoptopenjdk-openjdk11 5-latest-adoptopenjdk-openjdk16 \
+		5-latest-openjdk-11 \
+		5-latest-temurin-11 5-latest-temurin-17 \
+		5-latest 5 latest
 
 	./build-platform.sh --delete 5-latest-light
 	docker rmi simplicite/platform:5-light simplicite/platform:latest-light
 	docker tag simplicite/platform:5-latest-light simplicite/platform:5-light
 	docker tag simplicite/platform:5-latest-light simplicite/platform:latest-light
 
-	./push-to-registries.sh platform 5-latest-light-adoptium-17 5-latest-light-adoptopenjdk-openjdk11 5-latest-light-adoptopenjdk-openjdk16 5-latest-light-openjdk-11 5-latest-light-temurin-17 5-latest-light 5-light latest-light
+	./push-to-registries.sh platform \
+		5-latest-light-adoptium-11 5-latest-light-adoptium-17 \
+		5-latest-light-adoptopenjdk-openjdk11 5-latest-light-adoptopenjdk-openjdk16 \
+		5-latest-light-openjdk-11 \
+		5-latest-light-temurin-11 5-latest-light-temurin-17 \
+		5-latest-light 5-light latest-light
 
 	# Additional tags
 	for TAG in ${@:2}
