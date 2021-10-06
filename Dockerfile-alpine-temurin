@@ -1,23 +1,25 @@
 FROM alpine:latest
 
 ARG date
+ARG jvm=latest
 
-LABEL org.label-schema.name="simplicite-server-alpine" \
+LABEL org.label-schema.name="simplicite-server-alpine-${jvm}" \
       org.label-schema.vendor="Simplicite Software" \
       org.label-schema.build-date="$date" \
-      org.opencontainers.image.ref.name="simplicite-server-alpine" \
-      org.opencontainers.image.title="Simplicite server / Alpine" \
-      org.opencontainers.image.description="Simplicite server / Alpine" \
+      org.opencontainers.image.ref.name="simplicite-server-alpine-${jvm}" \
+      org.opencontainers.image.title="Simplicite server / Alpine / OpenJDK = ${jvm}" \
+      org.opencontainers.image.description="Simplicite server / Alpine / OpenJDK = ${jvm}" \
       org.opencontainers.image.vendor="Simplicite Software" \
       org.opencontainers.image.created="$date"
 
-ENV DOCKER=alpine LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8 JAVA_HOME=/usr/lib/jvm/default-jvm
+ENV DOCKER=alpine LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8 JAVA_HOME=/usr/local/jdk
 
 COPY tomcat /usr/local/tomcat
 COPY run.sh /usr/local/tomcat/run
 COPY *.crt /usr/local/share/ca-certificates/
+COPY jdk-${jvm}-alpine /usr/local/jdk
 RUN apk update && apk upgrade && \
-    apk add --update bash openssh-client git curl wget zip unzip ca-certificates libjpeg fontconfig ttf-dejavu openjdk11-jre mysql-client postgresql-client && \
+    apk add --update bash openssh-client git curl wget zip unzip ca-certificates libjpeg fontconfig ttf-dejavu mysql-client postgresql-client && \
     rm -rf /var/cache/apk/* && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
     update-ca-certificates && \
