@@ -17,7 +17,7 @@ COPY tomcat /usr/local/tomcat
 COPY run.sh /usr/local/tomcat/run
 COPY *.crt /usr/local/share/ca-certificates/
 RUN apk update && apk upgrade && \
-    apk add --update bash openssh-client git curl wget zip unzip ca-certificates libjpeg fontconfig ttf-dejavu openjdk11-jre mysql-client postgresql-client && \
+    apk add --update bash openssh-client git curl wget zip unzip ca-certificates libjpeg fontconfig ttf-dejavu openjdk11 mysql-client postgresql-client && \
     rm -rf /var/cache/apk/* && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
     update-ca-certificates && \
