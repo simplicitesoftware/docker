@@ -47,8 +47,8 @@ then
 	./push-to-registries.sh platform \
 		5-latest-adoptium-11 5-latest-adoptium-17 \
 		5-latest-adoptopenjdk-openjdk11 5-latest-adoptopenjdk-openjdk16 \
-		5-latest-openjdk-11 \
 		5-latest-temurin-11 5-latest-temurin-17 \
+		5-latest-openjdk-11 \
 		5-latest 5 latest
 
 	./build-platform.sh --delete 5-latest-light
@@ -59,8 +59,8 @@ then
 	./push-to-registries.sh platform \
 		5-latest-light-adoptium-11 5-latest-light-adoptium-17 \
 		5-latest-light-adoptopenjdk-openjdk11 5-latest-light-adoptopenjdk-openjdk16 \
-		5-latest-light-openjdk-11 \
 		5-latest-light-temurin-11 5-latest-light-temurin-17 \
+		5-latest-light-openjdk-11 \
 		5-latest-light 5-light latest-light
 
 	# Additional tags
@@ -70,7 +70,6 @@ then
 		docker tag simplicite/platform:5-latest simplicite/platform:$TAG
 		docker tag simplicite/platform:5-latest-light simplicite/platform:$TAG-light
 		./push-to-registries.sh platform $TAG $TAG-light
-
 	done
 fi
 
