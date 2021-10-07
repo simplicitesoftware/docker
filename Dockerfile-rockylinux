@@ -7,8 +7,8 @@ LABEL org.label-schema.name="simplicite-server-rockylinux-${jvm}" \
       org.label-schema.vendor="Simplicite Software" \
       org.label-schema.build-date="${date}" \
       org.opencontainers.image.ref.name="simplicite-server-rockylinux-${jvm}" \
-      org.opencontainers.image.title="Simplicite server / RockyLinux / OpenJDK = ${jvm}" \
-      org.opencontainers.image.description="Simplicite server / RockyLinux / OpenJDK = ${jvm}" \
+      org.opencontainers.image.title="Simplicite server / RockyLinux / OpenJDK ${jvm}" \
+      org.opencontainers.image.description="Simplicite server / RockyLinux / OpenJDK ${jvm}" \
       org.opencontainers.image.vendor="Simplicite Software" \
       org.opencontainers.image.created="${date}"
 

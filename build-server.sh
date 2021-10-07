@@ -25,7 +25,7 @@ date > $LOCK
 echo ""
 echo "--------------------------------------------------------"
 
-TAGS=${1:-alpine alpine-temurin centos-base centos centos-temurin centos8-base centos8 centos8-temurin adoptopenjdk adoptium rockylinux}
+TAGS=${1:-alpine alpine-temurin centos-base centos centos-temurin centos8-base centos8 centos8-temurin adoptium rockylinux}
 echo "Variants(s) = $TAGS"
 
 #SRVS=${2:-tomcat tomee}
@@ -33,7 +33,6 @@ SRVS=${2:-tomcat}
 echo "Server(s) = $SRVS"
 
 JVMS_CENTOS="latest 11 1.8.0"
-JVMS_ADOPTOPENJDK="openjdk16 openjdk11 openjdk8"
 JVMS_CENTOS_TEMURIN="17 11 8"
 JVMS_ADOPTIUM="17 11 8"
 JVMS_ROCKYLINUX="latest"
@@ -90,7 +89,6 @@ do
 		JVMS="latest"
 		[ $TAG = "centos" -o $TAG = "centos8" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" ] && JVMS=$JVMS_CENTOS_TEMURIN
-		[ $TAG = "adoptopenjdk" ] && JVMS=$JVMS_ADOPTOPENJDK
 		[ $TAG = "adoptium" ] && JVMS=$JVMS_ADOPTIUM
 		[ $TAG = "rockylinux" ] && JVMS=$JVMS_ROCKYLINUX
 
@@ -99,7 +97,7 @@ do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" -o $TAG = "adoptopenjdk" -o $TAG = "adoptium" -o $TAG = "rockylinux" ]
+				if [ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" -o $TAG = "adoptium" -o $TAG = "rockylinux" ]
 				then
 					JVMEXT="-$JVM"
 				else
@@ -153,7 +151,6 @@ do
 		JVMS="latest"
 		[ $TAG = "centos" -o $TAG = "centos8" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" ] && JVMS=$JVMS_CENTOS_TEMURIN
-		[ $TAG = "adoptopenjdk" ] && JVMS=$JVMS_ADOPTOPENJDK
 		[ $TAG = "adoptium" ] && JVMS=$JVMS_ADOPTIUM
 		[ $TAG = "rockylinux" ] && JVMS=$JVMS_ROCKYLINUX
 
@@ -162,7 +159,7 @@ do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" -o $TAG = "adoptopenjdk" -o $TAG = "adoptium" -o $TAG = "rockylinux" ]
+				if [ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" -o $TAG = "adoptium" -o $TAG = "rockylinux" ]
 				then
 					JVMEXT="-$JVM"
 				else
