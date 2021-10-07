@@ -97,7 +97,7 @@ do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" -o $TAG = "adoptium" -o $TAG = "rockylinux" ]
+				if [ $TAG = "alpine-temurin" -o $TAG = "centos-temurin" -o $TAG = "centos8-temurin" -o $TAG = "adoptium" -o $TAG = "rockylinux" ]
 				then
 					JVMEXT="-$JVM"
 				else
@@ -159,7 +159,7 @@ do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" -o $TAG = "adoptium" -o $TAG = "rockylinux" ]
+				if [ $TAG = "alpine-temurin" -o $TAG = "centos-temurin" -o $TAG = "centos8-temurin" -o $TAG = "adoptium" -o $TAG = "rockylinux" ]
 				then
 					JVMEXT="-$JVM"
 				else
