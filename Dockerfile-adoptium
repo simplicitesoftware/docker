@@ -1,7 +1,8 @@
 ARG jvm
+ARG date
+
 FROM eclipse-temurin:${jvm}
 
-ARG date
 LABEL org.label-schema.name="simplicite-server-adoptium-${jvm}" \
       org.label-schema.vendor="Simplicite Software" \
       org.label-schema.build-date="$date" \

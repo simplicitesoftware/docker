@@ -1,7 +1,7 @@
-FROM alpine:latest
-
 ARG date
 ARG jvm=latest
+
+FROM alpine:latest
 
 LABEL org.label-schema.name="simplicite-server-alpine-temurin-${jvm}" \
       org.label-schema.vendor="Simplicite Software" \

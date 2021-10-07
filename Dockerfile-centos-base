@@ -1,6 +1,7 @@
+ARG date
+
 FROM centos:7
 
-ARG date
 LABEL org.label-schema.name="simplicite-server-centos7-base" \
       org.label-schema.vendor="Simplicite Software" \
       org.label-schema.build-date="${date}" \

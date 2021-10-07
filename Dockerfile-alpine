@@ -1,6 +1,6 @@
-FROM alpine:latest
-
 ARG date
+
+FROM alpine:latest
 
 LABEL org.label-schema.name="simplicite-server-alpine" \
       org.label-schema.vendor="Simplicite Software" \

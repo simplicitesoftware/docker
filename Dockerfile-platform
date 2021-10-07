@@ -1,12 +1,14 @@
-ARG tag
-FROM simplicite/server:$tag
-
 ARG date
 ARG branch
 ARG version
 ARG patchlevel
 ARG revision
 ARG commitid
+ARG template
+ARG tag
+
+FROM simplicite/server:$tag
+
 LABEL org.label-schema.name="simplicite-platform-$version-$branch" \
       org.label-schema.vendor="Simplicite Software" \
       org.label-schema.build-date="$date" \
@@ -21,6 +23,5 @@ LABEL org.label-schema.name="simplicite-platform-$version-$branch" \
       org.opencontainers.image.licenses="https://docs.simplicite.io/license.md" \
       org.opencontainers.image.created="$date"
 
-ARG template
 COPY $template/app /usr/local/tomcat/webapps/ROOT
 COPY $template/tools/sqltool-*.jar /usr/local/tomcat/webapps/ROOT/WEB-INF/db
