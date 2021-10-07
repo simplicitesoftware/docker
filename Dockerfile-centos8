@@ -1,8 +1,8 @@
+ARG variant
+FROM simplicite/server:centos8${variant}-jre
+
 ARG date
 ARG jvm=latest
-ARG variant
-
-FROM simplicite/server:centos8${variant}-jre
 
 LABEL org.label-schema.name="simplicite-server-centos8-openjdk-${jvm}" \
       org.label-schema.vendor="Simplicite Software" \

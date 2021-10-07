@@ -1,6 +1,6 @@
-ARG date
-
 FROM simplicite/server:centos8
+
+ARG date
 
 LABEL org.label-schema.name="simplicite-server-devel" \
       org.label-schema.vendor="Simplicite Software" \
