@@ -18,7 +18,7 @@ then
 
 	./build-platform.sh --delete 5-alpha-test
 
-	./push-to-registries.sh platform 5-alpha-test-alpine 5-alpha-test-alpine-temurin 5-alpha-test-centos8
+	./push-to-registries.sh platform 5-alpha-test-alpine 5-alpha-test-alpine-temurin 5-alpha-test-centos8 5-alpha-test-rockylinux
 fi
 
 if [ "$1" = "devel" ]

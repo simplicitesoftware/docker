@@ -57,6 +57,12 @@ then
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
+	GITTAG=$3
+	if [ "$GITTAG" != "" ]
+	then
+		PFTAG=$GITTAG-light
+		CHECKOUT=$GITTAG
+	fi
 elif [ "$1" = "4.0-light" -o "$1" = "4.0-latest-light" ]
 then
 	VERSION=4.0
@@ -65,6 +71,12 @@ then
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
+	GITTAG=$3
+	if [ "$GITTAG" != "" ]
+	then
+		PFTAG=$GITTAG-light
+		CHECKOUT=$GITTAG
+	fi
 elif [ "$1" = "4.0-devel" ]
 then
 	VERSION=4.0
@@ -73,6 +85,12 @@ then
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
+	GITTAG=$3
+	if [ "$GITTAG" != "" ]
+	then
+		PFTAG=$GITTAG-light
+		CHECKOUT=$GITTAG
+	fi
 elif [ "$1" = "5-alpha" ]
 then
 	VERSION=5
@@ -105,6 +123,12 @@ then
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
+	GITTAG=$3
+	if [ "$GITTAG" != "" ]
+	then
+		PFTAG=$GITTAG-light
+		CHECKOUT=$GITTAG
+	fi
 elif [ "$1" = "5-beta" ]
 then
 	VERSION=5
