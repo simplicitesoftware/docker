@@ -62,7 +62,6 @@ then
 	./build-platform.sh --delete 5-latest
 
 	# ZZZ temporary
-	docker tag simplicite/platform:5-latest simplicite/platform:5-latest-openjdk-17
 	docker rmi simplicite/platform:5-latest
 	docker tag simplicite/platform:5-latest-temurin-17 simplicite/platform:5-latest
 	# ZZZ temporary
@@ -79,8 +78,7 @@ then
 
 	./build-platform.sh --delete 5-latest-light
 
-	# ZZZ teimporary
-	docker tag simplicite/platform:5-latest-light simplicite/platform:5-latest-light-openjdk-17
+	# ZZZ temporary
 	docker rmi simplicite/platform:5-latest-light
 	docker tag simplicite/platform:5-latest-light-temurin-17 simplicite/platform:5-latest-light
 	# ZZZ temporary
