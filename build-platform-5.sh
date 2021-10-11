@@ -10,9 +10,19 @@ if [ "$1" = "alpha" -o "$1" = "all" ]
 then
 	./build-platform.sh --delete 5-alpha
 
+	# ZZZ temporary
+	docker rmi simplicite/platform:5-alpha
+	docker tag simplicite/platform:5-alpha-temurin-17 simplicite/platform:5-alpha
+	# ZZZ temporary
+
 	./push-to-registries.sh platform 5-alpha-temurin-17 5-alpha
 
 	./build-platform.sh --delete 5-alpha-light
+
+	# ZZZ temporary
+	docker rmi simplicite/platform:5-alpha-light
+	docker tag simplicite/platform:5-alpha-light-temurin-17 simplicite/platform:5-alpha-light
+	# ZZZ temporary
 
 	./push-to-registries.sh platform 5-alpha-light-temurin-17 5-alpha-light
 
@@ -30,16 +40,33 @@ if [ "$1" = "beta" -o "$1" = "all" ]
 then
 	./build-platform.sh --delete 5-beta
 
-	./push-to-registries.sh platform 5-beta
+	# ZZZ temporary
+	docker rmi simplicite/platform:5-beta
+	docker tag simplicite/platform:5-beta-temurin-17 simplicite/platform:5-beta
+	# ZZZ temporary
+
+	./push-to-registries.sh platform 5-beta-temurin-17 5-beta
 
 	./build-platform.sh --delete 5-beta-light
 
-	./push-to-registries.sh platform 5-beta-light
+	# ZZZ temporary
+	docker rmi simplicite/platform:5-beta-light
+	docker tag simplicite/platform:5-beta-light-temurin-17 simplicite/platform:5-beta-light
+	# ZZZ temporary
+
+	./push-to-registries.sh platform 5-beta-light-temurin-17 5-beta-light
 fi
 
 if [ "$1" = "latest" -o "$1" = "all" ]
 then
 	./build-platform.sh --delete 5-latest
+
+	# ZZZ temporary
+	docker tag simplicite/platform:5-latest simplicite/platform:5-latest-openjdk-17
+	docker rmi simplicite/platform:5-latest
+	docker tag simplicite/platform:5-latest-temurin-17 simplicite/platform:5-latest
+	# ZZZ temporary
+
 	docker rmi simplicite/platform:5 simplicite/platform:latest
 	docker tag simplicite/platform:5-latest simplicite/platform:5
 	docker tag simplicite/platform:5-latest simplicite/platform:latest
@@ -51,6 +78,13 @@ then
 		5-latest 5 latest
 
 	./build-platform.sh --delete 5-latest-light
+
+	# ZZZ teimporary
+	docker tag simplicite/platform:5-latest-light simplicite/platform:5-latest-light-openjdk-17
+	docker rmi simplicite/platform:5-latest-light
+	docker tag simplicite/platform:5-latest-light-temurin-17 simplicite/platform:5-latest-light
+	# ZZZ temporary
+
 	docker rmi simplicite/platform:5-light simplicite/platform:latest-light
 	docker tag simplicite/platform:5-latest-light simplicite/platform:5-light
 	docker tag simplicite/platform:5-latest-light simplicite/platform:latest-light
