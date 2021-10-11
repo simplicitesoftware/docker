@@ -95,9 +95,7 @@ elif [ "$1" = "5-alpha" ]
 then
 	VERSION=5
 	BRANCH=master
-	# ZZZ temporary
-	#TAGS=${2:-centos centos-temurin-17}
-	TAGS=${2:-centos-temurin-17}
+	TAGS=${2:-centos centos-temurin-17}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
@@ -105,9 +103,7 @@ elif [ "$1" = "5-alpha-light" ]
 then
 	VERSION=5
 	BRANCH=master-light
-	# ZZZ temporary
-	#TAGS=${2:-centos centos-temurin-17}
-	TAGS=${2:-centos-temurin-17}
+	TAGS=${2:-centos centos-temurin-17}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
@@ -137,9 +133,7 @@ elif [ "$1" = "5-beta" ]
 then
 	VERSION=5
 	BRANCH=prerelease
-	# ZZZ temporary
-	#TAGS=${2:-centos centos-temurin-17}
-	TAGS=${2:-centos-temurin-17}
+	TAGS=${2:-centos centos-temurin-17}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
@@ -147,9 +141,7 @@ elif [ "$1" = "5-beta-light" ]
 then
 	VERSION=5
 	BRANCH=prerelease-light
-	# ZZZ temporary
-	#TAGS=${2:-centos centos-temurin-17}
-	TAGS=${2:-centos-temurin-17}
+	TAGS=${2:-centos centos-temurin-17}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
