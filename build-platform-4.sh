@@ -1,6 +1,12 @@
 #!/bin/bash
 
 ./build-platform.sh --delete 4.0-latest
+
+# ZZZ temporary
+docker rmi simplicite/platform:4.0-latest
+docker tag simplicite/platform:4.0-latest-temurin-17 simplicite/platform:4.0-latest
+# ZZZ temporary
+
 docker rmi simplicite/platform:4.0
 docker tag simplicite/platform:4.0-latest simplicite/platform:4.0
 
@@ -11,6 +17,12 @@ docker tag simplicite/platform:4.0-latest simplicite/platform:4.0
 	4.0-latest 4.0
 
 ./build-platform.sh --delete 4.0-latest-light
+
+# ZZZ temporary
+docker rmi simplicite/platform:4.0-latest-light
+docker tag simplicite/platform:4.0-latest-light-temurin-17 simplicite/platform:4.0-latest-light
+# ZZZ temporary
+
 docker rmi simplicite/platform:4.0-light
 docker tag simplicite/platform:4.0-latest-light simplicite/platform:4.0-light
 
