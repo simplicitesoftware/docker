@@ -21,7 +21,7 @@ COPY *.crt /usr/local/share/ca-certificates/
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y apt-utils && \
-    apt-get install -y bash openssh-client git curl wget zip unzip ca-certificates libjpeg-dev mysql-client postgresql-client && \
+    apt-get install -y bash openssh-client openssl git curl wget zip unzip ca-certificates libjpeg-dev mysql-client postgresql-client && \
     apt-get clean && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
     update-ca-certificates && \
