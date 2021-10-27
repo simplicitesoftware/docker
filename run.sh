@@ -70,4 +70,17 @@ then
 	fi
 fi
 
-cd $TOMCAT_ROOT && ./start.sh -t
+if [ "$TOMCAT_USER" != "" ]
+then
+	UID=`id -u $TOMCAT_USER`
+	if [ $? -ne 0 ]
+	then
+		echo "User $TOMCAT_USER does not exist"
+		exit 1
+	fi
+	GID=`id -g $TOMCAT_USER`
+	chown -R $UID:$GID $TOMCAT_ROOT
+	su $TOMCAT_USER -c "cd $TOMCAT_ROOT && ./start.sh -t"
+else
+	cd $TOMCAT_ROOT && ./start.sh -t
+fi
