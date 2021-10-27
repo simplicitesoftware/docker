@@ -25,7 +25,8 @@ RUN apt-get update && \
     apt-get clean && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
     update-ca-certificates && \
-    chmod +x /usr/local/tomcat/run
+    chmod +x /usr/local/tomcat/run && \
+    addgroup --gid 1000 tomcat && adduser --no-create-home --disabled-password --gecos "" --uid 1000 --gid 1000 tomcat
 
 WORKDIR /usr/local/tomcat
 EXPOSE 8080 8443 8444 8009 8005 8000 8555

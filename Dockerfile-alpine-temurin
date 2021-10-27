@@ -23,7 +23,8 @@ RUN apk update && apk upgrade && \
     rm -rf /var/cache/apk/* && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
     update-ca-certificates && \
-    chmod +x /usr/local/tomcat/run
+    chmod +x /usr/local/tomcat/run && \
+    addgroup -g 1000 tomcat && adduser -D -H -G tomcat -u 1000 tomcat
 
 WORKDIR /usr/local/tomcat
 EXPOSE 8080 8443 8444 8009 8005 8555

@@ -22,7 +22,8 @@ RUN dnf upgrade -y && \
     dnf clean all && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
     /bin/update-ca-trust extract && \
-    chmod +x /usr/local/tomcat/run
+    chmod +x /usr/local/tomcat/run && \
+    groupadd -g 1000 tomcat && useradd -N -g 1000 -u 1000 tomcat
 
 WORKDIR /usr/local/tomcat
 EXPOSE 8080 8443 8444 8009 8005 8555
