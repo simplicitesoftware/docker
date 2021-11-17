@@ -53,6 +53,7 @@ ENV LANG=en_US.UTF-8 \
 USER vscode
 COPY --chown=vscode:vscode config.yaml /home/vscode/.config/code-server/
 COPY --chown=vscode:vscode settings.json /home/vscode/.local/share/code-server/User/
+COPY --chown=vscode:vscode settings.xml /home/vscode/.m2/
 RUN git config --global user.name "Simplicite VSCode IDE" && \
     git config --global user.name "contact@simplicitesoftware.com" && \
     git config --global http.sslVerify "false" && \
