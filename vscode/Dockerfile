@@ -15,7 +15,8 @@ ARG MAVEN_VERSION=3.8.3
 ARG GRADLE_VERSION=7.3
 ARG NODE_VERSION=v16.13.0
 
-RUN dnf upgrade -y && \
+RUN localectl set-locale LANG=en_US.UTF-8 && \
+    dnf upgrade -y && \
     dnf install -y epel-release && \
     dnf install -y bash vim-enhanced gcc gcc-c++ make nmap openssh-clients openssl git curl wget zip unzip ca-certificates libjpeg fontconfig mariadb postgresql java-11-openjdk-devel && \
     dnf clean all && \
@@ -32,8 +33,7 @@ RUN dnf upgrade -y && \
     groupadd -g 1000 vscode && useradd -N -g 1000 -u 1000 vscode && \
     curl -fsSL https://code-server.dev/install.sh | sh
 
-ENV LANG=en_US.UTF-8 \
-    ANT_HOME=/usr/local/apache-ant-$ANT_VERSION \
+ENV ANT_HOME=/usr/local/apache-ant-$ANT_VERSION \
     MAVEN_HOME=/usr/local/apache-maven-$MAVEN_VERSION \
     GRADLE_HOME=/usr/local/gradle-$GRADLE_VERSION \
     NODE_HOME=/usr/local/node-$NODE_VERSION-linux-x64 \

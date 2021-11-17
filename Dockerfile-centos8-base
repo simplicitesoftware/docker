@@ -11,12 +11,13 @@ LABEL org.label-schema.name="simplicite-server-centos8-base" \
       org.opencontainers.image.vendor="Simplicite Software" \
       org.opencontainers.image.created="${date}"
 
-ENV DOCKER=centos8 LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8
+ENV DOCKER=centos8
 
 COPY tomcat /usr/local/tomcat
 COPY run.sh /usr/local/tomcat/run
 COPY *.crt /etc/pki/ca-trust/source/anchors/
-RUN dnf upgrade -y && \
+RUN localectl set-locale LANG=en_US.UTF-8 && \
+    dnf upgrade -y && \
     dnf install -y epel-release && \
     dnf install -y bash openssh-clients openssl git curl wget zip unzip ca-certificates libjpeg fontconfig mariadb postgresql && \
     dnf clean all && \
