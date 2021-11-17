@@ -18,7 +18,7 @@ USER theia
 RUN git config --global user.name "Simplicite Theia IDE" && \
     git config --global user.name "contact@simplicitesoftware.com" && \
     git config --global http.sslVerify "false" && \
-    echo 'alias ls="ls --color=auto"\n\
+    echo -e 'alias ls="ls --color=auto"\n\
 alias dir="ls -alF"\n\
 alias egrep='egrep --color=auto'\n\
 alias fgrep='fgrep --color=auto'\n\
@@ -26,7 +26,7 @@ alias grep='grep --color=auto'\n\
 alias rm="rm -i"\n\
 alias mv="mv -i"\n\
 alias cp="cp -i"\n' >> /home/theia/.bashrc
-RUN ln -s /home/project /home/theia && echo '{\n\
+RUN ln -s /home/project /home/theia && echo -e '{\n\
   "folders": [],\n\
   "settings": {\n\
      "java.configuration.updateBuildConfiguration": "automatic",\n\
