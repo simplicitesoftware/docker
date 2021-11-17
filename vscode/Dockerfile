@@ -17,28 +17,22 @@ ARG MAVEN_VERSION=3.8.3
 ARG GRADLE_VERSION=7.3
 ARG NODE_VERSION=v16.13.0
 
-COPY *.crt /etc/pki/ca-trust/source/anchors/
-COPY jdk-${jvm} /usr/local/jdk
-RUN cd /opt && \
-    wget -qO- https://www-eu.apache.org/dist/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz | tar xfz - -C /opt && \
-    wget -qO- https://www-eu.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xfz - -C /opt && \
-    wget -q https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip && unzip -q gradle-$GRADLE_VERSION-bin.zip && rm -f gradle-$GRADLE_VERSION-bin.zip && \
-    wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - -C /opt && \
-    npm install -g yarn && \
-    dnf upgrade -y && \
+RUN dnf upgrade -y && \
     dnf install -y epel-release && \
-    dnf install -y bash vim-enhanced gcc gcc-c++ make nmap openssh-clients openssl git curl wget zip unzip ca-certificates libjpeg fontconfig mariadb postgresql && \
+    dnf install -y bash vim-enhanced gcc gcc-c++ make nmap openssh-clients openssl git curl wget zip unzip ca-certificates libjpeg fontconfig mariadb postgresql java-11-openjdk-devel && \
     dnf clean all && \
-    mkdir /root/.ssh && chmod 700 /root/.ssh && \
-    /bin/update-ca-trust extract && \
+    cd /usr/local && \
+    wget -qO- https://www-eu.apache.org/dist/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz | tar xfz - && \
+    wget -qO- https://www-eu.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xfz - && \
+    wget -q https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip && unzip -q gradle-$GRADLE_VERSION-bin.zip && rm -f gradle-$GRADLE_VERSION-bin.zip && \
+    wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - && \
     groupadd -g 1000 vscode && useradd -N -g 1000 -u 1000 vscode && \
     curl -fsSL https://code-server.dev/install.sh | sh
 
-ENV JAVA_HOME=/usr/local/jdk \
-    ANT_HOME=/opt/apache-ant-$ANT_VERSION PATH=/opt/apache-ant-$ANT_VERSION/bin/:$PATH \
-    MAVEN_HOME=/opt/apache-maven-$MAVEN_VERSION PATH=/opt/apache-maven-$MAVEN_VERSION/bin/:$PATH \
-    GRADLE_HOME=/opt/gradle-$GRADLE_VERSION PATH=/opt/gradle-$GRADLE_VERSION/bin/:$PATH \
-    NODE_HOME=/opt/node-$NODE_VERSION-linux-x64 PATH=/opt/node-$NODE_VERSION-linux-x64/bin/:$PATH
+ENV ANT_HOME=/usr/local/apache-ant-$ANT_VERSION PATH=/usr/local/apache-ant-$ANT_VERSION/bin/:$PATH \
+    MAVEN_HOME=/usr/local/apache-maven-$MAVEN_VERSION PATH=/usr/local/apache-maven-$MAVEN_VERSION/bin/:$PATH \
+    GRADLE_HOME=/usr/local/gradle-$GRADLE_VERSION PATH=/usr/local/gradle-$GRADLE_VERSION/bin/:$PATH \
+    NODE_HOME=/usr/local/node-$NODE_VERSION-linux-x64 PATH=/usr/local/node-$NODE_VERSION-linux-x64/bin/:$PATH
 
 USER vscode
 RUN git config --global user.name "Simplicite VSCode IDE" && \
