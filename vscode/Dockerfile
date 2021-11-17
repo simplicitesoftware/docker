@@ -10,6 +10,7 @@ LABEL org.label-schema.name="simplicite-vscode" \
       org.opencontainers.image.vendor="VSCode server / Simplicite Software" \
       org.opencontainers.image.created="$BUILD_DATE"
 
+ARG GIT_VERSION=2.34.0
 ARG ANT_VERSION=1.10.12
 ARG MAVEN_VERSION=3.8.3
 ARG GRADLE_VERSION=7.3
@@ -17,9 +18,12 @@ ARG NODE_VERSION=v16.13.0
 
 RUN dnf upgrade -y && \
     dnf install -y epel-release && \
-    dnf install -y bash vim-enhanced gcc gcc-c++ make nmap openssh-clients openssl git curl wget zip unzip ca-certificates libjpeg fontconfig mariadb postgresql java-11-openjdk-devel && \
+    dnf install -y bash vim-enhanced autoconf gcc gcc-c++ make zlib-devel nmap openssh-clients openssl curl wget zip unzip ca-certificates libjpeg fontconfig mariadb postgresql java-11-openjdk-devel && \
     dnf clean all && \
     cd /usr/local && \
+    echo "Installing Git $GIT_VERSION" && \
+    wget -qO- https://mirrors.edge.kernel.org/pub/software/scm/git/git-$GIT_VERSION.tar.xz | tar xfJ - && \
+    cd git-$GIT_VERSION && make configure && ./configure --prefix=/usr/local && make install && cd .. && rm -fr git-$GIT_VERSION && \
     echo "Installing Apache Ant $ANT_VERSION" && \
     wget -qO- https://www-eu.apache.org/dist/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz | tar xfz - && \
     echo "Installing Apache Maven $MAVEN_VERSION" && \
@@ -38,7 +42,7 @@ ENV LANG=en_US.UTF-8 \
     MAVEN_HOME=/usr/local/apache-maven-$MAVEN_VERSION \
     GRADLE_HOME=/usr/local/gradle-$GRADLE_VERSION \
     NODE_HOME=/usr/local/node-$NODE_VERSION-linux-x64 \
-    PATH=/usr/local/apache-ant-$ANT_VERSION/bin:/usr/local/apache-maven-$MAVEN_VERSION/bin:/usr/local/gradle-$GRADLE_VERSION/bin:/usr/local/node-$NODE_VERSION-linux-x64/bin:$PATH:$PATH \
+    PATH=/usr/local/bin:/usr/local/apache-ant-$ANT_VERSION/bin:/usr/local/apache-maven-$MAVEN_VERSION/bin:/usr/local/gradle-$GRADLE_VERSION/bin:/usr/local/node-$NODE_VERSION-linux-x64/bin:$PATH:$PATH \
     SERVICE_URL=https://open-vsx.org/vscode/gallery \
     ITEM_URL=https://open-vsx.org/vscode/item
 

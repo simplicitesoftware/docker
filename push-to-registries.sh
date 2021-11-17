@@ -1,6 +1,6 @@
 #!/bin/bash
 
-USAGE="Usage: `basename $0` <server|platform|theia> [<tags>]"
+USAGE="Usage: `basename $0` <server|platform|theia|vscode> [<tags>]"
 if [ "$1" = "" -o "$1" = "--help" ]
 then
 	echo $USAGE >&2
@@ -10,7 +10,7 @@ fi
 IMG=$1
 shift
 
-if [ $IMG != "server" -a $IMG != "platform" -a $IMG != "theia" ]
+if [ $IMG != "server" -a $IMG != "platform" -a $IMG != "theia" -a $IMG != "vscode" ]
 then
 	echo $USAGE >&2
 	exit -1
