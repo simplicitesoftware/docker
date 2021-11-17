@@ -41,12 +41,11 @@ COPY config.yaml /home/vscode/.config/code-server/config.yaml
 RUN git config --global user.name "Simplicite VSCode IDE" && \
     git config --global user.name "contact@simplicitesoftware.com" && \
     git config --global http.sslVerify "false" && \
-    echo 'alias ls="ls --color=auto"\n\
-alias vi="vim"\n\
-alias dir="ls -alF"\n\
-alias rm="rm -i"\n\
-alias mv="mv -i"\n\
-alias cp="cp -i"\n' >> /home/vscode/.bashrc
+    echo "alias vi=vim\n\
+alias rm='rm -i'\n\
+alias cp='cp -i'\n\
+alias mv='mv -i'\n\
+alias dir='ls -alF --color=always'" >> /home/vscode/.bashrc
 
 EXPOSE 3030 3000 8080 8000
 ENTRYPOINT [ "/usr/bin/vscode-server" ]
