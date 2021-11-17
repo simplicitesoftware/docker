@@ -54,4 +54,4 @@ alias mv='mv -i'\n\
 alias dir='ls -alF --color=always'" >> /home/vscode/.bashrc
 
 EXPOSE 3030 3000 8080 8000
-ENTRYPOINT [ "/usr/bin/vscode-server" ]
+CMD [ "/usr/bin/code-server" ]
