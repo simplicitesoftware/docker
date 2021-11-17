@@ -21,15 +21,15 @@ RUN localectl set-locale LANG=en_US.UTF-8 && \
     dnf install -y bash vim-enhanced gcc gcc-c++ make nmap openssh-clients openssl git curl wget zip unzip ca-certificates libjpeg fontconfig mariadb postgresql java-11-openjdk-devel && \
     dnf clean all && \
     cd /usr/local && \
-    echo "Installing Apache Ant $ANT_VERSION" \
+    echo "Installing Apache Ant $ANT_VERSION" && \
     wget -qO- https://www-eu.apache.org/dist/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz | tar xfz - && \
-    echo "Installing Apache Maven $MAVEN_VERSION" \
+    echo "Installing Apache Maven $MAVEN_VERSION" && \
     wget -qO- https://www-eu.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xfz - && \
-    echo "Installing Gradle $GRADLE_VERSION" \
+    echo "Installing Gradle $GRADLE_VERSION" && \
     wget -q https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip && unzip -q gradle-$GRADLE_VERSION-bin.zip && rm -f gradle-$GRADLE_VERSION-bin.zip && \
-    echo "Installing Node.js $NODE_VERSION" \
+    echo "Installing Node.js $NODE_VERSION" && \
     wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - && \
-    echo "Installing VSCode server" \
+    echo "Installing VSCode server" && \
     groupadd -g 1000 vscode && useradd -N -g 1000 -u 1000 vscode && \
     curl -fsSL https://code-server.dev/install.sh | sh
 
