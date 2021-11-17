@@ -37,9 +37,9 @@ RUN dnf upgrade -y && \
     useradd -N -g 1000 -u 1000 vscode && \
     curl -fsSL https://code-server.dev/install.sh | sh
 
-COPY letterpress* /usr/lib/code-server/vendor/modules/code-oss-dev/out/vs/workbench/browser/parts/editor/media
-COPY favicon* /usr/lib/code-server/src/browser/media
-COPY pwa* /usr/lib/code-server/src/browser/media
+COPY letterpress* /usr/lib/code-server/vendor/modules/code-oss-dev/out/vs/workbench/browser/parts/editor/media/
+COPY favicon* /usr/lib/code-server/src/browser/media/
+COPY pwa* /usr/lib/code-server/src/browser/media/
 
 ENV LANG=en_US.UTF-8 \
     ANT_HOME=/usr/local/apache-ant-$ANT_VERSION \
