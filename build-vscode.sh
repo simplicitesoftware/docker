@@ -27,7 +27,7 @@ do
 	DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
 	docker build --network host -t $IMG --build-arg BUILD_DATE=$DATE .
 	echo ""
-	echo "docker run -it --rm --init -p 4040:4040 --name=vscode  $IMG"
+	echo "docker run -it --rm -p 3030:3030 --name=vscode $IMG"
 	echo ""
 	echo "docker push $IMG"
 	echo ""

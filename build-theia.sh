@@ -38,7 +38,7 @@ do
 	IMG=simplicite/theia:$TAG
 	echo "-- $IMG ------------------"
 	echo ""
-	echo "docker run -it --rm --init -p 3030:3030 --name=theia  $IMG"
+	echo "docker run -it --rm --init -p 3030:3030 --name=theia $IMG"
 	echo ""
 	echo "docker push $IMG"
 	echo ""

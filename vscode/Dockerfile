@@ -15,8 +15,7 @@ ARG MAVEN_VERSION=3.8.3
 ARG GRADLE_VERSION=7.3
 ARG NODE_VERSION=v16.13.0
 
-RUN localectl set-locale LANG=en_US.UTF-8 && \
-    dnf upgrade -y && \
+RUN dnf upgrade -y && \
     dnf install -y epel-release && \
     dnf install -y bash vim-enhanced gcc gcc-c++ make nmap openssh-clients openssl git curl wget zip unzip ca-certificates libjpeg fontconfig mariadb postgresql java-11-openjdk-devel && \
     dnf clean all && \
@@ -30,10 +29,12 @@ RUN localectl set-locale LANG=en_US.UTF-8 && \
     echo "Installing Node.js $NODE_VERSION" && \
     wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - && \
     echo "Installing VSCode server" && \
-    groupadd -g 1000 vscode && useradd -N -g 1000 -u 1000 vscode && \
+    groupadd -g 1000 vscode && \
+    useradd -N -g 1000 -u 1000 vscode && \
     curl -fsSL https://code-server.dev/install.sh | sh
 
-ENV ANT_HOME=/usr/local/apache-ant-$ANT_VERSION \
+ENV LANG=en_US.UTF-8 \
+    ANT_HOME=/usr/local/apache-ant-$ANT_VERSION \
     MAVEN_HOME=/usr/local/apache-maven-$MAVEN_VERSION \
     GRADLE_HOME=/usr/local/gradle-$GRADLE_VERSION \
     NODE_HOME=/usr/local/node-$NODE_VERSION-linux-x64 \
@@ -43,7 +44,7 @@ ENV ANT_HOME=/usr/local/apache-ant-$ANT_VERSION \
 
 USER vscode
 WORKDIR /home/vscode
-COPY config.yaml /home/vscode/.config/code-server/config.yaml
+COPY --chown=vscode:vscode config.yaml /home/vscode/.config/code-server/config.yaml
 RUN git config --global user.name "Simplicite VSCode IDE" && \
     git config --global user.name "contact@simplicitesoftware.com" && \
     git config --global http.sslVerify "false" && \
