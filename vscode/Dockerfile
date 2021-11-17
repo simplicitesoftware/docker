@@ -51,16 +51,19 @@ ENV LANG=en_US.UTF-8 \
     ITEM_URL=https://open-vsx.org/vscode/item
 
 USER vscode
-WORKDIR /home/vscode
-COPY --chown=vscode:vscode config.yaml /home/vscode/.config/code-server/config.yaml
+COPY --chown=vscode:vscode config.yaml /home/vscode/.config/code-server/
+COPY --chown=vscode:vscode settings.json /home/vscode/.local/share/code-server/User/
 RUN git config --global user.name "Simplicite VSCode IDE" && \
     git config --global user.name "contact@simplicitesoftware.com" && \
     git config --global http.sslVerify "false" && \
+    mkdir /home/vscode/projects && \
+    /usr/bin/code-server --install-extension vscjava.vscode-java-pack --install-extension redhat.vscode-xml --install-extension simpliciteSoftware.simplicite-vscode-tools && \
     echo -e "alias vi=vim\n\
 alias rm='rm -i'\n\
 alias cp='cp -i'\n\
 alias mv='mv -i'\n\
 alias dir='ls -alF --color=always'" >> /home/vscode/.bashrc
+WORKDIR /home/vscode/projects
 
 EXPOSE 3030 3000 8080 8000
 CMD [ "/usr/bin/code-server" ]
