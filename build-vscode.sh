@@ -24,6 +24,8 @@ for TAG in $TAGS
 do
 	IMG=simplicite/vscode:$TAG
 	echo "-- $IMG ------------------"
+	DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
+	docker build --network host -t $IMG --build-arg BUILD_DATE=$DATE .
 	echo ""
 	echo "docker run -it --rm --init -p 4040:4040 --name=vscode  $IMG"
 	echo ""

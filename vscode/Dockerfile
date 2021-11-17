@@ -29,24 +29,24 @@ RUN dnf upgrade -y && \
     groupadd -g 1000 vscode && useradd -N -g 1000 -u 1000 vscode && \
     curl -fsSL https://code-server.dev/install.sh | sh
 
-ENV ANT_HOME=/usr/local/apache-ant-$ANT_VERSION PATH=/usr/local/apache-ant-$ANT_VERSION/bin/:$PATH \
-    MAVEN_HOME=/usr/local/apache-maven-$MAVEN_VERSION PATH=/usr/local/apache-maven-$MAVEN_VERSION/bin/:$PATH \
-    GRADLE_HOME=/usr/local/gradle-$GRADLE_VERSION PATH=/usr/local/gradle-$GRADLE_VERSION/bin/:$PATH \
-    NODE_HOME=/usr/local/node-$NODE_VERSION-linux-x64 PATH=/usr/local/node-$NODE_VERSION-linux-x64/bin/:$PATH
+ENV ANT_HOME=/usr/local/apache-ant-$ANT_VERSION \
+    MAVEN_HOME=/usr/local/apache-maven-$MAVEN_VERSION \
+    GRADLE_HOME=/usr/local/gradle-$GRADLE_VERSION \
+    NODE_HOME=/usr/local/node-$NODE_VERSION-linux-x64 \
+    PATH=/usr/local/apache-ant-$ANT_VERSION/bin:/usr/local/apache-maven-$MAVEN_VERSION/bin:/usr/local/gradle-$GRADLE_VERSION/bin:/usr/local/node-$NODE_VERSION-linux-x64/bin:$PATH:$PATH
 
 USER vscode
+WORKDIR /home/vscode
+COPY config.yaml /home/vscode/.config/code-server/config.yaml
 RUN git config --global user.name "Simplicite VSCode IDE" && \
     git config --global user.name "contact@simplicitesoftware.com" && \
     git config --global http.sslVerify "false" && \
     echo 'alias ls="ls --color=auto"\n\
-alias vi=vim\n\
+alias vi="vim"\n\
 alias dir="ls -alF"\n\
-alias egrep='egrep --color=auto'\n\
-alias fgrep='fgrep --color=auto'\n\
-alias grep='grep --color=auto'\n\
 alias rm="rm -i"\n\
 alias mv="mv -i"\n\
 alias cp="cp -i"\n' >> /home/vscode/.bashrc
 
 EXPOSE 3030 3000 8080 8000
-ENTRYPOINT [ "vscode-server" ]
+ENTRYPOINT [ "/usr/bin/vscode-server" ]
