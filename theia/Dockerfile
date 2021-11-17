@@ -15,7 +15,10 @@ USER root
 RUN apt-get update && apt-get install -y vim curl wget nmap && apt-get clean
 
 USER theia
-RUN echo 'alias ls="ls --color=auto"\n\
+RUN git config --global user.name "Simplicite Theia IDE" && \
+    git config --global user.name "contact@simplicitesoftware.com" && \
+    git config --global http.sslVerify "false" && \
+    echo 'alias ls="ls --color=auto"\n\
 alias dir="ls -alF"\n\
 alias egrep='egrep --color=auto'\n\
 alias fgrep='fgrep --color=auto'\n\
@@ -37,9 +40,6 @@ RUN ln -s /home/project /home/theia && echo '{\n\
      }\n\
   }\n\
 }' > /home/project/default.theia-workspace
-RUN git config --global user.name "Simplicite Theia IDE" && \
-    git config --global user.name "contact@simplicitesoftware.com" && \
-    git config --global http.sslVerify "false"
 
-EXPOSE 3030 3000 8080
+EXPOSE 3030 3000 8080 8000
 ENTRYPOINT [ "node", "/home/theia/src-gen/backend/main.js", "/home/project/default.theia-workspace", "--hostname=0.0.0.0", "--port=3030" ]
