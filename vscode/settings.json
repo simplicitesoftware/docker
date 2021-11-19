@@ -2,5 +2,7 @@
     "workbench.startupEditor": "none",
     "workbench.colorTheme": "Visual Studio Dark",
     "editor.fontSize": 12,
+    "terminal.integrated.fontSize": 12,
+    "debug.console.fontSize": 12,
     "redhat.telemetry.enabled": false
 }
