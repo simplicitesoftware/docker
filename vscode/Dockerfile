@@ -12,7 +12,7 @@ LABEL org.label-schema.name="simplicite-vscode" \
 
 ARG GIT_VERSION=2.34.0
 ARG ANT_VERSION=1.10.12
-ARG MAVEN_VERSION=3.8.3
+ARG MAVEN_VERSION=3.8.4
 ARG GRADLE_VERSION=7.3
 ARG NODE_VERSION=v16.13.0
 
@@ -33,8 +33,8 @@ RUN dnf upgrade -y && \
     echo "Installing Node.js $NODE_VERSION" && \
     wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - && \
     echo "Installing VSCode server" && \
-    groupadd -g 1000 vscode && \
-    useradd -N -g 1000 -u 1000 vscode && \
+    groupadd -g 1000 simplicite && \
+    useradd -N -g 1000 -u 1000 -d /var/simplicite simplicite && \
     curl -fsSL https://code-server.dev/install.sh | sh
 
 COPY letterpress* /usr/lib/code-server/vendor/modules/code-oss-dev/out/vs/workbench/browser/parts/editor/media/
@@ -50,21 +50,21 @@ ENV LANG=en_US.UTF-8 \
     SERVICE_URL=https://open-vsx.org/vscode/gallery \
     ITEM_URL=https://open-vsx.org/vscode/item
 
-USER vscode
-COPY --chown=vscode:vscode config.yaml /home/vscode/.config/code-server/
-COPY --chown=vscode:vscode settings.json /home/vscode/.local/share/code-server/User/
-COPY --chown=vscode:vscode settings.xml /home/vscode/.m2/
+USER simplicite
+COPY --chown=simplicite:simplicite config.yaml /var/simplicite/.config/code-server/
+COPY --chown=simplicite:simplicite settings.json /var/simplicite/.local/share/code-server/User/
+COPY --chown=simplicite:simplicite settings.xml /var/simplicite/.m2/
 RUN git config --global user.name "Simplicite VSCode IDE" && \
     git config --global user.email "contact@simplicitesoftware.com" && \
     git config --global http.sslVerify "false" && \
-    mkdir /home/vscode/projects && \
+    mkdir /var/simplicite/projects && \
     /usr/bin/code-server --install-extension vscjava.vscode-java-pack --install-extension redhat.vscode-xml --install-extension simpliciteSoftware.simplicite-vscode-tools && \
     echo -e "alias vi=vim\n\
 alias rm='rm -i'\n\
 alias cp='cp -i'\n\
 alias mv='mv -i'\n\
-alias dir='ls -alF --color=always'" >> /home/vscode/.bashrc
-WORKDIR /home/vscode/projects
+alias dir='ls -alF --color=always'" >> /var/simplicite/.bashrc
+WORKDIR /var/simplicite/projects
 
 EXPOSE 3030 3000 8080 8000
 CMD [ "/usr/bin/code-server" ]
