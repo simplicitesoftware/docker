@@ -33,7 +33,7 @@ RUN dnf upgrade -y && \
     echo "Installing Node.js $NODE_VERSION" && \
     wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - && \
     echo "Installing VSCode server" && \
-    groupadd -g 1000 simplicite && useradd -N -g 1000 -u 1000 -d /var/simplicite simplicite && \
+    groupadd -g 1000 simplicite && useradd -N -g 1000 -u 1000 -M simplicite && \
     curl -fsSL https://code-server.dev/install.sh | sh
 
 COPY letterpress* /usr/lib/code-server/vendor/modules/code-oss-dev/out/vs/workbench/browser/parts/editor/media/

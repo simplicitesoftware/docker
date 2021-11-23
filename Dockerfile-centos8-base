@@ -23,7 +23,7 @@ RUN dnf upgrade -y && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
     /bin/update-ca-trust extract && \
     chmod +x /usr/local/tomcat/run && \
-    groupadd -g 1000 simplicite && useradd -N -g 1000 -u 1000 -d /var/simplicite simplicite
+    groupadd -g 1000 simplicite && useradd -N -g 1000 -u 1000 -M simplicite
 
 WORKDIR /usr/local/tomcat
 EXPOSE 8080 8443 8444 8009 8005 8555
