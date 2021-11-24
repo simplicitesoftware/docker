@@ -1,5 +1,23 @@
-FROM simplicite/ide-base:latest
+ARG NODE_VERSION=12.18.3
 
+FROM node:${NODE_VERSION}-alpine
+RUN apk add --no-cache make pkgconfig gcc g++ python libx11-dev libxkbfile-dev libsecret-dev
+ARG version=latest
+WORKDIR /home/theia
+ADD package.json ./package.json
+ARG GITHUB_TOKEN
+RUN yarn --pure-lockfile && \
+    NODE_OPTIONS="--max_old_space_size=4096" yarn theia build && \
+    yarn theia download:plugins && \
+    yarn --production && \
+    yarn autoclean --init && \
+    echo *.ts >> .yarnclean && \
+    echo *.ts.map >> .yarnclean && \
+    echo *.spec.* >> .yarnclean && \
+    yarn autoclean --force && \
+    yarn cache clean
+
+FROM node:${NODE_VERSION}-alpine
 ARG BUILD_DATE
 LABEL org.label-schema.name="simplicite-theia" \
       org.label-schema.vendor="Theia server / Simplicite Software" \
@@ -9,31 +27,21 @@ LABEL org.label-schema.name="simplicite-theia" \
       org.opencontainers.image.description="Theia server IDE for Simplicite" \
       org.opencontainers.image.vendor="Theia server / Simplicite Software" \
       org.opencontainers.image.created="$BUILD_DATE"
-
-ARG NODE_VERSION=v12.22.7
-
-USER root
-RUN cd /usr/local && \
-    dnf install -y libX11-devel libxkbcommon-x11 xorg-x11-xkb-utils python3 && dnf clean all && \
-    echo "Installing Node.js $NODE_VERSION" && \
-    wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ -
-
-ENV NODE_HOME=/usr/local/node-$NODE_VERSION-linux-x64 \
-    PATH=/usr/local/node-$NODE_VERSION-linux-x64/bin:$PATH
-
-COPY theia /usr/local/theia
-RUN npm install -g yarn && \
-    echo "Getting Theia" && \
-    #git clone https://github.com/eclipse-theia/theia theia && \
-    echo "Building Theia" && \
-    cd /usr/local/theia && yarn && yarn download:plugins && yarn browser build && \
-    ln -s /var/simplicite/projects .
-
-USER simplicite
-COPY --chown=simplicite:simplicite default.theia-workspace /var/simplicite/projects/
-COPY --chown=simplicite:simplicite settings.xml /var/simplicite/.m2/
-
-EXPOSE 3030 3000 8080 8000
-
-WORKDIR /usr/local/theia
-CMD [ "yarn browser start /var/simplicite/projects --hostname 0.0.0.0 --port 3030" ]
+RUN apk update && apk upgrade && \
+    apk add --no-cache git openssh bash libsecret bash git curl wget zip unzip openssl ca-certificates libjpeg fontconfig ttf-dejavu openjdk11 maven apache-ant mysql-client postgresql-client && \
+    rm -rf /var/cache/apk/* && \
+    addgroup -g 2000 theia && \
+    adduser -G theia -u 2000 -s /bin/bash -D theia && \
+    chmod g+rw /home && \
+    mkdir -p /home/projects && \
+    chown -R theia:theia /home/theia && \
+    chown -R theia:theia /home/projects
+ENV HOME /home/theia
+WORKDIR /home/theia
+COPY --from=0 --chown=theia:theia /home/theia /home/theia
+EXPOSE 3000
+ENV SHELL=/bin/bash \
+    THEIA_DEFAULT_PLUGINS=local-dir:/home/theia/plugins
+ENV USE_LOCAL_GIT true
+USER theia
+CMD [ "node", "/home/theia/src-gen/backend/main.js", "/home/projects", "--hostname=0.0.0.0", "--port=3030" ]
