@@ -1,4 +1,4 @@
-FROM centos:8
+FROM simplicite/ide-base:latest
 
 ARG BUILD_DATE
 LABEL org.label-schema.name="simplicite-theia" \
