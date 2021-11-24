@@ -19,9 +19,11 @@ BASE="simplicite/ide-base:latest"
 docker inspect $BASE > /dev/null 2>&1
 if [ $? -ne 0 ]
 then
-	echo "-- $BASE ------------------"
+	echo "========================================================"
+	echo "Building $BASE image..."
+	echo "========================================================"
 	docker build --network host -t $BASE -f Dockerfile-ide-base .
-	echo ""
+	echo "Done"
 fi
 
 cd vscode
@@ -32,13 +34,20 @@ TAGS="latest"
 for TAG in $TAGS
 do
 	IMG=simplicite/vscode:$TAG
-	echo "-- $IMG ------------------"
+	echo "========================================================"
+	echo "Building $IMG image..."
+	echo "========================================================"
 	DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
 	docker build --network host -t $IMG --build-arg BUILD_DATE=$DATE .
+	echo "Done"
+done
+
+for TAG in $TAGS
+do
+	IMG=simplicite/vscode:$TAG
+	echo "-- $IMG ------------------"
 	echo ""
 	echo "docker run -it --rm -p 3030:3030 --name=vscode $IMG"
-	echo ""
-	echo "docker push $IMG"
 	echo ""
 done
 
