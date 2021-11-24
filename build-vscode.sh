@@ -47,7 +47,7 @@ do
 	IMG=simplicite/vscode:$TAG
 	echo "-- $IMG ------------------"
 	echo ""
-	echo "docker run -it --rm -p 3030:3030 --name=vscode $IMG"
+	echo "docker run -it --rm -p 127.0.0.1:3030:3030 --name=vscode $IMG"
 	echo ""
 done
 
