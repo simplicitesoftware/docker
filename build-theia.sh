@@ -15,6 +15,15 @@ then
 fi
 date > $LOCK
 
+BASE="simplicite/ide-base:latest"
+docker inspect $BASE > /dev/null 2>&1
+if [ $? -ne 0 ]
+then
+	echo "-- $IMG ------------------"
+	docker build --network host -t $BASE -f Dockerfile-ide-base .
+	echo ""
+fi
+
 cd theia
 
 TAGS="latest next"
