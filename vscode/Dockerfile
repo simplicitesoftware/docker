@@ -19,7 +19,7 @@ ARG NODE_VERSION=v16.13.0
 USER root
 RUN dnf upgrade -y && \
     dnf install -y epel-release && \
-    dnf install -y bash vim-enhanced pkgconf autoconf gcc gcc-c++ make zlib-devel libcurl-devel libsecret-devel nmap openssh-clients openssl curl wget zip unzip ca-certificates libjpeg fontconfig mariadb postgresql java-11-openjdk-devel && \
+    dnf install -y bash vim-enhanced autoconf gcc gcc-c++ make zlib-devel libcurl-devel libsecret-devel nmap openssh-clients openssl curl wget zip unzip ca-certificates libjpeg fontconfig mariadb postgresql java-11-openjdk-devel && \
     dnf clean all && \
     cd /usr/local && \
     echo "Installing Git $GIT_VERSION" && \

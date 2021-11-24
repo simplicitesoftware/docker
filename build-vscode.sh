@@ -17,7 +17,7 @@ date > $LOCK
 
 cd vscode
 
-IMG=simplicite/vscode:$TAG
+IMG=simplicite/vscode:latest
 echo "========================================================"
 echo "Building $IMG image..."
 echo "========================================================"
