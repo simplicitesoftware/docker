@@ -13,13 +13,20 @@ LABEL org.label-schema.name="simplicite-theia" \
 ARG NODE_VERSION=v12.22.7
 
 USER root
-RUN echo "Installing Node.js $NODE_VERSION" && \
-    wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - && \
-    npm install -g yarn && \
+RUN cd /usr/local && \
+    dnf install -y libX11-devel libxkbcommon-x11 xorg-x11-xkb-utils python3 && dnf clean all && \
+    echo "Installing Node.js $NODE_VERSION" && \
+    wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ -
+
+ENV NODE_HOME=/usr/local/node-$NODE_VERSION-linux-x64 \
+    PATH=/usr/local/node-$NODE_VERSION-linux-x64/bin:$PATH
+
+COPY theia /usr/local/theia
+RUN npm install -g yarn && \
     echo "Getting Theia" && \
-    git clone https://github.com/eclipse-theia/theia theia && cd theia && \
+    #git clone https://github.com/eclipse-theia/theia theia && \
     echo "Building Theia" && \
-    yarn && yarn download:plugins && yarn browser build && \
+    cd /usr/local/theia && yarn && yarn download:plugins && yarn browser build && \
     ln -s /var/simplicite/projects .
 
 USER simplicite

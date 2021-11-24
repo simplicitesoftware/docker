@@ -13,7 +13,8 @@ LABEL org.label-schema.name="simplicite-vscode" \
 ARG NODE_VERSION=v16.13.0
 
 USER root
-RUN echo "Installing Node.js $NODE_VERSION" && \
+RUN cd /usr/local && \
+    echo "Installing Node.js $NODE_VERSION" && \
     wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - && \
     echo "Installing VSCode server" && \
     curl -fsSL https://code-server.dev/install.sh | sh
@@ -21,7 +22,9 @@ COPY letterpress* /usr/lib/code-server/vendor/modules/code-oss-dev/out/vs/workbe
 COPY favicon* /usr/lib/code-server/src/browser/media/
 COPY pwa* /usr/lib/code-server/src/browser/media/
 
-ENV SERVICE_URL=https://open-vsx.org/vscode/gallery \
+ENV NODE_HOME=/usr/local/node-$NODE_VERSION-linux-x64 \
+    PATH=/usr/local/node-$NODE_VERSION-linux-x64/bin:$PATH \
+    SERVICE_URL=https://open-vsx.org/vscode/gallery \
     ITEM_URL=https://open-vsx.org/vscode/item
 
 USER simplicite
