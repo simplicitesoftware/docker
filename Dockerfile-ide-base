@@ -10,7 +10,7 @@ RUN dnf upgrade -y && \
     dnf install -y epel-release && \
     dnf install -y bash vim-enhanced pkgconf autoconf gcc gcc-c++ make zlib-devel libcurl-devel libsecret-devel nmap openssh-clients openssl curl wget zip unzip ca-certificates libjpeg fontconfig mariadb postgresql java-11-openjdk-devel && \
     dnf clean all && \
-    groupadd -g 1000 simplicite && useradd -N -g 1000 -u 1000 -M simplicite && \
+    groupadd -g 1000 simplicite && useradd -N -g 1000 -u 1000 -d /var/simplicite simplicite && \
     cd /usr/local && \
     echo "Installing Git $GIT_VERSION" && \
     wget -qO- https://mirrors.edge.kernel.org/pub/software/scm/git/git-$GIT_VERSION.tar.xz | tar xfJ - && \
