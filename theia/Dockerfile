@@ -61,4 +61,4 @@ alias dir='ls -alF --color=always'" >> /var/simplicite/.bashrc
 EXPOSE 3030 3000 8080 8000
 
 WORKDIR /usr/local/theia
-CMD [ "yarn browser start" ]
+CMD [ "yarn browser start /var/simplicite/projects --hostname 0.0.0.0 --port 3030" ]
