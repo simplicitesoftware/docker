@@ -10,8 +10,12 @@ LABEL org.label-schema.name="simplicite-vscode" \
       org.opencontainers.image.vendor="VSCode server / Simplicite Software" \
       org.opencontainers.image.created="$BUILD_DATE"
 
+ARG NODE_VERSION=v16.13.0
+
 USER root
-RUN echo "Installing VSCode server" && \
+RUN echo "Installing Node.js $NODE_VERSION" && \
+    wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - && \
+    echo "Installing VSCode server" && \
     curl -fsSL https://code-server.dev/install.sh | sh
 COPY letterpress* /usr/lib/code-server/vendor/modules/code-oss-dev/out/vs/workbench/browser/parts/editor/media/
 COPY favicon* /usr/lib/code-server/src/browser/media/
@@ -28,6 +32,8 @@ RUN /usr/bin/code-server \
     --install-extension vscjava.vscode-java-pack \
     --install-extension redhat.vscode-xml \
     --install-extension simpliciteSoftware.simplicite-vscode-tools
+
+EXPOSE 3030 3000 8080 8000
 
 WORKDIR /var/simplicite
 CMD [ "/usr/bin/code-server" ]

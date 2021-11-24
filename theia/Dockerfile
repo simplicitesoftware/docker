@@ -10,16 +10,23 @@ LABEL org.label-schema.name="simplicite-theia" \
       org.opencontainers.image.vendor="Theia server / Simplicite Software" \
       org.opencontainers.image.created="$BUILD_DATE"
 
+ARG NODE_VERSION=v12.22.7
+
 USER root
-RUN echo "Installing Theia" && \
+RUN echo "Installing Node.js $NODE_VERSION" && \
+    wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - && \
     npm install -g yarn && \
+    echo "Getting Theia" && \
     git clone https://github.com/eclipse-theia/theia theia && cd theia && \
+    echo "Building Theia" && \
     yarn && yarn download:plugins && yarn browser build && \
     ln -s /var/simplicite/projects .
 
 USER simplicite
 COPY --chown=simplicite:simplicite default.theia-workspace /var/simplicite/projects/
 COPY --chown=simplicite:simplicite settings.xml /var/simplicite/.m2/
+
+EXPOSE 3030 3000 8080 8000
 
 WORKDIR /usr/local/theia
 CMD [ "yarn browser start /var/simplicite/projects --hostname 0.0.0.0 --port 3030" ]
