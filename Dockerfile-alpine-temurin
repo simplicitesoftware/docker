@@ -24,7 +24,7 @@ RUN apk update && apk upgrade && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
     update-ca-certificates && \
     chmod +x /usr/local/tomcat/run && \
-    addgroup -g 1000 simplicite && adduser -D -H -G simplicite -u 1000 simplicite
+    addgroup -g 2000 simplicite && adduser -D -H -G simplicite -u 2000 simplicite
 
 WORKDIR /usr/local/tomcat
 EXPOSE 8080 8443 8444 8009 8005 8555
