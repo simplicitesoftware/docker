@@ -2,7 +2,7 @@
 
 if [ "$1" = "--help" ]
 then
-	echo "Usage: `basename $0` [<tag(s)>]" >&2
+	echo "Usage: `basename $0`" >&2
 	exit 1
 fi
 
@@ -26,8 +26,6 @@ FROM=`grep '^FROM' Dockerfile | awk '{ print $2 }'`
 docker pull $FROM
 docker build --network host -t $IMG --build-arg THEIA_TAG=$TAG --build-arg BUILD_DATE=$DATE .
 echo "Done"
-
-echo "-- $IMG ------------------"
 echo ""
 echo "docker run -it --rm -p 127.0.0.1:3030:3030 --name=theia $IMG"
 echo ""

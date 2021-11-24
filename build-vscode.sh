@@ -2,7 +2,7 @@
 
 if [ "$1" = "--help" ]
 then
-	echo "Usage: `basename $0` [<tag(s)>]" >&2
+	echo "Usage: `basename $0`" >&2
 	exit 1
 fi
 
@@ -15,41 +15,18 @@ then
 fi
 date > $LOCK
 
-BASE="simplicite/ide-base:latest"
-docker inspect $BASE > /dev/null 2>&1
-if [ $? -ne 0 ]
-then
-	echo "========================================================"
-	echo "Building $BASE image..."
-	echo "========================================================"
-	docker build --network host -t $BASE -f Dockerfile-ide-base .
-	echo "Done"
-fi
-
 cd vscode
 
-TAGS="latest"
-[ "$1" != "" ] && TAGS=$1
-
-for TAG in $TAGS
-do
-	IMG=simplicite/vscode:$TAG
-	echo "========================================================"
-	echo "Building $IMG image..."
-	echo "========================================================"
-	DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
-	docker build --network host -t $IMG --build-arg BUILD_DATE=$DATE .
-	echo "Done"
-done
-
-for TAG in $TAGS
-do
-	IMG=simplicite/vscode:$TAG
-	echo "-- $IMG ------------------"
-	echo ""
-	echo "docker run -it --rm -p 127.0.0.1:3030:3030 --name=vscode $IMG"
-	echo ""
-done
+IMG=simplicite/vscode:$TAG
+echo "========================================================"
+echo "Building $IMG image..."
+echo "========================================================"
+DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
+docker build --network host -t $IMG --build-arg BUILD_DATE=$DATE .
+echo "Done"
+echo ""
+echo "docker run -it --rm -p 127.0.0.1:3030:3030 --name=vscode $IMG"
+echo ""
 
 cd ..
 
