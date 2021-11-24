@@ -1,0 +1,14 @@
+{
+  "folders": [],
+  "settings": {
+     "java.configuration.updateBuildConfiguration": "automatic",
+     "editor.fontSize": 12,
+     "terminal.integrated.fontSize": 12,
+     "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+     }
+  }
+}

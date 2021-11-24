@@ -20,6 +20,7 @@ RUN dnf upgrade -y && \
     dnf install -y epel-release && \
     dnf install -y bash vim-enhanced autoconf gcc gcc-c++ make zlib-devel libcurl-devel nmap openssh-clients openssl curl wget zip unzip ca-certificates libjpeg fontconfig mariadb postgresql java-11-openjdk-devel && \
     dnf clean all && \
+    groupadd -g 1000 simplicite && useradd -N -g 1000 -u 1000 -M simplicite && \
     cd /usr/local && \
     echo "Installing Git $GIT_VERSION" && \
     wget -qO- https://mirrors.edge.kernel.org/pub/software/scm/git/git-$GIT_VERSION.tar.xz | tar xfJ - && \
@@ -33,7 +34,6 @@ RUN dnf upgrade -y && \
     echo "Installing Node.js $NODE_VERSION" && \
     wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - && \
     echo "Installing VSCode server" && \
-    groupadd -g 1000 simplicite && useradd -N -g 1000 -u 1000 -M simplicite && \
     curl -fsSL https://code-server.dev/install.sh | sh
 
 COPY letterpress* /usr/lib/code-server/vendor/modules/code-oss-dev/out/vs/workbench/browser/parts/editor/media/
@@ -63,7 +63,7 @@ alias rm='rm -i'\n\
 alias cp='cp -i'\n\
 alias mv='mv -i'\n\
 alias dir='ls -alF --color=always'" >> /var/simplicite/.bashrc
-WORKDIR /var/simplicite/projects
 
 EXPOSE 3030 3000 8080 8000
+WORKDIR /var/simplicite
 CMD [ "/usr/bin/code-server" ]
