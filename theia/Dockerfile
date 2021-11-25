@@ -35,13 +35,14 @@ RUN apk update && apk upgrade && \
 COPY --from=0 --chown=theia:theia /home/theia /home/theia
 RUN chmod g+rw /home && \
     mkdir -p /home/theia/projects && \
-    chown -R theia:theia /home/theia && \
     echo -e "export PS1='[\u@\H \W]\$ '\n\
 alias vi=vim\n\
 alias rm='rm -i'\n\
 alias cp='cp -i'\n\
 alias mv='mv -i'\n\
-alias dir='ls -alF --color=always'" >> /home/theia/.bashrc
+alias dir='ls -alF --color=always'" >> /home/theia/.bashrc && \
+    chown -R theia:theia /home/theia
+COPY --chown=theia:theia settings.json /home/theia/.theia/
 ENV SHELL=/bin/bash \
     HOME=/home/theia \
     THEIA_DEFAULT_PLUGINS=local-dir:/home/theia/plugins \

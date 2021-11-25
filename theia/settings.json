@@ -1,0 +1,11 @@
+{
+    "editor.fontSize": 12,
+    "terminal.integrated.fontSize": 12,
+    "editor.inlineHints.fontSize": 0,
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    }
+}
