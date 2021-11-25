@@ -4,5 +4,11 @@
     "editor.fontSize": 12,
     "terminal.integrated.fontSize": 12,
     "debug.console.fontSize": 12,
-    "redhat.telemetry.enabled": false
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+     },
+     "redhat.telemetry.enabled": false
 }
