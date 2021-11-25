@@ -27,13 +27,13 @@ LABEL org.label-schema.name="simplicite-theia" \
       org.opencontainers.image.description="Theia server IDE for Simplicite" \
       org.opencontainers.image.vendor="Theia server / Simplicite Software" \
       org.opencontainers.image.created="$BUILD_DATE"
-COPY --from=0 --chown=theia:theia /home/theia /home/theia
 RUN apk update && apk upgrade && \
     apk add --no-cache git openssh bash libsecret bash git curl wget zip unzip openssl ca-certificates libjpeg fontconfig ttf-dejavu openjdk11 maven apache-ant mysql-client postgresql-client && \
     rm -rf /var/cache/apk/* && \
     addgroup -g 2000 theia && \
-    adduser -G theia -u 2000 -s /bin/bash -D theia && \
-    chmod g+rw /home && \
+    adduser -G theia -u 2000 -s /bin/bash -D theia
+COPY --from=0 --chown=theia:theia /home/theia /home/theia
+RUN chmod g+rw /home && \
     mkdir -p /home/theia/projects && \
     chown -R theia:theia /home/theia && \
     echo -e "export PS1='[\u@\H \W]\$ '\n\
