@@ -2,7 +2,7 @@
 
 if [ "$1" = "" -o "$2" = "" -o "$1" = "--help" ]
 then
-	echo "Usage: `basename $0` <server|platfomr|theia|vscode> <tag>" >&2
+	echo "Usage: `basename $0` <repository> <tag>" >&2
 	exit 1
 fi
 

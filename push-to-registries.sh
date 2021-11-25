@@ -1,6 +1,6 @@
 #!/bin/bash
 
-USAGE="Usage: `basename $0` <server|platform|theia|vscode> [<tags>]"
+USAGE="Usage: `basename $0` <repository> [<tags>]"
 if [ "$1" = "" -o "$1" = "--help" ]
 then
 	echo $USAGE >&2
