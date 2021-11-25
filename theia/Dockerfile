@@ -36,16 +36,16 @@ RUN apk update && apk upgrade && \
     chmod g+rw /home && \
     mkdir -p /home/theia/projects && \
     chown -R theia:theia /home/theia && \
-    echo -e "export PS1='[\u@\H \W]\$ '
+    echo -e "export PS1='[\u@\H \W]\$ '\n\
 alias vi=vim\n\
 alias rm='rm -i'\n\
 alias cp='cp -i'\n\
 alias mv='mv -i'\n\
 alias dir='ls -alF --color=always'" >> /home/theia/.bashrc
 ENV SHELL=/bin/bash \
-    HOME /home/theia \
-    THEIA_DEFAULT_PLUGINS=local-dir:/home/theia/plugins
-    USE_LOCAL_GIT true
+    HOME=/home/theia \
+    THEIA_DEFAULT_PLUGINS=local-dir:/home/theia/plugins \
+    USE_LOCAL_GIT=true
 WORKDIR /home/theia
 EXPOSE 3030 3000 8080 8443 8444 8000
 USER theia
