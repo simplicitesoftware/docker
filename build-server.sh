@@ -25,7 +25,7 @@ date > $LOCK
 echo ""
 echo "--------------------------------------------------------"
 
-TAGS=${1:-alpine alpine-temurin centos-base centos centos-temurin centos8-base centos8 centos8-temurin adoptium rockylinux}
+TAGS=${1:-alpine alpine-temurin centos-base centos centos-temurin centos8-base centos8 centos8-temurin adoptium rockylinux devel}
 echo "Variants(s) = $TAGS"
 
 #SRVS=${2:-tomcat tomee}
