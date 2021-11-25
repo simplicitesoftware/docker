@@ -75,11 +75,12 @@ then
 	TOMCAT_UID=`id -u $TOMCAT_USER`
 	if [ $? -ne 0 ]
 	then
-		echo "User $TOMCAT_USER does not exist"
+		echo "ERROR: User $TOMCAT_USER does not exist"
 		exit 1
 	fi
 	TOMCAT_GID=`id -g $TOMCAT_USER`
 	chown -R $TOMCAT_UID:$TOMCAT_GID $TOMCAT_ROOT
+	echo "Running Tomcat as $TOMCAT_USER (user ID $TOMCAT_UID, group ID $TOMCAT_GID)"
 	su $TOMCAT_USER -c "cd $TOMCAT_ROOT && ./start.sh -t"
 else
 	cd $TOMCAT_ROOT && ./start.sh -t
