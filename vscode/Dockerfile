@@ -69,7 +69,7 @@ alias cp='cp -i'\n\
 alias mv='mv -i'\n\
 alias dir='ls -alF --color=always'" >> /var/simplicite/.bashrc
 
-EXPOSE 3030 3000 8080 8000
+EXPOSE 3030 3000 8080 8443 8444 8000
 
 WORKDIR /var/simplicite
 CMD [ "/usr/bin/code-server" ]
