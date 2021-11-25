@@ -7,5 +7,6 @@
         "**/.project": true,
         "**/.settings": true,
         "**/.factorypath": true
-    }
+    },
+    "redhat.telemetry.enabled": false
 }
