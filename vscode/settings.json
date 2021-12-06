@@ -9,7 +9,8 @@
         "**/.classpath": true,
         "**/.project": true,
         "**/.settings": true,
-        "**/.factorypath": true
+        "**/.factorypath": true,
+        "**/.apt_generated*": true
     },
     "redhat.telemetry.enabled": false
 }
