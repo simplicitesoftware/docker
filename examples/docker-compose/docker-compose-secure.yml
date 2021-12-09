@@ -15,7 +15,7 @@ services:
       DB_PASSWORD: "<database password>"
       DB_NAME: "<database name>"
       # Limit upload size if needed (ex: 5Mb)
-      #TOMCAT_MAX_POST_SIZE: 5242880
+      #TOMCAT_MAXPOSTSIZE: 5242880
       # Limit HTTP header size if needed (ex: 8Kb)
       #TOMCAT_MAXHTTPHEADERSIZE: 8192
       # Limit number of threads (ex: 150)
