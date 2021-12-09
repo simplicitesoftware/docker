@@ -14,13 +14,21 @@ services:
       DB_USER: "<database user>"
       DB_PASSWORD: "<database password>"
       DB_NAME: "<database name>"
+      # Limit upload size if needed (ex: 5Mb)
+      #TOMCAT_MAX_POST_SIZE: 5242880
+      # Limit HTTP header size if needed (ex: 8Kb)
+      #TOMCAT_MAXHTTPHEADERSIZE: 8192
+      # Limit number of threads (ex: 150)
+      #TOMCAT_MAXTHREADS: 150
+      # Limit number of connections (ex: 5000)
+      #TOMCAT_MAXCONNECTIONS: 5000
     ports:
       # For *non* SSL endoint of HTTP reverse proxying
       - 127.0.0.1:8080:8080
       # For SSL endpoint of HTTP reverse proxying
       - 127.0.0.1:8443:8443
-      # For AJP reverse proxying
-      - 127.0.0.1:8009:8009
+      # For AJP reverse proxying (Apache reverse proxy)
+      #- 127.0.0.1:8009:8009
     cap_drop:
       - ALL
     deploy:
