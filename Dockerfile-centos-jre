@@ -5,11 +5,13 @@ ARG jvm=latest
 
 LABEL org.label-schema.name="simplicite-server-centos7-openjdk-${jvm}-jre" \
       org.label-schema.vendor="Simplicite Software" \
+      org.label-schema.license="NONE" \
       org.label-schema.build-date="${date}" \
       org.opencontainers.image.ref.name="simplicite-server-centos7-openjdk-${jvm}-jre" \
       org.opencontainers.image.title="Simplicite server / CentOS 7 / OpenJDK ${jvm} (JRE)" \
       org.opencontainers.image.description="Simplicite server / CentOS 7 / OpenJDK ${jvm} (JRE)" \
       org.opencontainers.image.vendor="Simplicite Software" \
+      org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="${date}"
 
 RUN dnf install -y java-${jvm}-openjdk && dnf clean all

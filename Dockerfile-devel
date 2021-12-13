@@ -4,11 +4,13 @@ ARG date
 
 LABEL org.label-schema.name="simplicite-server-devel" \
       org.label-schema.vendor="Simplicite Software" \
+      org.label-schema.license="NONE" \
       org.label-schema.build-date="${date}" \
       org.opencontainers.image.ref.name="simplicite-server-devel" \
       org.opencontainers.image.title="Simplicite server (devel)" \
       org.opencontainers.image.description="Simplicite server (devel)" \
       org.opencontainers.image.vendor="Simplicite Software" \
+      org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="${date}"
 
 ARG ANT_VERSION=1.10.12

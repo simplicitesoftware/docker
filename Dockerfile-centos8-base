@@ -4,11 +4,13 @@ ARG date
 
 LABEL org.label-schema.name="simplicite-server-centos8-base" \
       org.label-schema.vendor="Simplicite Software" \
+      org.label-schema.license="NONE" \
       org.label-schema.build-date="${date}" \
       org.opencontainers.image.ref.name="simplicite-server-centos8-base" \
       org.opencontainers.image.title="Simplicite server / CentOS 8 / Base" \
       org.opencontainers.image.description="Simplicite server / CentOS 8 / Base" \
       org.opencontainers.image.vendor="Simplicite Software" \
+      org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="${date}"
 
 ENV DOCKER=centos8 LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8

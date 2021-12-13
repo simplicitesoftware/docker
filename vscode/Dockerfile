@@ -4,10 +4,12 @@ ARG BUILD_DATE
 LABEL org.label-schema.name="simplicite-vscode" \
       org.label-schema.vendor="VSCode server / Simplicite Software" \
       org.label-schema.build-date="$BUILD_DATE" \
+      org.label-schema.license="NONE" \
       org.opencontainers.image.ref.name="simplicite-vscode" \
       org.opencontainers.image.title="VSCode server IDE for Simplicite" \
       org.opencontainers.image.description="VSCode server IDE for Simplicite" \
       org.opencontainers.image.vendor="VSCode server / Simplicite Software" \
+      org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="$BUILD_DATE"
 
 ARG GIT_VERSION=2.34.0

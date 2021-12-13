@@ -22,10 +22,12 @@ ARG BUILD_DATE
 LABEL org.label-schema.name="simplicite-theia" \
       org.label-schema.vendor="Theia server / Simplicite Software" \
       org.label-schema.build-date="$BUILD_DATE" \
+      org.label-schema.license="NONE" \
       org.opencontainers.image.ref.name="simplicite-theia" \
       org.opencontainers.image.title="Theia server IDE for Simplicite" \
       org.opencontainers.image.description="Theia server IDE for Simplicite" \
       org.opencontainers.image.vendor="Theia server / Simplicite Software" \
+      org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="$BUILD_DATE"
 RUN apk update && apk upgrade && \
     apk add --no-cache git openssh bash libsecret bash git curl wget zip unzip openssl ca-certificates libjpeg fontconfig ttf-dejavu openjdk11 maven apache-ant mysql-client postgresql-client && \

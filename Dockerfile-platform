@@ -11,6 +11,7 @@ ARG template
 
 LABEL org.label-schema.name="simplicite-platform-$version-$branch" \
       org.label-schema.vendor="Simplicite Software" \
+      org.label-schema.license="https://docs.simplicite.io/license.md" \
       org.label-schema.build-date="$date" \
       org.opencontainers.image.ref.name="simplicite-platform-$version-$branch" \
       org.opencontainers.image.title="Simplicite platform $version $branch" \

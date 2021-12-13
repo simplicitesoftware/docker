@@ -10,6 +10,7 @@ LABEL org.label-schema.name="simplicite-server-rockylinux-${jvm}" \
       org.opencontainers.image.title="Simplicite server / RockyLinux / OpenJDK ${jvm}" \
       org.opencontainers.image.description="Simplicite server / RockyLinux / OpenJDK ${jvm}" \
       org.opencontainers.image.vendor="Simplicite Software" \
+      org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="${date}"
 
 ENV DOCKER=rockylinux JAVA_HOME=/usr/local/jdk LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8

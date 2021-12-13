@@ -5,11 +5,13 @@ ARG jvm=latest
 
 LABEL org.label-schema.name="simplicite-server-centos7-temurin-${jvm}" \
       org.label-schema.vendor="Simplicite Software" \
+      org.label-schema.license="NONE" \
       org.label-schema.build-date="${date}" \
       org.opencontainers.image.ref.name="simplicite-server-centos7-temurin-${jvm}" \
       org.opencontainers.image.title="Simplicite server / CentOS 7 / Temurin OpenJDK ${jvm}" \
       org.opencontainers.image.description="Simplicite server / CentOS 7 / Temurin OpenJDK ${jvm}" \
       org.opencontainers.image.vendor="Simplicite Software" \
+      org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="${date}"
 
 COPY jdk-${jvm} /usr/local/jdk

@@ -5,11 +5,13 @@ FROM eclipse-temurin:${jvm}
 
 LABEL org.label-schema.name="simplicite-server-adoptium-${jvm}" \
       org.label-schema.vendor="Simplicite Software" \
+      org.label-schema.license="NONE" \
       org.label-schema.build-date="$date" \
       org.opencontainers.image.ref.name="simplicite-server-adoptium-${jvm}" \
       org.opencontainers.image.title="Simplicite server / Adoptium (${jvm})" \
       org.opencontainers.image.description="Simplicite server / Adoptium (${jvm})" \
       org.opencontainers.image.vendor="Simplicite Software" \
+      org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="$date"
 
 ENV DOCKER=adoptium LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8
