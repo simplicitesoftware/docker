@@ -13,7 +13,7 @@ LABEL org.label-schema.name="simplicite-server-alpine" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="$date"
 
-ENV DOCKER=alpine LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8 JAVA_HOME=/usr/lib/jvm/default-jvm
+ENV DOCKER=alpine LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8 JAVA_HOME=/usr/lib/jvm/default-jvm LOG4J_FORMAT_MSG_NO_LOOKUPS=true
 
 COPY tomcat /usr/local/tomcat
 COPY run.sh /usr/local/tomcat/run

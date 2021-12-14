@@ -13,7 +13,7 @@ LABEL org.label-schema.name="simplicite-server-centos7-base" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="${date}"
 
-ENV DOCKER=centos7 LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8
+ENV DOCKER=centos7 LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LOG4J_FORMAT_MSG_NO_LOOKUPS=true
 
 COPY tomcat /usr/local/tomcat
 COPY run.sh /usr/local/tomcat/run

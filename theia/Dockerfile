@@ -48,7 +48,8 @@ COPY --chown=theia:theia settings.json /home/theia/.theia/
 ENV SHELL=/bin/bash \
     HOME=/home/theia \
     THEIA_DEFAULT_PLUGINS=local-dir:/home/theia/plugins \
-    USE_LOCAL_GIT=true
+    USE_LOCAL_GIT=true \
+    LOG4J_FORMAT_MSG_NO_LOOKUPS=true
 WORKDIR /home/theia
 EXPOSE 3030 3000 8080 8443 8444 8000
 USER theia

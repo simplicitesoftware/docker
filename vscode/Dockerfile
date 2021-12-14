@@ -51,7 +51,8 @@ ENV LANG=en_US.UTF-8 \
     NODE_HOME=/usr/local/node-$NODE_VERSION-linux-x64 \
     PATH=/usr/local/bin:/usr/local/apache-ant-$ANT_VERSION/bin:/usr/local/apache-maven-$MAVEN_VERSION/bin:/usr/local/gradle-$GRADLE_VERSION/bin:/usr/local/node-$NODE_VERSION-linux-x64/bin:$PATH \
     SERVICE_URL=https://open-vsx.org/vscode/gallery \
-    ITEM_URL=https://open-vsx.org/vscode/item
+    ITEM_URL=https://open-vsx.org/vscode/item \
+    LOG4J_FORMAT_MSG_NO_LOOKUPS=true
 
 USER simplicite
 COPY --chown=simplicite:simplicite config.yaml /var/simplicite/.config/code-server/
