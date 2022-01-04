@@ -1,0 +1,32 @@
+FROM quay.io/centos/centos:stream8
+
+ARG date
+ARG jvm=latest
+
+LABEL org.label-schema.name="simplicite-server-centos8stream-${jvm}" \
+      org.label-schema.vendor="Simplicite Software" \
+      org.label-schema.build-date="${date}" \
+      org.opencontainers.image.ref.name="simplicite-server-centos8stream-${jvm}" \
+      org.opencontainers.image.title="Simplicite server / CentOS 8 stream / OpenJDK ${jvm}" \
+      org.opencontainers.image.description="Simplicite server / CentOS 8 stream / OpenJDK ${jvm}" \
+      org.opencontainers.image.vendor="Simplicite Software" \
+      org.opencontainers.image.licenses="NONE" \
+      org.opencontainers.image.created="${date}"
+
+ENV DOCKER=rockylinux LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 JAVA_HOME=/usr/local/jdk LOG4J_FORMAT_MSG_NO_LOOKUPS=true
+
+COPY jdk-${jvm} /usr/local/jdk
+COPY tomcat /usr/local/tomcat
+COPY run.sh /usr/local/tomcat/run
+COPY *.crt /etc/pki/ca-trust/source/anchors/
+RUN dnf upgrade -y && \
+    dnf install -y bash openssh-clients openssl git curl wget zip unzip ca-certificates libjpeg fontconfig mariadb postgresql && \
+    dnf clean all && \
+    mkdir /root/.ssh && chmod 700 /root/.ssh && \
+    /bin/update-ca-trust extract && \
+    chmod +x /usr/local/tomcat/run && \
+    groupadd -g 2000 simplicite && useradd -N -g 2000 -u 2000 simplicite
+
+WORKDIR /usr/local/tomcat
+EXPOSE 8080 8443 8444 8009 8005 8555
+CMD [ "/usr/local/tomcat/run" ]
