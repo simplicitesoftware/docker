@@ -14,3 +14,17 @@ services:
     volumes:
       - /mnt/registry/auth:/auth
       - /mnt/registry/data:/var/lib/registry
+  registry-ui:
+    image: parabuzzle/craneoperator:latest
+    restart: always
+    container_name: registry-ui
+    environment:
+      REGISTRY_HOST: "registry"
+      REGISTRY_PORT: "5000"
+      REGISTRY_PROTOCOL: "http"
+      REGISTRY_ALLOW_DELETE: "false"
+      ALLOW_REGISTRY_LOGIN: "true"
+      REGISTRY_PUBLIC_URL: "https://registry.simplicite.io"
+      TITLE: "Simplicite Docker registry"
+    ports:
+      - 127.0.0.1:9000:80
