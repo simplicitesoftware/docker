@@ -25,14 +25,14 @@ date > $LOCK
 echo ""
 echo "--------------------------------------------------------"
 
-TAGS=${1:-alpine alpine-temurin centos-base centos centos-temurin centos8-base centos8 centos8-temurin adoptium rockylinux devel}
+TAGS=${1:-alpine alpine-temurin centos-base centos centos-temurin centos-jvmless centos8-base centos8 centos8-temurin centos8-jvmless adoptium rockylinux devel}
 echo "Variants(s) = $TAGS"
 
 #SRVS=${2:-tomcat tomee}
 SRVS=${2:-tomcat}
 echo "Server(s) = $SRVS"
 
-JVMS_CENTOS="latest 11 1.8.0"
+JVMS_CENTOS="latest 11 1.8.0 jvmless"
 JVMS_CENTOS_TEMURIN="17 11 8"
 JVMS_ADOPTIUM="17 11 8"
 JVMS_ROCKYLINUX="latest"
@@ -97,7 +97,7 @@ do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "alpine-temurin" -o $TAG = "centos-temurin" -o $TAG = "centos8-temurin" -o $TAG = "adoptium" -o $TAG = "rockylinux" ]
+				if [ $TAG = "alpine-temurin" -o $TAG = "centos-temurin" -o $TAG = "centos-jvmless" -o $TAG = "centos8-temurin" -o $TAG = "centos8-jvmless" -o $TAG = "adoptium" -o $TAG = "rockylinux" ]
 				then
 					JVMEXT="-$JVM"
 				else
@@ -105,7 +105,7 @@ do
 				fi
 			fi
 
-			if [ $TAG != "centos" -a $TAG != "centos8" -a $TAG != "centos-temurin" -a $TAG != "centos8-temurin" -a $TAG != "devel" ]
+			if [ $TAG != "centos" -a $TAG != "centos8" -a $TAG != "centos-temurin" -a $TAG != "centos-jvmless" -a $TAG != "centos8-temurin" -a $TAG != "centos8-jvmless" -a $TAG != "devel" ]
 			then
 				FROM=`grep '^FROM' Dockerfile-$TAG | awk '{ print $2 }' | sed "s/.{jvm}/$JVM/"`
 				echo "Pulling image: $FROM"
@@ -159,7 +159,7 @@ do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "alpine-temurin" -o $TAG = "centos-temurin" -o $TAG = "centos8-temurin" -o $TAG = "adoptium" -o $TAG = "rockylinux" ]
+				if [ $TAG = "alpine-temurin" -o $TAG = "centos-temurin" -o $TAG = "centos-jvmless" -o $TAG = "centos8-temurin" -o $TAG = "centos8-jvmless" -o $TAG = "adoptium" -o $TAG = "rockylinux" ]
 				then
 					JVMEXT="-$JVM"
 				else
@@ -167,7 +167,7 @@ do
 				fi
 			fi
 
-			if [ $TAG != "centos-base" -a $TAG != "centos8-base" ]
+			if [ $TAG != "centos-base" -a $TAG != "centos-jvmless"  -a $TAG != "centos8-base" -a $TAG != "centos8-jvmless" ]
 			then
 				echo "-- $SERVER:$TAG$SRVEXT$JVMEXT ------------------"
 				echo ""
