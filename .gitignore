@@ -4,6 +4,7 @@ template*
 test*
 tmp
 jdk*
+jre*
 ./Dockerfile
 *.crt
 **/Thumbs.db

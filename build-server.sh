@@ -25,16 +25,17 @@ date > $LOCK
 echo ""
 echo "--------------------------------------------------------"
 
-TAGS=${1:-alpine alpine-temurin centos-base centos centos-temurin centos-jvmless centos8-base centos8 centos8-temurin centos8-jvmless adoptium rockylinux devel}
+TAGS=${1:-alpine alpine-temurin alpine-temurin-jre centos-base centos centos-temurin centos-jvmless centos8-base centos8 centos8-temurin centos8-jvmless adoptium centos8stream rockylinux devel}
 echo "Variants(s) = $TAGS"
 
 #SRVS=${2:-tomcat tomee}
 SRVS=${2:-tomcat}
 echo "Server(s) = $SRVS"
 
-JVMS_CENTOS="latest 11 1.8.0 jvmless"
+JVMS_CENTOS="latest 11 1.8.0"
 JVMS_CENTOS_TEMURIN="17 11 8"
 JVMS_ADOPTIUM="17 11 8"
+JVMS_CENTOS8STREAM="latest"
 JVMS_ROCKYLINUX="latest"
 
 echo "--------------------------------------------------------"
@@ -90,6 +91,7 @@ do
 		[ $TAG = "centos" -o $TAG = "centos8" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" ] && JVMS=$JVMS_CENTOS_TEMURIN
 		[ $TAG = "adoptium" ] && JVMS=$JVMS_ADOPTIUM
+		[ $TAG = "centos8stream" ] && JVMS=$JVMS_CENTOS8STREAM
 		[ $TAG = "rockylinux" ] && JVMS=$JVMS_ROCKYLINUX
 
 		for JVM in $JVMS
@@ -152,6 +154,7 @@ do
 		[ $TAG = "centos" -o $TAG = "centos8" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" ] && JVMS=$JVMS_CENTOS_TEMURIN
 		[ $TAG = "adoptium" ] && JVMS=$JVMS_ADOPTIUM
+		[ $TAG = "centos8stream" ] && JVMS=$JVMS_CENTOS8STREAM
 		[ $TAG = "rockylinux" ] && JVMS=$JVMS_ROCKYLINUX
 
 		for JVM in $JVMS
