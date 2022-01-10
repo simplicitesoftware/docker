@@ -37,8 +37,8 @@ echo "Server(s) = $SRVS"
 JVMS_CENTOS="17 11 1.8.0"
 JVMS_CENTOS_TEMURIN="17 11 8"
 JVMS_ADOPTIUM="17 11 8"
-JVMS_CENTOS8STREAM="latest"
-JVMS_ROCKYLINUX="latest"
+JVMS_CENTOS8STREAM="17"
+JVMS_ROCKYLINUX="17"
 
 # Variant/server/JVM for the :latest tag
 TAG_LATEST="centos"

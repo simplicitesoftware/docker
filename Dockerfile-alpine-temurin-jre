@@ -14,9 +14,9 @@ LABEL org.label-schema.name="simplicite-server-alpine-temurin-jre-${jvm}" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="$date"
 
-ENV DOCKER=alpine LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8 JAVA_HOME=/usr/local/jre LOG4J_FORMAT_MSG_NO_LOOKUPS=true
+ENV DOCKER=alpine LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8 JAVA_HOME=/usr/local/jvm LOG4J_FORMAT_MSG_NO_LOOKUPS=true
 
-COPY jre-${jvm}-alpine /usr/local/jre
+COPY jdk-${jvm}-alpine-jre /usr/local/jvm
 COPY tomcat /usr/local/tomcat
 COPY run.sh /usr/local/tomcat/run
 COPY *.crt /usr/local/share/ca-certificates/
