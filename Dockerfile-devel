@@ -1,4 +1,4 @@
-FROM simplicite/server:centos8stream
+FROM simplicite/server:centos8stream-17
 
 ARG date
 

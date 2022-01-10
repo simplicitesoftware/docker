@@ -1,7 +1,7 @@
 FROM rockylinux/rockylinux:latest
 
 ARG date
-ARG jvm=latest
+ARG jvm=17
 
 LABEL org.label-schema.name="simplicite-server-rockylinux-${jvm}" \
       org.label-schema.vendor="Simplicite Software" \

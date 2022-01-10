@@ -35,10 +35,8 @@ echo "Server(s) = $SRVS"
 
 # JVMs
 JVMS_CENTOS="17 11 1.8.0"
-JVMS_CENTOS_TEMURIN="17 11 8"
+JVMS_CENTOS_TEMURIN="17 17-jre 11 11-jre 8 8-jre"
 JVMS_ADOPTIUM="17 11 8"
-JVMS_CENTOS8STREAM="17"
-JVMS_ROCKYLINUX="17"
 
 # Variant/server/JVM for the :latest tag
 TAG_LATEST="centos"
@@ -98,15 +96,13 @@ do
 		[ $TAG = "centos" -o $TAG = "centos8" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" ] && JVMS=$JVMS_CENTOS_TEMURIN
 		[ $TAG = "adoptium" ] && JVMS=$JVMS_ADOPTIUM
-		[ $TAG = "centos8stream" ] && JVMS=$JVMS_CENTOS8STREAM
-		[ $TAG = "rockylinux" ] && JVMS=$JVMS_ROCKYLINUX
 
 		for JVM in $JVMS
 		do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "alpine-temurin" -o $TAG = "centos-temurin" -o $TAG = "centos-jvmless" -o $TAG = "centos8-temurin" -o $TAG = "centos8-jvmless" -o $TAG = "adoptium" -o $TAG = "rockylinux" ]
+				if [ $TAG = "alpine-temurin" -o $TAG = "centos-temurin" -o $TAG = "centos-jvmless" -o $TAG = "centos8-temurin" -o $TAG = "centos8-jvmless" -o $TAG = "adoptium"  -o $TAG = "centos8stream" -o $TAG = "rockylinux" ]
 				then
 					JVMEXT="-$JVM"
 				else
@@ -161,15 +157,13 @@ do
 		[ $TAG = "centos" -o $TAG = "centos8" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" ] && JVMS=$JVMS_CENTOS_TEMURIN
 		[ $TAG = "adoptium" ] && JVMS=$JVMS_ADOPTIUM
-		[ $TAG = "centos8stream" ] && JVMS=$JVMS_CENTOS8STREAM
-		[ $TAG = "rockylinux" ] && JVMS=$JVMS_ROCKYLINUX
 
 		for JVM in $JVMS
 		do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "alpine-temurin" -o $TAG = "centos-temurin" -o $TAG = "centos-jvmless" -o $TAG = "centos8-temurin" -o $TAG = "centos8-jvmless" -o $TAG = "adoptium" -o $TAG = "rockylinux" ]
+				if [ $TAG = "alpine-temurin" -o $TAG = "centos-temurin" -o $TAG = "centos-jvmless" -o $TAG = "centos8-temurin" -o $TAG = "centos8-jvmless" -o $TAG = "adoptium" -o $TAG = "centos8stream" -o $TAG = "rockylinux" ]
 				then
 					JVMEXT="-$JVM"
 				else
