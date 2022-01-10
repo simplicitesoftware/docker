@@ -13,14 +13,14 @@ LABEL org.label-schema.name="simplicite-server-rockylinux-${jvm}" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="${date}"
 
-ENV DOCKER=rockylinux LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 JAVA_HOME=/usr/local/jdk LOG4J_FORMAT_MSG_NO_LOOKUPS=true
+ENV DOCKER=rockylinux LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 JAVA_HOME=/usr/lib/jvm/java LOG4J_FORMAT_MSG_NO_LOOKUPS=true
 
 COPY jdk-${jvm} /usr/local/jdk
 COPY tomcat /usr/local/tomcat
 COPY run.sh /usr/local/tomcat/run
 COPY *.crt /etc/pki/ca-trust/source/anchors/
 RUN dnf upgrade -y && \
-    dnf install -y bash openssh-clients openssl git curl wget zip unzip ca-certificates libjpeg fontconfig mariadb postgresql && \
+    dnf install -y bash openssh-clients openssl git curl wget zip unzip ca-certificates libjpeg fontconfig java-17-openjdk-devel mariadb postgresql && \
     dnf clean all && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
     /bin/update-ca-trust extract && \
