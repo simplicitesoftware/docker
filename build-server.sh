@@ -28,15 +28,22 @@ echo "--------------------------------------------------------"
 TAGS=${1:-alpine alpine-temurin alpine-temurin-jre centos-base centos centos-temurin centos-jvmless centos8-base centos8 centos8-temurin centos8-jvmless adoptium centos8stream rockylinux devel}
 echo "Variants(s) = $TAGS"
 
+# Servers
 #SRVS=${2:-tomcat tomee}
 SRVS=${2:-tomcat}
 echo "Server(s) = $SRVS"
 
-JVMS_CENTOS="latest 11 1.8.0"
+# JVMs
+JVMS_CENTOS="17 11 1.8.0"
 JVMS_CENTOS_TEMURIN="17 11 8"
 JVMS_ADOPTIUM="17 11 8"
 JVMS_CENTOS8STREAM="latest"
 JVMS_ROCKYLINUX="latest"
+
+# Variant/server/JVM for the :latest tag
+TAG_LATEST="centos"
+SRV_LATEST="tomcat"
+JVM_LATEST="17"
 
 echo "--------------------------------------------------------"
 echo ""
@@ -133,7 +140,7 @@ do
 			[ $DEL = 1 ] && docker rmi $SERVER:$TAG$SRVEXT$JVMEXT
 			docker build --network host -f Dockerfile-$TAG -t $SERVER:$TAG$SRVEXT$JVMEXT --build-arg date="$DATE" --build-arg variant="$JVMEXT" --build-arg jvm="$JVM" .
 			echo "Done"
-			if [ $TAG = "centos" -a $SRV = "tomcat" -a $JVM = "latest" ]
+			if [ $TAG = $TAG_LATEST -a $SRV = $SRV_LATEST -a $JVM = $JVM_LATEST ]
 			then
 				docker tag $SERVER:$TAG$SRVEXT$JVMEXT $SERVER:latest
 			fi
