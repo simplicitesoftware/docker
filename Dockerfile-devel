@@ -1,4 +1,4 @@
-FROM simplicite/server:centos8stream-17
+FROM simplicite/server:centos8stream
 
 ARG date
 
@@ -16,7 +16,7 @@ LABEL org.label-schema.name="simplicite-server-devel" \
 ARG ANT_VERSION=1.10.12
 ARG MAVEN_VERSION=3.8.4
 ARG GRADLE_VERSION=7.3.3
-ARG NODE_VERSION=v16.13.1
+ARG NODE_VERSION=v16.13.2
 
 RUN dnf install -y vim-enhanced gcc gcc-c++ make nmap && dnf clean all && \
     cd /usr/local && \
