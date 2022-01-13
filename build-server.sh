@@ -25,7 +25,7 @@ date > $LOCK
 echo ""
 echo "--------------------------------------------------------"
 
-TAGS=${1:-centos-base centos centos-temurin centos-jvmless centos8-base centos8 centos8-temurin centos8-jvmless alpine alpine-temurin alpine-temurin-jre adoptium centos8stream rockylinux devel}
+TAGS=${1:-centos-base centos centos-temurin centos-jvmless centos8-base centos8 centos8-temurin centos8-jvmless alpine alpine-temurin alpine-temurin-jre adoptium centos8stream rockylinux almalinux devel}
 echo "Variants(s) = $TAGS"
 
 # Servers
@@ -102,7 +102,7 @@ do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "alpine-temurin" -o $TAG = "centos-temurin" -o $TAG = "centos-jvmless" -o $TAG = "centos8-temurin" -o $TAG = "centos8-jvmless" -o $TAG = "adoptium"  -o $TAG = "centos8stream" -o $TAG = "rockylinux" ]
+				if [ $TAG = "alpine-temurin" -o $TAG = "centos-temurin" -o $TAG = "centos-jvmless" -o $TAG = "centos8-temurin" -o $TAG = "centos8-jvmless" -o $TAG = "adoptium"  -o $TAG = "centos8stream" -o $TAG = "rockylinux"  -o $TAG = "almalinux" ]
 				then
 					JVMEXT="-$JVM"
 				else
@@ -163,7 +163,7 @@ do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "alpine-temurin" -o $TAG = "centos-temurin" -o $TAG = "centos-jvmless" -o $TAG = "centos8-temurin" -o $TAG = "centos8-jvmless" -o $TAG = "adoptium" -o $TAG = "centos8stream" -o $TAG = "rockylinux" ]
+				if [ $TAG = "alpine-temurin" -o $TAG = "centos-temurin" -o $TAG = "centos-jvmless" -o $TAG = "centos8-temurin" -o $TAG = "centos8-jvmless" -o $TAG = "adoptium" -o $TAG = "centos8stream" -o $TAG = "rockylinux" -o $TAG = "almalinux" ]
 				then
 					JVMEXT="-$JVM"
 				else

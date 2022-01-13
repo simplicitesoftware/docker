@@ -1,18 +1,18 @@
-FROM quay.io/centos/centos:stream8
+FROM almalinux:latest
 
 ARG date
 
-LABEL org.label-schema.name="simplicite-server-centos8stream" \
+LABEL org.label-schema.name="simplicite-server-almalinux" \
       org.label-schema.vendor="Simplicite Software" \
       org.label-schema.build-date="${date}" \
-      org.opencontainers.image.ref.name="simplicite-server-centos8stream" \
-      org.opencontainers.image.title="Simplicite server / CentOS 8 Stream" \
-      org.opencontainers.image.description="Simplicite server / CentOS 8 Stream" \
+      org.opencontainers.image.ref.name="simplicite-server-almalinux" \
+      org.opencontainers.image.title="Simplicite server / AlmaLinux" \
+      org.opencontainers.image.description="Simplicite server / AlmaLinux" \
       org.opencontainers.image.vendor="Simplicite Software" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="${date}"
 
-ENV DOCKER=centos8stream LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 JAVA_HOME=/usr/lib/jvm/java LOG4J_FORMAT_MSG_NO_LOOKUPS=true
+ENV DOCKER=almalinux LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 JAVA_HOME=/usr/lib/jvm/java LOG4J_FORMAT_MSG_NO_LOOKUPS=true
 
 COPY tomcat /usr/local/tomcat
 COPY run.sh /usr/local/tomcat/run
