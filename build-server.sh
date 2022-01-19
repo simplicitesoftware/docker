@@ -25,7 +25,7 @@ date > $LOCK
 echo ""
 echo "--------------------------------------------------------"
 
-TAGS=${1:-centos-base centos centos-temurin centos-jvmless centos8-base centos8 centos8-temurin centos8-jvmless alpine alpine-temurin alpine-temurin-jre adoptium centos8stream rockylinux almalinux devel}
+TAGS=${1:-centos-base centos centos-temurin centos-jvmless centos8-base centos8 centos8-temurin centos8-jvmless alpine alpine-temurin alpine-temurin-jre rockylinux almalinux devel}
 echo "Variants(s) = $TAGS"
 
 # Servers
@@ -36,7 +36,7 @@ echo "Server(s) = $SRVS"
 # JVMs
 JVMS_CENTOS="17 11 1.8.0"
 JVMS_CENTOS_TEMURIN="17 17-jre 11 11-jre 8 8-jre"
-JVMS_ADOPTIUM="17 11 8"
+JVMS_ADOPTIUM="17 11"
 
 # Variant/server/JVM for the :latest tag
 TAG_LATEST="centos"
