@@ -63,7 +63,7 @@ do
 		rm -fr tomcat
 		mkdir tomcat
 		git --work-tree=tomcat --git-dir=$SRV.git checkout -f master
-		rm -f tomcat/*.bat tomcat/bin/*.bat tomcat/bin/*.exe tomcat/bin/*.dll
+		rm -f tomcat/.project tomcat/.git* tomcat/README.md tomcat/*.bat tomcat/bin/*.bat tomcat/bin/*.exe tomcat/bin/*.dll
 		echo "Done"
 	elif [ -d $SRV ]
 	then

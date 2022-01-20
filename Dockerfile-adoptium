@@ -20,8 +20,7 @@ ENV DOCKER=adoptium LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8
 COPY tomcat /usr/local/tomcat
 COPY run.sh /usr/local/tomcat/run
 COPY *.crt /usr/local/share/ca-certificates/
-RUN rm -f /usr/local/tomcat/bin/*.bat /usr/local/tomcat/bin/*.exe /usr/local/tomcat/bin/*.dll && \
-    apt-get update && \
+RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y apt-utils && \
     apt-get install -y bash openssh-client openssl git curl wget zip unzip ca-certificates libjpeg-dev mysql-client postgresql-client && \

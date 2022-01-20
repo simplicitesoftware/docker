@@ -19,8 +19,7 @@ ENV DOCKER=centos8 LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LOG4J_FORMAT_MSG_NO_LOO
 COPY tomcat /usr/local/tomcat
 COPY run.sh /usr/local/tomcat/run
 COPY *.crt /etc/pki/ca-trust/source/anchors/
-RUN rm -f /usr/local/tomcat/bin/*.bat /usr/local/tomcat/bin/*.exe /usr/local/tomcat/bin/*.dll && \
-    dnf upgrade -y && \
+RUN dnf upgrade -y && \
     dnf install -y epel-release && \
     dnf install -y bash openssh-clients openssl git curl wget zip unzip ca-certificates libjpeg fontconfig mariadb postgresql && \
     dnf clean all && \
