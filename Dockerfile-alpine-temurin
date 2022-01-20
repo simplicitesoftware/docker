@@ -20,7 +20,8 @@ COPY jdk-${jvm}-alpine /usr/local/jvm
 COPY tomcat /usr/local/tomcat
 COPY run.sh /usr/local/tomcat/run
 COPY *.crt /usr/local/share/ca-certificates/
-RUN apk update && apk upgrade && \
+RUN rm -f /usr/local/tomcat/bin/*.bat /usr/local/tomcat/bin/*.exe /usr/local/tomcat/bin/*.dll && \
+    apk update && apk upgrade && \
     apk add --update bash openssh-client openssl git curl wget zip unzip ca-certificates libjpeg fontconfig ttf-dejavu mysql-client postgresql-client && \
     rm -rf /var/cache/apk/* && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \

@@ -17,7 +17,8 @@ ENV DOCKER=rockylinux LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 JAVA_HOME=/usr/lib/j
 COPY tomcat /usr/local/tomcat
 COPY run.sh /usr/local/tomcat/run
 COPY *.crt /etc/pki/ca-trust/source/anchors/
-RUN dnf upgrade -y && \
+RUN rm -f /usr/local/tomcat/bin/*.bat /usr/local/tomcat/bin/*.exe /usr/local/tomcat/bin/*.dll && \
+    dnf upgrade -y && \
     dnf install -y bash openssh-clients openssl git curl wget zip unzip ca-certificates libjpeg fontconfig java-17-openjdk-devel mariadb postgresql && \
     dnf clean all && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
