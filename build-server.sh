@@ -25,7 +25,7 @@ date > $LOCK
 echo ""
 echo "--------------------------------------------------------"
 
-TAGS=${1:-centos-base centos centos-temurin centos-jvmless centos8-base centos8 centos8-temurin centos8-jvmless alpine alpine-temurin alpine-temurin-jre rockylinux almalinux devel}
+TAGS=${1:-centos-base centos centos-temurin centos-jvmless centos8-base centos8 centos8-temurin centos8-jvmless adoptium alpine alpine-temurin alpine-temurin-jre rockylinux almalinux devel}
 echo "Variants(s) = $TAGS"
 
 # Servers
