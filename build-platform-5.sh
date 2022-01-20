@@ -17,6 +17,7 @@ then
 
 	./push-to-registries.sh platform \
 		5-alpha-temurin-17 \
+		5-alpha-temurin-17-jre \
 		5-alpha
 
 	./build-platform.sh --delete 5-alpha-light
@@ -28,6 +29,7 @@ then
 
 	./push-to-registries.sh platform \
 		5-alpha-light-temurin-17 \
+		5-alpha-light-temurin-17-jre \
 		5-alpha-light
 
 	./build-platform.sh --delete 5-alpha-test
@@ -58,6 +60,7 @@ then
 
 	./push-to-registries.sh platform \
 		5-beta-temurin-17 \
+		5-beta-temurin-17-jre \
 		5-beta
 
 	./build-platform.sh --delete 5-beta-light
@@ -69,6 +72,7 @@ then
 
 	./push-to-registries.sh platform \
 		5-beta-light-temurin-17 \
+		5-beta-light-temurin-17-jre \
 		5-beta-light
 fi
 
