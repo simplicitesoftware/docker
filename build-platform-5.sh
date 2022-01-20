@@ -36,6 +36,8 @@ then
 		5-alpha-test-centos8 \
 		5-alpha-test-rockylinux \
 		5-alpha-test-almalinux \
+		5-alpha-test-adoptium-17 \
+		5-alpha-test-adoptium-11 \
 		5-alpha-test-alpine \
 		5-alpha-test-alpine-temurin
 fi
@@ -85,10 +87,9 @@ then
 
 	./push-to-registries.sh platform \
 		5-latest-jvmless \
-		5-latest-adoptium-11 \
-		5-latest-adoptium-17 \
 		5-latest-temurin-11 \
 		5-latest-temurin-17 \
+		5-latest-temurin-17-jre \
 		5-latest-openjdk-11 \
 		5-latest \
 		5 \
@@ -107,10 +108,9 @@ then
 
 	./push-to-registries.sh platform \
 		5-latest-light-jvmless \
-		5-latest-light-adoptium-11 \
-		5-latest-light-adoptium-17 \
 		5-latest-light-temurin-11 \
 		5-latest-light-temurin-17 \
+		5-latest-light-temurin-17-jre \
 		5-latest-light-openjdk-11 \
 		5-latest-light \
 		5-light \
