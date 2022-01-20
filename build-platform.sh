@@ -111,7 +111,7 @@ elif [ "$1" = "5-alpha-test" ]
 then
 	VERSION=5
 	BRANCH=master
-	TAGS=${2:-centos8 rockylinux almalinux alpine alpine-temurin}
+	TAGS=${2:-centos8 rockylinux almalinux adoptium-17 adoptium-11 alpine alpine-temurin}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
@@ -149,7 +149,7 @@ elif [ "$1" = "5-latest" -o "$1" = "5" ]
 then
 	VERSION=5
 	BRANCH=release
-	TAGS=${2:-centos centos-temurin-17 centos-openjdk-11 centos-temurin-11 centos-jvmless adoptium-17 adoptium-11}
+	TAGS=${2:-centos centos-temurin-17 centos-temurin-17-jre centos-openjdk-11 centos-temurin-11 centos-jvmless}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
@@ -163,7 +163,7 @@ elif [ "$1" = "5-latest-light" -o "$1" = "5-light" ]
 then
 	VERSION=5
 	BRANCH=release-light
-	TAGS=${2:-centos centos-temurin-17 centos-openjdk-11 centos-temurin-11 centos-jvmless adoptium-17 adoptium-11}
+	TAGS=${2:-centos centos-temurin-17 centos-temurin-17-jre centos-openjdk-11 centos-temurin-11 centos-jvmless}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
