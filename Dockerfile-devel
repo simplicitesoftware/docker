@@ -1,4 +1,4 @@
-FROM simplicite/server:centos8-temurin-17
+FROM simplicite/server:centos8-openjdk-17
 
 ARG date
 
