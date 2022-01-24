@@ -1,0 +1,31 @@
+FROM alpine:latest
+
+ARG date
+
+LABEL org.label-schema.name="simplicite-server-jetty" \
+      org.label-schema.vendor="Simplicite Software" \
+      org.label-schema.license="NONE" \
+      org.label-schema.build-date="$date" \
+      org.opencontainers.image.ref.name="simplicite-server-jetty" \
+      org.opencontainers.image.title="Simplicite server / Jetty" \
+      org.opencontainers.image.description="Simplicite server / Jetty" \
+      org.opencontainers.image.vendor="Simplicite Software" \
+      org.opencontainers.image.licenses="NONE" \
+      org.opencontainers.image.created="$date"
+
+ENV DOCKER=alpine LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8 JAVA_HOME=/usr/lib/jvm/default-jvm LOG4J_FORMAT_MSG_NO_LOOKUPS=true
+
+COPY jetty /usr/local/jetty
+COPY run-jetty.sh /usr/local/jetty/run
+COPY *.crt /usr/local/share/ca-certificates/
+RUN apk update && apk upgrade && \
+    apk add --update bash openssh-client openssl git curl wget zip unzip ca-certificates libjpeg fontconfig ttf-dejavu openjdk17 mysql-client postgresql-client && \
+    rm -rf /var/cache/apk/* && \
+    mkdir /root/.ssh && chmod 700 /root/.ssh && \
+    update-ca-certificates && \
+    chmod +x /usr/local/jetty/run && \
+    addgroup -g 2000 simplicite && adduser -D -G simplicite -u 2000 simplicite
+
+WORKDIR /usr/local/jetty
+EXPOSE 8080
+CMD [ "/usr/local/jetty/run" ]
