@@ -26,7 +26,8 @@ RUN yum install -y dnf && yum clean all && rm -rf /var/cache/yum && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
     /bin/update-ca-trust extract && \
     chmod +x /usr/local/tomcat/run && \
-    groupadd -g 2000 simplicite && useradd -N -g 2000 -u 2000 simplicite
+    groupadd -g 2000 simplicite && useradd -N -g 2000 -u 2000 simplicite && \
+    chown -R simplicite:simplicite /usr/local/tomcat
 
 WORKDIR /usr/local/tomcat
 EXPOSE 8080 8443 8444 8009 8005 8555

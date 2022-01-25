@@ -25,3 +25,4 @@ LABEL org.label-schema.name="simplicite-platform-$version-$branch" \
       org.opencontainers.image.created="$date"
 
 COPY $template/app /usr/local/tomcat/webapps/ROOT
+RUN  chown -R simplicite:simplicite /usr/local/tomcat/webapps/ROOT
