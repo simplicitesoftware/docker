@@ -24,7 +24,8 @@ RUN apk update && apk upgrade && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
     update-ca-certificates && \
     chmod +x /usr/local/jetty/run && \
-    addgroup -g 2000 simplicite && adduser -D -G simplicite -u 2000 simplicite
+    addgroup -g 2000 simplicite && adduser -D -G simplicite -u 2000 simplicite && \
+    chown -R simplicite:simplicite /usr/local/jetty
 
 WORKDIR /usr/local/jetty
 EXPOSE 8080

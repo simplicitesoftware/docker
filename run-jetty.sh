@@ -50,7 +50,11 @@ while (keys.hasMoreElements()) {
 EOF
 fi
 
-JETTY_START="java -server -Dserver.vendor=jetty -Dserver.version=10 -Djetty.home=$JETTY_HOME -Djetty.base=$JETTY_BASE -Dorg.eclipse.jetty.annotations.AnnotationParser.LEVEL=OFF -jar ./start.jar"
+JAVA_OPTS="$JAVA_OPTS -server -Djava.awt.headless=true -Dfile.encoding=UTF-8 -Duser.timezone=${USER_TIMEZONE:-`date +%Z`} -Dplatform.autoupgrade=true"
+JAVA_OPTS="$JAVA_OPTS -Dserver.vendor=jetty -Dserver.version=10 -Djetty.home=$JETTY_HOME -Djetty.base=$JETTY_BASE -Dorg.eclipse.jetty.annotations.AnnotationParser.LEVEL=OFF"
+JAVA_OPTS="$JAVA_OPTS -Ddb.vendor=hsqldb -Ddb.driver=org.hsqldb.jdbcDriver -Ddb.user=sa -Ddb.password= -Ddb.url=hsqldb:file:$JETTY_BASE/webapps/ROOT/WEB-INF/db/simplicite\;shutdown=true\;sql.ignore_case=true"
+
+JETTY_START="java $JAVA_OPTS -jar ./start.jar"
 
 if [ "$JETTY_USER" != "" ]
 then
@@ -61,7 +65,7 @@ then
 		exit 1
 	fi
 	JETTY_GID=`id -g $JETTY_USER`
-	chown -R $JETTY_UID:$JETTY_GID $JETTY_HOME
+	chown -f -R $JETTY_UID:$JETTY_GID $JETTY_HOME
 	echo "Running Jetty as $JETTY_USER (user ID $JETTY_UID, group ID $JETTY_GID)"
 	su $JETTY_USER -c "cd $JETTY_HOME && $JETTY_START"
 else

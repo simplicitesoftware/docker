@@ -24,5 +24,6 @@ LABEL org.label-schema.name="simplicite-platform-$version-$branch" \
       org.opencontainers.image.licenses="https://docs.simplicite.io/license.md" \
       org.opencontainers.image.created="$date"
 
-COPY $template/app /usr/local/tomcat/webapps/ROOT
-RUN  chown -R simplicite:simplicite /usr/local/tomcat/webapps/ROOT
+ARG destpath=tomcat
+COPY $template/app /usr/local/$destpath/webapps/ROOT
+RUN chown -R simplicite:simplicite /usr/local/$destpath/webapps/ROOT

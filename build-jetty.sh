@@ -13,7 +13,7 @@ echo ""
 echo "--------------------------------------------------------"
 
 SRV=jetty
-SERVER=server
+SERVER=simplicite/server
 TAG=jetty
 
 echo "Updating $SRV.git"
@@ -28,8 +28,6 @@ rm -fr $SRV
 mkdir $SRV
 git --work-tree=$SRV --git-dir=$SRV.git checkout -f master
 rm -f $SRV/.project $SRV/.git* $SRV/README.md $SRV/*.bat $SRV/bin/*.bat $SRV/bin/*.exe $SRV/bin/*.dll
-sed -i 's/# jetty.http.port=8080/jetty.http.port=8443/' $SRV/default/start.d/http.ini
-#sed -i 's/# jetty.httpConfig.secureScheme=/jetty.httpConfig.secureScheme=/;s/# jetty.httpConfig.securePort=/jetty.httpConfig.securePort=/' $SRV/default/start.d/server.ini
 echo "Done"
 
 FROM=`grep '^FROM' Dockerfile-$TAG | awk '{ print $2 }'`
@@ -50,7 +48,7 @@ rm -fr $SRV
 echo ""
 echo "-- $SERVER:$TAG$SRVEXT$JVMEXT ------------------"
 echo ""
-echo "docker run -it --rm --memory=128m -p 127.0.0.1:8080:8080 -p 127.0.0.1:8443:8443 --name=simplicite $SERVER:$TAG"
+echo "docker run -it --rm --memory=128m -p 127.0.0.1:8443:8080 --name=simplicite $SERVER:$TAG"
 echo ""
 
 rm -f $LOCK
