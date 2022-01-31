@@ -1,4 +1,5 @@
-FROM centos:8
+# FROM centos:8
+FROM quay.io/centos/centos:stream8
 
 ARG BUILD_DATE
 LABEL org.label-schema.name="simplicite-vscode" \
@@ -12,11 +13,11 @@ LABEL org.label-schema.name="simplicite-vscode" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="$BUILD_DATE"
 
-ARG GIT_VERSION=2.34.0
+ARG GIT_VERSION=2.35.1
 ARG ANT_VERSION=1.10.12
 ARG MAVEN_VERSION=3.8.4
-ARG GRADLE_VERSION=7.3
-ARG NODE_VERSION=v16.13.1
+ARG GRADLE_VERSION=7.3.3
+ARG NODE_VERSION=v16.13.2
 
 USER root
 RUN dnf upgrade -y && \
