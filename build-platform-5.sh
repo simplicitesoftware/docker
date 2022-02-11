@@ -35,7 +35,7 @@ then
 	./build-platform.sh --delete 5-alpha-test
 
 	./push-to-registries.sh platform \
-		5-alpha-test-centos8 \
+		5-alpha-test-centos8-openjdk-17 \
 		5-alpha-test-rockylinux \
 		5-alpha-test-almalinux \
 		5-alpha-test-adoptium-17 \
