@@ -95,6 +95,7 @@ then
 		5-latest-temurin-17 \
 		5-latest-temurin-17-jre \
 		5-latest-openjdk-11 \
+		5-latest-openjdk-17 \
 		5-latest \
 		5 \
 		latest
@@ -116,6 +117,7 @@ then
 		5-latest-light-temurin-17 \
 		5-latest-light-temurin-17-jre \
 		5-latest-light-openjdk-11 \
+		5-latest-light-openjdk-17 \
 		5-latest-light \
 		5-light \
 		latest-light
