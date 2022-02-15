@@ -174,17 +174,19 @@ then
 		CHECKOUT=$GITTAG
 	fi
 elif [ "$1" = "5.0" ]
+#elif [ "$1" = "5.0" -o "$1" = "5.1" ]
 then
 	VERSION=5
-	BRANCH=5.0
+	BRANCH=$1
 	TAGS=${2:-centos-openjdk-17 centos-temurin-17}
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
 elif [ "$1" = "5.0-light" ]
+#elif [ "$1" = "5.0-light" -o "$1" = "5.1-light" ]
 then
 	VERSION=5
-	BRANCH=5.0-light
+	BRANCH=$1-light
 	TAGS=${2:-centos-openjdk-17 centos-temurin-17}
 	SRVS=tomcat
 	PFTAG=$1

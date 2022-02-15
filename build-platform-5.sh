@@ -18,6 +18,7 @@ then
 	./push-to-registries.sh platform \
 		5-alpha-temurin-17 \
 		5-alpha-temurin-17-jre \
+		5-alpha-openjdk-17 \
 		5-alpha
 
 	./build-platform.sh --delete 5-alpha-light
@@ -27,14 +28,15 @@ then
 	docker tag simplicite/platform:5-alpha-light-temurin-17 simplicite/platform:5-alpha-light
 	# ZZZ temporary
 
-	./push-to-registries.sh platform \
+	./push-to-registries.sh --delete platform \
 		5-alpha-light-temurin-17 \
 		5-alpha-light-temurin-17-jre \
+		5-alpha-light-openjdk-17 \
 		5-alpha-light
 
 	./build-platform.sh --delete 5-alpha-test
 
-	./push-to-registries.sh platform \
+	./push-to-registries.sh --delete platform \
 		5-alpha-test-centos8-openjdk-17 \
 		5-alpha-test-rockylinux \
 		5-alpha-test-almalinux \
@@ -58,9 +60,10 @@ then
 	docker tag simplicite/platform:5-beta-temurin-17 simplicite/platform:5-beta
 	# ZZZ temporary
 
-	./push-to-registries.sh platform \
+	./push-to-registries.sh --delete platform \
 		5-beta-temurin-17 \
 		5-beta-temurin-17-jre \
+		5-beta-openjdk-17 \
 		5-beta
 
 	./build-platform.sh --delete 5-beta-light
@@ -70,9 +73,10 @@ then
 	docker tag simplicite/platform:5-beta-light-temurin-17 simplicite/platform:5-beta-light
 	# ZZZ temporary
 
-	./push-to-registries.sh platform \
+	./push-to-registries.sh --delete platform \
 		5-beta-light-temurin-17 \
 		5-beta-light-temurin-17-jre \
+		5-beta-light-openjdk-17 \
 		5-beta-light
 fi
 
@@ -89,7 +93,7 @@ then
 	docker tag simplicite/platform:5-latest simplicite/platform:5
 	docker tag simplicite/platform:5-latest simplicite/platform:latest
 
-	./push-to-registries.sh platform \
+	./push-to-registries.sh --delete platform \
 		5-latest-jvmless \
 		5-latest-temurin-11 \
 		5-latest-temurin-17 \
@@ -111,7 +115,7 @@ then
 	docker tag simplicite/platform:5-latest-light simplicite/platform:5-light
 	docker tag simplicite/platform:5-latest-light simplicite/platform:latest-light
 
-	./push-to-registries.sh platform \
+	./push-to-registries.sh --delete platform \
 		5-latest-light-jvmless \
 		5-latest-light-temurin-11 \
 		5-latest-light-temurin-17 \
@@ -135,14 +139,14 @@ fi
 
 # Legacy versions
 
-if [ "$1" = "5.0" ]
+if [ "$1" = "5.0" -o "$1" = "5.1" ]
 then
-	./build-platform.sh --delete 5.0
-	./build-platform.sh --delete 5.0-light
+	./build-platform.sh --delete $1
+	./build-platform.sh --delete $1-light
 
-	./push-to-registries.sh platform \
-		5.0 \
-		5.0-light
+	./push-to-registries.sh --delete platform \
+		$1 \
+		$1-light
 fi
 
 exit 0

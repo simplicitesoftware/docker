@@ -1,10 +1,17 @@
 #!/bin/bash
 
-USAGE="Usage: `basename $0` <repository> [<tags>]"
+USAGE="Usage: `basename $0` [--delete] <repository> [<tags>]"
 if [ "$1" = "" -o "$1" = "--help" ]
 then
 	echo $USAGE >&2
 	exit -1
+fi
+
+DEL=0
+if [ "$1" = "--delete" ]
+then
+	DEL=1
+	shift
 fi
 
 IMG=$1
@@ -42,6 +49,8 @@ do
 			docker rmi $DOCKER_PRIVATE_REGISTRY_HOST/$IMG:$TAG
 			echo "Done"
 		fi
+
+		[ $DEL -eq 1 ] && docker rmi simplicite/$IMG:$TAG
 	fi
 done
 echo ""
