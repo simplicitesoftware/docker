@@ -15,7 +15,7 @@ then
 	docker tag simplicite/platform:5-alpha-temurin-17 simplicite/platform:5-alpha
 	# ZZZ temporary
 
-	./push-to-registries.sh platform \
+	./push-to-registries.sh --delete platform \
 		5-alpha-temurin-17 \
 		5-alpha-temurin-17-jre \
 		5-alpha-openjdk-17 \
@@ -133,7 +133,7 @@ then
 		docker tag simplicite/platform:5-latest simplicite/platform:$TAG
 		docker tag simplicite/platform:5-latest-light simplicite/platform:$TAG-light
 
-		./push-to-registries.sh platform $TAG $TAG-light
+		./push-to-registries.sh --delete platform $TAG $TAG-light
 	done
 fi
 

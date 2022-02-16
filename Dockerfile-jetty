@@ -15,17 +15,16 @@ LABEL org.label-schema.name="simplicite-server-jetty" \
 
 ENV DOCKER=alpine LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8 JAVA_HOME=/usr/lib/jvm/default-jvm LOG4J_FORMAT_MSG_NO_LOOKUPS=true
 
-COPY jetty /usr/local/jetty
-COPY run-jetty.sh /usr/local/jetty/run
 COPY *.crt /usr/local/share/ca-certificates/
 RUN apk update && apk upgrade && \
     apk add --update bash openssh-client openssl git curl wget zip unzip ca-certificates libjpeg fontconfig ttf-dejavu openjdk17 mysql-client postgresql-client && \
     rm -rf /var/cache/apk/* && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
     update-ca-certificates && \
-    chmod +x /usr/local/jetty/run && \
-    addgroup -g 2000 simplicite && adduser -D -G simplicite -u 2000 simplicite && \
-    chown -R simplicite:simplicite /usr/local/jetty
+    addgroup -g 2000 simplicite && adduser -D -G simplicite -u 2000 simplicite
+
+COPY --chown=simplicite:simplicite jetty /usr/local/jetty
+COPY --chown=simplicite:simplicite run-jetty.sh /usr/local/jetty/run
 
 WORKDIR /usr/local/jetty
 EXPOSE 8080

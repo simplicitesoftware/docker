@@ -77,7 +77,7 @@ do
 		exit 3
 	fi
 
-	chmod +x tomcat/*.sh tomcat/bin/*.sh
+	chmod +x run*.sh tomcat/*.sh tomcat/bin/*.sh
 	for DIR in work work/Catalina conf/Catalina temp logs webapps
 	do
 		[ ! -d tomcat/$DIR ] && mkdir tomcat/$DIR

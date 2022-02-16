@@ -42,8 +42,7 @@ alias vi=vim\n\
 alias rm='rm -i'\n\
 alias cp='cp -i'\n\
 alias mv='mv -i'\n\
-alias dir='ls -alF --color=always'" >> /home/theia/.bashrc && \
-    chown -R theia:theia /home/theia
+alias dir='ls -alF --color=always'" >> /home/theia/.bashrc
 COPY --chown=theia:theia settings.json /home/theia/.theia/
 ENV SHELL=/bin/bash \
     HOME=/home/theia \

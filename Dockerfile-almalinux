@@ -14,17 +14,16 @@ LABEL org.label-schema.name="simplicite-server-almalinux" \
 
 ENV DOCKER=almalinux LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 JAVA_HOME=/usr/lib/jvm/java LOG4J_FORMAT_MSG_NO_LOOKUPS=true
 
-COPY tomcat /usr/local/tomcat
-COPY run.sh /usr/local/tomcat/run
 COPY *.crt /etc/pki/ca-trust/source/anchors/
 RUN dnf upgrade -y && \
     dnf install -y bash openssh-clients openssl hostname bind-utils git curl wget zip unzip ca-certificates libjpeg fontconfig java-17-openjdk-devel mariadb postgresql && \
     dnf clean all && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
     /bin/update-ca-trust extract && \
-    chmod +x /usr/local/tomcat/run && \
-    groupadd -g 2000 simplicite && useradd -N -g 2000 -u 2000 simplicite && \
-    chown -R simplicite:simplicite /usr/local/tomcat
+    groupadd -g 2000 simplicite && useradd -N -g 2000 -u 2000 simplicite
+
+COPY --chown=simplicite:simplicite tomcat /usr/local/tomcat
+COPY --chown=simplicite:simplicite run.sh /usr/local/tomcat/run
 
 WORKDIR /usr/local/tomcat
 EXPOSE 8080 8443 8444 8009 8005 8555
