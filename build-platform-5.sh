@@ -18,8 +18,8 @@ then
 	./push-to-registries.sh --delete platform \
 		5-alpha-temurin-17 \
 		5-alpha-temurin-17-jre \
-		5-alpha-openjdk-17 \
-		5-alpha
+		5-alpha-openjdk-17
+	./push-to-registries.sh platform 5-alpha
 
 	./build-platform.sh --delete 5-alpha-light
 
@@ -63,8 +63,8 @@ then
 	./push-to-registries.sh --delete platform \
 		5-beta-temurin-17 \
 		5-beta-temurin-17-jre \
-		5-beta-openjdk-17 \
-		5-beta
+		5-beta-openjdk-17
+	./push-to-registries.sh platform 5-beta
 
 	./build-platform.sh --delete 5-beta-light
 
@@ -100,9 +100,9 @@ then
 		5-latest-temurin-17-jre \
 		5-latest-openjdk-11 \
 		5-latest-openjdk-17 \
-		5-latest \
 		5 \
 		latest
+	./push-to-registries.sh platform 5-latest
 
 	./build-platform.sh --delete 5-latest-light
 
