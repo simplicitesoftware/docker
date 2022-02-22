@@ -29,6 +29,7 @@ docker rmi simplicite/platform:4.0-light
 docker tag simplicite/platform:4.0-latest-light simplicite/platform:4.0-light
 
 ./push-to-registries.sh --delete platform \
+	4.0-latest-light-temurin-8 \
 	4.0-latest-light-temurin-11 \
 	4.0-latest-light-temurin-17 \
 	4.0-latest-light-openjdk-1.8.0 \
