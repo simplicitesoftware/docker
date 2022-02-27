@@ -17,7 +17,7 @@ ENV DOCKER=alpine LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8 JAVA_HOME=/usr/li
 
 COPY *.crt /usr/local/share/ca-certificates/
 RUN apk update && apk upgrade && \
-    apk add --update bash openssh-client openssl git curl wget zip unzip ca-certificates libjpeg fontconfig ttf-dejavu openjdk17 mysql-client postgresql-client && \
+    apk add --update bash openssh-client openssl git curl wget zip unzip xz ca-certificates libjpeg fontconfig ttf-dejavu openjdk17 mysql-client postgresql-client && \
     rm -rf /var/cache/apk/* && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
     update-ca-certificates && \

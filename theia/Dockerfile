@@ -30,7 +30,7 @@ LABEL org.label-schema.name="simplicite-theia" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="$BUILD_DATE"
 RUN apk update && apk upgrade && \
-    apk add --no-cache git openssh bash libsecret bash git curl wget zip unzip openssl ca-certificates libjpeg fontconfig ttf-dejavu openjdk11 maven apache-ant mysql-client postgresql-client && \
+    apk add --no-cache git openssh bash libsecret bash git curl wget zip unzip xz openssl ca-certificates libjpeg fontconfig ttf-dejavu openjdk11 maven apache-ant mysql-client postgresql-client && \
     rm -rf /var/cache/apk/* && \
     addgroup -g 2000 theia && \
     adduser -G theia -u 2000 -s /bin/bash -D theia

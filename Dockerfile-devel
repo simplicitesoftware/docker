@@ -18,7 +18,7 @@ ARG MAVEN_VERSION=3.8.4
 ARG GRADLE_VERSION=7.4
 ARG NODE_VERSION=v16.14.0
 
-RUN dnf install -y vim-enhanced gcc gcc-c++ make nmap && dnf clean all && \
+RUN dnf install -y vim-enhanced gcc gcc-c++ make nmap xz && dnf clean all && \
     cd /usr/local && \
     echo "Installing Apache Ant $ANT_VERSION" && \
     wget -qO- https://www-eu.apache.org/dist/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz | tar xfz - && \
@@ -27,7 +27,7 @@ RUN dnf install -y vim-enhanced gcc gcc-c++ make nmap && dnf clean all && \
     echo "Installing Gradle $GRADLE_VERSION" && \
     wget -q https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip && unzip -q gradle-$GRADLE_VERSION-bin.zip && rm -f gradle-$GRADLE_VERSION-bin.zip && \
     echo "Installing Node.js $NODE_VERSION" && \
-    wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - && \
+    wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xf - && \
     echo -e "alias vi=vim\n\
 alias rm='rm -i'\n\
 alias cp='cp -i'\n\

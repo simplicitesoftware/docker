@@ -16,7 +16,7 @@ ENV DOCKER=rockylinux LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 JAVA_HOME=/usr/lib/j
 
 COPY *.crt /etc/pki/ca-trust/source/anchors/
 RUN dnf upgrade -y && \
-    dnf install -y bash openssh-clients openssl hostname bind-utils git curl wget zip unzip ca-certificates libjpeg fontconfig java-17-openjdk-devel mariadb postgresql && \
+    dnf install -y bash openssh-clients openssl hostname bind-utils git curl wget zip unzip xz ca-certificates libjpeg fontconfig java-17-openjdk-devel mariadb postgresql && \
     dnf clean all && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
     /bin/update-ca-trust extract && \
