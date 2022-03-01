@@ -1,6 +1,0 @@
-- simplicité docker images are not built for ARM & are big
-- this is an experiment to provide a lightweight image for ARM
-- JDK: 
-    - problem: openjdk / temurin is not yet ready for alpine but it's in progress (see https://github.com/adoptium/containers/issues/1#issuecomment-910411264) 
-    - solution: use alpine's jdk
-- JLINK
