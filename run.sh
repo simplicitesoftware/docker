@@ -79,9 +79,14 @@ then
 		exit 1
 	fi
 	TOMCAT_GID=`id -g $TOMCAT_USER`
-	chown -f -R $TOMCAT_UID:$TOMCAT_GID $TOMCAT_ROOT
+	[ ! -O $TOMCAT_ROOT -a `id -n` = "root" ] && chown -f -R $TOMCAT_UID:$TOMCAT_GID $TOMCAT_ROOT
 	echo "Running Tomcat as $TOMCAT_USER (user ID $TOMCAT_UID, group ID $TOMCAT_GID)"
-	su $TOMCAT_USER -c "cd $TOMCAT_ROOT && ./start.sh -t"
+	if [ `id -u` = $TOMCAT_UID ]
+	then
+		cd $TOMCAT_ROOT && ./start.sh -t
+	else
+		su $TOMCAT_USER -c "cd $TOMCAT_ROOT && ./start.sh -t"
+	fi
 else
 	cd $TOMCAT_ROOT && ./start.sh -t
 fi
