@@ -17,57 +17,27 @@ fi
 TOMCAT_ROOT=/usr/local/tomcat
 [ ! -d $TOMCAT_ROOT/webapps ] && mkdir $TOMCAT_ROOT/webapps
 
-if [ -w /root -a ! -d /root/.ssh ]
+if [ -w $HOME -a ! -d $HOME/.ssh ]
 then
-	mkdir /root/.ssh
-	chmod go-rwX /root/.ssh
+	mkdir $HOME/.ssh
+	chmod go-rwX $HOME/.ssh
 fi
-if [ -w /root/.ssh ]
+if [ -w $HOME/.ssh ]
 then
-	[ -d $TOMCAT_ROOT/.ssh ] && cp -fr $TOMCAT_ROOT/.ssh/* /root/.ssh/
-	[ -f /root/.ssh/id_rsa ] && grep -q 'BEGIN OPENSSH PRIVATE KEY' /root/.ssh/id_rsa && ssh-keygen -p -N "" -m pem -f /root/.ssh/id_rsa
-	touch /root/.ssh/known_hosts
+	[ -d $TOMCAT_ROOT/.ssh ] && cp -fr $TOMCAT_ROOT/.ssh/* $HOME/.ssh/
+	[ -f $HOME/.ssh/id_rsa ] && grep -q 'BEGIN OPENSSH PRIVATE KEY' $HOME/.ssh/id_rsa && ssh-keygen -p -N "" -m pem -f $HOME/.ssh/id_rsa
+	touch $HOME/.ssh/known_hosts
 	if [ ! -z "$SSH_KNOWN_HOSTS" ]
 	then
 		for HOST in $SSH_KNOWN_HOSTS
 		do
-			H=`grep "^$HOST " /root/.ssh/known_hosts`
-			[ "$H" = "" ] && ssh-keyscan -t rsa $HOST >> /root/.ssh/known_hosts
+			H=`grep "^$HOST " $HOME/.ssh/known_hosts`
+			[ "$H" = "" ] && ssh-keyscan -t rsa $HOST >> $HOME/.ssh/known_hosts
 		done
 	fi
-	chmod -R go-rwX /root/.ssh
+	chmod -R go-rwX $HOME/.ssh
 else
-	echo "WARNING: /root/.ssh is read-only, unable to register keys and/or known hosts"
-fi
-
-TEMPLATE_DIR=/usr/local/tomcat/template
-if [ ! -d $TEMPLATE_DIR -a "$GIT_URL" != "" ]
-then
-	BRANCH="master"
-	[ "$GIT_BRANCH" != "" ] && BRANCH=$GIT_BRANCH
-	echo "Cloning template (branch $BRANCH)..."
-	git clone --single-branch --branch $BRANCH $GIT_URL $TEMPLATE_DIR
-	echo "...done"
-fi
-if [ -d $TEMPLATE_DIR ]
-then
-	cd $TEMPLATE_DIR
-	if [ -w $TEMPLATE_DIR ]
-	then
-		echo "Pulling template..."
-		git pull
-		echo "...done"
-	fi
-	if [ ! -f $TOMCAT_ROOT/webapps/${TOMCAT_WEBAPP:-ROOT}/META-INF/context.xml ]
-	then
-		echo "Deploying webapp..."
-		ant -Dtomcat.root=$TOMCAT_ROOT deploy-war
-		echo "...done"
-	else
-		echo "Upgrading webapp..."
-		ant -Dtomcat.root=$TOMCAT_ROOT upgrade-war
-		echo "...done"
-	fi
+	echo "WARNING: $HOME/.ssh is read-only, unable to register keys and/or known hosts"
 fi
 
 if [ "$TOMCAT_USER" != "" ]
