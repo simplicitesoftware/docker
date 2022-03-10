@@ -26,7 +26,7 @@ RUN apk update && apk upgrade && \
     addgroup -g 2000 simplicite && adduser -D -G simplicite -u 2000 simplicite
 
 COPY --chown=simplicite:simplicite tomcat /usr/local/tomcat
-COPY --chown=simplicite:simplicite run.sh /usr/local/tomcat/run
+COPY --chown=simplicite:simplicite run-tomcat.sh /usr/local/tomcat/run
 
 WORKDIR /usr/local/tomcat
 EXPOSE 8080 8443 8444 8009 8005 8555

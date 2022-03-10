@@ -1,7 +1,7 @@
 FROM scratch
 
-COPY --chown=simplicite:simplicite jetty /usr/local/jetty
-COPY --chown=simplicite:simplicite run-jetty.sh /usr/local/jetty/run
+COPY jetty /usr/local/jetty
+COPY run-jetty.sh /usr/local/jetty/run
 
 WORKDIR /usr/local/jetty
 EXPOSE 8080

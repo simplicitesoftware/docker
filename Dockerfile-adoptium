@@ -28,7 +28,7 @@ RUN apt-get update && \
     addgroup --gid 2000 simplicite && adduser --disabled-password --gecos "" --uid 2000 --gid 2000 simplicite
 
 COPY --chown=simplicite:simplicite tomcat /usr/local/tomcat
-COPY --chown=simplicite:simplicite run.sh /usr/local/tomcat/run
+COPY --chown=simplicite:simplicite run-tomcat.sh /usr/local/tomcat/run
 
 WORKDIR /usr/local/tomcat
 EXPOSE 8080 8443 8444 8009 8005 8000 8555
