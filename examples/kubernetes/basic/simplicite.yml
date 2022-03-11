@@ -37,6 +37,7 @@ metadata:
     app: simplicite
   name: simplicite
 spec:
+  # ZZZ more than 1 replica **requires** sticky session load balancing ZZZ
   replicas: 1
   template:
     metadata:
