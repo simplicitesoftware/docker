@@ -16,7 +16,9 @@ ENV DOCKER=rockylinux LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 JAVA_HOME=/usr/lib/j
 
 COPY *.crt /etc/pki/ca-trust/source/anchors/
 RUN dnf upgrade -y && \
-    dnf install -y bash openssh-clients openssl hostname bind-utils git curl wget zip unzip xz ca-certificates libjpeg fontconfig java-17-openjdk-devel mariadb postgresql && \
+    dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm && \
+    dnf -qy module disable postgresql && \
+    dnf install -y bash openssh-clients openssl hostname bind-utils git curl wget zip unzip xz ca-certificates libjpeg fontconfig java-17-openjdk-devel mariadb postgresql14 && \
     dnf clean all && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
     /bin/update-ca-trust extract && \
