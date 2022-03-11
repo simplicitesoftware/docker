@@ -30,25 +30,26 @@ spec:
     requests:
       storage: 10Gi
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: simplicite
   labels:
     app: simplicite
-  name: simplicite
 spec:
   # ZZZ more than 1 replica **requires** sticky session load balancing ZZZ
   replicas: 1
+  selector:
+    matchLabels:
+      app: simplicite
   template:
     metadata:
       labels:
         app: simplicite
-        date: "2019-05-22"
     spec:
       containers:
         - name: simplicite
           image: <simplicite|registry.simplicite.io>/platform:<tag, e.g. 5-latest>
-          imagePullPolicy: Always
           ports:
             # if exposed in http://
             - containerPort: 8080
@@ -89,6 +90,7 @@ metadata:
   name: simplicite
 spec:
   type: LoadBalancer
+  sessionAffinity: ClientIP
   ports:
     # ZZZ to be adapted if you are not using 8080 ZZZ
     - port: 80
