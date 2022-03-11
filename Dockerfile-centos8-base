@@ -20,6 +20,7 @@ COPY *.crt /etc/pki/ca-trust/source/anchors/
 RUN dnf upgrade -y && \
     dnf install -y epel-release && \
     dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm && \
+    dnf -qy module disable postgresql && \
     dnf install -y bash openssh-clients openssl hostname bind-utils git curl wget zip unzip xz ca-certificates libjpeg fontconfig mariadb postgresql14 && \
     dnf clean all && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
