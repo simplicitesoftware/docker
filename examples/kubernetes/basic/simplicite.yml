@@ -49,7 +49,12 @@ spec:
           image: <simplicite|registry.simplicite.io>/platform:<tag, e.g. 5-latest>
           imagePullPolicy: Always
           ports:
+            # if exposed in http://
             - containerPort: 8080
+            # if exposed in https:// (ZZZ never use 8080 when expos*ed* in https:// ZZZ) 
+            #- containerPort: 8443
+            # if exposing in https:// (ZZZ never use 8080/8443 if expos*ing* in https:// ZZZ, a custom image with appropriate JKS certificate is required in this mode) 
+            #- containerPort: 8444
           env:
             - name: DB_HOST
               value: postgres
@@ -84,6 +89,7 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
+    # ZZZ to be adapted if you are not using 8080 ZZZ
     - port: 80
       targetPort: 8080
   selector:
