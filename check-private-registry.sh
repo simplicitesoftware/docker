@@ -20,7 +20,7 @@ do
 	if [ $RAW -eq 0 ]
 	then
 		echo ""
-		[ -x /usr/bin/figlet ] && /usr/bin/figlet -f small ${REP^} || printf "---------- \033[1m%s\033[0m ----------\n\n" $REP
+		[ -x /usr/bin/figlet ] && /usr/bin/figlet -f small ${REP^} || printf "========== \033[1m%s\033[0m ==========\n\n" $REP
 	fi
 	TAGS=`curl -s -u $DOCKER_PRIVATE_REGISTRY_USERNAME:$DOCKER_PRIVATE_REGISTRY_PASSWORD $DOCKER_PRIVATE_REGISTRY_URL/v2/$REP/tags/list | jq -r '.tags[]' | sort -r`
 	for TAG in $TAGS

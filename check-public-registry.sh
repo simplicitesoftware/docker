@@ -29,7 +29,7 @@ do
 	if [ $RAW -eq 0 ]
 	then
 		echo ""
-		[ -x /usr/bin/figlet ] && /usr/bin/figlet -f small ${REP^} || printf "---------- \033[1m%s\033[0m ----------\n\n" $REP
+		[ -x /usr/bin/figlet ] && /usr/bin/figlet -f small ${REP^} || printf "========== \033[1m%s\033[0m ==========\n\n" $REP
 		curl -s -H "Authorization: JWT $TOKEN" ${DOCKER_REGISTRY_URL:-https://hub.docker.com}/v2/repositories/$ORG/$REP/tags/?page_size=100 | jq -r '.results[] | "\(.last_updated) \(.name) \(.images[].digest)"' | sort -r | sed 's/T/ /;s/\.[0-9]*Z//;s/sha256://' | awk '{ printf "\033[34;1m%-10s %-8s\033[0m %s \033[31;1m%s\033[0m\n", $1, $2, substr($4,0,16), $3 }' || exit 2
 	else
 		curl -s -H "Authorization: JWT $TOKEN" ${DOCKER_REGISTRY_URL:-https://hub.docker.com}/v2/repositories/$ORG/$REP/tags/?page_size=100 | jq -r '.results[] | "\(.last_updated) \(.name) \(.images[].digest)"' | sort -r | sed 's/T/ /;s/\.[0-9]*Z//;s/sha256://' | awk '{ printf "%s %s\n", substr($4,0,16), $3 }' || exit 2
