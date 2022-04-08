@@ -7,5 +7,5 @@ ARG maven=3.8.5
 ARG deps
 RUN wget -qO- https://www-eu.apache.org/dist/maven/maven-3/$maven/binaries/apache-maven-$maven-bin.tar.gz | tar xfz - && \
     MAVEN_HOME=/usr/local/tomcat/apache-maven-$maven ./adddeps.sh $deps && \
-    rm -fr /usr/local/apache-maven-$maven
+    rm -fr /usr/local/tomcat/apache-maven-$maven
 USER root
