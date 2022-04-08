@@ -93,9 +93,29 @@ spec:
   sessionAffinity: ClientIP
   ports:
     # ZZZ to be adapted if you are not using 8080 ZZZ
-    - port: 80
+    - port: 8080
       targetPort: 8080
   selector:
     app: simplicite
 status:
   loadBalancer: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  name: ingress
+  namespace: default
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: simplicite
+            port:
+              # ZZZ to be adapted if you are not using 8080 ZZZ
+              number: 8080
+        path: /
+        pathType: Prefix
