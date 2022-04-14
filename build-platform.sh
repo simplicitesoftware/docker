@@ -173,8 +173,7 @@ then
 		PFTAG=$GITTAG-light
 		CHECKOUT=$GITTAG
 	fi
-elif [ "$1" = "5.0" ]
-#elif [ "$1" = "5.0" -o "$1" = "5.1" ]
+elif [ "$1" = "5.0" -o "$1" = "5.1" ]
 then
 	VERSION=5
 	BRANCH=$1
@@ -182,8 +181,7 @@ then
 	SRVS=tomcat
 	PFTAG=$1
 	CHECKOUT=$BRANCH
-elif [ "$1" = "5.0-light" ]
-#elif [ "$1" = "5.0-light" -o "$1" = "5.1-light" ]
+elif [ "$1" = "5.0-light" -o "$1" = "5.1-light" ]
 then
 	VERSION=5
 	BRANCH=$1-light

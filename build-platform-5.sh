@@ -137,7 +137,7 @@ then
 	done
 fi
 
-# Legacy versions
+# Previous minor versions
 
 if [ "$1" = "5.0" -o "$1" = "5.1" ]
 then
