@@ -44,6 +44,16 @@ then
 		5-alpha-test-adoptium-11 \
 		5-alpha-test-alpine \
 		5-alpha-test-alpine-temurin
+
+	# Additional tags
+	for TAG in ${@:2}
+	do
+		docker rmi simplicite/platform:$TAG simplicite/platform:$TAG-light
+		docker tag simplicite/platform:5-alpha simplicite/platform:$TAG
+		docker tag simplicite/platform:5-alpha-light simplicite/platform:$TAG-light
+
+		./push-to-registries.sh --delete platform $TAG $TAG-light
+	done
 fi
 
 if [ "$1" = "devel" ]
@@ -78,6 +88,16 @@ then
 		5-beta-light-temurin-17-jre \
 		5-beta-light-openjdk-17 \
 		5-beta-light
+
+	# Additional tags
+	for TAG in ${@:2}
+	do
+		docker rmi simplicite/platform:$TAG simplicite/platform:$TAG-light
+		docker tag simplicite/platform:5-beta simplicite/platform:$TAG
+		docker tag simplicite/platform:5-beta-light simplicite/platform:$TAG-light
+
+		./push-to-registries.sh --delete platform $TAG $TAG-light
+	done
 fi
 
 if [ "$1" = "latest" -o "$1" = "all" ]
