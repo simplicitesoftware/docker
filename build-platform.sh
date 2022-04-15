@@ -24,6 +24,7 @@ date > $LOCK
 
 LATEST=5
 GITTAG=
+CHECKOUT=
 
 if [ "$1" = "3.0" ]
 then
@@ -32,7 +33,6 @@ then
 	TAGS=${2:-centos-openjdk-1.8.0}
 	SRVS=tomcat
 	PFTAG=$1
-	CHECKOUT=$BRANCH
 elif [ "$1" = "3.1" ]
 then
 	VERSION=3.1
@@ -40,7 +40,6 @@ then
 	TAGS=${2:-centos-openjdk-1.8.0}
 	SRVS=tomcat
 	PFTAG=$1
-	CHECKOUT=$BRANCH
 elif [ "$1" = "3.2" ]
 then
 	VERSION=3.2
@@ -48,7 +47,6 @@ then
 	TAGS=${2:-centos-openjdk-1.8.0}
 	SRVS=tomcat
 	PFTAG=$1
-	CHECKOUT=$BRANCH
 elif [ "$1" = "4.0" -o "$1" = "4.0-latest" ]
 then
 	VERSION=4.0
@@ -56,7 +54,6 @@ then
 	TAGS=${2:-centos-openjdk-17 centos-openjdk-11 centos-temurin-17 centos-temurin-11}
 	SRVS=tomcat
 	PFTAG=$1
-	CHECKOUT=$BRANCH
 	GITTAG=$3
 	if [ "$GITTAG" != "" ]
 	then
@@ -70,21 +67,6 @@ then
 	TAGS=${2:-centos-openjdk-17 centos-openjdk-11 centos-openjdk-1.8.0 centos-temurin-17 centos-temurin-11 centos-temurin-8}
 	SRVS=tomcat
 	PFTAG=$1
-	CHECKOUT=$BRANCH
-	GITTAG=$3
-	if [ "$GITTAG" != "" ]
-	then
-		PFTAG=$GITTAG-light
-		CHECKOUT=$GITTAG
-	fi
-elif [ "$1" = "4.0-devel" ]
-then
-	VERSION=4.0
-	BRANCH=master
-	TAGS=devel
-	SRVS=tomcat
-	PFTAG=$1
-	CHECKOUT=$BRANCH
 	GITTAG=$3
 	if [ "$GITTAG" != "" ]
 	then
@@ -98,7 +80,6 @@ then
 	TAGS=${2:-centos-openjdk-17 centos-temurin-17 centos-temurin-17-jre}
 	SRVS=tomcat
 	PFTAG=$1
-	CHECKOUT=$BRANCH
 elif [ "$1" = "5-alpha-light" ]
 then
 	VERSION=5
@@ -106,7 +87,6 @@ then
 	TAGS=${2:-centos-openjdk-17 centos-temurin-17 centos-temurin-17-jre}
 	SRVS=tomcat
 	PFTAG=$1
-	CHECKOUT=$BRANCH
 elif [ "$1" = "5-alpha-test" ]
 then
 	VERSION=5
@@ -114,7 +94,6 @@ then
 	TAGS=${2:-centos8-openjdk-17 rockylinux almalinux adoptium-17 adoptium-11 alpine alpine-temurin}
 	SRVS=tomcat
 	PFTAG=$1
-	CHECKOUT=$BRANCH
 elif [ "$1" = "5-devel" ]
 then
 	VERSION=5
@@ -122,7 +101,6 @@ then
 	TAGS=devel
 	SRVS=tomcat
 	PFTAG=$1
-	CHECKOUT=$BRANCH
 	GITTAG=$3
 	if [ "$GITTAG" != "" ]
 	then
@@ -136,7 +114,6 @@ then
 	TAGS=${2:-centos-openjdk-17 centos-temurin-17 centos-temurin-17-jre}
 	SRVS=tomcat
 	PFTAG=$1
-	CHECKOUT=$BRANCH
 elif [ "$1" = "5-beta-light" ]
 then
 	VERSION=5
@@ -144,7 +121,6 @@ then
 	TAGS=${2:-centos-openjdk-17 centos-temurin-17 centos-temurin-17-jre}
 	SRVS=tomcat
 	PFTAG=$1
-	CHECKOUT=$BRANCH
 elif [ "$1" = "5-latest" -o "$1" = "5" ]
 then
 	VERSION=5
@@ -152,7 +128,6 @@ then
 	TAGS=${2:-centos-openjdk-17 centos-temurin-17 centos-temurin-17-jre centos-openjdk-11 centos-temurin-11 centos-jvmless}
 	SRVS=tomcat
 	PFTAG=$1
-	CHECKOUT=$BRANCH
 	GITTAG=$3
 	if [ "$GITTAG" != "" ]
 	then
@@ -166,7 +141,6 @@ then
 	TAGS=${2:-centos-openjdk-17 centos-temurin-17 centos-temurin-17-jre centos-openjdk-11 centos-temurin-11 centos-jvmless}
 	SRVS=tomcat
 	PFTAG=$1
-	CHECKOUT=$BRANCH
 	GITTAG=$3
 	if [ "$GITTAG" != "" ]
 	then
@@ -180,7 +154,6 @@ then
 	TAGS=${2:-centos-openjdk-17 centos-temurin-17}
 	SRVS=tomcat
 	PFTAG=$1
-	CHECKOUT=$BRANCH
 elif [ "$1" = "5.0-light" -o "$1" = "5.1-light" ]
 then
 	VERSION=5
@@ -188,7 +161,6 @@ then
 	TAGS=${2:-centos-openjdk-17 centos-temurin-17}
 	SRVS=tomcat
 	PFTAG=$1
-	CHECKOUT=$BRANCH
 else
 	echo "Unknown variant: $1" >&2
 	rm -f $LOCK
@@ -217,7 +189,7 @@ echo "Done"
 echo "Checkouting $TEMPLATE..."
 rm -fr $TEMPLATE
 mkdir $TEMPLATE
-git --work-tree=$TEMPLATE --git-dir=$TEMPLATE.git checkout -f $CHECKOUT
+git --work-tree=$TEMPLATE --git-dir=$TEMPLATE.git checkout -f ${CHECKOUT:-$BRANCH}
 chmod +x $TEMPLATE/tools/*.sh && \
 echo "Done"
 
@@ -277,7 +249,7 @@ do
 		DESTPATH="tomcat"
 		[ $TAG = "jetty" ] && DESTPATH="jetty/default"
 		[ $DEL = 1 ] && docker rmi $PLATFORM:$PFTAG$EXT
-		docker build --network host -f Dockerfile-platform --build-arg date=$DATE --build-arg tag=$TAG --build-arg version=$VERSION --build-arg branch=$BRANCH --build-arg patchlevel=$PATCHLEVEL --build-arg revision=$REVISION --build-arg commitid=$COMMITID --build-arg template=$TEMPLATE --build-arg destpath=$DESTPATH -t $PLATFORM:$PFTAG$EXT .
+		docker build --network host -f Dockerfile-platform --build-arg date=$DATE --build-arg tag=$TAG --build-arg version=$VERSION --build-arg patchlevel=$PATCHLEVEL --build-arg revision=$REVISION --build-arg commitid=$COMMITID --build-arg template=$TEMPLATE --build-arg destpath=$DESTPATH -t $PLATFORM:$PFTAG$EXT .
 		echo "Done"
 	done
 done
