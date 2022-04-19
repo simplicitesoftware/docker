@@ -21,7 +21,12 @@ RUN apk update && apk upgrade && \
     rm -rf /var/cache/apk/* && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
     update-ca-certificates && \
-    addgroup -g 2000 simplicite && adduser -D -G simplicite -u 2000 simplicite
+    addgroup -g 2000 simplicite && adduser -D -G simplicite -u 2000 simplicite && \
+    echo -e "alias vi=vim\n\
+alias rm='rm -i'\n\
+alias cp='cp -i'\n\
+alias mv='mv -i'\n\
+alias dir='ls -alF --color=always'" >> /root/.bashrc
 
 ADD --chown=simplicite:simplicite tomcat /usr/local/tomcat
 ADD --chown=simplicite:simplicite run-tomcat.sh /usr/local/tomcat/run
