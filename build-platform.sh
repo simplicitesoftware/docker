@@ -193,7 +193,7 @@ git --work-tree=$TEMPLATE --git-dir=$TEMPLATE.git checkout -f ${CHECKOUT:-$BRANC
 chmod +x $TEMPLATE/tools/*.sh && \
 echo "Done"
 
-echo "Enabling console logging in $TEMPLATE..."
+echo "Enabling console logging by default in $TEMPLATE..."
 # Log4J version 1.x
 LOG4J="$TEMPLATE/app/WEB-INF/classes/log4j.xml"
 [ -f $LOG4J ] && sed -i 's/<!-- appender-ref ref="SIMPLICITE-CONSOLE"\/ -->/<appender-ref ref="SIMPLICITE-CONSOLE"\/>/' $LOG4J
