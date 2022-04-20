@@ -24,8 +24,7 @@ RUN apk update && apk upgrade && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
     update-ca-certificates && \
     addgroup -g 2000 simplicite && adduser -D -G simplicite -u 2000 simplicite && \
-    echo -e "alias vi=vim\n\
-alias rm='rm -i'\n\
+    echo -e "alias rm='rm -i'\n\
 alias cp='cp -i'\n\
 alias mv='mv -i'\n\
 alias dir='ls -alF --color=always'" >> /root/.bashrc
