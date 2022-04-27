@@ -17,7 +17,7 @@ fi
 IMG=$1
 shift
 
-if [ $IMG != "server" -a $IMG != "platform" -a $IMG != "theia" -a $IMG != "vscode" ]
+if [ $IMG != "server" -a $IMG != "platform" -a $IMG != "theia" -a $IMG != "vscode" -a $IMG != "oracle" ]
 then
 	echo $USAGE >&2
 	exit -1
@@ -37,9 +37,13 @@ do
 		echo "Image $IMG:$TAG"
 		echo "------------------------------------"
 		echo ""
-		echo "Pushing image $IMG:$TAG to DockerHub registry"
-		docker push simplicite/$IMG:$TAG
-		echo "Done"
+
+		if [ $IMG = "server" -o $IMG = "platform" ]
+		then
+			echo "Pushing image $IMG:$TAG to DockerHub registry"
+			docker push simplicite/$IMG:$TAG
+			echo "Done"
+		fi
 
 		if [ "$DOCKER_PRIVATE_REGISTRY_HOST" != "" ]
 		then
