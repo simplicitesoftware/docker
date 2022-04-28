@@ -167,6 +167,16 @@ then
 	./push-to-registries.sh --delete platform \
 		$1 \
 		$1-light
+
+	# Additional tags
+	for TAG in ${@:2}
+	do
+		docker rmi simplicite/platform:$TAG simplicite/platform:$TAG-light
+		docker tag simplicite/platform:$1 simplicite/platform:$TAG
+		docker tag simplicite/platform:$1-light simplicite/platform:$TAG-light
+
+		./push-to-registries.sh --delete platform $TAG $TAG-light
+	done
 fi
 
 exit 0
