@@ -149,11 +149,10 @@ then
 	# Additional tags
 	for TAG in ${@:2}
 	do
-		docker rmi simplicite/platform:$TAG simplicite/platform:$TAG-light
+		docker rmi simplicite/platform:$TAG
 		docker tag simplicite/platform:5-latest simplicite/platform:$TAG
-		docker tag simplicite/platform:5-latest-light simplicite/platform:$TAG-light
 
-		./push-to-registries.sh --delete platform $TAG $TAG-light
+		./push-to-registries.sh --delete platform $TAG
 	done
 fi
 
@@ -164,18 +163,26 @@ then
 	./build-platform.sh --delete $1
 	./build-platform.sh --delete $1-light
 
+	# ZZZ temporary
+	docker rmi simplicite/platform:$1 simplicite/platform:$1-light
+	docker tag simplicite/platform:$1-temurin-17 simplicite/platform:$1
+	docker tag simplicite/platform:$1-light-temurin-17 simplicite/platform:$1-light
+	# ZZZ temporary
+
 	./push-to-registries.sh --delete platform \
-		$1 \
+		$1-temurin-17 \
+		$1-light-temurin-17 \
+		$1-openjdk-17 \
+		$1-light-openjdk-17 \
 		$1-light
 
 	# Additional tags
 	for TAG in ${@:2}
 	do
-		docker rmi simplicite/platform:$TAG simplicite/platform:$TAG-light
+		docker rmi simplicite/platform:$TAG
 		docker tag simplicite/platform:$1 simplicite/platform:$TAG
-		docker tag simplicite/platform:$1-light simplicite/platform:$TAG-light
 
-		./push-to-registries.sh --delete platform $TAG $TAG-light
+		./push-to-registries.sh --delete platform $TAG
 	done
 fi
 
