@@ -22,6 +22,9 @@ services:
       #TOMCAT_MAXTHREADS: 150
       # Limit number of connections (ex: 5000)
       #TOMCAT_MAXCONNECTIONS: 5000
+      # Define the password hashing algorithm (and optional salting)
+      SYSPARAM_HASH_PASSWORD: "<MD5|SHA-1|SHA-256|SHA-512>:<HEX|BASE64>"
+      SYSPARAM_SALT_PASSWORD: "<yes|no>"
       # Define the scope of the user tokens
       SYSPARAM_USE_USERTOKENS: "<all|api|ui>"
       # Enable/disable the optional endpoints by forcing corresponding system parameters
