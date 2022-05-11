@@ -160,30 +160,30 @@ fi
 
 if [ "$1" = "5.0" -o "$1" = "5.1" ]
 then
-	echo ./build-platform.sh --delete $1
-	echo ./build-platform.sh --delete $1-light
+	./build-platform.sh --delete $1
+	./build-platform.sh --delete $1-light
 
 	# ZZZ temporary
-	echo docker rmi simplicite/platform:$1 simplicite/platform:$1-light
-	echo docker tag simplicite/platform:$1-temurin-17 simplicite/platform:$1
-	echo docker tag simplicite/platform:$1-light-temurin-17 simplicite/platform:$1-light
+	docker rmi simplicite/platform:$1 simplicite/platform:$1-light
+	docker tag simplicite/platform:$1-temurin-17 simplicite/platform:$1
+	docker tag simplicite/platform:$1-light-temurin-17 simplicite/platform:$1-light
 	# ZZZ temporary
 
-	echo ./push-to-registries.sh --delete platform \
+	./push-to-registries.sh --delete platform \
 		$1-temurin-17 \
 		$1-openjdk-17 \
 		$1-light-temurin-17 \
 		$1-light-openjdk-17 \
 		$1-light
-	echo ./push-to-registries.sh platform $1
+	./push-to-registries.sh platform $1
 
 	# Additional tags
 	for TAG in ${@:2}
 	do
-		echo docker rmi simplicite/platform:$TAG
-		echo docker tag simplicite/platform:$1 simplicite/platform:$TAG
+		docker rmi simplicite/platform:$TAG
+		docker tag simplicite/platform:$1 simplicite/platform:$TAG
 
-		echo ./push-to-registries.sh --delete platform $TAG
+		./push-to-registries.sh --delete platform $TAG
 	done
 fi
 
