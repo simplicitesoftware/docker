@@ -38,4 +38,4 @@ ENV ANT_HOME=/usr/local/apache-ant-$ANT_VERSION \
     MAVEN_HOME=/usr/local/apache-maven-$MAVEN_VERSION \
     GRADLE_HOME=/usr/local/gradle-$GRADLE_VERSION \
     NODE_HOME=/usr/local/node-$NODE_VERSION-linux-x64 \
-    PATH=/usr/local/apache-ant-$ANT_VERSION/bin:/usr/local/apache-maven-$MAVEN_VERSION/bin:/usr/local/gradle-$GRADLE_VERSION/bin:/usr/local/node-$NODE_VERSION-linux-x64/bin:$PATH:$PATH
+    PATH=/usr/local/apache-ant-$ANT_VERSION/bin:/usr/local/apache-maven-$MAVEN_VERSION/bin:/usr/local/gradle-$GRADLE_VERSION/bin:/usr/local/node-$NODE_VERSION-linux-x64/bin:$PATH
