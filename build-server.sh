@@ -34,12 +34,13 @@ SRVS=${2:-tomcat}
 echo "Server(s) = $SRVS"
 
 # JVMs
-JVMS_CENTOS="17 11 1.8.0"
+JVMS_CENTOS="11 1.8.0"
+JVMS_CENTOS8="17 11 1.8.0"
 JVMS_CENTOS_TEMURIN="17 17-jre 11 11-jre 8 8-jre"
 JVMS_ADOPTIUM="17 11"
 
 # Variant/server/JVM for the :latest tag
-TAG_LATEST="centos"
+TAG_LATEST="centos-temurin"
 SRV_LATEST="tomcat"
 JVM_LATEST="17"
 
@@ -93,7 +94,8 @@ do
 	for TAG in $TAGS
 	do
 		JVMS="latest"
-		[ $TAG = "centos" -o $TAG = "centos8" ] && JVMS=$JVMS_CENTOS
+		[ $TAG = "centos" ] && JVMS=$JVMS_CENTOS
+		[ $TAG = "centos8" ] && JVMS=$JVMS_CENTOS8
 		[ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" ] && JVMS=$JVMS_CENTOS_TEMURIN
 		[ $TAG = "adoptium" ] && JVMS=$JVMS_ADOPTIUM
 
@@ -154,7 +156,8 @@ do
 	for TAG in $TAGS
 	do
 		JVMS="latest"
-		[ $TAG = "centos" -o $TAG = "centos8" ] && JVMS=$JVMS_CENTOS
+		[ $TAG = "centos" ] && JVMS=$JVMS_CENTOS
+		[ $TAG = "centos8" ] && JVMS=$JVMS_CENTOS8
 		[ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" ] && JVMS=$JVMS_CENTOS_TEMURIN
 		[ $TAG = "adoptium" ] && JVMS=$JVMS_ADOPTIUM
 

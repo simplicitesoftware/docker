@@ -18,7 +18,7 @@ then
 	./push-to-registries.sh --delete platform \
 		5-alpha-temurin-17 \
 		5-alpha-temurin-17-jre \
-		5-alpha-openjdk-17
+		5-alpha-openjdk-11
 	./push-to-registries.sh platform 5-alpha
 
 	./build-platform.sh --delete 5-alpha-light
@@ -31,12 +31,13 @@ then
 	./push-to-registries.sh --delete platform \
 		5-alpha-light-temurin-17 \
 		5-alpha-light-temurin-17-jre \
-		5-alpha-light-openjdk-17 \
+		5-alpha-light-openjdk-11 \
 		5-alpha-light
 
 	./build-platform.sh --delete 5-alpha-test
 
 	./push-to-registries.sh --delete platform \
+		5-alpha-test-centos8-openjdk-11 \
 		5-alpha-test-centos8-openjdk-17 \
 		5-alpha-test-rockylinux \
 		5-alpha-test-almalinux \
@@ -73,7 +74,7 @@ then
 	./push-to-registries.sh --delete platform \
 		5-beta-temurin-17 \
 		5-beta-temurin-17-jre \
-		5-beta-openjdk-17
+		5-beta-openjdk-11
 	./push-to-registries.sh platform 5-beta
 
 	./build-platform.sh --delete 5-beta-light
@@ -86,7 +87,7 @@ then
 	./push-to-registries.sh --delete platform \
 		5-beta-light-temurin-17 \
 		5-beta-light-temurin-17-jre \
-		5-beta-light-openjdk-17 \
+		5-beta-light-openjdk-11 \
 		5-beta-light
 
 	# Additional tags
@@ -119,7 +120,6 @@ then
 		5-latest-temurin-17 \
 		5-latest-temurin-17-jre \
 		5-latest-openjdk-11 \
-		5-latest-openjdk-17 \
 		5 \
 		latest
 	./push-to-registries.sh platform 5-latest
@@ -141,7 +141,6 @@ then
 		5-latest-light-temurin-17 \
 		5-latest-light-temurin-17-jre \
 		5-latest-light-openjdk-11 \
-		5-latest-light-openjdk-17 \
 		5-latest-light \
 		5-light \
 		latest-light
@@ -171,9 +170,9 @@ then
 
 	./push-to-registries.sh --delete platform \
 		$1-temurin-17 \
-		$1-openjdk-17 \
+		$1-openjdk-11 \
 		$1-light-temurin-17 \
-		$1-light-openjdk-17 \
+		$1-light-openjdk-11 \
 		$1-light
 	./push-to-registries.sh platform $1
 

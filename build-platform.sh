@@ -51,7 +51,7 @@ elif [ "$1" = "4.0" -o "$1" = "4.0-latest" ]
 then
 	VERSION=4.0
 	BRANCH=release
-	TAGS=${2:-centos-openjdk-17 centos-openjdk-11 centos-temurin-17 centos-temurin-11}
+	TAGS=${2:-centos-openjdk-11 centos-temurin-17 centos-temurin-11}
 	SRVS=tomcat
 	PFTAG=$1
 	GITTAG=$3
@@ -64,7 +64,7 @@ elif [ "$1" = "4.0-light" -o "$1" = "4.0-latest-light" ]
 then
 	VERSION=4.0
 	BRANCH=release-light
-	TAGS=${2:-centos-openjdk-17 centos-openjdk-11 centos-openjdk-1.8.0 centos-temurin-17 centos-temurin-11 centos-temurin-8}
+	TAGS=${2:-centos-openjdk-11 centos-openjdk-1.8.0 centos-temurin-17 centos-temurin-11 centos-temurin-8}
 	SRVS=tomcat
 	PFTAG=$1
 	GITTAG=$3
@@ -77,21 +77,21 @@ elif [ "$1" = "5-alpha" ]
 then
 	VERSION=5
 	BRANCH=master
-	TAGS=${2:-centos-openjdk-17 centos-temurin-17 centos-temurin-17-jre}
+	TAGS=${2:-centos-openjdk-11 centos-temurin-17 centos-temurin-17-jre}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-alpha-light" ]
 then
 	VERSION=5
 	BRANCH=master-light
-	TAGS=${2:-centos-openjdk-17 centos-temurin-17 centos-temurin-17-jre}
+	TAGS=${2:-centos-openjdk-11 centos-temurin-17 centos-temurin-17-jre}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-alpha-test" ]
 then
 	VERSION=5
 	BRANCH=master
-	TAGS=${2:-centos8-openjdk-17 rockylinux almalinux adoptium-17 adoptium-11 alpine alpine-temurin}
+	TAGS=${2:-centos8-openjdk-17 centos8-openjdk-11 rockylinux almalinux adoptium-17 adoptium-11 alpine alpine-temurin}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-devel" ]
@@ -111,21 +111,21 @@ elif [ "$1" = "5-beta" ]
 then
 	VERSION=5
 	BRANCH=prerelease
-	TAGS=${2:-centos-openjdk-17 centos-temurin-17 centos-temurin-17-jre}
+	TAGS=${2:-centos-openjdk-11 centos-temurin-17 centos-temurin-17-jre}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-beta-light" ]
 then
 	VERSION=5
 	BRANCH=prerelease-light
-	TAGS=${2:-centos-openjdk-17 centos-temurin-17 centos-temurin-17-jre}
+	TAGS=${2:-centos-openjdk-11 centos-temurin-17 centos-temurin-17-jre}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-latest" -o "$1" = "5" ]
 then
 	VERSION=5
 	BRANCH=release
-	TAGS=${2:-centos-openjdk-17 centos-temurin-17 centos-temurin-17-jre centos-openjdk-11 centos-temurin-11 centos-jvmless}
+	TAGS=${2:-centos-openjdk-11 centos-temurin-17 centos-temurin-17-jre centos-openjdk-11 centos-temurin-11 centos-jvmless}
 	SRVS=tomcat
 	PFTAG=$1
 	GITTAG=$3
@@ -138,7 +138,7 @@ elif [ "$1" = "5-latest-light" -o "$1" = "5-light" ]
 then
 	VERSION=5
 	BRANCH=release-light
-	TAGS=${2:-centos-openjdk-17 centos-temurin-17 centos-temurin-17-jre centos-openjdk-11 centos-temurin-11 centos-jvmless}
+	TAGS=${2:-centos-openjdk-11 centos-temurin-17 centos-temurin-17-jre centos-openjdk-11 centos-temurin-11 centos-jvmless}
 	SRVS=tomcat
 	PFTAG=$1
 	GITTAG=$3
@@ -151,7 +151,7 @@ elif [ "$1" = "5.0" -o "$1" = "5.0-light" -o "$1" = "5.1" -o "$1" = "5.1-light" 
 then
 	VERSION=5
 	BRANCH=$1
-	TAGS=${2:-centos-openjdk-17 centos-temurin-17}
+	TAGS=${2:-centos-openjdk-11 centos-temurin-17}
 	SRVS=tomcat
 	PFTAG=$1
 else
