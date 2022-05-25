@@ -27,4 +27,4 @@ services:
       REGISTRY_PUBLIC_URL: "https://registry.simplicite.io"
       TITLE: "Simplicite Docker registry"
     ports:
-      - 127.0.0.1:9000:80
+      - 127.0.0.1:5001:80
