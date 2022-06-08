@@ -5,7 +5,7 @@ LOCK=/tmp/`basename $0 .sh`.lck
 exit_with () {
 	[ "$2" != "" ] && echo -e $2 >&2
 	rm -f $LOCK
-	exit ${2:-1}
+	exit ${1:-0}
 }
 
 [ "$1" = "--help" ] && exit_with 1 "\nUsage: `basename $0` [--delete] [\"<variants(s), defaults to all>\" [\"<server(s)>, defaults to tomcat]\"]\n"
@@ -187,4 +187,4 @@ do
 	done
 done
 
-exit_with 0
+exit_with
