@@ -2,7 +2,7 @@
 
 if [ "$1" = "" -o "$2" = "" -o "$1" = "--help" ]
 then
-	echo "Usage: `basename $0` <repository> <tag(s)>" >&2
+	echo -e "\nUsage: `basename $0` <repository> <tag(s)>\n" >&2
 	exit 1
 fi
 

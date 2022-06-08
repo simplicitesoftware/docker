@@ -2,7 +2,7 @@
 
 if [ "$1" = "--help" ]
 then
-	echo "Usage: `basename $0` [-r|--raw] [\"<repository, defaults to all repositories>\"]" >&2
+	echo -e "\nUsage: `basename $0` [-r|--raw] [\"<repository, defaults to all repositories>\"]\n" >&2
 	exit 1
 fi
 

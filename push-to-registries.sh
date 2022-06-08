@@ -1,9 +1,9 @@
 #!/bin/bash
 
-USAGE="Usage: `basename $0` [--delete] <repository> [<tags>]"
+USAGE="\nUsage: `basename $0` [--delete] <repository> [<tags>]\n"
 if [ "$1" = "" -o "$1" = "--help" ]
 then
-	echo $USAGE >&2
+	echo -e $USAGE >&2
 	exit -1
 fi
 
@@ -19,7 +19,7 @@ shift
 
 if [ $IMG != "server" -a $IMG != "platform" -a $IMG != "theia" -a $IMG != "vscode" -a $IMG != "oracle" ]
 then
-	echo $USAGE >&2
+	echo -e $USAGE >&2
 	exit -1
 fi
 
