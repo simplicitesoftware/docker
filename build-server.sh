@@ -8,7 +8,7 @@ exit_with () {
 	exit ${2:-1}
 }
 
-[ "$1" = "--help" ] && exit_with 1 "Usage: `basename $0` [--delete] [\"<variants(s), defaults to all>\" [\"<server(s)>, defaults to tomcat]\"]"
+[ "$1" = "--help" ] && exit_with 1 "\nUsage: `basename $0` [--delete] [\"<variants(s), defaults to all>\" [\"<server(s)>, defaults to tomcat]\"]\n"
 
 trap "rm -f $LOCK" TERM INT QUIT HUP
 [ -f $LOCK ] && exit_with 2 "A build process is in process since `cat $LOCK`"
