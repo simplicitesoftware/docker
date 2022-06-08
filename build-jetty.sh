@@ -1,12 +1,17 @@
 #!/bin/bash
 
 LOCK=/tmp/`basename $0 .sh`.lck
+
+exit_with () {
+	[ "$2" != "" ] && echo -e $2 >&2
+	rm -f $LOCK
+	exit ${2:-1}
+}
+
+[ "$1" = "--help" ] && exit_with 1 "Usage: `basename $0`"
+
 trap "rm -f $LOCK" TERM INT QUIT HUP
-if [ -f $LOCK ]
-then
-	echo "A build process is in process since `cat $LOCK`" >&2
-	exit 2
-fi
+[ -f $LOCK ] && exit_with 2 "A build process is in process since `cat $LOCK`"
 date > $LOCK
 
 echo ""
@@ -18,15 +23,15 @@ TAG=jetty
 
 echo "Updating $SRV.git"
 cd $SRV.git
-git config remote.origin.fetch 'refs/heads/*:refs/heads/*'
-git fetch --verbose --all --force
+git config remote.origin.fetch 'refs/heads/*:refs/heads/*' || exit_with 3 "Unable to configure fetch origin in $SRV.git"
+git fetch --verbose --all --force || exit_with 4 "Unable to fetch in $SRV.git"
 cd ..
 echo "Done"
 
 echo "Checkouting $SRV"
 rm -fr $SRV
 mkdir $SRV
-git --work-tree=$SRV --git-dir=$SRV.git checkout -f master
+git --work-tree=$SRV --git-dir=$SRV.git checkout -f master || exit_with 5 "Unable to checkout master branch from $SRV.git"
 rm -f $SRV/.project $SRV/.git* $SRV/README.md $SRV/*.bat $SRV/bin/*.bat $SRV/bin/*.exe $SRV/bin/*.dll
 echo "Done"
 
@@ -51,5 +56,4 @@ echo ""
 echo "docker run -it --rm --memory=128m -p 127.0.0.1:8443:8080 --name=simplicite $SERVER:$TAG"
 echo ""
 
-rm -f $LOCK
-exit 0
+exit_with 0

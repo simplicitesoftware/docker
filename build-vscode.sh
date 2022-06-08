@@ -1,13 +1,15 @@
 #!/bin/bash
 
+LOCK=/tmp/`basename $0 .sh`.lck
+
 exit_with () {
-	[ "$2" != "" ] && echo $2 >&2
+	[ "$2" != "" ] && echo -e $2 >&2
+	rm -f $LOCK
 	exit ${2:-1}
 }
 
 [ "$1" = "--help" ] && exit_with 1 "Usage: `basename $0`"
 
-LOCK=/tmp/`basename $0 .sh`.lck
 trap "rm -f $LOCK" TERM INT QUIT HUP
 [ -f $LOCK ] && exit_with 2 "A build process is in process since `cat $LOCK`"
 date > $LOCK
@@ -27,5 +29,4 @@ echo ""
 
 cd ..
 
-rm -f $LOCK
-exit 0
+exit_with 0

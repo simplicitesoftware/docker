@@ -1,10 +1,18 @@
 #!/bin/bash
 
-if [ "$1" = "--help" ]
-then
-	echo "Usage: `basename $0` [--delete] [\"<variants(s), defaults to all>\" [\"<server(s)>, defaults to tomcat]\"]" >&2
-	exit 1
-fi
+LOCK=/tmp/`basename $0 .sh`.lck
+
+exit_with () {
+	[ "$2" != "" ] && echo -e $2 >&2
+	rm -f $LOCK
+	exit ${2:-1}
+}
+
+[ "$1" = "--help" ] && exit_with 1 "Usage: `basename $0` [--delete] [\"<variants(s), defaults to all>\" [\"<server(s)>, defaults to tomcat]\"]"
+
+trap "rm -f $LOCK" TERM INT QUIT HUP
+[ -f $LOCK ] && exit_with 2 "A build process is in process since `cat $LOCK`"
+date > $LOCK
 
 DEL=0
 if [ "$1" = "--delete" ]
@@ -12,15 +20,6 @@ then
 	DEL=1
 	shift
 fi
-
-LOCK=/tmp/`basename $0 .sh`.lck
-trap "rm -f $LOCK" TERM INT QUIT HUP
-if [ -f $LOCK ]
-then
-	echo "A build process is in process since `cat $LOCK`" >&2
-	exit 2
-fi
-date > $LOCK
 
 echo ""
 echo "--------------------------------------------------------"
@@ -55,15 +54,15 @@ do
 	then
 		echo "Updating $SRV.git"
 		cd $SRV.git
-		git config remote.origin.fetch 'refs/heads/*:refs/heads/*'
-		git fetch --verbose --all --force
+		git config remote.origin.fetch 'refs/heads/*:refs/heads/*' || exit_with 3 "Unable to configure fetch origin in $SRV.git"
+		git fetch --verbose --all --force || exit_with 4 "Unable to fetch in $SRV.git"
 		cd ..
 		echo "Done"
 
 		echo "Checkouting $SRV as tomcat..."
 		rm -fr tomcat
 		mkdir tomcat
-		git --work-tree=tomcat --git-dir=$SRV.git checkout -f master
+		git --work-tree=tomcat --git-dir=$SRV.git checkout -f master || exit_with 5 "Unable to checkout master branch from $SRV.git"
 		rm -f tomcat/.project tomcat/.git* tomcat/README.md tomcat/*.bat tomcat/bin/*.bat tomcat/bin/*.exe tomcat/bin/*.dll
 		echo "Done"
 	elif [ -d $SRV ]
@@ -73,9 +72,8 @@ do
 		cp -r $SRV tomcat
 		echo "Done"
 	else
-		echo "Unknown server $SRV, aborting" >&2
 		rm -f $LOCK
-		exit 3
+		exit_with 6 "Unknown server $SRV, aborting"
 	fi
 
 	chmod +x run*.sh tomcat/*.sh tomcat/bin/*.sh
@@ -189,5 +187,4 @@ do
 	done
 done
 
-rm -f $LOCK
-exit 0
+exit_with 0
