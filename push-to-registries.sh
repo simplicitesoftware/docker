@@ -1,6 +1,6 @@
 #!/bin/bash
 
-USAGE="\nUsage: `basename $0` [--delete] <repository> [<tags>]\n"
+USAGE="\nUsage: \e[1m`basename $0`\e[0m [--delete] <repository> [<tags>]\n"
 if [ "$1" = "" -o "$1" = "--help" ]
 then
 	echo -e $USAGE >&2

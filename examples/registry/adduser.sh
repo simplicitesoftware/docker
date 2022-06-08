@@ -2,7 +2,7 @@
 
 if [ "$1" = "" -o "$1" = "--help" ]
 then
-	echo -e "\nUsage: `basename $0` <user>\n" >&2
+	echo -e "\nUsage: \e[1m`basename $0`\e[0m <user>\n" >&2
 	exit -1
 fi
 

@@ -5,7 +5,7 @@ exit_with () {
 	exit ${1:-0}
 }
 
-[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: `basename $0` <all|alpha|devel|beta|latest> [<additional tags for latest, e.g. \"5.x 5.x.y\">]\n" 
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m`basename $0`\e[0m <all|alpha|devel|beta|latest> [<additional tags for latest, e.g. \"5.x 5.x.y\">]\n" 
 
 if [ "$1" = "alpha" -o "$1" = "all" ]
 then
