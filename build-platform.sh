@@ -1,10 +1,18 @@
 #!/bin/bash
 
-if [ "$1" = "" -o "$1" = "--help" ]
-then
-	echo "Usage: `basename $0` [--delete] 3.0|3.1|3.2|4.0-latest[-light]|5-<alpha|beta|latest>[-light]|<4.0|5>-devel [<server image tag(s)> [<platform Git tag (only applicable to 5-latest and 5-latest-light>]]" >&2
-	exit 1
-fi
+LOCK=/tmp/`basename $0 .sh`.lck
+
+exit_with () {
+	[ "$2" != "" ] && echo -e $2 >&2
+	rm -f $LOCK
+	exit ${1:-0}
+}
+
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "Usage: `basename $0` [--delete] 3.0|3.1|3.2|4.0-latest[-light]|5-<alpha|beta|latest>[-light]|<4.0|5>-devel [<server image tag(s)> [<platform Git tag (only applicable to 5-latest and 5-latest-light>]]"
+
+trap "rm -f $LOCK" TERM INT QUIT HUP
+[ -f $LOCK ] && exit_with 2 "A build process is in process since `cat $LOCK`"
+date > $LOCK
 
 DEL=0
 if [ "$1" = "--delete" ]
@@ -12,15 +20,6 @@ then
 	DEL=1
 	shift
 fi
-
-LOCK=/tmp/`basename $0 .sh`.lck
-trap "rm -f $LOCK" TERM INT QUIT HUP
-if [ -f $LOCK ]
-then
-	echo "A build process is in process since `cat $LOCK`" >&2
-	exit 2
-fi
-date > $LOCK
 
 LATEST=5
 GITTAG=
@@ -155,9 +154,8 @@ then
 	SRVS=tomcat
 	PFTAG=$1
 else
-	echo "Unknown variant: $1" >&2
 	rm -f $LOCK
-	exit 2
+	exit_with 3 "Unknown variant: $1"
 fi
 
 SERVER=simplicite/server
@@ -166,23 +164,22 @@ TEMPLATE=template-$VERSION
 
 if [ ! -d $TEMPLATE.git ]
 then
-	echo "Git repository for template $TEMPLATE not cloned: git clone --bare <path to $TEMPLATE>.git" >&2
 	rm -f $LOCK
-	exit 3
+	exit_with 4 "Git repository for template $TEMPLATE not cloned: git clone --bare <path to $TEMPLATE>.git"
 fi
 
 echo "Updating $TEMPLATE"
 cd $TEMPLATE.git
-git config remote.origin.fetch 'refs/heads/*:refs/heads/*'
-git fetch --verbose --all --force
-git fetch --verbose --all --force --tags
+git config remote.origin.fetch 'refs/heads/*:refs/heads/*' || exit_with 5 "Unable to configure fetch origin in $TEMPLATE.git"
+git fetch --verbose --all --force || exit_with 5 "Unable to fetch in $TEMPLATE.git"
+git fetch --verbose --all --force --tags || exit_with 6 "Unable to fetch tags in $TEMPLATE.git"
 cd ..
 echo "Done"
 
 echo "Checkouting $TEMPLATE..."
 rm -fr $TEMPLATE
 mkdir $TEMPLATE
-git --work-tree=$TEMPLATE --git-dir=$TEMPLATE.git checkout -f ${CHECKOUT:-$BRANCH}
+git --work-tree=$TEMPLATE --git-dir=$TEMPLATE.git checkout -f ${CHECKOUT:-$BRANCH} || exit_with 5 "Unable to checkout ${CHECKOUT:-$BRANCH} branch from $TEMPLATE.git"
 chmod +x $TEMPLATE/tools/*.sh && \
 echo "Done"
 
@@ -270,5 +267,4 @@ do
 	done
 done
 
-rm -f $LOCK
-exit 0
+exit_with

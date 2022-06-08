@@ -5,7 +5,7 @@ LOCK=/tmp/`basename $0 .sh`.lck
 exit_with () {
 	[ "$2" != "" ] && echo -e $2 >&2
 	rm -f $LOCK
-	exit ${2:-1}
+	exit ${1:-0}
 }
 
 [ "$1" = "--help" ] && exit_with 1 "Usage: `basename $0`"
@@ -56,4 +56,4 @@ echo ""
 echo "docker run -it --rm --memory=128m -p 127.0.0.1:8443:8080 --name=simplicite $SERVER:$TAG"
 echo ""
 
-exit_with 0
+exit_with

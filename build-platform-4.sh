@@ -1,6 +1,11 @@
 #!/bin/bash
 
-./build-platform.sh --delete 4.0-latest
+exit_with () {
+	[ "$2" != "" ] && echo -e $2 >&2
+	exit ${1:-0}
+}
+
+./build-platform.sh --delete 4.0-latest || exit_with $? "Unable to build platform version 4.0-latest"
 
 # ZZZ temporary
 docker rmi simplicite/platform:4.0-latest
@@ -17,7 +22,7 @@ docker tag simplicite/platform:4.0-latest simplicite/platform:4.0
 	4.0-latest \
 	4.0
 
-./build-platform.sh --delete 4.0-latest-light
+./build-platform.sh --delete 4.0-latest-light || exit_with $? "Unable to build platform version 4.0-latest-light"
 
 # ZZZ temporary
 docker rmi simplicite/platform:4.0-latest-light
@@ -36,4 +41,4 @@ docker tag simplicite/platform:4.0-latest-light simplicite/platform:4.0-light
 	4.0-latest-light \
 	4.0-light
 
-exit 0
+exit_with

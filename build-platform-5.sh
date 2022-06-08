@@ -1,14 +1,15 @@
 #!/bin/bash
 
-if [ "$1" = "" -o "$1" = "--help" ]
-then
-	echo "Usage: `basename $0` <all|alpha|devel|beta|latest> [<additional tags for latest, e.g. \"5.x 5.x.y\">]" >&2 
-	exit -1
-fi
+exit_with () {
+	[ "$2" != "" ] && echo -e $2 >&2
+	exit ${1:-0}
+}
+
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "Usage: `basename $0` <all|alpha|devel|beta|latest> [<additional tags for latest, e.g. \"5.x 5.x.y\">]" 
 
 if [ "$1" = "alpha" -o "$1" = "all" ]
 then
-	./build-platform.sh --delete 5-alpha
+	./build-platform.sh --delete 5-alpha || exit_with $? "Unable to build platform version 5-alpha"
 
 	# ZZZ temporary
 	docker rmi simplicite/platform:5-alpha
@@ -21,7 +22,7 @@ then
 		5-alpha-openjdk-11
 	./push-to-registries.sh platform 5-alpha
 
-	./build-platform.sh --delete 5-alpha-light
+	./build-platform.sh --delete 5-alpha-light || exit_with $? "Unable to build platform version 5-alpha-light"
 
 	# ZZZ temporary
 	docker rmi simplicite/platform:5-alpha-light
@@ -34,7 +35,7 @@ then
 		5-alpha-light-openjdk-11 \
 		5-alpha-light
 
-	./build-platform.sh --delete 5-alpha-test
+	./build-platform.sh --delete 5-alpha-test || exit_with $? "Unable to build platform version 5-alpha-test"
 
 	./push-to-registries.sh --delete platform \
 		5-alpha-test-centos8-openjdk-11 \
@@ -64,7 +65,7 @@ fi
 
 if [ "$1" = "beta" -o "$1" = "all" ]
 then
-	./build-platform.sh --delete 5-beta
+	./build-platform.sh --delete 5-beta || exit_with $? "Unable to build platform version 5-beta"
 
 	# ZZZ temporary
 	docker rmi simplicite/platform:5-beta
@@ -77,7 +78,7 @@ then
 		5-beta-openjdk-11
 	./push-to-registries.sh platform 5-beta
 
-	./build-platform.sh --delete 5-beta-light
+	./build-platform.sh --delete 5-beta-light || exit_with $? "Unable to build platform version 5-beta-light"
 
 	# ZZZ temporary
 	docker rmi simplicite/platform:5-beta-light
@@ -103,7 +104,7 @@ fi
 
 if [ "$1" = "latest" -o "$1" = "all" ]
 then
-	./build-platform.sh --delete 5-latest
+	./build-platform.sh --delete 5-latest || exit_with $? "Unable to build platform version 5-latest"
 
 	# ZZZ temporary
 	docker rmi simplicite/platform:5-latest
@@ -124,7 +125,7 @@ then
 		latest
 	./push-to-registries.sh platform 5-latest
 
-	./build-platform.sh --delete 5-latest-light
+	./build-platform.sh --delete 5-latest-light || exit_with $? "Unable to build platform version 5-latest-light"
 
 	# ZZZ temporary
 	docker rmi simplicite/platform:5-latest-light
@@ -159,8 +160,8 @@ fi
 
 if [ "$1" = "5.0" -o "$1" = "5.1" ]
 then
-	./build-platform.sh --delete $1
-	./build-platform.sh --delete $1-light
+	./build-platform.sh --delete $1 || exit_with $? "Unable to build platform version $1"
+	./build-platform.sh --delete $1-light || exit_with $? "Unable to build platform version $1-light"
 
 	# ZZZ temporary
 	docker rmi simplicite/platform:$1 simplicite/platform:$1-light
@@ -186,4 +187,4 @@ then
 	done
 fi
 
-exit 0
+exit_with
