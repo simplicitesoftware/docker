@@ -5,6 +5,9 @@ services:
     restart: always
     container_name: myapp-postgresql-database
     environment:
+      # Custom timezone if needed ZZZ must match the simplicite container timezone ZZZ
+      #TZ: "Europe/Paris"
+      #PGTZ: "Europe/Paris"
       POSTGRES_USER: "simplicite"
       POSTGRES_PASSWORD: "simplicite"
       POSTGRES_DB: "simplicite"
@@ -18,6 +21,8 @@ services:
     restart: always
     container_name: myapp-postgresql-webapp
     environment:
+      # Custom timezone if needed ZZZ must match the db container timezone ZZZ
+      #TOMCAT_TIMEZONE: "Europe/Paris"
       DB_SETUP: "true"
       DB_VENDOR: "postgresql"
       DB_HOST: db
