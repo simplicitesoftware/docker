@@ -28,11 +28,7 @@ RUN dnf install -y vim-enhanced gcc gcc-c++ make nmap xz && dnf clean all && \
     wget -q https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip && unzip -q gradle-$GRADLE_VERSION-bin.zip && rm -f gradle-$GRADLE_VERSION-bin.zip && \
     echo "Installing Node.js $NODE_VERSION" && \
     wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - && \
-    echo -e "alias vi=vim\n\
-alias rm='rm -i'\n\
-alias cp='cp -i'\n\
-alias mv='mv -i'\n\
-alias dir='ls -alF --color=always'" >> /root/.bashrc
+    echo -e "alias vi=vim" >> /root/.bashrc
 
 ENV ANT_HOME=/usr/local/apache-ant-$ANT_VERSION \
     MAVEN_HOME=/usr/local/apache-maven-$MAVEN_VERSION \
