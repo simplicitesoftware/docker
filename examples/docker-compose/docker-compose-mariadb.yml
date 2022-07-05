@@ -5,6 +5,8 @@ services:
     restart: always
     container_name: myapp-mariadb-database
     environment:
+      # Custom timezone if needed ZZZ must match the simplicite container timezone ZZZ
+      #TZ: "Europe/Paris"
       MYSQL_ROOT_PASSWORD: "simplicite"
       MYSQL_DATABASE: "simplicite"
       MYSQL_USER: "simplicite"
@@ -19,6 +21,8 @@ services:
     restart: always
     container_name: myapp-mariadb-webapp
     environment:
+      # Custom timezone if needed ZZZ must match the db container timezone ZZZ
+      #TOMCAT_TIMEZONE: "Europe/Paris"
       DB_SETUP: "true"
       DB_VENDOR: "mysql"
       DB_HOST: db

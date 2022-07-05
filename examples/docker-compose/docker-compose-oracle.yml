@@ -5,6 +5,9 @@ services:
     image: myoraclexe
     restart: always
     container_name: myapp-oracle-database
+    #environment:
+      # Custom timezone if needed ZZZ must match the simplicite container timezone ZZZ
+      #TZ: "Europe/Paris"
     # Uncomment if you need to access the database from the host
     #ports:
     #  - 127.0.0.1:1521:1521
@@ -17,6 +20,8 @@ services:
       args:
         tag: <tag, e.g. 5-latest>
     environment:
+      # Custom timezone if needed ZZZ must match the db container timezone ZZZ
+      #TOMCAT_TIMEZONE: "Europe/Paris"
       DB_SETUP: "true"
       DB_VENDOR: "oracle"
       DB_HOST: db

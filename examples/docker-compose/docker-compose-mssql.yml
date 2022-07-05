@@ -5,6 +5,12 @@ services:
     image: mymssql 
     restart: always
     container_name: myapp-mssql-database
+    #environment:
+      # Custom timezone if needed ZZZ must match the simplicite container timezone ZZZ
+      #TZ: "Europe/Paris"
+    # Uncomment if you need to access the database from the host
+    #ports:
+    #  - 127.0.0.1:1433:1433
     volumes:
       - myapp-mssql-db:/var/opt/mssql
   simplicite:
@@ -16,6 +22,8 @@ services:
     restart: always
     container_name: myapp-mssql-webapp
     environment:
+      # Custom timezone if needed ZZZ must match the db container timezone ZZZ
+      #TOMCAT_TIMEZONE: "Europe/Paris"
       DB_SETUP: "true"
       DB_VENDOR: "mssql"
       DB_HOST: db
