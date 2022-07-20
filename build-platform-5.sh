@@ -19,7 +19,8 @@ then
 	./push-to-registries.sh --delete platform \
 		5-alpha-temurin-17 \
 		5-alpha-temurin-17-jre \
-		5-alpha-openjdk-11
+		5-alpha-openjdk-11 \
+		5-alpha-alpine
 	./push-to-registries.sh platform 5-alpha
 
 	./build-platform.sh --delete 5-alpha-light || exit_with $? "Unable to build platform version 5-alpha-light"
@@ -33,7 +34,8 @@ then
 		5-alpha-light-temurin-17 \
 		5-alpha-light-temurin-17-jre \
 		5-alpha-light-openjdk-11 \
-		5-alpha-light
+		5-alpha-light \
+		5-alpha-light-alpine
 
 	./build-platform.sh --delete 5-alpha-test || exit_with $? "Unable to build platform version 5-alpha-test"
 
@@ -43,9 +45,7 @@ then
 		5-alpha-test-rockylinux \
 		5-alpha-test-almalinux \
 		5-alpha-test-adoptium-17 \
-		5-alpha-test-adoptium-11 \
-		5-alpha-test-alpine \
-		5-alpha-test-alpine-temurin
+		5-alpha-test-adoptium-11
 
 	# Additional tags
 	for TAG in ${@:2}
@@ -75,7 +75,8 @@ then
 	./push-to-registries.sh --delete platform \
 		5-beta-temurin-17 \
 		5-beta-temurin-17-jre \
-		5-beta-openjdk-11
+		5-beta-openjdk-11 \
+		5-beta-alpine
 	./push-to-registries.sh platform 5-beta
 
 	./build-platform.sh --delete 5-beta-light || exit_with $? "Unable to build platform version 5-beta-light"
@@ -89,7 +90,8 @@ then
 		5-beta-light-temurin-17 \
 		5-beta-light-temurin-17-jre \
 		5-beta-light-openjdk-11 \
-		5-beta-light
+		5-beta-light \
+		5-beta-light-alpine
 
 	# Additional tags
 	for TAG in ${@:2}
@@ -121,6 +123,7 @@ then
 		5-latest-temurin-17 \
 		5-latest-temurin-17-jre \
 		5-latest-openjdk-11 \
+		5-latest-alpine \
 		5 \
 		latest
 	./push-to-registries.sh platform 5-latest
@@ -142,6 +145,7 @@ then
 		5-latest-light-temurin-17 \
 		5-latest-light-temurin-17-jre \
 		5-latest-light-openjdk-11 \
+		5-latest-light-alpine \
 		5-latest-light \
 		5-light \
 		latest-light
