@@ -13,7 +13,7 @@ LABEL org.label-schema.name="simplicite-server-centos8-base" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="${date}"
 
-ENV DOCKER=centos8 LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LOG4J_FORMAT_MSG_NO_LOOKUPS=true
+ENV DOCKER=centos8 LANG=C.UTF-8 LANGUAGE=C.UTF-8 LOG4J_FORMAT_MSG_NO_LOOKUPS=true
 
 COPY *.crt /etc/pki/ca-trust/source/anchors/
 RUN dnf upgrade -y && \

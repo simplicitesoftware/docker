@@ -1,4 +1,4 @@
-FROM almalinux:latest
+FROM almalinux:8
 
 ARG date
 
@@ -12,7 +12,7 @@ LABEL org.label-schema.name="simplicite-server-almalinux" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="${date}"
 
-ENV DOCKER=almalinux LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 JAVA_HOME=/usr/lib/jvm/java LOG4J_FORMAT_MSG_NO_LOOKUPS=true
+ENV DOCKER=almalinux LANG=C.UTF-8 LANGUAGE=C.UTF-8 JAVA_HOME=/usr/lib/jvm/java LOG4J_FORMAT_MSG_NO_LOOKUPS=true
 
 COPY *.crt /etc/pki/ca-trust/source/anchors/
 RUN dnf upgrade -y && \
