@@ -176,8 +176,10 @@ then
 	./push-to-registries.sh --delete platform \
 		$1-temurin-17 \
 		$1-openjdk-11 \
+		$1-alpine \
 		$1-light-temurin-17 \
 		$1-light-openjdk-11 \
+		$1-light-alpine \
 		$1-light
 	./push-to-registries.sh platform $1
 
