@@ -12,7 +12,6 @@ LABEL org.label-schema.name="simplicite-vscode" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="$BUILD_DATE"
 
-ARG GIT_VERSION=2.37.2
 ARG ANT_VERSION=1.10.12
 ARG MAVEN_VERSION=3.8.6
 ARG GRADLE_VERSION=7.5.1
@@ -21,12 +20,9 @@ ARG NODE_VERSION=v16.17.0
 USER root
 RUN dnf upgrade -y && \
     dnf install -y epel-release && \
-    dnf install -y bash vim-enhanced autoconf gcc gcc-c++ cmake make gettext-devel zlib-devel curl-devel expat-devel openssl-devel perl-CPAN perl-devel nmap openssh-clients openssl curl wget zip unzip xz ca-certificates libjpeg fontconfig mariadb postgresql java-17-openjdk-devel && \
+    dnf install -y bash git vim-enhanced nmap openssh-clients openssl curl wget zip unzip xz ca-certificates libjpeg fontconfig mariadb postgresql java-17-openjdk-devel && \
     dnf clean all && \
     cd /usr/local && \
-    echo "Installing Git $GIT_VERSION" && \
-    wget -qO- https://mirrors.edge.kernel.org/pub/software/scm/git/git-$GIT_VERSION.tar.xz | tar xfJ - && \
-    cd git-$GIT_VERSION && make prefix=/usr/local install && cd .. && rm -fr git-$GIT_VERSION && \
     echo "Installing Apache Ant $ANT_VERSION" && \
     wget -qO- https://www-eu.apache.org/dist/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz | tar xfz - && \
     echo "Installing Apache Maven $MAVEN_VERSION" && \
