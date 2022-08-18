@@ -1,4 +1,4 @@
-FROM openjdk:15-alpine
+FROM openjdk:17-alpine
 
 RUN apk update && \
     apk upgrade && \
@@ -8,8 +8,8 @@ RUN apk update && \
 ENV LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8
 # JAVA_HOME is defined by default
 
-COPY hsqldb-2.6.1.jar /usr/local/hsqldb/hsqldb.jar
-COPY sqltool-2.6.1.jar /usr/local/hsqldb/sqltool.jar
+COPY hsqldb-2.7.0.jar /usr/local/hsqldb/hsqldb.jar
+COPY sqltool-2.7.0.jar /usr/local/hsqldb/sqltool.jar
 COPY run.sh /usr/local/hsqldb/run
 RUN chmod +x /usr/local/hsqldb/run
 
