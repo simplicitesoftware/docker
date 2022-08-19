@@ -35,7 +35,7 @@ RUN dnf upgrade -y && \
     curl -fsSL https://code-server.dev/install.sh | sh && \
     groupadd -g 2000 simplicite && useradd -N -g 2000 -u 2000 -d /var/simplicite simplicite
 
-COPY letterpress* /usr/lib/code-server/vendor/modules/code-oss-dev/out/vs/workbench/browser/parts/editor/media/
+COPY letterpress* /usr/lib/code-server/lib/vscode/out/vs/workbench/browser/parts/editor/media/
 COPY favicon* /usr/lib/code-server/src/browser/media/
 COPY pwa* /usr/lib/code-server/src/browser/media/
 
