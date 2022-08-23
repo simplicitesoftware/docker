@@ -12,5 +12,6 @@
         "**/.factorypath": true,
         "**/.apt_generated*": true
     },
+    "files.autoSave": "off",
     "redhat.telemetry.enabled": false
 }

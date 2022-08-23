@@ -8,5 +8,6 @@
         "**/.settings": true,
         "**/.factorypath": true
     },
+    "files.autoSave": "off",
     "redhat.telemetry.enabled": false
 }
