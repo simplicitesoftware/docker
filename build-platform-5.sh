@@ -37,16 +37,6 @@ then
 		5-alpha-light \
 		5-alpha-light-alpine
 
-	./build-platform.sh --delete 5-alpha-test || exit_with $? "Unable to build platform version 5-alpha-test"
-
-	./push-to-registries.sh --delete platform \
-		5-alpha-test-centos8-openjdk-11 \
-		5-alpha-test-centos8-openjdk-17 \
-		5-alpha-test-rockylinux \
-		5-alpha-test-almalinux \
-		5-alpha-test-adoptium-17 \
-		5-alpha-test-adoptium-11
-
 	# Additional tags
 	for TAG in ${@:2}
 	do
@@ -158,6 +148,21 @@ then
 
 		./push-to-registries.sh --delete platform $TAG
 	done
+fi
+
+# Experimental builds
+
+if [ "$1" = "latest-test" -o "$1" = "all" ]
+then
+	./build-platform.sh --delete 5-latest-test || exit_with $? "Unable to build platform version 5-latest-test"
+
+	./push-to-registries.sh --delete platform \
+		5-latest-test-centos8-openjdk-11 \
+		5-latest-test-centos8-openjdk-17 \
+		5-latest-test-rockylinux \
+		5-latest-test-almalinux \
+		5-latest-test-adoptium-17 \
+		5-latest-test-adoptium-11
 fi
 
 # Previous minor versions

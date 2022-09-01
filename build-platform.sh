@@ -86,13 +86,6 @@ then
 	TAGS=${2:-centos-openjdk-11 centos-temurin-17 centos-temurin-17-jre alpine}
 	SRVS=tomcat
 	PFTAG=$1
-elif [ "$1" = "5-alpha-test" ]
-then
-	VERSION=5
-	BRANCH=master
-	TAGS=${2:-centos8-openjdk-17 centos8-openjdk-11 rockylinux almalinux adoptium-17 adoptium-11}
-	SRVS=tomcat
-	PFTAG=$1
 elif [ "$1" = "5-devel" ]
 then
 	VERSION=5
@@ -146,6 +139,13 @@ then
 		PFTAG=$GITTAG-light
 		CHECKOUT=$GITTAG
 	fi
+elif [ "$1" = "5-latest-test" ]
+then
+	VERSION=5
+	BRANCH=release
+	TAGS=${2:-centos8-openjdk-17 centos8-openjdk-11 rockylinux almalinux adoptium-17 adoptium-11}
+	SRVS=tomcat
+	PFTAG=$1
 elif [ "$1" = "5.0" -o "$1" = "5.0-light" -o "$1" = "5.1" -o "$1" = "5.1-light" ]
 then
 	VERSION=5
