@@ -14,6 +14,8 @@ services:
       DB_USER: "<database user>"
       DB_PASSWORD: "<database password>"
       DB_NAME: "<database name>"
+      # Run as plain user instead of root 
+      TOMCAT_USER: "simplicite"
       # Limit upload size if needed (ex: 5Mb)
       #TOMCAT_MAXPOSTSIZE: 5242880
       # Limit HTTP header size if needed (ex: 8Kb)
