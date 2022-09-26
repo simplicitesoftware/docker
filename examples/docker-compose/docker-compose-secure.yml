@@ -36,13 +36,16 @@ services:
       SYSPARAM_USE_IO: "<yes|no>"
       SYSPARAM_USE_GIT: "<yes|no>"
       SYSPARAM_USE_MAVEN: "<yes|no>"
-      # And/or set an IP-based Tomcat-level filtering
+      # Add custom additional HTTP headers
+      #SYSPARAM_HTTP_HEADERS: '{ "X-Frame-Options": "SAMEORIGIN", "X-XSS-Protection": "1; mode=block;", "Content-Security-Policy": "...", ...}'
+      # And/or set an IP-based Tomcat-level filtering (set at Tomcat config level)
       #HEALTH_WHITELIST: "127\\.0\\.0\\.1,::1"
       #UI_WHITELIST: "127\\.0\\.0\\.1,::1"
       #API_WHITELIST: "127\\.0\\.0\\.1,::1"
       #IO_WHITELIST: "127\\.0\\.0\\.1,::1"
       #GIT_WHITELIST: "127\\.0\\.0\\.1,::1"
-      #MAVEN_WHITELIST: "127\\.0\\.0\\.1,::1"
+      # Force HTTP-only and secure cookies (set at Tomcat config level)
+      #SECURE_COOKIES: true
     ports:
       # For *non* SSL endoint of HTTP reverse proxying
       - 127.0.0.1:8080:8080
