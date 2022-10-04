@@ -40,24 +40,25 @@ else
 	echo "WARNING: $HOME/.ssh is read-only, unable to register keys and/or known hosts"
 fi
 
-if [ "$TOMCAT_USER" != "" ]
+[ "$TOMCAT_USER" = "" ] && TOMCAT_USER=`id -un`
+TOMCAT_UID=`id -u $TOMCAT_USER`
+if [ $? -ne 0 ]
 then
-	TOMCAT_UID=`id -u $TOMCAT_USER`
-	if [ $? -ne 0 ]
-	then
-		echo "ERROR: User $TOMCAT_USER does not exist"
-		exit 1
-	fi
-	TOMCAT_GID=`id -g $TOMCAT_USER`
-	[ ! -O $TOMCAT_ROOT -a `id -un` = "root" ] && chown -f -R $TOMCAT_UID:$TOMCAT_GID $TOMCAT_ROOT
-	[ `id -un` = "root" ] && echo "WARNING: Tomcat is running as root" || echo "Running Tomcat as $TOMCAT_USER (user ID $TOMCAT_UID, group ID $TOMCAT_GID)"
-	if [ `id -u` = $TOMCAT_UID ]
-	then
-		cd $TOMCAT_ROOT && ./start.sh -t
-	else
-		su $TOMCAT_USER -c "cd $TOMCAT_ROOT && ./start.sh -t"
-	fi
+	echo "ERROR: User $TOMCAT_USER does not exist"
+	exit 1
+fi
+TOMCAT_GID=`id -g $TOMCAT_USER`
+if [ `id -un` = "root" ]
+then
+	echo "--------------------------------------------------------------------------"
+	echo "WARNING: Tomcat is running as root, this my not be suitable for production"
+	echo "--------------------------------------------------------------------------"
 else
-	[ `id -un` = "root" ] && echo "WARNING: Tomcat is running as root"
+	echo "Running Tomcat as $TOMCAT_USER (user ID $TOMCAT_UID, group ID $TOMCAT_GID)"
+fi
+if [ `id -u` = $TOMCAT_UID ]
+then
 	cd $TOMCAT_ROOT && ./start.sh -t
+else
+	su $TOMCAT_USER -c "cd $TOMCAT_ROOT && ./start.sh -t"
 fi
