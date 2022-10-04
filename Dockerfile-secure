@@ -10,6 +10,7 @@ ENV SYSPARAM_USE_HEALTH=no \
     SYSPARAM_USE_API=no \
     SYSPARAM_USE_API_TESTER=no \
     SYSPARAM_USE_IO=no \
+    SYSPARAM_USE_IO_TESTER=no \
     SYSPARAM_USE_GIT=no \
     SYSPARAM_USE_MAVEN=no \
     SYSPARAM_HTTP_HEADERS="{ \"X-Frame-Options\": \"SAMEORIGIN\", \"X-XSS-Protection\": \"1; mode=block;\", \"Content-Security-Policy\": \"default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; frame-src 'self';\" }"
