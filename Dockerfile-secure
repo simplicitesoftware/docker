@@ -2,7 +2,7 @@ ARG tag=5-latest
 FROM simplicite/platform:$tag
 
 ARG level=9
-RUN sed -i "s/platform.securelevel=.*$/platfom.securelevel=$level/" /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/com/simplicite/globals.properties && \
+RUN sed -i "s/platform.securelevel=.*$/platform.securelevel=$level/" /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/com/simplicite/globals.properties && \
     sed -i 's/<!-- cookie-config>/<cookie-config>/;s/<\/cookie-config -->/<\/cookie-config>/' /usr/local/tomcat/conf/web.xml
 
 USER simplicite
