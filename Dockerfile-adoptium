@@ -23,6 +23,8 @@ RUN apt-get update && \
     apt-get install -y apt-utils && \
     apt-get install -y bash openssh-client openssl git curl wget zip unzip ca-certificates libjpeg-dev mysql-client postgresql-client && \
     apt-get clean && \
+    ln -s /usr/local/tomcat/logs /var/log/tomcat && \
+    ln -s /usr/local/tomcat/webapps/ROOT/WEB-INF/log /var/log/simplicite && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
     update-ca-certificates && \
     addgroup --gid 2000 simplicite && adduser --disabled-password --gecos "" --uid 2000 --gid 2000 simplicite && \

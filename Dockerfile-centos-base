@@ -22,6 +22,8 @@ RUN yum install -y dnf && yum clean all && rm -rf /var/cache/yum && \
     dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm && \
     dnf install -y bash openssh-clients openssl git curl wget zip unzip xz ca-certificates libjpeg fontconfig mariadb postgresql14 && \
     dnf clean all && \
+    ln -s /usr/local/tomcat/logs /var/log/tomcat && \
+    ln -s /usr/local/tomcat/webapps/ROOT/WEB-INF/log /var/log/simplicite && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
     /bin/update-ca-trust extract && \
     groupadd -g 2000 simplicite && useradd -N -g 2000 -u 2000 simplicite && \
