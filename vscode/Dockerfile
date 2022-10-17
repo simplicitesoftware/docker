@@ -15,7 +15,7 @@ LABEL org.label-schema.name="simplicite-vscode" \
 ARG ANT_VERSION=1.10.12
 ARG MAVEN_VERSION=3.8.6
 ARG GRADLE_VERSION=7.5.1
-ARG NODE_VERSION=v16.17.1
+ARG NODE_VERSION=v16.18.0
 
 USER root
 RUN dnf upgrade -y && \

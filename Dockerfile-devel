@@ -16,7 +16,7 @@ LABEL org.label-schema.name="simplicite-server-devel" \
 ARG ANT_VERSION=1.10.12
 ARG MAVEN_VERSION=3.8.6
 ARG GRADLE_VERSION=7.5.1
-ARG NODE_VERSION=v16.17.1
+ARG NODE_VERSION=v16.18.0
 
 RUN dnf install -y vim-enhanced gcc gcc-c++ make nmap xz && dnf clean all && \
     cd /usr/local && \
