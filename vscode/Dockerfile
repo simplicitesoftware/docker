@@ -22,7 +22,7 @@ RUN groupadd -g 2000 simplicite && \
     useradd -N -g 2000 -u 2000 -d /var/simplicite simplicite && \
     dnf upgrade -y && \
     dnf install -y epel-release && \
-    dnf install -y bash git vim-enhanced iputils nmap openssh-clients openssl curl wget zip unzip xz ca-certificates libjpeg fontconfig mariadb postgresql java-17-openjdk-devel && \
+    dnf install -y bash git vim-enhanced iputils bind bind-utils nmap openssh-clients openssl curl wget zip unzip xz ca-certificates libjpeg fontconfig mariadb postgresql java-17-openjdk-devel && \
     dnf clean all && \
     cd /usr/local && \
     echo "Installing Apache Ant $ANT_VERSION" && \
