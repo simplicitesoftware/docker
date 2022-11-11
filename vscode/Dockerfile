@@ -25,15 +25,20 @@ RUN dnf upgrade -y && \
     cd /usr/local && \
     echo "Installing Apache Ant $ANT_VERSION" && \
     wget -qO- https://www-eu.apache.org/dist/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz | tar xfz - && \
+    chown -R root:root /usr/local/apache-ant-$ANT_VERSION && \
     echo "Installing Apache Maven $MAVEN_VERSION" && \
     wget -qO- https://www-eu.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xfz - && \
+    chown -R root:root /usr/local/apache-maven-$MAVEN_VERSION && \
     echo "Installing Gradle $GRADLE_VERSION" && \
     wget -q https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip && unzip -q gradle-$GRADLE_VERSION-bin.zip && rm -f gradle-$GRADLE_VERSION-bin.zip && \
+    chown -R root:root /usr/local/gradle-$GRADLE_VERSION && \
     echo "Installing Node.js $NODE_VERSION" && \
     wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - && \
+    chown -R root:root /usr/local/node-$NODE_VERSION-linux-x64 && \
     echo "Installing VSCode server" && \
     curl -fsSL https://code-server.dev/install.sh | sh && \
-    groupadd -g 2000 simplicite && useradd -N -g 2000 -u 2000 -d /var/simplicite simplicite
+    groupadd -g 2000 simplicite && useradd -N -g 2000 -u 2000 -d /var/simplicite simplicite && \
+    chown -R simplicite:simplicite /usr/local/node-$NODE_VERSION-linux-x64/lib/node_modules
 
 COPY letterpress* /usr/lib/code-server/lib/vscode/out/vs/workbench/browser/parts/editor/media/
 COPY favicon* /usr/lib/code-server/src/browser/media/
@@ -43,7 +48,6 @@ ENV LANG=en_US.UTF-8 \
     ANT_HOME=/usr/local/apache-ant-$ANT_VERSION \
     MAVEN_HOME=/usr/local/apache-maven-$MAVEN_VERSION \
     GRADLE_HOME=/usr/local/gradle-$GRADLE_VERSION \
-    NODE_HOME=/usr/local/node-$NODE_VERSION-linux-x64 \
     NODE_HOME=/usr/local/node-$NODE_VERSION-linux-x64 \
     PATH=/usr/local/bin:/usr/local/apache-ant-$ANT_VERSION/bin:/usr/local/apache-maven-$MAVEN_VERSION/bin:/usr/local/gradle-$GRADLE_VERSION/bin:/usr/local/node-$NODE_VERSION-linux-x64/bin:$PATH \
     SERVICE_URL=https://open-vsx.org/vscode/gallery \
