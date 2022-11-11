@@ -18,7 +18,9 @@ ARG GRADLE_VERSION=7.5.1
 ARG NODE_VERSION=v18.12.1
 
 USER root
-RUN dnf upgrade -y && \
+RUN groupadd -g 2000 simplicite && \
+    useradd -N -g 2000 -u 2000 -d /var/simplicite simplicite && \
+    dnf upgrade -y && \
     dnf install -y epel-release && \
     dnf install -y bash git vim-enhanced nmap openssh-clients openssl curl wget zip unzip xz ca-certificates libjpeg fontconfig mariadb postgresql java-17-openjdk-devel && \
     dnf clean all && \
@@ -34,11 +36,9 @@ RUN dnf upgrade -y && \
     chown -R root:root /usr/local/gradle-$GRADLE_VERSION && \
     echo "Installing Node.js $NODE_VERSION" && \
     wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - && \
-    chown -R root:root /usr/local/node-$NODE_VERSION-linux-x64 && \
+    chown -R simplicite:simplicite /usr/local/node-$NODE_VERSION-linux-x64 && \
     echo "Installing VSCode server" && \
-    curl -fsSL https://code-server.dev/install.sh | sh && \
-    groupadd -g 2000 simplicite && useradd -N -g 2000 -u 2000 -d /var/simplicite simplicite && \
-    chown -R simplicite:simplicite /usr/local/node-$NODE_VERSION-linux-x64/lib/node_modules
+    curl -fsSL https://code-server.dev/install.sh | sh
 
 COPY letterpress* /usr/lib/code-server/lib/vscode/out/vs/workbench/browser/parts/editor/media/
 COPY favicon* /usr/lib/code-server/src/browser/media/
