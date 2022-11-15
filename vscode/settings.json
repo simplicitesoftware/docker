@@ -3,6 +3,8 @@
     "workbench.colorTheme": "Visual Studio Dark",
     "editor.fontSize": 12,
     "terminal.integrated.fontSize": 12,
+    "terminal.integrated.rightClickBehavior": "paste",
+    "terminal.integrated.copyOnSelection": true,
     "debug.console.fontSize": 12,
     "editor.inlayHints.fontSize": 0,
     "files.exclude": {
