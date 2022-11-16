@@ -22,5 +22,12 @@
     },
     "files.autoSave": "off",
     "files.trimTrailingWhitespace": true,
-    "redhat.telemetry.enabled": false
+    "redhat.telemetry.enabled": false,
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-17",
+            "path": "/usr/lib/jvm/java",
+            "default": true
+        }
+    ]
 }
