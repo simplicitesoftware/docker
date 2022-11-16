@@ -27,9 +27,15 @@ services:
       # Uncomment this line if you are implementing a custom frontend
       #- 127.0.0.1:3000:3000
     volumes:
-      - projects:/var/simplicite/projects
+      - ideprojects:/var/simplicite/projects
+      # Uncomment if you want custom extensions
+      #- ideextensions:/var/simplicite/extensions
+      # Uncomment to keep user prefs, etc.
+      #- idedata:/var/simplicite/data
 volumes:
   db:
   dbdoc:
   git:
-  projects:
+  ideprojects:
+#  ideextensions:
+#  idedata
