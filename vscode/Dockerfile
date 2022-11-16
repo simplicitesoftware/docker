@@ -20,6 +20,8 @@ ARG NODE_VERSION=v18.12.1
 USER root
 RUN groupadd -g 2000 simplicite && \
     useradd -N -g 2000 -u 2000 -d /var/simplicite simplicite && \
+    mkdir /var/simplicite/data /var/simplicite/projects /var/simplicite/extensions && \
+    chown -R simplicite:simplicite /var/simplicite/data /var/simplicite/projects /var/simplicite/extensions && \
     dnf upgrade -y && \
     dnf install -y epel-release && \
     dnf install -y bash git vim-enhanced iputils bind bind-utils nmap openssh-clients openssl curl wget zip unzip xz ca-certificates libjpeg fontconfig mariadb postgresql java-17-openjdk-devel && \
@@ -56,17 +58,19 @@ ENV LANG=en_US.UTF-8 \
 
 USER simplicite
 COPY --chown=simplicite:simplicite config.yaml /var/simplicite/.config/code-server/
-COPY --chown=simplicite:simplicite settings.json /var/simplicite/.local/share/code-server/User/
+COPY --chown=simplicite:simplicite settings.json /var/simplicite/data/User/
 COPY --chown=simplicite:simplicite settings.xml /var/simplicite/.m2/
 RUN git config --global user.name "Simplicite Software" && \
     git config --global user.email "contact@simplicitesoftware.com" && \
     git config --global http.sslVerify "false" && \
-    mkdir /var/simplicite/projects && \
-    /usr/bin/code-server \
-    --install-extension vscjava.vscode-java-pack \
-    --install-extension redhat.vscode-xml \
-    --install-extension simpliciteSoftware.simplicite-vscode-tools \
-    --install-extension octref.vetur && \
+    /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension redhat.java && \
+    /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension vscjava.vscode-java-debug && \
+    /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension vscjava.vscode-java-dependency && \
+    /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension vscjava.vscode-java-test && \
+    /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension vscjava.vscode-maven && \
+    /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension redhat.vscode-xml && \
+    /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension octref.vetur && \
+    /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension simpliciteSoftware.simplicite-vscode-tools && \
     echo -e "alias vi=vim\n\
 alias rm='rm -i'\n\
 alias cp='cp -i'\n\
@@ -76,4 +80,4 @@ alias dir='ls -alF --color=always'" >> /var/simplicite/.bashrc
 EXPOSE 3030 3000 8080 8443 8444 8000
 
 WORKDIR /var/simplicite
-CMD [ "/usr/bin/code-server" ]
+CMD [ "/usr/bin/code-server", "--user-data-dir=/var/simplicite/data", "--extensions-dir=/var/simplicite/extensions" ]
