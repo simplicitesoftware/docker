@@ -1,0 +1,30 @@
+{
+	"AppLog.debug snippet": {
+		"prefix": "apploginfo",
+		"body": [
+			"AppLog.debug(\"$1\", getGrant());"
+		],
+		"description": "Debug log"
+	},
+	"AppLog.info snippet": {
+		"prefix": "apploginfo",
+		"body": [
+			"AppLog.info(\"$1\", getGrant());"
+		],
+		"description": "Information log"
+	},
+	"AppLog.warning snippet": {
+		"prefix": "applogwarning",
+		"body": [
+			"AppLog.warning(\"$1\", $2, getGrant());"
+		],
+		"description": "Warning log"
+	},
+	"AppLog.info snippet": {
+		"prefix": "applogerror",
+		"body": [
+			"AppLog.error(\"$1\", $2, getGrant());"
+		],
+		"description": "Error log"
+	}
+}

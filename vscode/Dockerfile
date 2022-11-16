@@ -59,6 +59,8 @@ ENV LANG=en_US.UTF-8 \
 USER simplicite
 COPY --chown=simplicite:simplicite config.yaml /var/simplicite/.config/code-server/
 COPY --chown=simplicite:simplicite settings.json /var/simplicite/data/User/
+COPY --chown=simplicite:simplicite keybindings.json /var/simplicite/data/User/
+COPY --chown=simplicite:simplicite simplicite.code-snippets /var/simplicite/data/User/snippets/
 COPY --chown=simplicite:simplicite settings.xml /var/simplicite/.m2/
 RUN git config --global user.name "Simplicite Software" && \
     git config --global user.email "contact@simplicitesoftware.com" && \
