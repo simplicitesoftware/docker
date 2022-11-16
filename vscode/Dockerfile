@@ -65,7 +65,7 @@ RUN git config --global user.name "Simplicite Software" && \
     /usr/bin/code-server \
     --install-extension vscjava.vscode-java-pack \
     --install-extension redhat.vscode-xml \
-    --install-extension simpliciteSoftware.simplicite-vscode-tools && \
+    --install-extension simpliciteSoftware.simplicite-vscode-tools \
     --install-extension octref.vetur && \
     echo -e "alias vi=vim\n\
 alias rm='rm -i'\n\
