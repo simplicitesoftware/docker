@@ -48,11 +48,11 @@ then
 	exit 1
 fi
 TOMCAT_GID=`id -g $TOMCAT_USER`
-if [ `id -un` = "root" ]
+if [ $TOMCAT_USER = "root" ]
 then
-	echo "---------------------------------------------------------------------------"
-	echo "WARNING: Tomcat is running as root, this may not be suitable for production"
-	echo "---------------------------------------------------------------------------"
+	echo "------------------------------------------------------------------------"
+	echo "WARNING: Running Tomcat as root, this may not be suitable for production"
+	echo "------------------------------------------------------------------------"
 else
 	echo "Running Tomcat as $TOMCAT_USER (user ID $TOMCAT_UID, group ID $TOMCAT_GID)"
 fi
