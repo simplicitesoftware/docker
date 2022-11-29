@@ -72,6 +72,9 @@ spec:
               value: postgresql
             - name: DB_WAIT
               value: "100"
+            # Useful in case of multiple replicas to allow each instance to communicate with the others over the I/O endpoint (e.g. to propagate a clear cache)
+            #- name: IO_PASSWORD
+            #  value: "<a very strog password>"
           volumeMounts:
             - mountPath: /usr/local/tomcat/webapps/ROOT/WEB-INF/git
               name: simplicite-git

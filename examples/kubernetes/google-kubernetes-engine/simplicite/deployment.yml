@@ -37,6 +37,9 @@ spec:
             value: "true"
           - name: DB_WAIT
             value: "100"
+            # Usefull in case of multiple replicas to allow each instance to communicate with the others over the I/O endpoint (e.g. to propagate a clear cache)
+            #- name: IO_PASSWORD
+            #  value: "<a very strog password>"
       restartPolicy: Always
       volumes:
       - name: simplicite-git-volume-mount
