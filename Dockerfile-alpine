@@ -23,7 +23,7 @@ RUN apk update && apk upgrade && \
     ln -s /usr/local/tomcat/logs /var/log/tomcat && \
     ln -s /usr/local/tomcat/webapps/ROOT/WEB-INF/log /var/log/simplicite && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
-    addgroup -g 2000 simplicite && adduser -D -G simplicite -u 2000 simplicite && \
+    addgroup -g 2000 simplicite && adduser -D -G simplicite -u 2000 -s /bin/bash simplicite && \
     mkdir ~simplicite/.ssh && chmod 700 ~simplicite/.ssh && chown simplicite:simplicite ~simplicite/.ssh && \
     echo -e "alias rm='rm -i'\n\
 alias cp='cp -i'\n\
