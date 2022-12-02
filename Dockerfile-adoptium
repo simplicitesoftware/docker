@@ -23,17 +23,18 @@ RUN apt-get update && \
     apt-get install -y apt-utils && \
     apt-get install -y bash openssh-client openssl git curl wget zip unzip ca-certificates libjpeg-dev mysql-client postgresql-client && \
     apt-get clean && \
+    update-ca-certificates && \
     ln -s /usr/local/tomcat/logs /var/log/tomcat && \
     ln -s /usr/local/tomcat/webapps/ROOT/WEB-INF/log /var/log/simplicite && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
-    update-ca-certificates && \
     addgroup --gid 2000 simplicite && adduser --disabled-password --gecos "" --uid 2000 --gid 2000 simplicite && \
+    mkdir ~simplicite/.ssh && chmod 700 ~simplicite/.ssh && chown simplicite:simplicite ~simplicite/.ssh && \
     echo -e "alias rm='rm -i'\n\
 alias cp='cp -i'\n\
 alias mv='mv -i'\n\
 alias dir='ls -alF --color=always'\n\
 alias _mysql='mysql --host=$DB_HOST --port=$DB_PORT --user=$DB_USER --password=$DB_PASSWORD $DB_NAME'\n\
-alias _psql='PGPASSWD=$DB_PASSWORD psql -h $DB_HOST -p $DB_PORT -U $DB_USER $DB_NAME'" >> /root/.bashrc
+alias _psql='PGPASSWD=$DB_PASSWORD psql -h $DB_HOST -p $DB_PORT -U $DB_USER $DB_NAME'" >> /etc/profile.d/simplicite.sh
 
 COPY --chown=simplicite:simplicite tomcat /usr/local/tomcat
 COPY --chown=simplicite:simplicite run-tomcat.sh /usr/local/tomcat/run

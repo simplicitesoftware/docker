@@ -20,14 +20,15 @@ RUN dnf upgrade -y && \
     dnf -qy module disable postgresql && \
     dnf install -y bash openssh-clients openssl hostname bind-utils git curl wget zip unzip xz ca-certificates libjpeg fontconfig java-17-openjdk-devel mariadb postgresql14 && \
     dnf clean all && \
+    /bin/update-ca-trust extract && \
     ln -s /usr/local/tomcat/logs /var/log/tomcat && \
     ln -s /usr/local/tomcat/webapps/ROOT/WEB-INF/log /var/log/simplicite && \
     mkdir /root/.ssh && chmod 700 /root/.ssh && \
-    /bin/update-ca-trust extract && \
     groupadd -g 2000 simplicite && useradd -N -g 2000 -u 2000 simplicite && \
+    mkdir ~simplicite/.ssh && chmod 700 ~simplicite/.ssh && chown simplicite:simplicite ~simplicite/.ssh && \
     echo -e "alias dir='ls -alF --color=always'\n\
 alias _mysql='mysql --host=$DB_HOST --port=$DB_PORT --user=$DB_USER --password=$DB_PASSWORD $DB_NAME'\n\
-alias _psql='PGPASSWD=$DB_PASSWORD psql -h $DB_HOST -p $DB_PORT -U $DB_USER $DB_NAME'" >> /root/.bashrc
+alias _psql='PGPASSWD=$DB_PASSWORD psql -h $DB_HOST -p $DB_PORT -U $DB_USER $DB_NAME'" >> /etc/profile.d/simplicite.sh
 
 COPY --chown=simplicite:simplicite tomcat /usr/local/tomcat
 COPY --chown=simplicite:simplicite run-tomcat.sh /usr/local/tomcat/run
