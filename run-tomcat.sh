@@ -15,27 +15,6 @@ then
 fi
 
 TOMCAT_ROOT=/usr/local/tomcat
-[ ! -d $TOMCAT_ROOT/webapps ] && mkdir $TOMCAT_ROOT/webapps
-
-if [ -d $TOMCAT_ROOT/.ssh -o ! -z "$SSH_KNOWN_HOSTS" ]
-then
-	rm -fr  $HOME/.ssh
-	mkdir $HOME/.ssh
-	[ -d $TOMCAT_ROOT/.ssh ] && cp -r $TOMCAT_ROOT/.ssh/* $HOME/.ssh
-	# Convert OpenSSH key if needed
-	[ -f $HOME/.ssh/id_rsa ] && grep -q 'BEGIN OPENSSH PRIVATE KEY' $HOME/.ssh/id_rsa && ssh-keygen -p -N "" -m pem -f $HOME/.ssh/id_rsa
-	if [ ! -z "$SSH_KNOWN_HOSTS" ]
-	then
-		touch $HOME/.ssh/known_hosts
-		for HOST in $SSH_KNOWN_HOSTS
-		do
-			H=`grep "^$HOST " $HOME/.ssh/known_hosts`
-			[ "$H" = "" ] && ssh-keyscan $HOST >> $HOME/.ssh/known_hosts
-		done
-	fi
-	chmod -R go-rwX $HOME/.ssh
-fi
-
 [ "$TOMCAT_USER" = "" ] && TOMCAT_USER=`id -un`
 TOMCAT_UID=`id -u $TOMCAT_USER`
 if [ $? -ne 0 ]
