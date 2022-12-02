@@ -35,6 +35,7 @@ then
 			[ "$H" = "" ] && ssh-keyscan -t rsa $HOST >> $HOME/.ssh/known_hosts
 		done
 	fi
+	chown simplicite:simplicite $HOME/.ssh
 	chmod -R go-rwX $HOME/.ssh
 else
 	echo "WARNING: $HOME/.ssh is read-only, unable to register keys and/or known hosts"
