@@ -17,28 +17,23 @@ fi
 TOMCAT_ROOT=/usr/local/tomcat
 [ ! -d $TOMCAT_ROOT/webapps ] && mkdir $TOMCAT_ROOT/webapps
 
-if [ -w $HOME -a ! -d $HOME/.ssh ]
+if [ -d $TOMCAT_ROOT/.ssh -o ! -z "$SSH_KNOWN_HOSTS" ]
 then
+	rm -fr  $HOME/.ssh
 	mkdir $HOME/.ssh
-	chmod go-rwX $HOME/.ssh
-fi
-if [ -w $HOME/.ssh ]
-then
-	[ -d $TOMCAT_ROOT/.ssh ] && cp -fr $TOMCAT_ROOT/.ssh/* $HOME/.ssh/
+	[ -d $TOMCAT_ROOT/.ssh ] && cp -r $TOMCAT_ROOT/.ssh/* $HOME/.ssh
+	# Convert OpenSSH key if needed
 	[ -f $HOME/.ssh/id_rsa ] && grep -q 'BEGIN OPENSSH PRIVATE KEY' $HOME/.ssh/id_rsa && ssh-keygen -p -N "" -m pem -f $HOME/.ssh/id_rsa
-	touch $HOME/.ssh/known_hosts
 	if [ ! -z "$SSH_KNOWN_HOSTS" ]
 	then
+		touch $HOME/.ssh/known_hosts
 		for HOST in $SSH_KNOWN_HOSTS
 		do
 			H=`grep "^$HOST " $HOME/.ssh/known_hosts`
 			[ "$H" = "" ] && ssh-keyscan $HOST >> $HOME/.ssh/known_hosts
 		done
 	fi
-	chown simplicite:simplicite $HOME/.ssh
 	chmod -R go-rwX $HOME/.ssh
-else
-	echo "WARNING: $HOME/.ssh is read-only, unable to register keys and/or known hosts"
 fi
 
 [ "$TOMCAT_USER" = "" ] && TOMCAT_USER=`id -un`
