@@ -32,7 +32,7 @@ then
 		for HOST in $SSH_KNOWN_HOSTS
 		do
 			H=`grep "^$HOST " $HOME/.ssh/known_hosts`
-			[ "$H" = "" ] && ssh-keyscan -t rsa $HOST >> $HOME/.ssh/known_hosts
+			[ "$H" = "" ] && ssh-keyscan $HOST >> $HOME/.ssh/known_hosts
 		done
 	fi
 	chown simplicite:simplicite $HOME/.ssh
