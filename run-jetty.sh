@@ -67,7 +67,7 @@ then
 	JETTY_GID=`id -g $JETTY_USER`
 	chown -f -R $JETTY_UID:$JETTY_GID $JETTY_HOME
 	echo "Running Jetty as $JETTY_USER (user ID $JETTY_UID, group ID $JETTY_GID)"
-	su $JETTY_USER -c "cd $JETTY_HOME && $JETTY_START"
+	exec su $JETTY_USER -c "cd $JETTY_HOME && $JETTY_START"
 else
-	cd $JETTY_HOME && $JETTY_START
+	cd $JETTY_HOME && exec $JETTY_START
 fi

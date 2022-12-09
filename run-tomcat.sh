@@ -33,7 +33,7 @@ else
 fi
 if [ `id -u` = $TOMCAT_UID ]
 then
-	cd $TOMCAT_ROOT && ./start.sh -t
+	cd $TOMCAT_ROOT && exec ./start.sh -r
 else
-	su $TOMCAT_USER -c "cd $TOMCAT_ROOT && ./start.sh -t"
+	exec su $TOMCAT_USER -c "cd $TOMCAT_ROOT && ./start.sh -r"
 fi
