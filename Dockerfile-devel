@@ -18,7 +18,7 @@ ARG MAVEN_VERSION=3.8.6
 ARG GRADLE_VERSION=7.6
 ARG NODE_VERSION=v18.12.1
 
-RUN dnf install -y vim-enhanced gcc gcc-c++ make nmap xz && dnf clean all && \
+RUN dnf install -y vim-enhanced gcc gcc-c++ make iproute nmap xz && dnf clean all && \
     cd /usr/local && \
     echo "Installing Apache Ant $ANT_VERSION" && \
     wget -qO- https://www-eu.apache.org/dist/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz | tar xfz - && \
