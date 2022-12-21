@@ -15,4 +15,4 @@ RUN rm -f /usr/local/tomcat/lib/mssql* && \
     cp /tmp/mssql-jdbc-11.2.0.jre11.jar /usr/local/tomcat/lib && \
     chmod go+r /usr/local/tomcat/lib/mssql-jdbc-11.2.0.jre11.jar && \
     rm -f /tmp/mssql-jdbc-11.2.0.jre11.jar && \
-    echo "alias _sqlcmd='/opt/mssql-tools/bin/sqlcmd -S \$DB_HOST,\$DB_PORT -U \$DB_USER -P \$DB_PASSWORD -d \$DB_NAME'" >> /etc/profile.d/simplicite.sh
+    echo "alias _sqlcmd='/opt/mssql-tools/bin/sqlcmd -S \$DB_HOST,\${DB_PORT:-1433} -U \$DB_USER -P \$DB_PASSWORD -d \$DB_NAME'" >> /etc/profile.d/simplicite.sh

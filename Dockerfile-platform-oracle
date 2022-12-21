@@ -18,7 +18,7 @@ RUN rm -f /usr/local/tomcat/lib/ojdbc* && \
     cp /tmp/ojdbc11.jar /usr/local/tomcat/lib && \
     chmod go+r /usr/local/tomcat/lib/ojdbc11.jar && \
     rm -f /tmp/ojdbc11.jar && \
-    echo "alias _sqlplus='/usr/bin/sqlplus \$DB_USER/\$DB_PASSWORD@//\$DB_HOST:\$DB_PORT/\$DB_NAME'" >> /etc/profile.d/simplicite.sh
+    echo "alias _sqlplus='/usr/bin/sqlplus \$DB_USER/\$DB_PASSWORD@//\$DB_HOST:\${DB_PORT:-1521}/\$DB_NAME'" >> /etc/profile.d/simplicite.sh
 
 # Set Oracle encoding to UTF-8
 ENV NLS_LANG=.AL32UTF8
