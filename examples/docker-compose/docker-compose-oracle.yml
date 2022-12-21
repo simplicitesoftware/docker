@@ -1,10 +1,10 @@
 version: "3"
 services:
-  db:
-    # See ../databases/oraclexe to build this cutom image
-    image: myoraclexe
+  datbase:
+    # See ../databases/oraclexe to build this custom Oracle image
+    image: simplicite/oracle:<version>
     restart: always
-    container_name: myapp-oracle-database
+    container_name: database
     #environment:
       # Custom timezone if needed ZZZ must match the simplicite container timezone ZZZ
       #TZ: "Europe/Paris"
@@ -12,19 +12,22 @@ services:
     #ports:
     #  - 127.0.0.1:1521:1521
     volumes:
-      - myapp-oracle-db:/opt/oracle/oradata
+      - data:/opt/oracle/oradata
   simplicite:
+    image: <simplicite|registry.simplicite.io>/platform:<tag, e.g. 5-latest>-with-oracle-client
     build:
       context: .
       dockerfile: Dockerfile-platform-oracle
       args:
         tag: <tag, e.g. 5-latest>
+    restart: always
+    container_name: simplicite
     environment:
-      # Custom timezone if needed ZZZ must match the db container timezone ZZZ
+      # Custom timezone if needed ZZZ must match the database container timezone ZZZ
       #TOMCAT_TIMEZONE: "Europe/Paris"
       DB_SETUP: "true"
       DB_VENDOR: "oracle"
-      DB_HOST: db
+      DB_HOST: "database"
       DB_USER: "simplicite"
       DB_PASSWORD: "simplicite"
       DB_NAME: "xe"
@@ -37,9 +40,9 @@ services:
       # For AJP reverse proxying
       - 127.0.0.1:8009:8009
     volumes:
-      - myapp-oracle-git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
+      - git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
     depends_on:
-      - db
+      - database
 volumes:
-  myapp-oracle-db:
-  myapp-oracle-git:
+  data:
+  git:

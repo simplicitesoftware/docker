@@ -3,7 +3,7 @@ services:
   simplicite:
     image: <simplicite|registry.simplicite.io>/platform:<tag, e.g. 5-latest>
     restart: always
-    container_name: myapp
+    container_name: simplicite
     environment:
       # Uncomment these 3 lines if you are implementing a custom frontend
       #CORS: "true"
@@ -27,15 +27,15 @@ services:
       # Uncomment this line if you are implementing a custom frontend
       #- 127.0.0.1:3000:3000
     volumes:
-      - ideprojects:/var/simplicite/projects
+      - projects:/var/simplicite/projects
       # Uncomment if you want custom extensions
-      #- ideextensions:/var/simplicite/extensions
+      #- extensions:/var/simplicite/extensions
       # Uncomment to keep user prefs, etc.
-      #- idedata:/var/simplicite/data
+      #- data:/var/simplicite/data
 volumes:
   db:
   dbdoc:
   git:
-  ideprojects:
-#  ideextensions:
-#  idedata
+  projects:
+  #extensions:
+  #data:

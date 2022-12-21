@@ -3,7 +3,7 @@ services:
   simplicite:
     image: <simplicite|registry.simplicite.io>/platform:<tag, e.g. 5-latest>
     restart: always
-    container_name: myapp
+    container_name: simplicite
     environment:
       IO_PASSWORD: "<a very strong password dedicated to I/O access (only if needed)>"
       DB_SETUP: "true"
@@ -89,15 +89,15 @@ services:
       - /usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc/index
     volumes:
       # For embedded HSQLDB *only*
-      #- myapp_db:/usr/local/tomcat/webapps/ROOT/WEB-INF/db
+      #- db:/usr/local/tomcat/webapps/ROOT/WEB-INF/db
       # For embedded HSQLDB or non-BLOB deployments *only*
-      #- myapp_dbdoc:/usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc
+      #- dbdoc:/usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc
       # Not required if Git is not used, can also be non persistent (it will only slow down the module imports)
-      - myapp_git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
+      - git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
 volumes:
   # For embedded HSQLDB *only*
-  #myapp_db:
+  #db:
   # For embedded HSQLDB or non-BLOB deployments *only*
-  #myapp_dbdoc:
-  # if needed (see above)
-  myapp_git:
+  #dbdoc:
+  # If needed (see above)
+  git:

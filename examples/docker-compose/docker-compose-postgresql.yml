@@ -1,9 +1,9 @@
 version: "3"
 services:
-  db:
+  database:
     image: postgres:latest
     restart: always
-    container_name: myapp-postgresql-database
+    container_name: database
     environment:
       # Custom timezone if needed ZZZ must match the simplicite container timezone ZZZ
       #TZ: "Europe/Paris"
@@ -15,17 +15,17 @@ services:
     #ports:
     #  - 127.0.0.1:5432:5432
     volumes:
-      - myapp-postgresql-db:/var/lib/postgresql/data
+      - data:/var/lib/postgresql/data
   simplicite:
     image: <simplicite|registry.simplicite.io>/platform:<tag, e.g. 5-latest>
     restart: always
-    container_name: myapp-postgresql-webapp
+    container_name: simplicite
     environment:
-      # Custom timezone if needed ZZZ must match the db container timezone ZZZ
+      # Custom timezone if needed ZZZ must match the database container timezone ZZZ
       #TOMCAT_TIMEZONE: "Europe/Paris"
       DB_SETUP: "true"
       DB_VENDOR: "postgresql"
-      DB_HOST: db
+      DB_HOST: "database"
       DB_USER: "simplicite"
       DB_PASSWORD: "simplicite"
       DB_NAME: "simplicite"
@@ -38,9 +38,9 @@ services:
       # For AJP reverse proxying
       - 127.0.0.1:8009:8009
     volumes:
-      - myapp-postgresql-git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
+      - git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
     depends_on:
-      - db
+      - database
 volumes:
-  myapp-postgresql-db:
-  myapp-postgresql-git:
+  data:
+  git:

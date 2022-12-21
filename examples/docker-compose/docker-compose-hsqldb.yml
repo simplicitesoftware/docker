@@ -3,7 +3,7 @@ services:
   simplicite:
     image: <simplicite|registry.simplicite.io>/platform:<tag, e.g. 5-latest>
     restart: always
-    container_name: myapp
+    container_name: simplicite
     ports:
       # For *non* SSL endoint of HTTP reverse proxying
       - 127.0.0.1:8080:8080
@@ -12,10 +12,10 @@ services:
       # For AJP reverse proxying
       - 127.0.0.1:8009:8009
     volumes:
-      - myapp_db:/usr/local/tomcat/webapps/ROOT/WEB-INF/db
-      - myapp_dbdoc:/usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc
-      - myapp_git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
+      - db:/usr/local/tomcat/webapps/ROOT/WEB-INF/db
+      - dbdoc:/usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc
+      - git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
 volumes:
-  myapp_db:
-  myapp_dbdoc:
-  myapp_git:
+  db:
+  dbdoc:
+  git:

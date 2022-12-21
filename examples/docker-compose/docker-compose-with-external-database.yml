@@ -3,7 +3,7 @@ services:
   simplicite:
     image: <simplicite|registry.simplicite.io>/platform:<tag, e.g. 5-latest>
     restart: always
-    container_name: myapp
+    container_name: simplicite
     environment:
       DB_SETUP: "true"
       DB_VENDOR: "<mysql|postgresql|mssql|oracle>"
@@ -21,6 +21,6 @@ services:
       # For AJP reverse proxying
       - 127.0.0.1:8009:8009
     volumes:
-      - myapp_git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
+      - git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
 volumes:
-  myapp_git:
+  git:

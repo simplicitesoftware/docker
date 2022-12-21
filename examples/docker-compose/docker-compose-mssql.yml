@@ -1,10 +1,10 @@
 version: "3"
 services:
-  db:
-    # See ../databases/mssql to build this cutom image
-    image: mymssql 
+  database:
+    # See ../databases/mssql to build this custom SQLServer image
+    image: simplicite/mssql:<version> 
     restart: always
-    container_name: myapp-mssql-database
+    container_name: database
     #environment:
       # Custom timezone if needed ZZZ must match the simplicite container timezone ZZZ
       #TZ: "Europe/Paris"
@@ -12,21 +12,22 @@ services:
     #ports:
     #  - 127.0.0.1:1433:1433
     volumes:
-      - myapp-mssql-db:/var/opt/mssql
+      - data:/var/opt/mssql
   simplicite:
+    image: <simplicite|registry.simplicite.io>/platform:<tag, e.g. 5-latest>-with-mssql-client
     build:
       context: .
       dockerfile: Dockerfile-platform-mssql
       args:
         tag: <tag, e.g. 5-latest>
     restart: always
-    container_name: myapp-mssql-webapp
+    container_name: simplicite
     environment:
-      # Custom timezone if needed ZZZ must match the db container timezone ZZZ
+      # Custom timezone if needed ZZZ must match the database container timezone ZZZ
       #TOMCAT_TIMEZONE: "Europe/Paris"
       DB_SETUP: "true"
       DB_VENDOR: "mssql"
-      DB_HOST: db
+      DB_HOST: "database"
       DB_USER: "simplicite"
       DB_PASSWORD: "simplicite"
       DB_NAME: "simplicite"
@@ -39,9 +40,9 @@ services:
       # For AJP reverse proxying
       - 127.0.0.1:8009:8009
     volumes:
-      - myapp-mssql-git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
+      - git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
     depends_on:
-      - db
+      - database
 volumes:
-  myapp-mssql-db:
-  myapp-mssql-git:
+  data:
+  git:

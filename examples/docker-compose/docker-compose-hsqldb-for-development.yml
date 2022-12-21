@@ -3,7 +3,7 @@ services:
   simplicite:
     image: <simplicite|registry.simplicite.io>/platform:<tag, e.g. 5-latest>
     restart: always
-    container_name: myapp
+    container_name: simplicite
     environment:
       JPDA: "true"
       #JPDA_SUSPEND: "y"
@@ -18,11 +18,11 @@ services:
       # JPDA port
       - 8000:8000
     volumes:
-      - myapp_db:/usr/local/tomcat/webapps/ROOT/WEB-INF/db
-      - myapp_dbdoc:/usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc
-      - myapp_git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
+      - db:/usr/local/tomcat/webapps/ROOT/WEB-INF/db
+      - dbdoc:/usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc
+      - git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
       - ~/.ssh:/usr/local/tomcat/.ssh:ro
 volumes:
-  myapp_db:
-  myapp_dbdoc:
-  myapp_git:
+  db:
+  dbdoc:
+  git:
