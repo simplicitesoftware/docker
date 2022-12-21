@@ -1,4 +1,7 @@
-[ -f /var/opt/mssql/data/${DB_NAME:-simplicite}.mdf ] && exit
+#!/bin/bash
+
+# Don't recreate database if it already exists
+[ -f /var/opt/mssql/data/${DB_NAME:-simplicite}.mdf ] && exit 0
 
 CREATEDB=/tmp/createdb.$$
 
