@@ -27,8 +27,8 @@ RUN dnf upgrade -y && \
     groupadd -g 2000 simplicite && useradd -N -g 2000 -u 2000 simplicite && \
     mkdir ~simplicite/.ssh && chmod 700 ~simplicite/.ssh && chown simplicite:simplicite ~simplicite/.ssh && \
     echo -e "alias dir='ls -alF --color=always'\n\
-alias _mysql='mysql --host=$DB_HOST --port=$DB_PORT --user=$DB_USER --password=$DB_PASSWORD $DB_NAME'\n\
-alias _psql='PGPASSWD=$DB_PASSWORD psql -h $DB_HOST -p $DB_PORT -U $DB_USER $DB_NAME'" > /etc/profile.d/simplicite.sh
+alias _mysql='mysql --host=\$DB_HOST --port=\$DB_PORT --user=\$DB_USER --password=\$DB_PASSWORD \$DB_NAME'\n\
+alias _psql='PGPASSWD=\$DB_PASSWORD psql -h \$DB_HOST -p \$DB_PORT -U \$DB_USER \$DB_NAME'" > /etc/profile.d/simplicite.sh
 
 COPY --chown=simplicite:simplicite tomcat /usr/local/tomcat
 COPY --chown=simplicite:simplicite run-tomcat.sh /usr/local/tomcat/run
