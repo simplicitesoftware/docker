@@ -1,6 +1,6 @@
 #!/bin/bash
 
-USAGE="\nUsage: \e[1m`basename $0`\e[0m [--delete] <repository> [<tags>]\n"
+USAGE="\nUsage: \e[1m$(basename $0)\e[0m [--delete] <repository> [<tags>]\n"
 if [ "$1" = "" -o "$1" = "--help" ]
 then
 	echo -e $USAGE >&2
@@ -26,7 +26,7 @@ fi
 [ -x /usr/bin/figlet ] && echo "" && /usr/bin/figlet -f small ${IMG^}
 
 TAGS=$*
-[ "$TAGS" = "" ] && TAGS=`docker images | grep "^simplicite.$IMG" | awk '{print $2}'`
+[ "$TAGS" = "" ] && TAGS=$(docker images | grep "^simplicite.$IMG" | awk '{print $2}')
 
 for TAG in $TAGS
 do

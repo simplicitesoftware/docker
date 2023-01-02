@@ -2,7 +2,7 @@
 
 if [ "$1" = "--help" ]
 then
-	echo -e "\nUsage: \e[1m`basename $0`\e[0m [-r|--raw] [\"<repository, defaults to all repositories>\"]\n" >&2
+	echo -e "\nUsage: \e[1m$(basename $0)\e[0m [-r|--raw] [\"<repository, defaults to all repositories>\"]\n" >&2
 	exit 1
 fi
 
@@ -14,7 +14,7 @@ then
 fi
 
 
-TOKEN=`curl -s -H "Content-Type: application/json" -X POST -d '{"username": "'$DOCKER_REGISTRY_USERNAME'", "password": "'$DOCKER_REGISTRY_PASSWORD'"}' ${DOCKER_REGISTRY_URL:-https://hub.docker.com}/v2/users/login/ | jq -r '.token'`
+TOKEN=$(curl -s -H "Content-Type: application/json" -X POST -d '{"username": "'$DOCKER_REGISTRY_USERNAME'", "password": "'$DOCKER_REGISTRY_PASSWORD'"}' ${DOCKER_REGISTRY_URL:-https://hub.docker.com}/v2/users/login/ | jq -r '.token')
 if [ "$TOKEN" = "" ]
 then
 	echo "Authentication error" >&2
@@ -22,7 +22,7 @@ then
 fi
 
 ORG=${ORG:-simplicite}
-REPS=${1:-`curl -s -H "Authorization: JWT $TOKEN" ${DOCKER_REGISTRY_URL:-https://hub.docker.com}/v2/repositories/$ORG/?page_size=20 | jq -r '.results[].name' | sort`}
+REPS=${1:-$(curl -s -H "Authorization: JWT $TOKEN" ${DOCKER_REGISTRY_URL:-https://hub.docker.com}/v2/repositories/$ORG/?page_size=20 | jq -r '.results[].name' | sort)}
 
 for REP in $REPS
 do

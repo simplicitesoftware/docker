@@ -9,7 +9,7 @@ do
     TARGET_TAG="$SIMPLICITE_BASE_TAG-xs"
     TARGET_IMAGE="simplicite/platform:$TARGET_TAG"
 
-    # Run build (see `./Dockerfile``)
+    # Run build (see ./Dockerfile)
     docker build --pull \
         --build-arg SIMPLICITE_BASE=$SIMPLICITE_BASE \
         -t $TARGET_IMAGE .

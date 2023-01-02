@@ -9,7 +9,7 @@ do
     TARGET_TAG="$SIMPLICITE_BASE_TAG-xs-test-bdx"
     TARGET_IMAGE="simplicite/platform:$TARGET_TAG"
 
-    # Run build (see `./Dockerfile``)
+    # Run build (see ./Dockerfile)
     docker buildx build --pull \
         --platform linux/arm/v7,linux/arm64,linux/amd64 \
         --build-arg SIMPLICITE_BASE=$SIMPLICITE_BASE \
