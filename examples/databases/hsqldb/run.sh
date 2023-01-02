@@ -4,8 +4,7 @@ NAME=${DB_NAME:-db};
 USER=${DB_USER:-sa}
 
 echo "================================="
-echo "Java:"
-`java -version`
+echo "Java: $(java -version)"
 echo "Database name: $NAME"
 echo "Database user: $USER"
 echo "================================="

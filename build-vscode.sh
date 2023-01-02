@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LOCK=/tmp/`basename $0 .sh`.lck
+LOCK=/tmp/$(basename $0 .sh).lck
 
 exit_with () {
 	[ "$2" != "" ] && echo -e $2 >&2
@@ -8,10 +8,10 @@ exit_with () {
 	exit ${1:-0}
 }
 
-[ "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m`basename $0`\e[0m\n"
+[ "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m\n"
 
 trap "rm -f $LOCK" TERM INT QUIT HUP
-[ -f $LOCK ] && exit_with 2 "A build process is in process since `cat $LOCK`"
+[ -f $LOCK ] && exit_with 2 "A build process is in process since $(cat $LOCK)"
 date > $LOCK
 
 cd vscode
@@ -20,7 +20,7 @@ IMG=simplicite/vscode:latest
 echo "========================================================"
 echo "Building $IMG image..."
 echo "========================================================"
-DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
+DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 docker build --network host -t $IMG --build-arg BUILD_DATE=$DATE . || exit_with 3 "Unable to build image $IMG"
 echo "Done"
 echo ""
