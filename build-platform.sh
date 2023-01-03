@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LOCK=/tmp/`basename $0 .sh`.lck
+LOCK=/tmp/$(basename $0 .sh).lck
 
 exit_with () {
 	[ "$2" != "" ] && echo -e $2 >&2
@@ -8,10 +8,10 @@ exit_with () {
 	exit ${1:-0}
 }
 
-[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m`basename $0`\e[0m [--delete] 3.0|3.1|3.2|4.0-latest[-light]|5-<alpha|beta|latest>[-light]|<4.0|5>-devel [<server image tag(s)> [<platform Git tag (only applicable to 5-latest and 5-latest-light>]]\n"
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] 3.0|3.1|3.2|4.0-latest[-light]|5-<alpha|beta|latest>[-light]|<4.0|5>-devel [<server image tag(s)> [<platform Git tag (only applicable to 5-latest and 5-latest-light>]]\n"
 
 trap "rm -f $LOCK" TERM INT QUIT HUP
-[ -f $LOCK ] && exit_with 2 "A build process is in process since `cat $LOCK`"
+[ -f $LOCK ] && exit_with 2 "A build process is in process since $(cat $LOCK)"
 date > $LOCK
 
 DEL=0
@@ -219,10 +219,10 @@ then
 fi
 
 PROPS=$TEMPLATE/app/WEB-INF/classes/com/simplicite/globals.properties
-VERSION=`grep platform.version $PROPS | awk -F= '{print $2}'`
-PATCHLEVEL=`grep platform.patchlevel $PROPS | awk -F= '{print $2}'`
-REVISION=`grep platform.revision $PROPS | awk -F= '{print $2}'`
-COMMITID=`grep platform.commitid $PROPS | awk -F= '{print $2}'`
+VERSION=$(grep platform.version $PROPS | awk -F= '{print $2}')
+PATCHLEVEL=$(grep platform.patchlevel $PROPS | awk -F= '{print $2}')
+REVISION=$(grep platform.revision $PROPS | awk -F= '{print $2}')
+COMMITID=$(grep platform.commitid $PROPS | awk -F= '{print $2}')
 [ "$COMMITID" = "" ] && COMMITID=$REVISION
 
 for SRV in $SRVS
@@ -230,12 +230,12 @@ do
 	for TAG in $TAGS
 	do
 		EXT=""
-		[ $TAG != "centos" -a $TAG != "devel" ] && EXT="-`echo $TAG | sed 's/centos-//'`"
+		[ $TAG != "centos" -a $TAG != "devel" ] && EXT="-$(echo $TAG | sed 's/centos-//')"
 		[ $SRV != "tomcat" ] && EXT="$EXT-$SRV"
 		echo "========================================================"
 		echo "Building $PLATFORM:$PFTAG$EXT image from $SERVER:$TAG..."
 		echo "========================================================"
-		DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
+		DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 		DESTPATH="tomcat"
 		[ $TAG = "jetty" ] && DESTPATH="jetty/default"
 		[ $DEL = 1 ] && docker rmi $PLATFORM:$PFTAG$EXT
@@ -250,13 +250,13 @@ echo "Done"
 
 echo ""
 DB=docker
-IP=`ifconfig eth0 | grep 'inet ' | awk '{print $2}'`
+IP=$(ifconfig eth0 | grep 'inet ' | awk '{print $2}')
 for SRV in $SRVS
 do
 	for TAG in $TAGS
 	do
 		EXT=""
-		[ $TAG != "centos" -a $TAG != "devel" ] && EXT="-`echo $TAG | sed 's/centos-//'`"
+		[ $TAG != "centos" -a $TAG != "devel" ] && EXT="-$(echo $TAG | sed 's/centos-//')"
 		[ $SRV != "tomcat" ] && EXT="$EXT-$SRV"
 		echo "-- $PLATFORM:$PFTAG$EXT ------------------"
 		echo ""

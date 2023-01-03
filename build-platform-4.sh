@@ -5,6 +5,8 @@ exit_with () {
 	exit ${1:-0}
 }
 
+[ "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m\n" 
+
 ./build-platform.sh --delete 4.0-latest || exit_with $? "Unable to build platform version 4.0-latest"
 
 # ZZZ temporary

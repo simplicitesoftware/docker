@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LOCK=/tmp/`basename $0 .sh`.lck
+LOCK=/tmp/$(basename $0 .sh).lck
 
 exit_with () {
 	[ "$2" != "" ] && echo -e $2 >&2
@@ -8,10 +8,10 @@ exit_with () {
 	exit ${1:-0}
 }
 
-[ "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m`basename $0`\e[0m [--delete] [\"<variants(s), defaults to all>\" [\"<server(s)>, defaults to tomcat>\"]\n"
+[ "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] [\"<variants(s), defaults to all>\" [\"<server(s)>, defaults to tomcat>\"]\n"
 
 trap "rm -f $LOCK" TERM INT QUIT HUP
-[ -f $LOCK ] && exit_with 2 "A build process is in process since `cat $LOCK`"
+[ -f $LOCK ] && exit_with 2 "A build process is in process since $(cat $LOCK)"
 date > $LOCK
 
 DEL=0
@@ -112,7 +112,7 @@ do
 
 			if [ $TAG != "centos" -a $TAG != "centos8" -a $TAG != "centos-temurin" -a $TAG != "centos-jvmless" -a $TAG != "centos8-temurin" -a $TAG != "centos8-jvmless" -a $TAG != "devel" ]
 			then
-				FROM=`grep '^FROM' Dockerfile-$TAG | awk '{ print $2 }' | sed "s/.{jvm}/$JVM/"`
+				FROM=$(grep '^FROM' Dockerfile-$TAG | awk '{ print $2 }' | sed "s/.{jvm}/$JVM/")
 				echo "Pulling image: $FROM"
 				docker pull $FROM
 				echo "Done"
@@ -123,7 +123,7 @@ do
 				echo "========================================================"
 				echo "Building $SERVER:$TAG$SRVEXT$JVMEXT-jre image..."
 				echo "========================================================"
-				DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
+				DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 				[ $DEL = 1 ] && docker rmi $SERVER:$TAG$SRVEXT$JVMEXT-jre
 				docker build --network host -f Dockerfile-$TAG-jre -t $SERVER:$TAG$SRVEXT$JVMEXT-jre --build-arg date="$DATE" --build-arg jvm="$JVM" .
 				echo "Done"
@@ -132,7 +132,7 @@ do
 			echo "========================================================"
 			echo "Building $SERVER:$TAG$SRVEXT$JVMEXT image..."
 			echo "========================================================"
-			DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
+			DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 			[ $DEL = 1 ] && docker rmi $SERVER:$TAG$SRVEXT$JVMEXT
 			docker build --network host -f Dockerfile-$TAG -t $SERVER:$TAG$SRVEXT$JVMEXT --build-arg date="$DATE" --build-arg variant="$JVMEXT" --build-arg jvm="$JVM" .
 			echo "Done"

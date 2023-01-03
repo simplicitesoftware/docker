@@ -5,6 +5,8 @@ exit_with () {
 	exit ${1:-0}
 }
 
+[ "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m\n" 
+
 VERSIONS="3.0 3.1 3.2"
 for VERSION in $VERSIONS
 do
