@@ -19,7 +19,6 @@ then
 	./push-to-registries.sh --delete platform \
 		5-alpha-temurin-17 \
 		5-alpha-temurin-17-jre \
-		5-alpha-openjdk-11 \
 		5-alpha-alpine
 	./push-to-registries.sh platform 5-alpha
 
@@ -33,7 +32,6 @@ then
 	./push-to-registries.sh --delete platform \
 		5-alpha-light-temurin-17 \
 		5-alpha-light-temurin-17-jre \
-		5-alpha-light-openjdk-11 \
 		5-alpha-light \
 		5-alpha-light-alpine
 
@@ -65,7 +63,6 @@ then
 	./push-to-registries.sh --delete platform \
 		5-beta-temurin-17 \
 		5-beta-temurin-17-jre \
-		5-beta-openjdk-11 \
 		5-beta-alpine
 	./push-to-registries.sh platform 5-beta
 
@@ -79,7 +76,6 @@ then
 	./push-to-registries.sh --delete platform \
 		5-beta-light-temurin-17 \
 		5-beta-light-temurin-17-jre \
-		5-beta-light-openjdk-11 \
 		5-beta-light \
 		5-beta-light-alpine
 
@@ -112,7 +108,6 @@ then
 		5-latest-temurin-11 \
 		5-latest-temurin-17 \
 		5-latest-temurin-17-jre \
-		5-latest-openjdk-11 \
 		5-latest-alpine \
 		5 \
 		latest
@@ -134,7 +129,6 @@ then
 		5-latest-light-temurin-11 \
 		5-latest-light-temurin-17 \
 		5-latest-light-temurin-17-jre \
-		5-latest-light-openjdk-11 \
 		5-latest-light-alpine \
 		5-latest-light \
 		5-light \
@@ -157,8 +151,6 @@ then
 	./build-platform.sh --delete 5-latest-test || exit_with $? "Unable to build platform version 5-latest-test"
 
 	./push-to-registries.sh --delete platform \
-		5-latest-test-centos8-openjdk-11 \
-		5-latest-test-centos8-openjdk-17 \
 		5-latest-test-rockylinux \
 		5-latest-test-almalinux \
 		5-latest-test-adoptium-17 \
@@ -180,10 +172,8 @@ then
 
 	./push-to-registries.sh --delete platform \
 		$1-temurin-17 \
-		$1-openjdk-11 \
 		$1-alpine \
 		$1-light-temurin-17 \
-		$1-light-openjdk-11 \
 		$1-light-alpine \
 		$1-light
 	./push-to-registries.sh platform $1
