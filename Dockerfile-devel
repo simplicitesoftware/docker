@@ -13,10 +13,10 @@ LABEL org.label-schema.name="simplicite-server-devel" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="${date}"
 
-ARG ANT_VERSION=1.10.12
+ARG ANT_VERSION=1.10.13
 ARG MAVEN_VERSION=3.8.7
 ARG GRADLE_VERSION=7.6
-ARG NODE_VERSION=v18.12.1
+ARG NODE_VERSION=v18.13.0
 
 RUN dnf install -y vim-enhanced gcc gcc-c++ make iproute nmap xz && dnf clean all && \
     cd /usr/local && \
