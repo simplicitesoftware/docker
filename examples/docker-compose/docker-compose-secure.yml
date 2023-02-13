@@ -29,6 +29,8 @@ services:
       SYSPARAM_SALT_PASSWORD: "<yes|no>"
       # Define the scope of the user tokens
       SYSPARAM_USE_USERTOKENS: "<all|api|ui>"
+      # Enable/disable change user capability
+      SYSPARAM_USE_CHANGE_USER: "<yes|no>"
       # Enable/disable the optional endpoints by forcing corresponding system parameters
       SYSPARAM_USE_HEALTH: "<yes|no>"
       SYSPARAM_USE_API: "<yes|no>"
