@@ -38,7 +38,6 @@ else
 fi
 
 function shutdown {
-	echo "Shutting down..."
 	if [ -x $TOMCAT_ROOT/shutdown.sh ]
 	then
 		if [ $(id -u) = $TOMCAT_UID ]
