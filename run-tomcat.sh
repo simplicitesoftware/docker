@@ -26,6 +26,7 @@ then
 	echo "ERROR: User $TOMCAT_USER does not exist"
 	exit 1
 fi
+
 TOMCAT_GID=$(id -g $TOMCAT_USER)
 if [ $TOMCAT_USER = "root" ]
 then
@@ -35,6 +36,22 @@ then
 else
 	echo "Running Tomcat as $TOMCAT_USER (user ID $TOMCAT_UID, group ID $TOMCAT_GID)"
 fi
+
+function shutdown {
+	echo "Shutting down..."
+	if [ -x $TOMCAT_ROOT/shutdown.sh ]
+	then
+		if [ $(id -u) = $TOMCAT_UID ]
+		then
+			cd $TOMCAT_ROOT && exec ./shutdown.sh -r
+		else
+			exec su $TOMCAT_USER -c "cd $TOMCAT_ROOT && ./shutdown.sh -r"
+		fi
+	fi
+}
+
+trap shutdown SIGTERM
+
 if [ $(id -u) = $TOMCAT_UID ]
 then
 	cd $TOMCAT_ROOT && exec ./start.sh -r
