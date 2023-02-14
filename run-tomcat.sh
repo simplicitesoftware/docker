@@ -43,9 +43,9 @@ function shutdown {
 	then
 		if [ $(id -u) = $TOMCAT_UID ]
 		then
-			cd $TOMCAT_ROOT && exec ./shutdown.sh -r
+			cd $TOMCAT_ROOT && exec ./shutdown.sh
 		else
-			exec su $TOMCAT_USER -c "cd $TOMCAT_ROOT && ./shutdown.sh -r"
+			exec su $TOMCAT_USER -c "cd $TOMCAT_ROOT && ./shutdown.sh"
 		fi
 	fi
 }
