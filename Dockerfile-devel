@@ -16,6 +16,7 @@ LABEL org.label-schema.name="simplicite-server-devel" \
 ARG ANT_VERSION=1.10.13
 ARG MAVEN_VERSION=3.9.0
 ARG GRADLE_VERSION=7.6
+ARG JACOCO_VERSION=0.8.8
 ARG NODE_VERSION=v18.14.0
 
 RUN dnf install -y vim-enhanced gcc gcc-c++ make iproute nmap xz && dnf clean all && \
@@ -26,6 +27,8 @@ RUN dnf install -y vim-enhanced gcc gcc-c++ make iproute nmap xz && dnf clean al
     wget -qO- https://www-eu.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xfz - && \
     echo "Installing Gradle $GRADLE_VERSION" && \
     wget -q https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip && unzip -q gradle-$GRADLE_VERSION-bin.zip && rm -f gradle-$GRADLE_VERSION-bin.zip && \
+    echo "Installing JaCoCo $JACOCO_VERSION" && \
+    wget -q https://repo1.maven.org/maven2/org/jacoco/jacoco/$JACOCO_VERSION/jacoco-$JACOCO_VERSION.zip && unzip -q jacoco-$JACOCO_VERSION.zip && rm -f jacoco-$JACOCO_VERSION.zip && \
     echo "Installing Node.js $NODE_VERSION" && \
     wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - && \
     echo -e "alias vi=vim" >> /root/.bashrc
@@ -33,5 +36,6 @@ RUN dnf install -y vim-enhanced gcc gcc-c++ make iproute nmap xz && dnf clean al
 ENV ANT_HOME=/usr/local/apache-ant-$ANT_VERSION \
     MAVEN_HOME=/usr/local/apache-maven-$MAVEN_VERSION \
     GRADLE_HOME=/usr/local/gradle-$GRADLE_VERSION \
+    JACOCO_HOME=/usr/local/jacoco-$JACOCO_VERSION \
     NODE_HOME=/usr/local/node-$NODE_VERSION-linux-x64 \
     PATH=/usr/local/apache-ant-$ANT_VERSION/bin:/usr/local/apache-maven-$MAVEN_VERSION/bin:/usr/local/gradle-$GRADLE_VERSION/bin:/usr/local/node-$NODE_VERSION-linux-x64/bin:$PATH
