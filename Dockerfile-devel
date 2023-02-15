@@ -28,7 +28,7 @@ RUN dnf install -y vim-enhanced gcc gcc-c++ make iproute nmap xz && dnf clean al
     echo "Installing Gradle $GRADLE_VERSION" && \
     wget -q https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip && unzip -q gradle-$GRADLE_VERSION-bin.zip && rm -f gradle-$GRADLE_VERSION-bin.zip && ln -s gradle-$GRADLE_VERSION gradle && \
     echo "Installing JaCoCo $JACOCO_VERSION" && \
-    wget -q https://repo1.maven.org/maven2/org/jacoco/jacoco/$JACOCO_VERSION/jacoco-$JACOCO_VERSION.zip && mkdir jacoco-$JACOCO_VERSION && cd jacoco-$JACOCO_VERSION && unzip -q ../jacoco-$JACOCO_VERSION.zip && cd .. && rm -f jacoco-$JACOCO_VERSION.zip && ln -s acoco-$JACOCO_VERSION jacoco && \
+    wget -q https://repo1.maven.org/maven2/org/jacoco/jacoco/$JACOCO_VERSION/jacoco-$JACOCO_VERSION.zip && mkdir jacoco-$JACOCO_VERSION && cd jacoco-$JACOCO_VERSION && unzip -q ../jacoco-$JACOCO_VERSION.zip && cd .. && rm -f jacoco-$JACOCO_VERSION.zip && ln -s jacoco-$JACOCO_VERSION jacoco && \
     echo "Installing Node.js $NODE_VERSION" && \
     wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - && mv node-$NODE_VERSION-linux-x64 node-$NODE_VERSION && chown -R root:root node-$NODE_VERSION && ln -s node-$NODE_VERSION node &&\
     echo -e "alias vi=vim" >> /root/.bashrc

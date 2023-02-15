@@ -89,7 +89,7 @@ then
 elif [ "$1" = "5-devel" ]
 then
 	VERSION=5
-	BRANCH=master
+	BRANCH=release
 	TAGS=devel
 	SRVS=tomcat
 	PFTAG=$1
