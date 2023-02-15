@@ -19,7 +19,7 @@ ARG GRADLE_VERSION=7.6
 ARG JACOCO_VERSION=0.8.8
 ARG NODE_VERSION=v18.14.0
 
-RUN dnf install -y vim-enhanced gcc gcc-c++ make iproute nmap xz && dnf clean all && \
+RUN dnf install -y vim-enhanced gcc gcc-c++ make iproute nmap xz procps && dnf clean all && \
     cd /usr/local && \
     echo "Installing Apache Ant $ANT_VERSION" && \
     wget -qO- https://www-eu.apache.org/dist/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz | tar xfz - && ln -s apache-ant-$ANT_VERSION ant && \
