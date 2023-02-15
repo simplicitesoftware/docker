@@ -6,6 +6,7 @@ test*
 tmp
 jdk*
 jre*
+jacoco
 ./Dockerfile
 *.crt
 **/Thumbs.db
