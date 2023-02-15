@@ -22,20 +22,20 @@ ARG NODE_VERSION=v18.14.0
 RUN dnf install -y vim-enhanced gcc gcc-c++ make iproute nmap xz && dnf clean all && \
     cd /usr/local && \
     echo "Installing Apache Ant $ANT_VERSION" && \
-    wget -qO- https://www-eu.apache.org/dist/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz | tar xfz - && \
+    wget -qO- https://www-eu.apache.org/dist/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz | tar xfz - && ln -s apache-ant-$ANT_VERSION ant && \
     echo "Installing Apache Maven $MAVEN_VERSION" && \
-    wget -qO- https://www-eu.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xfz - && \
+    wget -qO- https://www-eu.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xfz - && ln -s apache-maven-$MAVEN_VERSION maven && \
     echo "Installing Gradle $GRADLE_VERSION" && \
-    wget -q https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip && unzip -q gradle-$GRADLE_VERSION-bin.zip && rm -f gradle-$GRADLE_VERSION-bin.zip && \
+    wget -q https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip && unzip -q gradle-$GRADLE_VERSION-bin.zip && rm -f gradle-$GRADLE_VERSION-bin.zip && ln -s gradle-$GRADLE_VERSION gradle && \
     echo "Installing JaCoCo $JACOCO_VERSION" && \
-    wget -q https://repo1.maven.org/maven2/org/jacoco/jacoco/$JACOCO_VERSION/jacoco-$JACOCO_VERSION.zip && mkdir jacoco-$JACOCO_VERSION && cd jacoco-$JACOCO_VERSION && unzip -q ../jacoco-$JACOCO_VERSION.zip && cd .. && rm -f jacoco-$JACOCO_VERSION.zip && \
+    wget -q https://repo1.maven.org/maven2/org/jacoco/jacoco/$JACOCO_VERSION/jacoco-$JACOCO_VERSION.zip && mkdir jacoco-$JACOCO_VERSION && cd jacoco-$JACOCO_VERSION && unzip -q ../jacoco-$JACOCO_VERSION.zip && cd .. && rm -f jacoco-$JACOCO_VERSION.zip && ln -s acoco-$JACOCO_VERSION jacoco && \
     echo "Installing Node.js $NODE_VERSION" && \
-    wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - && mv node-$NODE_VERSION-linux-x64 node-$NODE_VERSION && chown -R root:root node-$NODE_VERSION && \
+    wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - && mv node-$NODE_VERSION-linux-x64 node-$NODE_VERSION && chown -R root:root node-$NODE_VERSION && ln -s node-$NODE_VERSION node &&\
     echo -e "alias vi=vim" >> /root/.bashrc
 
-ENV ANT_HOME=/usr/local/apache-ant-$ANT_VERSION \
-    MAVEN_HOME=/usr/local/apache-maven-$MAVEN_VERSION \
-    GRADLE_HOME=/usr/local/gradle-$GRADLE_VERSION \
-    JACOCO_HOME=/usr/local/jacoco-$JACOCO_VERSION \
-    NODE_HOME=/usr/local/node-$NODE_VERSION \
-    PATH=/usr/local/apache-ant-$ANT_VERSION/bin:/usr/local/apache-maven-$MAVEN_VERSION/bin:/usr/local/gradle-$GRADLE_VERSION/bin:/usr/local/node-$NODE_VERSION-linux-x64/bin:$PATH
+ENV ANT_HOME=/usr/local/ant \
+    MAVEN_HOME=/usr/local/maven \
+    GRADLE_HOME=/usr/local/gradle \
+    JACOCO_HOME=/usr/local/jacoco \
+    NODE_HOME=/usr/local/node \
+    PATH=/usr/local/ant/bin:/usr/local/maven/bin:/usr/local/gradle/bin:/usr/local/node/bin:$PATH
