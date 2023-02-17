@@ -19,7 +19,7 @@ ARG GRADLE_VERSION=7.6
 ARG JACOCO_VERSION=0.8.8
 ARG NODE_VERSION=v18.14.0
 
-RUN dnf install -y vim-enhanced gcc gcc-c++ make iproute nmap xz procps && dnf clean all && \
+RUN dnf install -y vim-enhanced gcc gcc-c++ make python3 python3-pyyaml iproute nmap xz procps && dnf clean all && \
     cd /usr/local && \
     echo "Installing Apache Ant $ANT_VERSION" && \
     wget -qO- https://www-eu.apache.org/dist/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz | tar xfz - && ln -s apache-ant-$ANT_VERSION ant && \
@@ -31,7 +31,14 @@ RUN dnf install -y vim-enhanced gcc gcc-c++ make iproute nmap xz procps && dnf c
     wget -q https://repo1.maven.org/maven2/org/jacoco/jacoco/$JACOCO_VERSION/jacoco-$JACOCO_VERSION.zip && mkdir jacoco-$JACOCO_VERSION && cd jacoco-$JACOCO_VERSION && unzip -q ../jacoco-$JACOCO_VERSION.zip && cd .. && rm -f jacoco-$JACOCO_VERSION.zip && ln -s jacoco-$JACOCO_VERSION jacoco && \
     echo "Installing Node.js $NODE_VERSION" && \
     wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - && mv node-$NODE_VERSION-linux-x64 node-$NODE_VERSION && chown -R root:root node-$NODE_VERSION && ln -s node-$NODE_VERSION node &&\
-    echo -e "alias vi=vim" >> /root/.bashrc
+    echo -e "alias vi=vim" >> /root/.bashrc && \
+echo -e '#!/bin/bash\n\
+if [ "\$1" = "" -o "\$1" = "--help" ]\n\
+then\n\
+    echo "Usage: \$(basename $0) <yaml file>" >&2\n\
+fi\n\
+python3 -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)' < $1\n\
+exit' > /usr/local/bin/yaml2json && chmod +x /usr/local/bin/yaml2json 
 
 ENV ANT_HOME=/usr/local/ant \
     MAVEN_HOME=/usr/local/maven \
