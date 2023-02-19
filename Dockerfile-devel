@@ -16,7 +16,6 @@ LABEL org.label-schema.name="simplicite-server-devel" \
 ARG ANT_VERSION=1.10.13
 ARG MAVEN_VERSION=3.9.0
 ARG GRADLE_VERSION=7.6
-ARG JACOCO_VERSION=0.8.8
 ARG NODE_VERSION=v18.14.0
 
 RUN dnf install -y vim-enhanced gcc gcc-c++ make python3 python3-pyyaml iproute nmap xz procps && dnf clean all && \
@@ -28,8 +27,6 @@ RUN dnf install -y vim-enhanced gcc gcc-c++ make python3 python3-pyyaml iproute 
     wget -qO- https://www-eu.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xfz - && ln -s apache-maven-$MAVEN_VERSION maven && \
     echo "Installing Gradle $GRADLE_VERSION" && \
     wget -q https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip && unzip -q gradle-$GRADLE_VERSION-bin.zip && rm -f gradle-$GRADLE_VERSION-bin.zip && ln -s gradle-$GRADLE_VERSION gradle && \
-    echo "Installing JaCoCo $JACOCO_VERSION" && \
-    wget -q https://repo1.maven.org/maven2/org/jacoco/jacoco/$JACOCO_VERSION/jacoco-$JACOCO_VERSION.zip && mkdir jacoco-$JACOCO_VERSION && cd jacoco-$JACOCO_VERSION && unzip -q ../jacoco-$JACOCO_VERSION.zip && cd .. && rm -f jacoco-$JACOCO_VERSION.zip && ln -s jacoco-$JACOCO_VERSION jacoco && \
     echo "Installing Node.js $NODE_VERSION" && \
     wget -qO- https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz | tar xfJ - && mv node-$NODE_VERSION-linux-x64 node-$NODE_VERSION && chown -R root:root node-$NODE_VERSION && ln -s node-$NODE_VERSION node &&\
     echo -e 'alias vi=vim' >> /root/.bashrc && \
