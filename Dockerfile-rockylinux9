@@ -29,7 +29,7 @@ RUN dnf upgrade -y && \
 alias _mysql='mysql --host=\$DB_HOST --port=\${DB_PORT:-3306} --user=\$DB_USER --password=\$DB_PASSWORD \$DB_NAME'\n\
 alias _psql='PGPASSWD=\$DB_PASSWORD psql -h \$DB_HOST -p \${DB_PORT:-5432} -U \$DB_USER \$DB_NAME'" > /etc/profile.d/simplicite.sh
 
-ADD jacoco/lib/*.jar /usr/local/jacoco
+ADD jacoco/lib/*.jar /usr/local/jacoco/
 ADD --chown=simplicite:simplicite tomcat /usr/local/tomcat
 ADD --chown=simplicite:simplicite run-tomcat.sh /usr/local/tomcat/run
 

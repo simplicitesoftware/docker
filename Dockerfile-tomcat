@@ -1,6 +1,6 @@
 FROM scratch
 
-ADD jacoco/lib/*.jar /usr/local/jacoco
+ADD jacoco/lib/*.jar /usr/local/jacoco/
 ADD tomcat /usr/local/tomcat
 ADD run-tomcat.sh /usr/local/tomcat/run
 
