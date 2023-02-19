@@ -10,9 +10,9 @@ RUN apk update && \
 ENV LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8
 # JAVA_HOME is defined by default
 
-COPY hsqldb-${version}.jar /usr/local/hsqldb/hsqldb.jar
-COPY sqltool-${version}.jar /usr/local/hsqldb/sqltool.jar
-COPY run.sh /usr/local/hsqldb/run
+ADD hsqldb-${version}.jar /usr/local/hsqldb/hsqldb.jar
+ADD sqltool-${version}.jar /usr/local/hsqldb/sqltool.jar
+ADD run.sh /usr/local/hsqldb/run
 RUN chmod +x /usr/local/hsqldb/run
 
 WORKDIR /usr/local/hsqldb

@@ -1,7 +1,7 @@
 FROM scratch
 
-COPY jetty /usr/local/jetty
-COPY run-jetty.sh /usr/local/jetty/run
+ADD jetty /usr/local/jetty
+ADD run-jetty.sh /usr/local/jetty/run
 
 WORKDIR /usr/local/jetty
 EXPOSE 8080

@@ -1,7 +1,8 @@
 FROM scratch
 
-COPY tomcat /usr/local/tomcat
-COPY run-tomcat.sh /usr/local/tomcat/run
+ADD jacoco/lib/*.jar /usr/local/jacoco
+ADD tomcat /usr/local/tomcat
+ADD run-tomcat.sh /usr/local/tomcat/run
 
 WORKDIR /usr/local/tomcat
 EXPOSE 8080 8443 8444 8009 8005 8555

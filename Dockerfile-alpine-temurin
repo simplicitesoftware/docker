@@ -16,8 +16,8 @@ LABEL org.label-schema.name="simplicite-server-alpine-temurin-${jvm}" \
 
 ENV DOCKER=alpine LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8 JAVA_HOME=/usr/local/jvm LOG4J_FORMAT_MSG_NO_LOOKUPS=true
 
-COPY jdk-${jvm}-alpine /usr/local/jvm
-COPY *.crt /usr/local/share/ca-certificates/
+ADD jdk-${jvm}-alpine /usr/local/jvm
+ADD *.crt /usr/local/share/ca-certificates/
 RUN apk update && apk upgrade && \
     apk add --update bash openssh-client openssl git curl wget zip unzip ca-certificates libjpeg fontconfig ttf-dejavu mysql-client postgresql-client && \
     rm -rf /var/cache/apk/* && \
@@ -33,8 +33,9 @@ alias dir='ls -alF --color=always'\n\
 alias _mysql='mysql --host=\$DB_HOST --port=\${DB_PORT:-3306} --user=\$DB_USER --password=\$DB_PASSWORD \$DB_NAME'\n\
 alias _psql='PGPASSWD=\$DB_PASSWORD psql -h \$DB_HOST -p \${DB_PORT:-5432} -U \$DB_USER \$DB_NAME'" > /etc/profile.d/simplicite.sh
 
-COPY --chown=simplicite:simplicite tomcat /usr/local/tomcat
-COPY --chown=simplicite:simplicite run-tomcat.sh /usr/local/tomcat/run
+ADD jacoco/lib/*.jar /usr/local/jacoco
+ADD --chown=simplicite:simplicite tomcat /usr/local/tomcat
+ADD --chown=simplicite:simplicite run-tomcat.sh /usr/local/tomcat/run
 
 WORKDIR /usr/local/tomcat
 EXPOSE 8080 8443 8444 8009 8005 8555

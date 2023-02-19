@@ -15,6 +15,6 @@ LABEL org.label-schema.name="simplicite-server-centos8-temurin-${jvm}" \
       org.opencontainers.image.created="${date}"
 
 ENV JAVA_HOME=/usr/local/jvm
-COPY jdk-${jvm} /usr/local/jvm
+ADD jdk-${jvm} /usr/local/jvm
 
 EXPOSE 8000

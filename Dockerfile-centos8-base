@@ -15,7 +15,7 @@ LABEL org.label-schema.name="simplicite-server-centos8-base" \
 
 ENV DOCKER=centos8 LANG=C.UTF-8 LANGUAGE=C.UTF-8 LOG4J_FORMAT_MSG_NO_LOOKUPS=true
 
-COPY *.crt /etc/pki/ca-trust/source/anchors/
+ADD *.crt /etc/pki/ca-trust/source/anchors/
 RUN dnf upgrade -y && \
     dnf install -y epel-release && \
     dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm && \
@@ -32,8 +32,9 @@ RUN dnf upgrade -y && \
 alias _mysql='mysql --host=\$DB_HOST --port=\${DB_PORT:-3306} --user=\$DB_USER --password=\$DB_PASSWORD \$DB_NAME'\n\
 alias _psql='PGPASSWD=\$DB_PASSWORD psql -h \$DB_HOST -p \${DB_PORT:-5432} -U \$DB_USER \$DB_NAME'" > /etc/profile.d/simplicite.sh
 
-COPY --chown=simplicite:simplicite tomcat /usr/local/tomcat
-COPY --chown=simplicite:simplicite run-tomcat.sh /usr/local/tomcat/run
+ADD jacoco/lib/*.jar /usr/local/jacoco
+ADD --chown=simplicite:simplicite tomcat /usr/local/tomcat
+ADD --chown=simplicite:simplicite run-tomcat.sh /usr/local/tomcat/run
 
 WORKDIR /usr/local/tomcat
 EXPOSE 8080 8443 8444 8009 8005 8555

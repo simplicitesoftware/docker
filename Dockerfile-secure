@@ -3,7 +3,8 @@ FROM simplicite/platform:$tag
 
 ARG level=9
 RUN sed -i "s/platform.securelevel=.*$/platform.securelevel=$level/" /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/com/simplicite/globals.properties && \
-    sed -i 's/<!-- cookie-config>/<cookie-config>/;s/<\/cookie-config -->/<\/cookie-config>/' /usr/local/tomcat/conf/web.xml
+    sed -i 's/<!-- cookie-config>/<cookie-config>/;s/<\/cookie-config -->/<\/cookie-config>/' /usr/local/tomcat/conf/web.xml && \
+    rm -fr /usr/local/jacocco
 
 USER simplicite
 ENV SYSPARAM_USE_HEALTH=no \
@@ -13,4 +14,5 @@ ENV SYSPARAM_USE_HEALTH=no \
     SYSPARAM_USE_IO_TESTER=no \
     SYSPARAM_USE_GIT=no \
     SYSPARAM_USE_MAVEN=no \
+    SYSPARAM_USE_CHANGE_USER=no \
     SYSPARAM_HTTP_HEADERS="{ \"X-Frame-Options\": \"SAMEORIGIN\", \"X-XSS-Protection\": \"1; mode=block;\", \"Content-Security-Policy\": \"default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; frame-src 'self';\" }"
