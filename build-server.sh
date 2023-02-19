@@ -1,7 +1,5 @@
 #!/bin/bash
 
-LOCK=/tmp/$(basename $0 .sh).lck
-
 exit_with () {
 	[ "$2" != "" ] && echo -e $2 >&2
 	rm -f $LOCK
@@ -10,9 +8,15 @@ exit_with () {
 
 [ "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] [\"<variants(s), defaults to all>\" [\"<server(s)>, defaults to tomcat>\"]\n"
 
-trap "rm -f $LOCK" TERM INT QUIT HUP
-[ -f $LOCK ] && exit_with 2 "A build process is in process since $(cat $LOCK)"
+LOCK=/tmp/$(basename $0 .sh).lck
+if [ -f $LOCK ]
+then
+	echo -e "A build process is in process since $(cat $LOCK)" >&2
+	exit 2
+fi
 date > $LOCK
+
+trap "rm -f $LOCK" TERM INT QUIT HUP
 
 DEL=0
 if [ "$1" = "--delete" ]
