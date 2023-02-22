@@ -18,4 +18,5 @@ LABEL org.label-schema.name="simplicite-server-centos7-openjdk-${jvm}" \
 RUN dnf install -y java-${jvm}-openjdk-devel && dnf clean all
 ENV JAVA_HOME=/usr/lib/jvm/java
 
-EXPOSE 8000
+# JPDA, JaCoCo
+EXPOSE 8000 8001
