@@ -199,11 +199,12 @@ echo "Done"
 grep -q '<!-- database -->' $TEMPLATE/app/META-INF/context.xml
 if [ $? = 0 ]
 then
-	echo "Removing old databases resources..."
-	for DB in hsqldb mysql postgresql oracle mssql
-	do
-		sed -i "/<!-- $DB --></,/><!-- $DB -->/d" $TEMPLATE/app/META-INF/context.xml
-	done
+	echo "Configuring database resource..."
+	sed '/<!-- hsqldb --></,/><!-- hsqldb -->/d' $TEMPLATE/app/META-INF/context.xml
+	sed '/<!-- mysql --></,/><!-- mysql -->/d' $TEMPLATE/app/META-INF/context.xml
+	sed '/<!-- postgresql --></,/><!-- postgresql -->/d' $TEMPLATE/app/META-INF/context.xml
+	sed '/<!-- mssql --></,/><!-- mssql -->/d' $TEMPLATE/app/META-INF/context.xml
+	sed '/<!-- oracle --></,/><!-- oracle -->/d' $TEMPLATE/app/META-INF/context.xml
 	sed -i "s/<!-- database --><!-- /<!-- database --></;s/ --><!-- database -->/><!-- database -->/" $TEMPLATE/app/META-INF/context.xml
 	echo "Done"
 fi
