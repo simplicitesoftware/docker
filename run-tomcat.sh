@@ -37,20 +37,6 @@ else
 	echo "Running Tomcat as $TOMCAT_USER (user ID $TOMCAT_UID, group ID $TOMCAT_GID)"
 fi
 
-function shutdown {
-	if [ -x $TOMCAT_ROOT/shutdown.sh ]
-	then
-		if [ $(id -u) = $TOMCAT_UID ]
-		then
-			cd $TOMCAT_ROOT && exec ./shutdown.sh
-		else
-			exec su $TOMCAT_USER -c "cd $TOMCAT_ROOT && ./shutdown.sh"
-		fi
-	fi
-}
-
-trap shutdown SIGTERM
-
 if [ $(id -u) = $TOMCAT_UID ]
 then
 	cd $TOMCAT_ROOT && exec ./start.sh -r
