@@ -39,6 +39,8 @@ echo "Server(s) = $SRVS"
 # JVMs
 JVMS_CENTOS="11 1.8.0"
 JVMS_CENTOS8="17 11 1.8.0"
+JVMS_ROCKYLINUX="17 20"
+JVMS_ALMALINUX="17 20"
 JVMS_CENTOS_TEMURIN="17 17-jre 11 11-jre 8 8-jre"
 JVMS_ADOPTIUM="17 11"
 
@@ -99,6 +101,8 @@ do
 		[ $TAG = "centos" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "centos8" ] && JVMS=$JVMS_CENTOS8
 		[ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" ] && JVMS=$JVMS_CENTOS_TEMURIN
+		[ $TAG = "rockylinux8" -o $TAG = "rockylinux9" ] && JVMS=$JVMS_ROCKYLINUX
+		[ $TAG = "almalinux8" -o $TAG = "almalinux9" ] && JVMS=$JVMS_ALMALINUX
 		[ $TAG = "adoptium" ] && JVMS=$JVMS_ADOPTIUM
 
 		for JVM in $JVMS
@@ -161,6 +165,8 @@ do
 		[ $TAG = "centos" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "centos8" ] && JVMS=$JVMS_CENTOS8
 		[ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" ] && JVMS=$JVMS_CENTOS_TEMURIN
+		[ $TAG = "rockylinux8" -o $TAG = "rockylinux9" ] && JVMS=$JVMS_ROCKYLINUX
+		[ $TAG = "almalinux8" -o $TAG = "almalinux9" ] && JVMS=$JVMS_ALMALINUX
 		[ $TAG = "adoptium" ] && JVMS=$JVMS_ADOPTIUM
 
 		for JVM in $JVMS
