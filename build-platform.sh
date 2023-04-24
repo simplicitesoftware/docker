@@ -147,10 +147,10 @@ elif [ "$1" = "5-latest-test" ]
 then
 	VERSION=5
 	BRANCH=release
-	TAGS=${2:-rockylinux almalinux adoptium-17 adoptium-11}
+	TAGS=${2:-rockylinux8-17 almalinux8-17 adoptium-17}
 	SRVS=tomcat
 	PFTAG=$1
-elif [ "$1" = "5.0" -o "$1" = "5.0-light" -o "$1" = "5.1" -o "$1" = "5.1-light" ]
+elif [ "$1" = "5.0" -o "$1" = "5.0-light" -o "$1" = "5.1" -o "$1" = "5.1-light" -o "$1" = "5.2" -o "$1" = "5.2-light" ]
 then
 	VERSION=5
 	BRANCH=$1

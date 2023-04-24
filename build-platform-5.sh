@@ -151,15 +151,14 @@ then
 	./build-platform.sh --delete 5-latest-test || exit_with $? "Unable to build platform version 5-latest-test"
 
 	./push-to-registries.sh --delete platform \
-		5-latest-test-rockylinux \
-		5-latest-test-almalinux \
-		5-latest-test-adoptium-17 \
-		5-latest-test-adoptium-11
+		5-latest-test-rockylinux8-17 \
+		5-latest-test-almalinux8-17 \
+		5-latest-test-adoptium-17
 fi
 
-# Previous minor versions
+# Previous versions
 
-if [ "$1" = "5.0" -o "$1" = "5.1" ]
+if [ "$1" = "5.0" -o "$1" = "5.1" -o "$1" = "5.2" ]
 then
 	./build-platform.sh --delete $1 || exit_with $? "Unable to build platform version $1"
 	./build-platform.sh --delete $1-light || exit_with $? "Unable to build platform version $1-light"
