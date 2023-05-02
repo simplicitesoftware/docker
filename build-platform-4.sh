@@ -17,6 +17,7 @@ docker tag simplicite/platform:4.0-latest-temurin-17 simplicite/platform:4.0-lat
 docker rmi simplicite/platform:4.0
 docker tag simplicite/platform:4.0-latest simplicite/platform:4.0
 
+./push-to-registries.sh --public platform 4.0-latest 4.0
 ./push-to-registries.sh --delete platform \
 	4.0-latest-temurin-11 \
 	4.0-latest-temurin-17 \
@@ -34,6 +35,7 @@ docker tag simplicite/platform:4.0-latest-light-temurin-17 simplicite/platform:4
 docker rmi simplicite/platform:4.0-light
 docker tag simplicite/platform:4.0-latest-light simplicite/platform:4.0-light
 
+./push-to-registries.sh --public platform 4.0-latest-light 4.0-light
 ./push-to-registries.sh --delete platform \
 	4.0-latest-light-temurin-8 \
 	4.0-latest-light-temurin-11 \

@@ -16,6 +16,7 @@ then
 	docker tag simplicite/platform:5-alpha-temurin-17 simplicite/platform:5-alpha
 	# ZZZ temporary
 
+	./push-to-registries.sh --public platform 5-alpha
 	./push-to-registries.sh --delete platform \
 		5-alpha-temurin-17 \
 		5-alpha-temurin-17-jre \
@@ -29,6 +30,7 @@ then
 	docker tag simplicite/platform:5-alpha-light-temurin-17 simplicite/platform:5-alpha-light
 	# ZZZ temporary
 
+	./push-to-registries.sh --public platform 5-alpha-light
 	./push-to-registries.sh --delete platform \
 		5-alpha-light-temurin-17 \
 		5-alpha-light-temurin-17-jre \
@@ -60,6 +62,7 @@ then
 	docker tag simplicite/platform:5-beta-temurin-17 simplicite/platform:5-beta
 	# ZZZ temporary
 
+	./push-to-registries.sh --public platform 5-beta
 	./push-to-registries.sh --delete platform \
 		5-beta-temurin-17 \
 		5-beta-temurin-17-jre \
@@ -73,6 +76,7 @@ then
 	docker tag simplicite/platform:5-beta-light-temurin-17 simplicite/platform:5-beta-light
 	# ZZZ temporary
 
+	./push-to-registries.sh --public platform 5-beta-light
 	./push-to-registries.sh --delete platform \
 		5-beta-light-temurin-17 \
 		5-beta-light-temurin-17-jre \
@@ -103,6 +107,7 @@ then
 	docker tag simplicite/platform:5-latest simplicite/platform:5
 	docker tag simplicite/platform:5-latest simplicite/platform:latest
 
+	./push-to-registries.sh --public platform 5-latest latest
 	./push-to-registries.sh --delete platform \
 		5-latest-jvmless \
 		5-latest-temurin-11 \
@@ -124,6 +129,7 @@ then
 	docker tag simplicite/platform:5-latest-light simplicite/platform:5-light
 	docker tag simplicite/platform:5-latest-light simplicite/platform:latest-light
 
+	./push-to-registries.sh --public platform 5-latest-light latest-light
 	./push-to-registries.sh --delete platform \
 		5-latest-light-jvmless \
 		5-latest-light-temurin-11 \
@@ -140,6 +146,7 @@ then
 		docker rmi simplicite/platform:$TAG
 		docker tag simplicite/platform:5-latest simplicite/platform:$TAG
 
+		./push-to-registries.sh --public platform $TAG
 		./push-to-registries.sh --delete platform $TAG
 	done
 fi
@@ -169,6 +176,7 @@ then
 	docker tag simplicite/platform:$1-light-temurin-17 simplicite/platform:$1-light
 	# ZZZ temporary
 
+	./push-to-registries.sh --public platform $1 $1-light
 	./push-to-registries.sh --delete platform \
 		$1-temurin-17 \
 		$1-alpine \
@@ -183,6 +191,7 @@ then
 		docker rmi simplicite/platform:$TAG
 		docker tag simplicite/platform:$1 simplicite/platform:$TAG
 
+		./push-to-registries.sh --public platform $TAG
 		./push-to-registries.sh --delete platform $TAG
 	done
 fi

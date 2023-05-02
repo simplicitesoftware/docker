@@ -6,7 +6,7 @@ exit_with () {
 	exit ${1:-0}
 }
 
-[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] 3.0|3.1|3.2|4.0-latest[-light]|5-<alpha|beta|latest>[-light]|<4.0|5>-devel [<server image tag(s)> [<platform Git tag (only applicable to 5-latest and 5-latest-light>]]\n"
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] 3.0|3.1|3.2|4.0[-light]|5-<alpha|beta|latest>[-light]|<4.0|5>-devel [<server image tag(s)> [<platform Git tag (only applicable to 5-latest and 5-latest-light>]]\n"
 
 LOCK=/tmp/$(basename $0 .sh).lck
 if [ -f $LOCK ]
@@ -50,7 +50,7 @@ then
 	TAGS=${2:-centos-openjdk-1.8.0}
 	SRVS=tomcat
 	PFTAG=$1
-elif [ "$1" = "4.0" -o "$1" = "4.0-latest" ]
+elif [ "$1" = "4.0" ]
 then
 	VERSION=4.0
 	BRANCH=release
@@ -63,7 +63,7 @@ then
 		PFTAG=$GITTAG-light
 		CHECKOUT=$GITTAG
 	fi
-elif [ "$1" = "4.0-light" -o "$1" = "4.0-latest-light" ]
+elif [ "$1" = "4.0-light" ]
 then
 	VERSION=4.0
 	BRANCH=release-light
@@ -76,6 +76,14 @@ then
 		PFTAG=$GITTAG-light
 		CHECKOUT=$GITTAG
 	fi
+elif [ "$1" = "4.0-devel" ]
+then
+	VERSION=4.0
+	BRANCH=release
+	TAGS=devel
+	SRVS=tomcat
+	PFTAG=$1
+	GITTAG=$3
 elif [ "$1" = "5-alpha" ]
 then
 	VERSION=5
@@ -90,19 +98,6 @@ then
 	TAGS=${2:-centos-temurin-17 centos-temurin-17-jre alpine}
 	SRVS=tomcat
 	PFTAG=$1
-elif [ "$1" = "5-devel" ]
-then
-	VERSION=5
-	BRANCH=release
-	TAGS=devel
-	SRVS=tomcat
-	PFTAG=$1
-	GITTAG=$3
-	if [ "$GITTAG" != "" ]
-	then
-		PFTAG=$GITTAG-light
-		CHECKOUT=$GITTAG
-	fi
 elif [ "$1" = "5-beta" ]
 then
 	VERSION=5
@@ -150,6 +145,14 @@ then
 	TAGS=${2:-rockylinux8-17 almalinux8-17 adoptium-17}
 	SRVS=tomcat
 	PFTAG=$1
+elif [ "$1" = "5-devel" ]
+then
+	VERSION=5
+	BRANCH=release
+	TAGS=devel
+	SRVS=tomcat
+	PFTAG=$1
+	GITTAG=$3
 elif [ "$1" = "5.0" -o "$1" = "5.0-light" -o "$1" = "5.1" -o "$1" = "5.1-light" -o "$1" = "5.2" -o "$1" = "5.2-light" ]
 then
 	VERSION=5

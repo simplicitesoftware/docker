@@ -14,6 +14,13 @@ then
 	shift
 fi
 
+PUB=0
+if [ "$1" = "--public" ]
+then
+	PUB=1
+	shift
+fi
+
 IMG=$1
 shift
 
@@ -38,20 +45,23 @@ do
 		echo "------------------------------------"
 		echo ""
 
-		if [ $IMG = "server" -o $IMG = "platform" ]
-		then
-			echo "Pushing image $IMG:$TAG to DockerHub registry"
-			docker push simplicite/$IMG:$TAG
-			echo "Done"
-		fi
-
-		if [ "$DOCKER_PRIVATE_REGISTRY_HOST" != "" ]
+		if [ $PUB -eq 0 -a "$DOCKER_PRIVATE_REGISTRY_HOST" != "" ]
 		then
 			echo "Pushing image $IMG:$TAG to local registry $DOCKER_PRIVATE_REGISTRY_HOST"
 			docker tag simplicite/$IMG:$TAG $DOCKER_PRIVATE_REGISTRY_HOST/$IMG:$TAG
 			docker push $DOCKER_PRIVATE_REGISTRY_HOST/$IMG:$TAG
 			docker rmi $DOCKER_PRIVATE_REGISTRY_HOST/$IMG:$TAG
 			echo "Done"
+		fi
+
+		if [ $PUB -eq 1 ]
+		then
+			if [ $IMG = "server" -o $IMG = "platform" ]
+			then
+				echo "Pushing image $IMG:$TAG to DockerHub registry"
+				docker push simplicite/$IMG:$TAG
+				echo "Done"
+			fi
 		fi
 
 		[ $DEL -eq 1 ] && docker rmi simplicite/$IMG:$TAG
