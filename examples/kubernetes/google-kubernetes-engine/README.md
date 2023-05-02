@@ -31,7 +31,7 @@ Configure the Docker images registry:
 
 Tag the chosen Simplicité private image (previously pulled from DockerHub):
 
-	docker tag <simplicite|registry.simplicite.io>/platform:<tag, e.g. 5-beta> <server, e.g. gcr.io>/<project ID>/simplicite/platform:<tag, e.g. 5-beta>
+	docker tag registry.simplicite.io/platform:<tag, e.g. 5-beta> <server, e.g. gcr.io>/<project ID>/simplicite/platform:<tag, e.g. 5-beta>
 
 And push it to the registry:
 

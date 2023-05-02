@@ -14,7 +14,7 @@ services:
     volumes:
       - data:/var/opt/mssql
   simplicite:
-    image: <simplicite|registry.simplicite.io>/platform:<tag, e.g. 5-latest>-with-mssql-client
+    image: registry.simplicite.io/platform:<tag, e.g. 5-latest>-with-mssql-client
     build:
       context: .
       dockerfile: Dockerfile-platform-mssql

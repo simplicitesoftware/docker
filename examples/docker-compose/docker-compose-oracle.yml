@@ -14,7 +14,7 @@ services:
     volumes:
       - data:/opt/oracle/oradata
   simplicite:
-    image: <simplicite|registry.simplicite.io>/platform:<tag, e.g. 5-latest>-with-oracle-client
+    image: registry.simplicite.io/platform:<tag, e.g. 5-latest>-with-oracle-client
     build:
       context: .
       dockerfile: Dockerfile-platform-oracle

@@ -1,7 +1,7 @@
 version: "3"
 services:
   simplicite:
-    image: <simplicite|registry.simplicite.io>/platform:<tag, e.g. 5-latest>
+    image: registry.simplicite.io/platform:<tag, e.g. 5-latest>
     restart: always
     container_name: simplicite
     environment:
@@ -19,7 +19,7 @@ services:
       - dbdoc:/usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc
       - git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
   vscode:
-    image: <simplicite|registry.simplicite.io>/vscode:latest
+    image: registry.simplicite.io/vscode:latest
     restart: always
     container_name: myide
     ports:
