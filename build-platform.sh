@@ -6,7 +6,7 @@ exit_with () {
 	exit ${1:-0}
 }
 
-[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] 3.0|3.1|3.2|4.0[-light]|5-<alpha|beta|latest>[-light]|<4.0|5>-devel [<server image tag(s)> [<platform Git tag (only applicable to 5-latest and 5-latest-light>]]\n"
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] 3.0|3.1|3.2|4.0[-light]|5-<beta|latest|devel>[-light]|6-alpha[-light] [<server image tag(s)> [<platform Git tag (only applicable to 5-latest and 5-latest-light>]]\n"
 
 LOCK=/tmp/$(basename $0 .sh).lck
 if [ -f $LOCK ]
@@ -76,28 +76,6 @@ then
 		PFTAG=$GITTAG-light
 		CHECKOUT=$GITTAG
 	fi
-elif [ "$1" = "4.0-devel" ]
-then
-	VERSION=4.0
-	BRANCH=release
-	TAGS=devel
-	SRVS=tomcat
-	PFTAG=$1
-	GITTAG=$3
-elif [ "$1" = "5-alpha" ]
-then
-	VERSION=5
-	BRANCH=master
-	TAGS=${2:-centos-temurin-17 centos-temurin-17-jre alpine}
-	SRVS=tomcat
-	PFTAG=$1
-elif [ "$1" = "5-alpha-light" ]
-then
-	VERSION=5
-	BRANCH=master-light
-	TAGS=${2:-centos-temurin-17 centos-temurin-17-jre alpine}
-	SRVS=tomcat
-	PFTAG=$1
 elif [ "$1" = "5-beta" ]
 then
 	VERSION=5
@@ -158,6 +136,20 @@ then
 	VERSION=5
 	BRANCH=$1
 	TAGS=${2:-centos-temurin-17 alpine}
+	SRVS=tomcat
+	PFTAG=$1
+elif [ "$1" = "6-alpha" ]
+then
+	VERSION=6
+	BRANCH=master
+	TAGS=${2:-centos-temurin-17 centos-temurin-17-jre alpine}
+	SRVS=tomcat
+	PFTAG=$1
+elif [ "$1" = "6-alpha-light" ]
+then
+	VERSION=6
+	BRANCH=master-light
+	TAGS=${2:-centos-temurin-17 centos-temurin-17-jre alpine}
 	SRVS=tomcat
 	PFTAG=$1
 else
