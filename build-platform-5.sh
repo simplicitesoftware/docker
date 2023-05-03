@@ -5,6 +5,13 @@ exit_with () {
 	exit ${1:-0}
 }
 
+PUSH=1
+if [ "$1" = "--no-push" ]
+then
+	PUSH=0
+	shift
+fi
+
 [ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <all|alpha|devel|beta|latest> [<additional tags for latest, e.g. \"5.x 5.x.y\">]\n" 
 
 if [ "$1" = "alpha" -o "$1" = "all" ]
@@ -14,24 +21,30 @@ then
 	docker rmi simplicite/platform:5-alpha
 	docker tag simplicite/platform:5-alpha-temurin-17 simplicite/platform:5-alpha
 
-	#./push-to-registries.sh --public platform 5-alpha
-	./push-to-registries.sh --delete platform \
-		5-alpha-temurin-17 \
-		5-alpha-temurin-17-jre \
-		5-alpha-alpine
-	./push-to-registries.sh platform 5-alpha
+	if [ $PUSH -eq 1 ]
+	then
+		#./push-to-registries.sh --public platform 5-alpha
+		./push-to-registries.sh --delete platform \
+			5-alpha-temurin-17 \
+			5-alpha-temurin-17-jre \
+			5-alpha-alpine
+		./push-to-registries.sh platform 5-alpha
+	fi
 
 	./build-platform.sh --delete 5-alpha-light || exit_with $? "Unable to build platform version 5-alpha-light"
 
 	docker rmi simplicite/platform:5-alpha-light
 	docker tag simplicite/platform:5-alpha-light-temurin-17 simplicite/platform:5-alpha-light
 
-	#./push-to-registries.sh --public platform 5-alpha-light
-	./push-to-registries.sh --delete platform \
-		5-alpha-light-temurin-17 \
-		5-alpha-light-temurin-17-jre \
-		5-alpha-light \
-		5-alpha-light-alpine
+	if [ $PUSH -eq 1 ]
+	then
+		#./push-to-registries.sh --public platform 5-alpha-light
+		./push-to-registries.sh --delete platform \
+			5-alpha-light-temurin-17 \
+			5-alpha-light-temurin-17-jre \
+			5-alpha-light \
+			5-alpha-light-alpine
+	fi
 
 	# Additional tags
 	for TAG in ${@:2}
@@ -40,7 +53,10 @@ then
 		docker tag simplicite/platform:5-alpha simplicite/platform:$TAG
 		docker tag simplicite/platform:5-alpha-light simplicite/platform:$TAG-light
 
-		./push-to-registries.sh --delete platform $TAG $TAG-light
+		if [ $PUSH -eq 1 ]
+		then
+			./push-to-registries.sh --delete platform $TAG $TAG-light
+		fi
 	done
 fi
 
@@ -56,24 +72,30 @@ then
 	docker rmi simplicite/platform:5-beta
 	docker tag simplicite/platform:5-beta-temurin-17 simplicite/platform:5-beta
 
-	#./push-to-registries.sh --public platform 5-beta
-	./push-to-registries.sh --delete platform \
-		5-beta-temurin-17 \
-		5-beta-temurin-17-jre \
-		5-beta-alpine
-	./push-to-registries.sh platform 5-beta
+	if [ $PUSH -eq 1 ]
+	then
+		#./push-to-registries.sh --public platform 5-beta
+		./push-to-registries.sh --delete platform \
+			5-beta-temurin-17 \
+			5-beta-temurin-17-jre \
+			5-beta-alpine
+		./push-to-registries.sh platform 5-beta
+	fi
 
 	./build-platform.sh --delete 5-beta-light || exit_with $? "Unable to build platform version 5-beta-light"
 
 	docker rmi simplicite/platform:5-beta-light
 	docker tag simplicite/platform:5-beta-light-temurin-17 simplicite/platform:5-beta-light
 
-	#./push-to-registries.sh --public platform 5-beta-light
-	./push-to-registries.sh --delete platform \
-		5-beta-light-temurin-17 \
-		5-beta-light-temurin-17-jre \
-		5-beta-light \
-		5-beta-light-alpine
+	if [ $PUSH -eq 1 ]
+	then
+		#./push-to-registries.sh --public platform 5-beta-light
+		./push-to-registries.sh --delete platform \
+			5-beta-light-temurin-17 \
+			5-beta-light-temurin-17-jre \
+			5-beta-light \
+			5-beta-light-alpine
+	fi
 
 	# Additional tags
 	for TAG in ${@:2}
@@ -82,7 +104,10 @@ then
 		docker tag simplicite/platform:5-beta simplicite/platform:$TAG
 		docker tag simplicite/platform:5-beta-light simplicite/platform:$TAG-light
 
-		./push-to-registries.sh --delete platform $TAG $TAG-light
+		if [ $PUSH -eq 1 ]
+		then
+			./push-to-registries.sh --delete platform $TAG $TAG-light
+		fi
 	done
 fi
 
@@ -97,16 +122,19 @@ then
 	docker tag simplicite/platform:5-latest simplicite/platform:5
 	docker tag simplicite/platform:5-latest simplicite/platform:latest
 
-	#./push-to-registries.sh --public platform 5-latest latest
-	./push-to-registries.sh --delete platform \
-		5-latest-jvmless \
-		5-latest-temurin-11 \
-		5-latest-temurin-17 \
-		5-latest-temurin-17-jre \
-		5-latest-alpine \
-		5 \
-		latest
-	./push-to-registries.sh platform 5-latest
+	if [ $PUSH -eq 1 ]
+	then
+		#./push-to-registries.sh --public platform 5-latest latest
+		./push-to-registries.sh --delete platform \
+			5-latest-jvmless \
+			5-latest-temurin-11 \
+			5-latest-temurin-17 \
+			5-latest-temurin-17-jre \
+			5-latest-alpine \
+			5 \
+			latest
+		./push-to-registries.sh platform 5-latest
+	fi
 
 	./build-platform.sh --delete 5-latest-light || exit_with $? "Unable to build platform version 5-latest-light"
 
@@ -117,16 +145,19 @@ then
 	docker tag simplicite/platform:5-latest-light simplicite/platform:5-light
 	docker tag simplicite/platform:5-latest-light simplicite/platform:latest-light
 
-	#./push-to-registries.sh --public platform 5-latest-light latest-light
-	./push-to-registries.sh --delete platform \
-		5-latest-light-jvmless \
-		5-latest-light-temurin-11 \
-		5-latest-light-temurin-17 \
-		5-latest-light-temurin-17-jre \
-		5-latest-light-alpine \
-		5-latest-light \
-		5-light \
-		latest-light
+	if [ $PUSH -eq 1 ]
+	then
+		#./push-to-registries.sh --public platform 5-latest-light latest-light
+		./push-to-registries.sh --delete platform \
+			5-latest-light-jvmless \
+			5-latest-light-temurin-11 \
+			5-latest-light-temurin-17 \
+			5-latest-light-temurin-17-jre \
+			5-latest-light-alpine \
+			5-latest-light \
+			5-light \
+			latest-light
+	fi
 
 	# Additional tags
 	for TAG in ${@:2}
@@ -134,8 +165,11 @@ then
 		docker rmi simplicite/platform:$TAG
 		docker tag simplicite/platform:5-latest simplicite/platform:$TAG
 
-		./push-to-registries.sh --public platform $TAG
-		./push-to-registries.sh --delete platform $TAG
+		if [ $PUSH -eq 1 ]
+		then
+			./push-to-registries.sh --public platform $TAG
+			./push-to-registries.sh --delete platform $TAG
+		fi
 	done
 fi
 
@@ -145,10 +179,13 @@ if [ "$1" = "latest-test" -o "$1" = "all" ]
 then
 	./build-platform.sh --delete 5-latest-test || exit_with $? "Unable to build platform version 5-latest-test"
 
-	./push-to-registries.sh --delete platform \
-		5-latest-test-rockylinux8-17 \
-		5-latest-test-almalinux8-17 \
-		5-latest-test-adoptium-17
+	if [ $PUSH -eq 1 ]
+	then
+		./push-to-registries.sh --delete platform \
+			5-latest-test-rockylinux8-17 \
+			5-latest-test-almalinux8-17 \
+			5-latest-test-adoptium-17
+	fi
 fi
 
 # Previous versions
@@ -162,14 +199,17 @@ then
 	docker tag simplicite/platform:$1-temurin-17 simplicite/platform:$1
 	docker tag simplicite/platform:$1-light-temurin-17 simplicite/platform:$1-light
 
-	#./push-to-registries.sh --public platform $1 $1-light
-	./push-to-registries.sh --delete platform \
-		$1-temurin-17 \
-		$1-alpine \
-		$1-light-temurin-17 \
-		$1-light-alpine \
-		$1-light
-	./push-to-registries.sh platform $1
+	if [ $PUSH -eq 1 ]
+	then
+		#./push-to-registries.sh --public platform $1 $1-light
+		./push-to-registries.sh --delete platform \
+			$1-temurin-17 \
+			$1-alpine \
+			$1-light-temurin-17 \
+			$1-light-alpine \
+			$1-light
+		./push-to-registries.sh platform $1
+	fi
 
 	# Additional tags
 	for TAG in ${@:2}
@@ -177,8 +217,11 @@ then
 		docker rmi simplicite/platform:$TAG
 		docker tag simplicite/platform:$1 simplicite/platform:$TAG
 
-		#./push-to-registries.sh --public platform $TAG
-		./push-to-registries.sh --delete platform $TAG
+		if [ $PUSH -eq 1 ]
+		then
+			#./push-to-registries.sh --public platform $TAG
+			./push-to-registries.sh --delete platform $TAG
+		fi
 	done
 fi
 
