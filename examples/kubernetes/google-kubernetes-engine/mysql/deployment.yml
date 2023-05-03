@@ -19,7 +19,7 @@ spec:
       - name: mysql
         image: mysql:8
         args:
-        - "--default-authentication-plugin=mysql_native_password"
+        - "--default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
         volumeMounts:
         - name: mysql-volume-mount
           mountPath: /var/lib/mysql
