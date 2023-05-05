@@ -12,9 +12,9 @@ then
 	shift
 fi
 
-[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <all|alpha|devel|beta|latest> [<additional tags for latest, e.g. \"5.x 5.x.y\">]\n" 
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <alpha|devel|beta|latest|5.x> [<additional tags, e.g. \"5.x 5.x.y\">]\n" 
 
-if [ "$1" = "alpha" -o "$1" = "all" ]
+if [ "$1" = "alpha" ]
 then
 	./build-platform.sh --delete 5-alpha || exit_with $? "Unable to build platform version 5-alpha"
 
@@ -65,7 +65,7 @@ then
 	./build-platform.sh --delete 5-devel
 fi
 
-if [ "$1" = "beta" -o "$1" = "all" ]
+if [ "$1" = "beta" ]
 then
 	./build-platform.sh --delete 5-beta || exit_with $? "Unable to build platform version 5-beta"
 
@@ -111,7 +111,7 @@ then
 	done
 fi
 
-if [ "$1" = "latest" -o "$1" = "all" ]
+if [ "$1" = "latest" ]
 then
 	./build-platform.sh --delete 5-latest || exit_with $? "Unable to build platform version 5-latest"
 
@@ -175,7 +175,7 @@ fi
 
 # Experimental builds
 
-if [ "$1" = "latest-test" -o "$1" = "all" ]
+if [ "$1" = "latest-test" ]
 then
 	./build-platform.sh --delete 5-latest-test || exit_with $? "Unable to build platform version 5-latest-test"
 

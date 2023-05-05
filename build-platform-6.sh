@@ -12,7 +12,7 @@ then
 	shift
 fi
 
-#[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <all|alpha|devel|beta|latest> [<additional tags for latest, e.g. \"6.x 6.x.y\">]\n" 
+#[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <alpha|devel|beta|latest> [<additional tags, e.g. \"6.x 6.x.y\">]\n" 
 
 ./build-platform.sh --delete 6-alpha || exit_with $? "Unable to build platform version 6-alpha"
 
