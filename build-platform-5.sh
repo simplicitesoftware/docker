@@ -12,58 +12,7 @@ then
 	shift
 fi
 
-[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <alpha|devel|beta|latest|5.x> [<additional tags, e.g. \"5.x 5.x.y\">]\n" 
-
-if [ "$1" = "alpha" ]
-then
-	./build-platform.sh --delete 5-alpha || exit_with $? "Unable to build platform version 5-alpha"
-
-	docker rmi simplicite/platform:5-alpha
-	docker tag simplicite/platform:5-alpha-temurin-17 simplicite/platform:5-alpha
-
-	if [ $PUSH -eq 1 ]
-	then
-		#./push-to-registries.sh --public platform 5-alpha
-		./push-to-registries.sh --delete platform \
-			5-alpha-temurin-17 \
-			5-alpha-temurin-17-jre \
-			5-alpha-alpine
-		./push-to-registries.sh platform 5-alpha
-	fi
-
-	./build-platform.sh --delete 5-alpha-light || exit_with $? "Unable to build platform version 5-alpha-light"
-
-	docker rmi simplicite/platform:5-alpha-light
-	docker tag simplicite/platform:5-alpha-light-temurin-17 simplicite/platform:5-alpha-light
-
-	if [ $PUSH -eq 1 ]
-	then
-		#./push-to-registries.sh --public platform 5-alpha-light
-		./push-to-registries.sh --delete platform \
-			5-alpha-light-temurin-17 \
-			5-alpha-light-temurin-17-jre \
-			5-alpha-light \
-			5-alpha-light-alpine
-	fi
-
-	# Additional tags
-	for TAG in ${@:2}
-	do
-		docker rmi simplicite/platform:$TAG simplicite/platform:$TAG-light
-		docker tag simplicite/platform:5-alpha simplicite/platform:$TAG
-		docker tag simplicite/platform:5-alpha-light simplicite/platform:$TAG-light
-
-		if [ $PUSH -eq 1 ]
-		then
-			./push-to-registries.sh --delete platform $TAG $TAG-light
-		fi
-	done
-fi
-
-if [ "$1" = "devel" ]
-then
-	./build-platform.sh --delete 5-devel
-fi
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <beta|latest|5.x> [<additional tags, e.g. \"5.x 5.x.y\">]\n" 
 
 if [ "$1" = "beta" ]
 then
