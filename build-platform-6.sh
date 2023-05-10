@@ -27,8 +27,8 @@ then
 		./push-to-registries.sh --delete platform \
 			6-alpha-temurin-17 \
 			6-alpha-temurin-17-jre \
-			6-alpha-alpine
-		./push-to-registries.sh platform 6-alpha
+			6-alpha-alpine \
+			6-alpha
 	fi
 
 	./build-platform.sh --delete 6-alpha-light || exit_with $? "Unable to build platform version 6-alpha-light"
@@ -42,8 +42,8 @@ then
 		./push-to-registries.sh --delete platform \
 			6-alpha-light-temurin-17 \
 			6-alpha-light-temurin-17-jre \
-			6-alpha-light \
-			6-alpha-light-alpine
+			6-alpha-light-alpine \
+			6-alpha-light
 	fi
 fi
 

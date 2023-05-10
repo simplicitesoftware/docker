@@ -27,8 +27,8 @@ then
 		./push-to-registries.sh --delete platform \
 			5-beta-temurin-17 \
 			5-beta-temurin-17-jre \
-			5-beta-alpine
-		./push-to-registries.sh platform 5-beta
+			5-beta-alpine \
+			5-beta
 	fi
 
 	./build-platform.sh --delete 5-beta-light || exit_with $? "Unable to build platform version 5-beta-light"
@@ -42,8 +42,8 @@ then
 		./push-to-registries.sh --delete platform \
 			5-beta-light-temurin-17 \
 			5-beta-light-temurin-17-jre \
-			5-beta-light \
-			5-beta-light-alpine
+			5-beta-light-alpine \
+			5-beta-light
 	fi
 
 	# Additional tags
@@ -80,9 +80,9 @@ then
 			5-latest-temurin-17 \
 			5-latest-temurin-17-jre \
 			5-latest-alpine \
+			5-latest \
 			5 \
 			latest
-		./push-to-registries.sh platform 5-latest
 	fi
 
 	./build-platform.sh --delete 5-latest-light || exit_with $? "Unable to build platform version 5-latest-light"
