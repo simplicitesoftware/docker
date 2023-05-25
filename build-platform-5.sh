@@ -5,6 +5,8 @@ exit_with () {
 	exit ${1:-0}
 }
 
+REGISTRY=registry.simplicite.io
+
 PUSH=1
 if [ "$1" = "--no-push" ]
 then
@@ -18,12 +20,11 @@ if [ "$1" = "beta" ]
 then
 	./build-platform.sh --delete 5-beta || exit_with $? "Unable to build platform version 5-beta"
 
-	docker rmi simplicite/platform:5-beta
-	docker tag simplicite/platform:5-beta-temurin-17 simplicite/platform:5-beta
+	docker rmi $REGISTRY/platform:5-beta
+	docker tag $REGISTRY/platform:5-beta-temurin-17 $REGISTRY/platform:5-beta
 
 	if [ $PUSH -eq 1 ]
 	then
-		#./push-to-registries.sh --public platform 5-beta
 		./push-to-registries.sh --delete platform \
 			5-beta-temurin-17 \
 			5-beta-temurin-17-jre \
@@ -33,12 +34,11 @@ then
 
 	./build-platform.sh --delete 5-beta-light || exit_with $? "Unable to build platform version 5-beta-light"
 
-	docker rmi simplicite/platform:5-beta-light
-	docker tag simplicite/platform:5-beta-light-temurin-17 simplicite/platform:5-beta-light
+	docker rmi $REGISTRY/platform:5-beta-light
+	docker tag $REGISTRY/platform:5-beta-light-temurin-17 $REGISTRY/platform:5-beta-light
 
 	if [ $PUSH -eq 1 ]
 	then
-		#./push-to-registries.sh --public platform 5-beta-light
 		./push-to-registries.sh --delete platform \
 			5-beta-light-temurin-17 \
 			5-beta-light-temurin-17-jre \
@@ -49,9 +49,9 @@ then
 	# Additional tags
 	for TAG in ${@:2}
 	do
-		docker rmi simplicite/platform:$TAG simplicite/platform:$TAG-light
-		docker tag simplicite/platform:5-beta simplicite/platform:$TAG
-		docker tag simplicite/platform:5-beta-light simplicite/platform:$TAG-light
+		docker rmi $REGISTRY/platform:$TAG $REGISTRY/platform:$TAG-light
+		docker tag $REGISTRY/platform:5-beta $REGISTRY/platform:$TAG
+		docker tag $REGISTRY/platform:5-beta-light $REGISTRY/platform:$TAG-light
 
 		if [ $PUSH -eq 1 ]
 		then
@@ -64,16 +64,15 @@ if [ "$1" = "latest" ]
 then
 	./build-platform.sh --delete 5-latest || exit_with $? "Unable to build platform version 5-latest"
 
-	docker rmi simplicite/platform:5-latest
-	docker tag simplicite/platform:5-latest-temurin-17 simplicite/platform:5-latest
+	docker rmi $REGISTRY/platform:5-latest
+	docker tag $REGISTRY/platform:5-latest-temurin-17 $REGISTRY/platform:5-latest
 
-	docker rmi simplicite/platform:5 simplicite/platform:latest
-	docker tag simplicite/platform:5-latest simplicite/platform:5
-	docker tag simplicite/platform:5-latest simplicite/platform:latest
+	docker rmi $REGISTRY/platform:5 $REGISTRY/platform:latest
+	docker tag $REGISTRY/platform:5-latest $REGISTRY/platform:5
+	docker tag $REGISTRY/platform:5-latest $REGISTRY/platform:latest
 
 	if [ $PUSH -eq 1 ]
 	then
-		#./push-to-registries.sh --public platform 5-latest latest
 		./push-to-registries.sh --delete platform \
 			5-latest-jvmless \
 			5-latest-temurin-11 \
@@ -87,16 +86,15 @@ then
 
 	./build-platform.sh --delete 5-latest-light || exit_with $? "Unable to build platform version 5-latest-light"
 
-	docker rmi simplicite/platform:5-latest-light
-	docker tag simplicite/platform:5-latest-light-temurin-17 simplicite/platform:5-latest-light
+	docker rmi $REGISTRY/platform:5-latest-light
+	docker tag $REGISTRY/platform:5-latest-light-temurin-17 $REGISTRY/platform:5-latest-light
 
-	docker rmi simplicite/platform:5-light simplicite/platform:latest-light
-	docker tag simplicite/platform:5-latest-light simplicite/platform:5-light
-	docker tag simplicite/platform:5-latest-light simplicite/platform:latest-light
+	docker rmi $REGISTRY/platform:5-light $REGISTRY/platform:latest-light
+	docker tag $REGISTRY/platform:5-latest-light $REGISTRY/platform:5-light
+	docker tag $REGISTRY/platform:5-latest-light $REGISTRY/platform:latest-light
 
 	if [ $PUSH -eq 1 ]
 	then
-		#./push-to-registries.sh --public platform 5-latest-light latest-light
 		./push-to-registries.sh --delete platform \
 			5-latest-light-jvmless \
 			5-latest-light-temurin-11 \
@@ -111,12 +109,11 @@ then
 	# Additional tags
 	for TAG in ${@:2}
 	do
-		docker rmi simplicite/platform:$TAG
-		docker tag simplicite/platform:5-latest simplicite/platform:$TAG
+		docker rmi $REGISTRY/platform:$TAG
+		docker tag $REGISTRY/platform:5-latest $REGISTRY/platform:$TAG
 
 		if [ $PUSH -eq 1 ]
 		then
-			./push-to-registries.sh --public platform $TAG
 			./push-to-registries.sh --delete platform $TAG
 		fi
 	done
@@ -144,13 +141,12 @@ then
 	./build-platform.sh --delete $1 || exit_with $? "Unable to build platform version $1"
 	./build-platform.sh --delete $1-light || exit_with $? "Unable to build platform version $1-light"
 
-	docker rmi simplicite/platform:$1 simplicite/platform:$1-light
-	docker tag simplicite/platform:$1-temurin-17 simplicite/platform:$1
-	docker tag simplicite/platform:$1-light-temurin-17 simplicite/platform:$1-light
+	docker rmi $REGISTRY/platform:$1 $REGISTRY/platform:$1-light
+	docker tag $REGISTRY/platform:$1-temurin-17 $REGISTRY/platform:$1
+	docker tag $REGISTRY/platform:$1-light-temurin-17 $REGISTRY/platform:$1-light
 
 	if [ $PUSH -eq 1 ]
 	then
-		#./push-to-registries.sh --public platform $1 $1-light
 		./push-to-registries.sh --delete platform \
 			$1-temurin-17 \
 			$1-alpine \
@@ -163,12 +159,11 @@ then
 	# Additional tags
 	for TAG in ${@:2}
 	do
-		docker rmi simplicite/platform:$TAG
-		docker tag simplicite/platform:$1 simplicite/platform:$TAG
+		docker rmi $REGISTRY/platform:$TAG
+		docker tag $REGISTRY/platform:$1 $REGISTRY/platform:$TAG
 
 		if [ $PUSH -eq 1 ]
 		then
-			#./push-to-registries.sh --public platform $TAG
 			./push-to-registries.sh --delete platform $TAG
 		fi
 	done

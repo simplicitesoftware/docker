@@ -157,8 +157,9 @@ else
 	exit_with 3 "Unknown variant: $1"
 fi
 
-SERVER=simplicite/server
-PLATFORM=simplicite/platform
+REGISTRY=registry.simplicite.io
+SERVER=$REGISTRY/server
+PLATFORM=$REGISTRY/platform
 TEMPLATE=template-$VERSION
 
 if [ ! -d $TEMPLATE.git ]

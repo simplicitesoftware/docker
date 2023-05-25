@@ -7,6 +7,8 @@ then
 	exit -1
 fi
 
+REGISTRY=registry.simplicite.io
+
 DEL=0
 if [ "$1" = "--delete" ]
 then
@@ -33,7 +35,7 @@ fi
 [ -x /usr/bin/figlet ] && echo "" && /usr/bin/figlet -f small ${IMG^}
 
 TAGS=$*
-[ "$TAGS" = "" ] && TAGS=$(docker images | grep "^simplicite.$IMG" | awk '{print $2}')
+[ "$TAGS" = "" ] && TAGS=$(docker images | grep "^$REGISTRY.$IMG" | awk '{print $2}')
 
 for TAG in $TAGS
 do
@@ -47,8 +49,8 @@ do
 
 		if [ $PUB -eq 0 -a "$DOCKER_PRIVATE_REGISTRY_HOST" != "" ]
 		then
-			echo "Pushing image $IMG:$TAG to local registry $DOCKER_PRIVATE_REGISTRY_HOST"
-			docker tag simplicite/$IMG:$TAG $DOCKER_PRIVATE_REGISTRY_HOST/$IMG:$TAG
+			echo "Pushing image $IMG:$TAG to the local registry $DOCKER_PRIVATE_REGISTRY_HOST"
+			docker tag $REGISTRY/$IMG:$TAG $DOCKER_PRIVATE_REGISTRY_HOST/$IMG:$TAG
 			docker push $DOCKER_PRIVATE_REGISTRY_HOST/$IMG:$TAG
 			docker rmi $DOCKER_PRIVATE_REGISTRY_HOST/$IMG:$TAG
 			echo "Done"
@@ -58,13 +60,15 @@ do
 		then
 			if [ $IMG = "server" -o $IMG = "platform" ]
 			then
-				echo "Pushing image $IMG:$TAG to DockerHub registry"
+				echo "Pushing image $IMG:$TAG to the public DockerHub registry"
+				docker tag $REGISTRY/$IMG:$TAG simplicite/$IMG:$TAG
 				docker push simplicite/$IMG:$TAG
+				docker rmi simplicite/$IMG:$TAG
 				echo "Done"
 			fi
 		fi
 
-		[ $DEL -eq 1 ] && docker rmi simplicite/$IMG:$TAG
+		[ $DEL -eq 1 ] && docker rmi $REGISTRY/$IMG:$TAG
 	fi
 done
 echo ""

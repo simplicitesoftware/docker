@@ -14,9 +14,11 @@ trap "rm -f $LOCK" TERM INT QUIT HUP
 [ -f $LOCK ] && exit_with 2 "A build process is in process since $(cat $LOCK)"
 date > $LOCK
 
+REGISTRY=registry.simplicite.io
+
 cd vscode
 
-IMG=simplicite/vscode:latest
+IMG=$REGISTRY/vscode:latest
 echo "========================================================"
 echo "Building $IMG image..."
 echo "========================================================"

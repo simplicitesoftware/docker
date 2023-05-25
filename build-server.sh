@@ -36,6 +36,8 @@ echo "Variants(s) = $TAGS"
 SRVS=${2:-tomcat}
 echo "Server(s) = $SRVS"
 
+BRANCH=master
+
 # JVMs
 JVMS_CENTOS="11 1.8.0"
 JVMS_CENTOS8="17 11 1.8.0"
@@ -52,7 +54,7 @@ JVM_LATEST="17"
 echo "--------------------------------------------------------"
 echo ""
 
-SERVER=simplicite/server
+SERVER=registry.simplicite.io/server
 
 for SRV in $SRVS
 do
@@ -65,10 +67,10 @@ do
 		cd ..
 		echo "Done"
 
-		echo "Checkouting $SRV as tomcat..."
+		echo "Checkouting $SRV (branch $BRANCH) as 'tomcat' dir..."
 		rm -fr tomcat
 		mkdir tomcat
-		git --work-tree=tomcat --git-dir=$SRV.git checkout -f master || exit_with 5 "Unable to checkout master branch from $SRV.git"
+		git --work-tree=tomcat --git-dir=$SRV.git checkout -f $BRANCH || exit_with 5 "Unable to checkout $BRANCH branch from $SRV.git"
 		rm -f tomcat/.project tomcat/.git* tomcat/README.md tomcat/*.bat tomcat/bin/*.bat tomcat/bin/*.exe tomcat/bin/*.dll
 		echo "Done"
 	elif [ -d $SRV ]

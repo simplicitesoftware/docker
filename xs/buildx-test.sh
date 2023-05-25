@@ -1,13 +1,15 @@
 #!/bin/bash
 
+REGISTRY=registry.simplicite.io
+
 for SIMPLICITE_BASE_TAG in 5-beta
 do
     # Base image from which the dockerfile copies the webapp
-    SIMPLICITE_BASE="simplicite/platform:$SIMPLICITE_BASE_TAG"
+    SIMPLICITE_BASE="$REGISTRY/platform:$SIMPLICITE_BASE_TAG"
     
     # Name of the built image
     TARGET_TAG="$SIMPLICITE_BASE_TAG-xs-test-bdx"
-    TARGET_IMAGE="simplicite/platform:$TARGET_TAG"
+    TARGET_IMAGE="$REGISTRY/platform:$TARGET_TAG"
 
     # Run build (see ./Dockerfile)
     docker buildx build --pull \
@@ -16,10 +18,7 @@ do
         -t $TARGET_IMAGE .
 
     # Push
-    # PUSH_TAG="registry.simplicite.io/platform:$TARGET_TAG"
-    # docker image tag $TARGET_IMAGE $PUSH_TAG
-    # docker push $PUSH_TAG
-    # docker rmi $PUSH_TAG
+    # docker push $TARGET_IMAGE
 done
 
 docker image prune -f

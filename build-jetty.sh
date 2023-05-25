@@ -17,8 +17,10 @@ date > $LOCK
 echo ""
 echo "--------------------------------------------------------"
 
+REGISTRY=registry.simplicite.io
+SERVER=$REGISTRY/server
+
 SRV=jetty
-SERVER=simplicite/server
 TAG=jetty
 
 echo "Updating $SRV.git"

@@ -1,4 +1,5 @@
-FROM simplicite/server:centos8-base
+ARG reg=registry.simplicite.io
+FROM ${reg}/server:centos8-base
 
 ARG date
 ARG jvm=latest

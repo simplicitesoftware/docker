@@ -5,6 +5,8 @@ exit_with () {
 	exit ${1:-0}
 }
 
+REGISTRY=registry.simplicite.io
+
 PUSH=1
 if [ "$1" = "--no-push" ]
 then
@@ -18,12 +20,11 @@ if [ "$1" = "alpha" ]
 then
 	./build-platform.sh --delete 6-alpha || exit_with $? "Unable to build platform version 6-alpha"
 
-	docker rmi simplicite/platform:6-alpha
-	docker tag simplicite/platform:6-alpha-temurin-17 simplicite/platform:6-alpha
+	docker rmi $REGISTRY/platform:6-alpha
+	docker tag $REGISTRY/platform:6-alpha-temurin-17 $REGISTRY/platform:6-alpha
 
 	if [ $PUSH -eq 1 ]
 	then
-		#./push-to-registries.sh --public platform 6-alpha
 		./push-to-registries.sh --delete platform \
 			6-alpha-temurin-17 \
 			6-alpha-temurin-17-jre \
@@ -33,12 +34,11 @@ then
 
 	./build-platform.sh --delete 6-alpha-light || exit_with $? "Unable to build platform version 6-alpha-light"
 
-	docker rmi simplicite/platform:6-alpha-light
-	docker tag simplicite/platform:6-alpha-light-temurin-17 simplicite/platform:6-alpha-light
+	docker rmi $REGISTRY/platform:6-alpha-light
+	docker tag $REGISTRY/platform:6-alpha-light-temurin-17 $REGISTRY/platform:6-alpha-light
 
 	if [ $PUSH -eq 1 ]
 	then
-		#./push-to-registries.sh --public platform 6-alpha-light
 		./push-to-registries.sh --delete platform \
 			6-alpha-light-temurin-17 \
 			6-alpha-light-temurin-17-jre \

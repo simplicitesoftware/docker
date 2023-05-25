@@ -5,6 +5,8 @@ exit_with () {
 	exit ${1:-0}
 }
 
+REGISTRY=registry.simplicite.io
+
 PUSH=1
 if [ "$1" = "--no-push" ]
 then
@@ -16,15 +18,14 @@ fi
 
 ./build-platform.sh --delete 4.0 || exit_with $? "Unable to build platform version 4.0-latest"
 
-docker rmi simplicite/platform:4.0-latest
-docker tag simplicite/platform:4.0-temurin-17 simplicite/platform:4.0-latest
+docker rmi $REGISTRY/platform:4.0-latest
+docker tag $REGISTRY/platform:4.0-temurin-17 $REGISTRY/platform:4.0-latest
 
-docker rmi simplicite/platform:4.0
-docker tag simplicite/platform:4.0-latest simplicite/platform:4.0
+docker rmi $REGISTRY/platform:4.0
+docker tag $REGISTRY/platform:4.0-latest $REGISTRY/platform:4.0
 
 if [ $PUSH -eq 1 ]
 then
-	#./push-to-registries.sh --public platform 4.0-latest 4.0
 	./push-to-registries.sh --delete platform \
 	./push-to-registries.sh platform \
 		4.0-temurin-11 \
@@ -36,15 +37,14 @@ fi
 
 ./build-platform.sh --delete 4.0-light || exit_with $? "Unable to build platform version 4.0-latest-light"
 
-docker rmi simplicite/platform:4.0-latest-light
-docker tag simplicite/platform:4.0-light-temurin-17 simplicite/platform:4.0-latest-light
+docker rmi $REGISTRY/platform:4.0-latest-light
+docker tag $REGISTRY/platform:4.0-light-temurin-17 $REGISTRY/platform:4.0-latest-light
 
-docker rmi simplicite/platform:4.0-light
-docker tag simplicite/platform:4.0-latest-light simplicite/platform:4.0-light
+docker rmi $REGISTRY/platform:4.0-light
+docker tag $REGISTRY/platform:4.0-latest-light $REGISTRY/platform:4.0-light
 
 if [ $PUSH -eq 1 ]
 then
-	#./push-to-registries.sh --public platform 4.0-latest-light 4.0-light
 	./push-to-registries.sh --delete platform \
 		4.0-light-temurin-8 \
 		4.0-light-temurin-11 \

@@ -14,7 +14,7 @@ This repository contains the scripts used to **build** [Docker](http://www.docke
 [Tomcat](http://tomcat.apache.org/) server on which can be run a [Simplicit&eacute;&reg;](http://www.simplicitesoftware.com)
 low code platform instance.
 
-The images built using these tools are **available on [DockerHub](https://hub.docker.com/r/simplicite/)**:
+The images built using these tools are **available on [our private registry](https://registry.simplicite.io)**:
 
 - Public **server** images (not containing the Simplicit&eacute; platform)
 - Private **platform** images (containing the Simplicit&eacute; platform)

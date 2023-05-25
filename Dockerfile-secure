@@ -1,5 +1,6 @@
+ARG reg=registry.simplicite.io
 ARG tag=5-latest
-FROM registry.simplicite.io/platform:$tag
+FROM ${reg}/platform:$tag
 
 ARG level=9
 RUN sed -i "s/platform.securelevel=.*$/platform.securelevel=$level/" /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/com/simplicite/globals.properties && \
