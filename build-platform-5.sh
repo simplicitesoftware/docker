@@ -45,19 +45,6 @@ then
 			5-beta-light-alpine \
 			5-beta-light
 	fi
-
-	# Additional tags
-	for TAG in ${@:2}
-	do
-		docker rmi $REGISTRY/platform:$TAG $REGISTRY/platform:$TAG-light
-		docker tag $REGISTRY/platform:5-beta $REGISTRY/platform:$TAG
-		docker tag $REGISTRY/platform:5-beta-light $REGISTRY/platform:$TAG-light
-
-		if [ $PUSH -eq 1 ]
-		then
-			./push-to-registries.sh --delete platform $TAG $TAG-light
-		fi
-	done
 fi
 
 if [ "$1" = "latest" ]
@@ -79,10 +66,22 @@ then
 			5-latest-temurin-17 \
 			5-latest-temurin-17-jre \
 			5-latest-alpine \
-			5-latest \
 			5 \
 			latest
+		./push-to-registries.sh platform 5-latest
 	fi
+
+	# Additional tags
+	for TAG in ${@:2}
+	do
+		docker rmi $REGISTRY/platform:$TAG
+		docker tag $REGISTRY/platform:5-latest $REGISTRY/platform:$TAG
+
+		if [ $PUSH -eq 1 ]
+		then
+			./push-to-registries.sh --delete platform $TAG
+		fi
+	done
 
 	./build-platform.sh --delete 5-latest-light || exit_with $? "Unable to build platform version 5-latest-light"
 
@@ -101,16 +100,16 @@ then
 			5-latest-light-temurin-17 \
 			5-latest-light-temurin-17-jre \
 			5-latest-light-alpine \
-			5-latest-light \
 			5-light \
 			latest-light
+		./push-to-registries.sh platform 5-latest-light
 	fi
 
 	# Additional tags
 	for TAG in ${@:2}
 	do
-		docker rmi $REGISTRY/platform:$TAG
-		docker tag $REGISTRY/platform:5-latest $REGISTRY/platform:$TAG
+		docker rmi $REGISTRY/platform:$TAG-light
+		docker tag $REGISTRY/platform:5-latest-light $REGISTRY/platform:$TAG-light
 
 		if [ $PUSH -eq 1 ]
 		then
