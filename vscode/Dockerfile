@@ -15,7 +15,7 @@ LABEL org.label-schema.name="simplicite-vscode" \
 ARG ANT_VERSION=1.10.13
 ARG MAVEN_VERSION=3.9.2
 ARG GRADLE_VERSION=8.1.1
-ARG NODE_VERSION=v18.16.0
+ARG NODE_VERSION=v18.16.1
 
 USER root
 RUN groupadd -g 2000 simplicite && \
