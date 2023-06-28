@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
 services:
   datbase:
     # See ../databases/oraclexe to build this custom Oracle image

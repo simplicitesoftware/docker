@@ -1,9 +1,15 @@
-version: "3"
+version: "3.8"
 services:
   simplicite:
     image: registry.simplicite.io/platform:<tag, e.g. 5-latest>
-    restart: always
     container_name: simplicite
+    restart: unless-stopped
+    healthcheck:
+      test: curl --fail http://localhost:8080/ping || exit 1
+      interval: 120s
+      retries: 3
+      start_period: 300s
+      timeout: 5s
     environment:
       IO_PASSWORD: "<a very strong password dedicated to I/O access (only if needed)>"
       DB_SETUP: "true"
