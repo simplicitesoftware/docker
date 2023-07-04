@@ -16,7 +16,7 @@ LABEL org.label-schema.name="simplicite-server-devel" \
 
 ARG ANT_VERSION=1.10.13
 ARG MAVEN_VERSION=3.9.3
-ARG GRADLE_VERSION=8.1.1
+ARG GRADLE_VERSION=8.2
 ARG NODE_VERSION=v18.16.1
 
 RUN dnf install -y vim-enhanced gcc gcc-c++ make python3 python3-pyyaml iproute nmap xz procps && dnf clean all && \
