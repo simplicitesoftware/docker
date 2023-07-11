@@ -113,7 +113,7 @@ then
 
 		if [ $PUSH -eq 1 ]
 		then
-			./push-to-registries.sh --delete platform $TAG
+			./push-to-registries.sh --delete platform $TAG-light
 		fi
 	done
 fi
