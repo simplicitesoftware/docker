@@ -21,13 +21,13 @@ then
 	./build-platform.sh --delete 5-beta || exit_with $? "Unable to build platform version 5-beta"
 
 	docker rmi $REGISTRY/platform:5-beta
-	docker tag $REGISTRY/platform:5-beta-temurin-17 $REGISTRY/platform:5-beta
+	docker tag $REGISTRY/platform:5-beta-adoptium-17 $REGISTRY/platform:5-beta
 
 	if [ $PUSH -eq 1 ]
 	then
 		./push-to-registries.sh --delete platform \
-			5-beta-temurin-17 \
-			5-beta-temurin-17-jre \
+			5-beta-adoptium-17 \
+			5-beta-adoptium-17-jre \
 			5-beta-alpine \
 			5-beta
 	fi
@@ -35,13 +35,13 @@ then
 	./build-platform.sh --delete 5-beta-light || exit_with $? "Unable to build platform version 5-beta-light"
 
 	docker rmi $REGISTRY/platform:5-beta-light
-	docker tag $REGISTRY/platform:5-beta-light-temurin-17 $REGISTRY/platform:5-beta-light
+	docker tag $REGISTRY/platform:5-beta-light-adoptium-17 $REGISTRY/platform:5-beta-light
 
 	if [ $PUSH -eq 1 ]
 	then
 		./push-to-registries.sh --delete platform \
-			5-beta-light-temurin-17 \
-			5-beta-light-temurin-17-jre \
+			5-beta-light-adoptium-17 \
+			5-beta-light-adoptium-17-jre \
 			5-beta-light-alpine \
 			5-beta-light
 	fi
@@ -52,7 +52,7 @@ then
 	./build-platform.sh --delete 5-latest || exit_with $? "Unable to build platform version 5-latest"
 
 	docker rmi $REGISTRY/platform:5-latest
-	docker tag $REGISTRY/platform:5-latest-temurin-17 $REGISTRY/platform:5-latest
+	docker tag $REGISTRY/platform:5-latest-adoptium-17 $REGISTRY/platform:5-latest
 
 	docker rmi $REGISTRY/platform:5 $REGISTRY/platform:latest
 	docker tag $REGISTRY/platform:5-latest $REGISTRY/platform:5
@@ -62,9 +62,8 @@ then
 	then
 		./push-to-registries.sh --delete platform \
 			5-latest-jvmless \
-			5-latest-temurin-11 \
-			5-latest-temurin-17 \
-			5-latest-temurin-17-jre \
+			5-latest-adoptium-17 \
+			5-latest-adoptium-17-jre \
 			5-latest-alpine \
 			5 \
 			latest
@@ -86,7 +85,7 @@ then
 	./build-platform.sh --delete 5-latest-light || exit_with $? "Unable to build platform version 5-latest-light"
 
 	docker rmi $REGISTRY/platform:5-latest-light
-	docker tag $REGISTRY/platform:5-latest-light-temurin-17 $REGISTRY/platform:5-latest-light
+	docker tag $REGISTRY/platform:5-latest-light-adoptium-17 $REGISTRY/platform:5-latest-light
 
 	docker rmi $REGISTRY/platform:5-light $REGISTRY/platform:latest-light
 	docker tag $REGISTRY/platform:5-latest-light $REGISTRY/platform:5-light
@@ -96,9 +95,8 @@ then
 	then
 		./push-to-registries.sh --delete platform \
 			5-latest-light-jvmless \
-			5-latest-light-temurin-11 \
-			5-latest-light-temurin-17 \
-			5-latest-light-temurin-17-jre \
+			5-latest-light-adoptium-17 \
+			5-latest-light-adoptium-17-jre \
 			5-latest-light-alpine \
 			5-light \
 			latest-light
@@ -141,15 +139,15 @@ then
 	./build-platform.sh --delete $1-light || exit_with $? "Unable to build platform version $1-light"
 
 	docker rmi $REGISTRY/platform:$1 $REGISTRY/platform:$1-light
-	docker tag $REGISTRY/platform:$1-temurin-17 $REGISTRY/platform:$1
-	docker tag $REGISTRY/platform:$1-light-temurin-17 $REGISTRY/platform:$1-light
+	docker tag $REGISTRY/platform:$1-adoptium-17 $REGISTRY/platform:$1
+	docker tag $REGISTRY/platform:$1-light-adoptium-17 $REGISTRY/platform:$1-light
 
 	if [ $PUSH -eq 1 ]
 	then
 		./push-to-registries.sh --delete platform \
-			$1-temurin-17 \
+			$1-adoptium-17 \
 			$1-alpine \
-			$1-light-temurin-17 \
+			$1-light-adoptium-17 \
 			$1-light-alpine \
 			$1-light
 		./push-to-registries.sh platform $1

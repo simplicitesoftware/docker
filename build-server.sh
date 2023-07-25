@@ -28,7 +28,7 @@ fi
 echo ""
 echo "--------------------------------------------------------"
 
-TAGS=${1:-centos-base centos centos-temurin centos-jvmless centos8-base centos8 centos8-temurin centos8-jvmless adoptium alpine alpine-temurin alpine-temurin-jre rockylinux8 rockylinux9 almalinux8 almalinux9 devel}
+TAGS=${1:-centos-base centos centos-adoptium centos-jvmless alpine alpine-adoptium alpine-adoptium-jre rockylinux8 rockylinux9 almalinux8 almalinux9 eclipse-temurin devel}
 echo "Variants(s) = $TAGS"
 
 # Servers
@@ -40,14 +40,13 @@ BRANCH=master
 
 # JVMs
 JVMS_CENTOS="11 1.8.0"
-JVMS_CENTOS8="17 11 1.8.0"
 JVMS_ROCKYLINUX="17 20"
 JVMS_ALMALINUX="17 20"
-JVMS_CENTOS_TEMURIN="17 17-jre 11 11-jre 8 8-jre"
-JVMS_ADOPTIUM="17 11"
+JVMS_CENTOS_ADOPTIUM="17 17-jre 11 11-jre 8 8-jre"
+JVMS_ECLIPSE_TEMURIN="17 11"
 
 # Variant/server/JVM for the :latest tag
-TAG_LATEST="centos-temurin"
+TAG_LATEST="centos-adoptium"
 SRV_LATEST="tomcat"
 JVM_LATEST="17"
 
@@ -101,18 +100,17 @@ do
 	do
 		JVMS="latest"
 		[ $TAG = "centos" ] && JVMS=$JVMS_CENTOS
-		[ $TAG = "centos8" ] && JVMS=$JVMS_CENTOS8
-		[ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" ] && JVMS=$JVMS_CENTOS_TEMURIN
+		[ $TAG = "centos-adoptium" ] && JVMS=$JVMS_CENTOS_ADOPTIUM
 		[ $TAG = "rockylinux8" -o $TAG = "rockylinux9" ] && JVMS=$JVMS_ROCKYLINUX
 		[ $TAG = "almalinux8" -o $TAG = "almalinux9" ] && JVMS=$JVMS_ALMALINUX
-		[ $TAG = "adoptium" ] && JVMS=$JVMS_ADOPTIUM
+		[ $TAG = "eclipse-temurin" ] && JVMS=$JVMS_ECLIPSE_TEMURIN
 
 		for JVM in $JVMS
 		do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "alpine-temurin" -o $TAG = "centos-temurin" -o $TAG = "centos-jvmless" -o $TAG = "centos8-temurin" -o $TAG = "centos8-jvmless" -o $TAG = "adoptium" -o $TAG = "rockylinux8" -o $TAG = "rockylinux9" -o $TAG = "almalinux8" -o $TAG = "almalinux9" ]
+				if [ $TAG = "alpine-adoptium" -o $TAG = "centos-adoptium" -o $TAG = "centos-jvmless" -o $TAG = "rockylinux8" -o $TAG = "rockylinux9" -o $TAG = "almalinux8" -o $TAG = "almalinux9" -o $TAG = "eclipse-temurin" ]
 				then
 					JVMEXT="-$JVM"
 				else
@@ -120,7 +118,7 @@ do
 				fi
 			fi
 
-			if [ $TAG != "centos" -a $TAG != "centos8" -a $TAG != "centos-temurin" -a $TAG != "centos-jvmless" -a $TAG != "centos8-temurin" -a $TAG != "centos8-jvmless" -a $TAG != "devel" ]
+			if [ $TAG != "centos" -a $TAG != "centos-adoptium" -a $TAG != "centos-jvmless" -a $TAG != "devel" ]
 			then
 				FROM=$(grep '^FROM' Dockerfile-$TAG | awk '{ print $2 }' | sed "s/.{jvm}/$JVM/")
 				echo "Pulling image: $FROM"
@@ -128,7 +126,7 @@ do
 				echo "Done"
 			fi
 
-			if [ $TAG = "centos" -o $TAG = "centos8" ]
+			if [ $TAG = "centos" ]
 			then
 				echo "========================================================"
 				echo "Building $SERVER:$TAG$SRVEXT$JVMEXT-jre image..."
@@ -165,18 +163,17 @@ do
 	do
 		JVMS="latest"
 		[ $TAG = "centos" ] && JVMS=$JVMS_CENTOS
-		[ $TAG = "centos8" ] && JVMS=$JVMS_CENTOS8
-		[ $TAG = "centos-temurin" -o $TAG = "centos8-temurin" ] && JVMS=$JVMS_CENTOS_TEMURIN
+		[ $TAG = "centos-adoptium" ] && JVMS=$JVMS_CENTOS_ADOPTIUM
 		[ $TAG = "rockylinux8" -o $TAG = "rockylinux9" ] && JVMS=$JVMS_ROCKYLINUX
 		[ $TAG = "almalinux8" -o $TAG = "almalinux9" ] && JVMS=$JVMS_ALMALINUX
-		[ $TAG = "adoptium" ] && JVMS=$JVMS_ADOPTIUM
+		[ $TAG = "eclipse-temurin" ] && JVMS=$JVMS_ECLIPSE_TEMURIN
 
 		for JVM in $JVMS
 		do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "alpine-temurin" -o $TAG = "centos-temurin" -o $TAG = "centos-jvmless" -o $TAG = "centos8-temurin" -o $TAG = "centos8-jvmless" -o $TAG = "adoptium" -o $TAG = "rockylinux8" -o $TAG = "rockylinux9" -o $TAG = "almalinux8" -o $TAG = "almalinux9" ]
+				if [ $TAG = "alpine-adoptium" -o $TAG = "centos-adoptium" -o $TAG = "centos-jvmless" -o $TAG = "rockylinux8" -o $TAG = "rockylinux9" -o $TAG = "almalinux8" -o $TAG = "almalinux9" -o $TAG = "eclipse-temurin" ]
 				then
 					JVMEXT="-$JVM"
 				else
@@ -184,11 +181,11 @@ do
 				fi
 			fi
 
-			if [ $TAG != "centos-base" -a $TAG != "centos-jvmless"  -a $TAG != "centos8-base" -a $TAG != "centos8-jvmless" ]
+			if [ $TAG != "centos-base" -a $TAG != "centos-jvmless" ]
 			then
 				echo "-- $SERVER:$TAG$SRVEXT$JVMEXT ------------------"
 				echo ""
-				if [ $TAG = "centos" -o $TAG = "centos8" ]
+				if [ $TAG = "centos" ]
 				then
 					echo "docker run -it --memory=128m -p 127.0.0.1:8080:8080 -p 127.0.0.1:8443:8443 --name simplicite $SERVER:$TAG$SRVEXT$JVMEXT-jre"
 				fi

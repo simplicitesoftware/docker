@@ -3,13 +3,13 @@ FROM alpine:latest
 ARG date
 ARG jvm=latest
 
-LABEL org.label-schema.name="simplicite-server-alpine-temurin-${jvm}" \
+LABEL org.label-schema.name="simplicite-server-alpine-adoptium-${jvm}" \
       org.label-schema.vendor="Simplicite Software" \
       org.label-schema.license="NONE" \
       org.label-schema.build-date="$date" \
-      org.opencontainers.image.ref.name="simplicite-server-alpine-temurin-${jvm}" \
-      org.opencontainers.image.title="Simplicite server / Alpine / Temurin OpenJDK ${jvm}" \
-      org.opencontainers.image.description="Simplicite server / Alpine / Temurin OpenJDK ${jvm}" \
+      org.opencontainers.image.ref.name="simplicite-server-alpine-adoptium-${jvm}" \
+      org.opencontainers.image.title="Simplicite server / Alpine / Adoptium OpenJDK ${jvm}" \
+      org.opencontainers.image.description="Simplicite server / Alpine / Adoptium OpenJDK ${jvm}" \
       org.opencontainers.image.vendor="Simplicite Software" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="$date"

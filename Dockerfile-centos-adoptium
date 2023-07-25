@@ -1,16 +1,16 @@
 ARG reg=registry.simplicite.io
-FROM ${reg}/server:centos8-base
+FROM ${reg}/server:centos-base
 
 ARG date
 ARG jvm=latest
 
-LABEL org.label-schema.name="simplicite-server-centos8-temurin-${jvm}" \
+LABEL org.label-schema.name="simplicite-server-centos7-adoptium-${jvm}" \
       org.label-schema.vendor="Simplicite Software" \
       org.label-schema.license="NONE" \
       org.label-schema.build-date="${date}" \
-      org.opencontainers.image.ref.name="simplicite-server-centos8-temurin-${jvm}" \
-      org.opencontainers.image.title="Simplicite server / CentOS 8 / Temurin OpenJDK ${jvm}" \
-      org.opencontainers.image.description="Simplicite server / CentOS 8 / Temurin OpenJDK ${jvm}" \
+      org.opencontainers.image.ref.name="simplicite-server-centos7-adoptium-${jvm}" \
+      org.opencontainers.image.title="Simplicite server / CentOS 7 / Adoptium OpenJDK ${jvm}" \
+      org.opencontainers.image.description="Simplicite server / CentOS 7 / Adoptium OpenJDK ${jvm}" \
       org.opencontainers.image.vendor="Simplicite Software" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="${date}"
