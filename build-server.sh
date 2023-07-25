@@ -28,7 +28,8 @@ fi
 echo ""
 echo "--------------------------------------------------------"
 
-TAGS=${1:-centos-base centos centos-adoptium centos-jvmless alpine alpine-adoptium alpine-adoptium-jre rockylinux8 rockylinux9 almalinux8 almalinux9 eclipse-temurin devel}
+TAGS=${1:-centos-base centos centos-adoptium centos-jvmless alpine alpine-adoptium alpine-adoptium-jre almalinux8 almalinux9 eclipse-temurin devel}
+#TAGS=${1:-centos-base centos centos-adoptium centos-jvmless alpine alpine-adoptium alpine-adoptium-jre rockylinux8 rockylinux9 almalinux8 almalinux9 eclipse-temurin devel}
 echo "Variants(s) = $TAGS"
 
 # Servers

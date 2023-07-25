@@ -120,7 +120,7 @@ elif [ "$1" = "5-latest-test" ]
 then
 	VERSION=5
 	BRANCH=release
-	TAGS=${2:-rockylinux8-17 almalinux8-17 adoptium-17}
+	TAGS=${2:-aalmalinux8-17 lmalinux9-17}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-devel" ]

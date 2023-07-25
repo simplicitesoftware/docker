@@ -125,9 +125,8 @@ then
 	if [ $PUSH -eq 1 ]
 	then
 		./push-to-registries.sh --delete platform \
-			5-latest-test-rockylinux8-17 \
 			5-latest-test-almalinux8-17 \
-			5-latest-test-adoptium-17
+			5-latest-test-almalinux9-17
 	fi
 fi
 
