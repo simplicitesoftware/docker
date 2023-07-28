@@ -41,6 +41,6 @@ ADD --chown=simplicite:simplicite tomcat /usr/local/tomcat
 ADD --chown=simplicite:simplicite run-tomcat.sh /usr/local/tomcat/run
 
 WORKDIR /usr/local/tomcat
-# HTTP, HTTP for SLL, HTTPS, AJP, JMX, JPDA, JaCoCo
-EXPOSE 8080 8443 8444 8009 8005 8555 8000 8001
+# HTTP, HTTP for SLL, HTTPS, AJP, JMX, RMI, JPDA, JaCoCo
+EXPOSE 8080 8443 8444 8009 8005 8555 8556 8000 8001
 CMD [ "/usr/local/tomcat/run" ]

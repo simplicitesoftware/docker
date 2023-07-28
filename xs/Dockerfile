@@ -62,5 +62,5 @@ COPY --from=java-jdk-jre /javaruntime $JAVA_HOME
 # USER simplicite
 
 WORKDIR /usr/local/tomcat
-EXPOSE 8080 8443 8444 8009 8005 8555
+EXPOSE 8080 8443 8444 8009
 CMD [ "/usr/local/tomcat/run" ]
