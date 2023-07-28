@@ -6,7 +6,7 @@ exit_with () {
 	exit ${1:-0}
 }
 
-[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] 3.0|3.1|3.2|4.0[-light]|5-<beta|latest|devel>[-light]|6-alpha[-light] [<server image tag(s)> [<platform Git tag (only applicable to 5-latest and 5-latest-light>]]\n"
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] 3.0|3.1|3.2|4.0[-light]|5-<preview|latest|devel>[-light]|6-alpha[-light] [<server image tag(s)> [<platform Git tag (only applicable to 5-latest and 5-latest-light>]]\n"
 
 LOCK=/tmp/$(basename $0 .sh).lck
 if [ -f $LOCK ]
@@ -76,18 +76,18 @@ then
 		PFTAG=$GITTAG-light
 		CHECKOUT=$GITTAG
 	fi
-elif [ "$1" = "5-beta" ]
+elif [ "$1" = "5-preview" ]
 then
 	VERSION=5
 	BRANCH=prerelease
-	TAGS=${2:-centos-adoptium-17 centos-adoptium-17-jre alpine}
+	TAGS=${2:-centos-adoptium-17}
 	SRVS=tomcat
 	PFTAG=$1
-elif [ "$1" = "5-beta-light" ]
+elif [ "$1" = "5-preview-light" ]
 then
 	VERSION=5
 	BRANCH=prerelease-light
-	TAGS=${2:-centos-adoptium-17 centos-adoptium-17-jre alpine}
+	TAGS=${2:-centos-adoptium-17}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-latest" -o "$1" = "5" ]
@@ -120,7 +120,7 @@ elif [ "$1" = "5-latest-test" ]
 then
 	VERSION=5
 	BRANCH=release
-	TAGS=${2:-aalmalinux8-17 lmalinux9-17}
+	TAGS=${2:-almalinux8-17 almalinux9-17}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-devel" ]
@@ -156,6 +156,7 @@ else
 	rm -f $LOCK
 	exit_with 3 "Unknown variant: $1"
 fi
+# TODO: add 6-beta and 6-release
 
 REGISTRY=registry.simplicite.io
 SERVER=$REGISTRY/server
