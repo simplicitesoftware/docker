@@ -142,14 +142,14 @@ elif [ "$1" = "6-alpha" ]
 then
 	VERSION=6
 	BRANCH=6.0
-	TAGS=${2:-centos-adoptium-17 centos-adoptium-17-jre alpine}
+	TAGS=${2:-centos-adoptium-17 centos-adoptium-17-jre centos-jvmless alpine}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "6-alpha-light" ]
 then
 	VERSION=6
 	BRANCH=6.0-light
-	TAGS=${2:-centos-adoptium-17 centos-adoptium-17-jre alpine}
+	TAGS=${2:-centos-adoptium-17 centos-adoptium-17-jre centos-jvmless alpine}
 	SRVS=tomcat
 	PFTAG=$1
 else
