@@ -12,8 +12,8 @@ services:
     ports:
       - 127.0.0.1:5000:5000
     volumes:
-      - /mnt/registry/auth:/auth
-      - /mnt/registry/data:/var/lib/registry
+      - /mnt/data/auth:/auth
+      - /mnt/data/registry:/var/lib/registry
   registry-ui:
     image: parabuzzle/craneoperator:latest
     restart: always
