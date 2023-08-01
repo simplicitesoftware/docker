@@ -133,11 +133,8 @@ then
 
 	if [ $PUSH -eq 1 ]
 	then
-		./push-to-registries.sh --delete platform \
-			$1-alpine \
-			$1-light-alpine \
-			$1-light
 		./push-to-registries.sh platform $1
+		./push-to-registries.sh --delete platform $1-light
 	fi
 
 	# Additional tags
