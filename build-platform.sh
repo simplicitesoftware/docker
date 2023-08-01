@@ -33,28 +33,28 @@ if [ "$1" = "3.0" ]
 then
 	VERSION=3.0
 	BRANCH=master
-	TAGS=${2:-centos-openjdk-1.8.0}
+	TAGS=${2:-centos-adoptium-8}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "3.1" ]
 then
 	VERSION=3.1
 	BRANCH=master
-	TAGS=${2:-centos-openjdk-1.8.0}
+	TAGS=${2:-centos-adoptium-8}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "3.2" ]
 then
 	VERSION=3.2
 	BRANCH=master
-	TAGS=${2:-centos-openjdk-1.8.0}
+	TAGS=${2:-centos-adoptium-8}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "4.0" ]
 then
 	VERSION=4.0
 	BRANCH=release
-	TAGS=${2:-centos-openjdk-11 centos-adoptium-11 centos-adoptium-17}
+	TAGS=${2:-centos-adoptium-17}
 	SRVS=tomcat
 	PFTAG=$1
 	GITTAG=$3
@@ -67,7 +67,7 @@ elif [ "$1" = "4.0-light" ]
 then
 	VERSION=4.0
 	BRANCH=release-light
-	TAGS=${2:-centos-openjdk-1.8.0 centos-openjdk-11 centos-adoptium-8 centos-adoptium-11 centos-adoptium-17}
+	TAGS=${2:-centos-adoptium-17}
 	SRVS=tomcat
 	PFTAG=$1
 	GITTAG=$3
@@ -135,7 +135,7 @@ elif [ "$1" = "5.0" -o "$1" = "5.0-light" -o "$1" = "5.1" -o "$1" = "5.1-light" 
 then
 	VERSION=5
 	BRANCH=$1
-	TAGS=${2:-centos-adoptium-17 alpine}
+	TAGS=${2:-centos-adoptium-17}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "6-alpha" ]

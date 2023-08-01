@@ -24,9 +24,9 @@ then
 	docker tag $REGISTRY/platform:6-alpha-adoptium-17 $REGISTRY/platform:6-alpha
 	docker rmi $REGISTRY/platform:6-alpha-adoptium-17
 
-	docker rmi $REGISTRY/platform:6-latest-jre > /dev/null 2>&1
-	docker tag $REGISTRY/platform:6-latest-adoptium-17-jre $REGISTRY/platform:6-latest-jre
-	docker rmi $REGISTRY/platform:6-latest-adoptium-17-jre
+	docker rmi $REGISTRY/platform:6-alpha-jre > /dev/null 2>&1
+	docker tag $REGISTRY/platform:6-alpha-adoptium-17-jre $REGISTRY/platform:6-alpha-jre
+	docker rmi $REGISTRY/platform:6-alpha-adoptium-17-jre
 
 	if [ $PUSH -eq 1 ]
 	then
@@ -43,9 +43,9 @@ then
 	docker tag $REGISTRY/platform:6-alpha-light-adoptium-17 $REGISTRY/platform:6-alpha-light
 	docker rmi $REGISTRY/platform:6-alpha-light-adoptium-17
 
-	docker rmi $REGISTRY/platform:6-latest-light-jre > /dev/null 2>&1
-	docker tag $REGISTRY/platform:6-latest-light-adoptium-17-jre $REGISTRY/platform:6-latest-light-jre
-	docker rmi $REGISTRY/platform:6-latest-light-adoptium-17-jre
+	docker rmi $REGISTRY/platform:6-alpha-light-jre > /dev/null 2>&1
+	docker tag $REGISTRY/platform:6-alpha-light-adoptium-17-jre $REGISTRY/platform:6-alpha-light-jre
+	docker rmi $REGISTRY/platform:6-alpha-light-adoptium-17-jre
 
 	if [ $PUSH -eq 1 ]
 	then
