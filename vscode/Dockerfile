@@ -1,4 +1,4 @@
-FROM quay.io/centos/centos:stream8
+FROM almalinux:8
 
 ARG BUILD_DATE
 LABEL org.label-schema.name="simplicite-vscode" \
@@ -24,7 +24,7 @@ RUN groupadd -g 2000 simplicite && \
     chown -R simplicite:simplicite /var/simplicite/data /var/simplicite/projects /var/simplicite/extensions && \
     dnf upgrade -y && \
     dnf install -y epel-release && \
-    dnf install -y bash git vim-enhanced iputils bind bind-utils nmap openssh-clients openssl curl wget zip unzip xz ca-certificates libjpeg fontconfig mariadb postgresql java-17-openjdk-devel && \
+    dnf install -y bash git vim-enhanced iputils bind bind-utils nmap openssh-clients openssl curl wget zip unzip xz ca-certificates libjpeg fontconfig mariadb postgresql java-17-openjdk-devel glibc-all-langpacks && \
     dnf clean all && \
     cd /usr/local && \
     echo "Installing Apache Ant $ANT_VERSION" && \
@@ -46,7 +46,7 @@ COPY letterpress* /usr/lib/code-server/lib/vscode/out/vs/workbench/browser/parts
 COPY favicon* /usr/lib/code-server/src/browser/media/
 COPY pwa* /usr/lib/code-server/src/browser/media/
 
-ENV LANG=en_US.UTF-8 \
+ENV LANG=C.UTF-8 \
     ANT_HOME=/usr/local/apache-ant-$ANT_VERSION \
     MAVEN_HOME=/usr/local/apache-maven-$MAVEN_VERSION \
     GRADLE_HOME=/usr/local/gradle-$GRADLE_VERSION \
