@@ -12,10 +12,10 @@ LABEL org.label-schema.name="simplicite-vscode" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="$BUILD_DATE"
 
-ARG ANT_VERSION=1.10.13
+ARG ANT_VERSION=1.10.14
 ARG MAVEN_VERSION=3.9.4
-ARG GRADLE_VERSION=8.2.1
-ARG NODE_VERSION=v18.17.0
+ARG GRADLE_VERSION=8.3
+ARG NODE_VERSION=v18.17.1
 
 USER root
 RUN groupadd -g 2000 simplicite && \
