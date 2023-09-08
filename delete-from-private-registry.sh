@@ -15,7 +15,7 @@ do
 	#ID=$(curl -s --head -H "Accept: application/vnd.docker.distribution.manifest.v2+json" -u $DOCKER_PRIVATE_REGISTRY_USERNAME:$DOCKER_PRIVATE_REGISTRY_PASSWORD $DOCKER_PRIVATE_REGISTRY_URL/v2/$REP/manifests/$TAG | grep '^Docker-Content-Digest:' | awk '{print $2}' | sed 's/\r$//')
 	#echo "    Image ID = [$ID]"
 	#[ "$ID" != "" ] && curl -X DELETE -u $DOCKER_PRIVATE_REGISTRY_USERNAME:$DOCKER_PRIVATE_REGISTRY_PASSWORD $DOCKER_PRIVATE_REGISTRY_URL/v2/$REP/manifests/$ID
-	regctl tag delete $DOCKER_PRIVATE_REGISTRY_URL/$REP:$TAG
+	echo regctl tag delete ${DOCKER_PRIVATE_REGISTRY_URL#http://}/$REP:$TAG
 	echo "Done"
 done
 
