@@ -6,7 +6,7 @@ then
 	exit -1
 fi
 
-DIR=${REGISTRY_DIR:-/mnt/registry}
+DIR=${REGISTRY_DIR:-/mnt/data}/auth
 
 USER=$1
 PWD=$2
@@ -14,7 +14,11 @@ PWD=$2
 
 echo "User: $USER"
 echo "Password: $PWD"
-[ ! -d $DIR/auth ] && mkdir $DIR/auth
-[ ! -f $DIR/auth/users.pwd ] && touch $DIR/auth/users.pwd
-htpasswd -B -b $DIR/auth/users.pwd $USER $PWD
+[ ! -d $DIR ] && mkdir $DIR
+if [ ! -f $DIR/users.pwd ]
+then
+	cp -f $DIR/users.pwd $DIR/users.bak
+	touch $DIR/users.pwd
+fi
+htpasswd -B -b $DIR/users.pwd $USER $PWD
 exit $?
