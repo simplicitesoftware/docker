@@ -15,10 +15,7 @@ PWD=$2
 echo "User: $USER"
 echo "Password: $PWD"
 [ ! -d $DIR ] && mkdir $DIR
-if [ ! -f $DIR/users.pwd ]
-then
-	cp -f $DIR/users.pwd $DIR/users.bak
-	touch $DIR/users.pwd
-fi
+[ ! -f $DIR/users.pwd ] && touch $DIR/users.pwd
+cp -f $DIR/users.pwd $DIR/users.bak
 htpasswd -B -b $DIR/users.pwd $USER $PWD
 exit $?
