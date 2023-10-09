@@ -28,7 +28,7 @@ then
 	exit 1
 fi
 
-if [ $TOMCAT_USER = "root" -a $TOMCAT_USER = "simplicite" ]
+if [ $TOMCAT_USER != "root" -a $TOMCAT_USER != "simplicite" ]
 then
 	echo "ERROR: User $TOMCAT_USER can't be used, please user either 'root' or 'simplicite'"
 	exit 2
