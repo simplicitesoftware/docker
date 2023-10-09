@@ -20,11 +20,18 @@ fi
 
 TOMCAT_ROOT=/usr/local/tomcat
 [ "$TOMCAT_USER" = "" ] && TOMCAT_USER=$(id -un)
+
 TOMCAT_UID=$(id -u $TOMCAT_USER)
 if [ $? -ne 0 ]
 then
 	echo "ERROR: User $TOMCAT_USER does not exist"
 	exit 1
+fi
+
+if [ $TOMCAT_USER = "root" -a $TOMCAT_USER = "simplicite" ]
+then
+	echo "ERROR: User $TOMCAT_USER can't be used, please user either 'root' or 'simplicite'"
+	exit 2
 fi
 
 TOMCAT_GID=$(id -g $TOMCAT_USER)
