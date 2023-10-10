@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  datbase:
+  database:
     # See ../databases/oraclexe to build this custom Oracle image
     image: simplicite/oracle:<version>
     restart: always
@@ -15,6 +15,7 @@ services:
       - data:/opt/oracle/oradata
   simplicite:
     image: registry.simplicite.io/platform:<tag, e.g. 5-latest>-with-oracle-client
+    # Copy ../../Dockerfile-platform-oracle in this folder
     build:
       context: .
       dockerfile: Dockerfile-platform-oracle

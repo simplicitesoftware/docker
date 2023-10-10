@@ -15,6 +15,7 @@ services:
       - data:/var/opt/mssql
   simplicite:
     image: registry.simplicite.io/platform:<tag, e.g. 5-latest>-with-mssql-client
+    # Copy ../../Dockerfile-platform-mssql in this folder
     build:
       context: .
       dockerfile: Dockerfile-platform-mssql
