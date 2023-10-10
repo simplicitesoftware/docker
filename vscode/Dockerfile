@@ -13,8 +13,8 @@ LABEL org.label-schema.name="simplicite-vscode" \
       org.opencontainers.image.created="$BUILD_DATE"
 
 ARG ANT_VERSION=1.10.14
-ARG MAVEN_VERSION=3.9.4
-ARG GRADLE_VERSION=8.3
+ARG MAVEN_VERSION=3.9.5
+ARG GRADLE_VERSION=8.4
 ARG NODE_VERSION=v18.18.0
 
 USER root
