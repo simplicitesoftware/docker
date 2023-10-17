@@ -22,9 +22,9 @@ RUN dnf upgrade -y && \
     /bin/update-ca-trust extract && \
     ln -s /usr/local/tomcat/logs /var/log/tomcat && \
     ln -s /usr/local/tomcat/webapps/ROOT/WEB-INF/log /var/log/simplicite && \
-    mkdir /root/.ssh && chmod 700 /root/.ssh && \
+    mkdir -p /root/.ssh && chmod 700 /root/.ssh && \
     groupadd -g 2000 simplicite && useradd -N -g 2000 -u 2000 simplicite && \
-    mkdir ~simplicite/.ssh && chmod 700 ~simplicite/.ssh && chown simplicite:simplicite ~simplicite/.ssh && \
+    mkdir -p ~simplicite/.ssh && chmod 700 ~simplicite/.ssh && chown simplicite:simplicite ~simplicite/.ssh && \
     echo -e "alias dir='ls -alF --color=always'\n\
 alias _mysql='mysql --host=\$DB_HOST --port=\${DB_PORT:-3306} --user=\$DB_USER --password=\$DB_PASSWORD \$DB_NAME'\n\
 alias _psql='PGPASSWD=\$DB_PASSWORD psql -h \$DB_HOST -p \${DB_PORT:-5432} -U \$DB_USER \$DB_NAME'" > /etc/profile.d/simplicite.sh

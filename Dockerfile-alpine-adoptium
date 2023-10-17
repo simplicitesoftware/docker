@@ -19,13 +19,14 @@ ENV DOCKER=alpine LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8 JAVA_HOME=/usr/lo
 ADD jdk-${jvm}-alpine /usr/local/jvm
 ADD *.crt /usr/local/share/ca-certificates/
 RUN apk update && apk upgrade && \
-    apk add --update bash openssh-client openssl git curl wget zip unzip ca-certificates libjpeg fontconfig ttf-dejavu mysql-client postgresql-client && \
+    apk add --update bash openssh-client openssl git curl wget zip unzip nmap ca-certificates libjpeg fontconfig ttf-dejavu mysql-client postgresql-client && \
     rm -rf /var/cache/apk/* && \
+    update-ca-certificates && \
     ln -s /usr/local/tomcat/logs /var/log/tomcat && \
     ln -s /usr/local/tomcat/webapps/ROOT/WEB-INF/log /var/log/simplicite && \
-    mkdir /root/.ssh && chmod 700 /root/.ssh && \
-    update-ca-certificates && \
-    addgroup -g 2000 simplicite && adduser -D -G simplicite -u 2000 simplicite && \
+    mkdir -p /root/.ssh && chmod 700 /root/.ssh && \
+    addgroup -g 2000 simplicite && adduser -D -G simplicite -u 2000 -s /bin/bash simplicite && \
+    mkdir -p ~simplicite/.ssh && chmod 700 ~simplicite/.ssh && chown simplicite:simplicite ~simplicite/.ssh && \
     echo -e "alias rm='rm -i'\n\
 alias cp='cp -i'\n\
 alias mv='mv -i'\n\
