@@ -1,5 +1,5 @@
 ARG reg=registry.simplicite.io
-FROM ${reg}/server:almalinux8-17
+FROM ${reg}/server:almalinux8-21
 
 ARG date
 
