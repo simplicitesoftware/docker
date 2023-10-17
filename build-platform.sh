@@ -120,7 +120,7 @@ elif [ "$1" = "5-latest-test" ]
 then
 	VERSION=5
 	BRANCH=release
-	TAGS=${2:-almalinux8-17 almalinux9-17}
+	TAGS=${2:-almalinux8-21 almalinux9-21}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-devel" ]
@@ -142,14 +142,14 @@ elif [ "$1" = "6-alpha" ]
 then
 	VERSION=6
 	BRANCH=6.0
-	TAGS=${2:-centos-adoptium-17 centos-adoptium-17-jre centos-jvmless alpine}
+	TAGS=${2:-centos-adoptium-21 centos-adoptium-21-jre centos-jvmless alpine}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "6-alpha-light" ]
 then
 	VERSION=6
 	BRANCH=6.0-light
-	TAGS=${2:-centos-adoptium-17 centos-adoptium-17-jre centos-jvmless alpine}
+	TAGS=${2:-centos-adoptium-21 centos-adoptium-21-jre centos-jvmless alpine}
 	SRVS=tomcat
 	PFTAG=$1
 else
