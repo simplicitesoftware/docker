@@ -41,15 +41,15 @@ BRANCH=master
 
 # JVMs
 JVMS_CENTOS="11 1.8.0"
-JVMS_ROCKYLINUX="17 20"
-JVMS_ALMALINUX="17 20"
-JVMS_CENTOS_ADOPTIUM="17 17-jre 11 11-jre 8 8-jre"
-JVMS_ECLIPSE_TEMURIN="17 11"
+JVMS_ROCKYLINUX="17 21"
+JVMS_ALMALINUX="17 21"
+JVMS_CENTOS_ADOPTIUM="21 21-jre 17 17-jre 11 11-jre 8 8-jre"
+JVMS_ECLIPSE_TEMURIN="21 17 11"
 
 # Variant/server/JVM for the :latest tag
 TAG_LATEST="centos-adoptium"
 SRV_LATEST="tomcat"
-JVM_LATEST="17"
+JVM_LATEST="21"
 
 echo "--------------------------------------------------------"
 echo ""
