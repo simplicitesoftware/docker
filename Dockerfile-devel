@@ -1,5 +1,5 @@
 ARG reg=registry.simplicite.io
-FROM ${reg}/server:almalinux8-21
+FROM ${reg}/server:almalinux8-17
 
 ARG date
 
@@ -17,7 +17,7 @@ LABEL org.label-schema.name="simplicite-server-devel" \
 ARG ANT_VERSION=1.10.14
 ARG MAVEN_VERSION=3.9.5
 ARG GRADLE_VERSION=8.4
-ARG NODE_VERSION=v18.18.2
+ARG NODE_VERSION=v20.8.1
 
 RUN dnf install -y vim-enhanced gcc gcc-c++ make python3 python3-pyyaml iproute nmap xz procps && dnf clean all && \
     /usr/sbin/alternatives --set python /usr/bin/python3 && \
