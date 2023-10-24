@@ -4,7 +4,7 @@ FROM node:${NODE_VERSION}-alpine
 RUN apk add --no-cache make pkgconfig gcc g++ python3 libx11-dev libxkbfile-dev libsecret-dev
 ARG version=latest
 WORKDIR /home/theia
-ADD package.json ./package.json
+COPY theia/package.json ./package.json
 ARG GITHUB_TOKEN
 RUN yarn --pure-lockfile && \
     NODE_OPTIONS="--max_old_space_size=4096" yarn theia build && \
@@ -30,7 +30,7 @@ LABEL org.label-schema.name="simplicite-theia" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="$BUILD_DATE"
 RUN apk update && apk upgrade && \
-    apk add --no-cache git openssh bash libsecret bash git curl wget zip unzip xz openssl ca-certificates libjpeg fontconfig ttf-dejavu openjdk11 maven apache-ant mysql-client postgresql-client && \
+    apk add --no-cache git openssh bash libsecret bash git curl wget zip unzip xz openssl ca-certificates libjpeg fontconfig ttf-dejavu openjdk17 maven apache-ant mysql-client postgresql-client && \
     rm -rf /var/cache/apk/* && \
     addgroup -g 2000 theia && \
     adduser -G theia -u 2000 -s /bin/bash -D theia
@@ -43,7 +43,7 @@ alias rm='rm -i'\n\
 alias cp='cp -i'\n\
 alias mv='mv -i'\n\
 alias dir='ls -alF --color=always'" >> /home/theia/.bashrc
-COPY --chown=theia:theia settings.json /home/theia/.theia/
+COPY --chown=theia:theia theia/settings.json /home/theia/.theia/
 ENV SHELL=/bin/bash \
     HOME=/home/theia \
     THEIA_DEFAULT_PLUGINS=local-dir:/home/theia/plugins \

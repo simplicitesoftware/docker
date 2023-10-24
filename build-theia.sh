@@ -16,8 +16,6 @@ date > $LOCK
 
 REGISTRY=registry.simplicite.io
 
-cd theia
-
 IMG=$REGISTRY/theia:latest
 echo "========================================================"
 echo "Building $IMG image..."
@@ -25,12 +23,10 @@ echo "========================================================"
 DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 FROM=$(grep '^FROM' Dockerfile | awk '{ print $2 }')
 docker pull $FROM
-docker build --network host -t $IMG --build-arg THEIA_TAG=$TAG --build-arg BUILD_DATE=$DATE . || exit_with 3 "Unable to build image $IMG"
+docker build --network host -f theia/Dockerfile -t $IMG --build-arg THEIA_TAG=$TAG --build-arg BUILD_DATE=$DATE . || exit_with 3 "Unable to build image $IMG"
 echo "Done"
 echo ""
 echo "docker run -it --rm -p 127.0.0.1:3030:3030 --name=theia $IMG"
 echo ""
-
-cd ..
 
 exit_with
