@@ -6,6 +6,11 @@ test*
 tmp
 jdk*
 jre*
+apache-*
+ant
+maven
+gradle*
+node*
 jacoco*
 ./Dockerfile
 *.crt
