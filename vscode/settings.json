@@ -25,8 +25,8 @@
     "redhat.telemetry.enabled": false,
     "java.configuration.runtimes": [
         {
-            "name": "JavaSE-17",
-            "path": "/usr/lib/jvm/java",
+            "name": "JDK",
+            "path": "/usr/local/jdk",
             "default": true
         }
     ]
