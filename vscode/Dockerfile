@@ -31,16 +31,14 @@ COPY vscode/pwa* /usr/lib/code-server/src/browser/media/
 ADD jdk-21 /usr/local/jdk
 ADD ant /usr/local/ant
 ADD maven /usr/local/maven
-ADD gradle /usr/local/maven
 ADD node /usr/local/node
 
 ENV LANG=C.UTF-8 \
     JAVA_HOME=/usr/local/jdk \
     ANT_HOME=/usr/local/ant \
     MAVEN_HOME=/usr/local/maven \
-    GRADLE_HOME=/usr/local/gradle \
     NODE_HOME=/usr/local/node \
-    PATH=/usr/local/jdk/bin:/usr/local/bin:/usr/local/ant/bin:/usr/local/maven/bin:/usr/local/gradle/bin:/usr/local/node/bin:$PATH \
+    PATH=/usr/local/jdk/bin:/usr/local/bin:/usr/local/ant/bin:/usr/local/maven/bin:/usr/local/node/bin:$PATH \
     SERVICE_URL=https://open-vsx.org/vscode/gallery \
     ITEM_URL=https://open-vsx.org/vscode/item \
     LOG4J_FORMAT_MSG_NO_LOOKUPS=true
