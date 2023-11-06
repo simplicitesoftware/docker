@@ -21,12 +21,13 @@ RUN groupadd -g 2000 simplicite && \
     dnf install -y epel-release && \
     dnf install -y bash git vim-enhanced iputils bind bind-utils nmap openssh-clients openssl curl wget zip unzip xz ca-certificates libjpeg fontconfig mariadb postgresql glibc-all-langpacks && \
     dnf clean all && \
-    echo "Installing VSCode server" && \
+    echo 'Installing VSCode server' && \
     curl -fsSL https://code-server.dev/install.sh | sh
 
-COPY vscode/letterpress* /usr/lib/code-server/lib/vscode/out/vs/workbench/browser/parts/editor/media/
 COPY vscode/favicon* /usr/lib/code-server/src/browser/media/
 COPY vscode/pwa* /usr/lib/code-server/src/browser/media/
+COPY vscode/letterpress.svg /usr/lib/code-server/src/browser/media/
+RUN  echo '.letterpress { background-image: url(/_static/src/browser/media/letterpress.svg) !important; }' >> /usr/lib/code-server/lib/vscode/out/vs/workbench/workbench.web.main.css
 
 ADD jdk-21 /usr/local/jdk
 ADD ant /usr/local/ant
@@ -49,9 +50,9 @@ COPY --chown=simplicite:simplicite vscode/settings.json /var/simplicite/data/Use
 COPY --chown=simplicite:simplicite vscode/keybindings.json /var/simplicite/data/User/
 COPY --chown=simplicite:simplicite vscode/simplicite.code-snippets /var/simplicite/data/User/snippets/
 COPY --chown=simplicite:simplicite vscode/settings.xml /var/simplicite/.m2/
-RUN git config --global user.name "Simplicite Software" && \
-    git config --global user.email "contact@simplicitesoftware.com" && \
-    git config --global http.sslVerify "false" && \
+RUN git config --global user.name 'Simplicite Software' && \
+    git config --global user.email 'contact@simplicitesoftware.com' && \
+    git config --global http.sslVerify 'false' && \
     /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension redhat.java && \
     /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension vscjava.vscode-java-debug && \
     /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension vscjava.vscode-java-dependency && \
