@@ -19,8 +19,9 @@ RUN groupadd -g 2000 simplicite && \
     chown -R simplicite:simplicite /var/simplicite/data /var/simplicite/projects /var/simplicite/extensions && \
     dnf upgrade -y && \
     dnf install -y epel-release && \
-    dnf install -y bash git vim-enhanced iputils bind bind-utils nmap openssh-clients openssl curl wget zip unzip xz ca-certificates libjpeg fontconfig mariadb postgresql glibc-all-langpacks && \
+    dnf install -y bash procps git vim-enhanced iputils bind bind-utils nmap openssh-clients openssl curl wget zip unzip xz ca-certificates libjpeg fontconfig mariadb postgresql glibc-all-langpacks sudo && \
     dnf clean all && \
+    echo 'simplicite ALL=(ALL) NOPASSWD: /usr/bin/dnf' >> /etc/sudoers && \
     echo 'Installing VSCode server' && \
     curl -fsSL https://code-server.dev/install.sh | sh
 
