@@ -21,12 +21,12 @@ then
 	./build-platform.sh --delete 6-alpha || exit_with $? "Unable to build platform version 6-alpha"
 
 	docker rmi $REGISTRY/platform:6-alpha > /dev/null 2>&1
-	docker tag $REGISTRY/platform:6-alpha-adoptium-21 $REGISTRY/platform:6-alpha
-	docker rmi $REGISTRY/platform:6-alpha-adoptium-21
+	docker tag $REGISTRY/platform:6-alpha-almalinux8-21 $REGISTRY/platform:6-alpha
+	docker rmi $REGISTRY/platform:6-alpha-almalinux8-21
 
 	docker rmi $REGISTRY/platform:6-alpha-jre > /dev/null 2>&1
-	docker tag $REGISTRY/platform:6-alpha-adoptium-21-jre $REGISTRY/platform:6-alpha-jre
-	docker rmi $REGISTRY/platform:6-alpha-adoptium-21-jre
+	docker tag $REGISTRY/platform:6-alpha-almalinux8-21-jre $REGISTRY/platform:6-alpha-jre
+	docker rmi $REGISTRY/platform:6-alpha-almalinux-21-jre
 
 	if [ $PUSH -eq 1 ]
 	then
@@ -40,12 +40,12 @@ then
 	./build-platform.sh --delete 6-alpha-light || exit_with $? "Unable to build platform version 6-alpha-light"
 
 	docker rmi $REGISTRY/platform:6-alpha-light > /dev/null 2>&1
-	docker tag $REGISTRY/platform:6-alpha-light-adoptium-21 $REGISTRY/platform:6-alpha-light
-	docker rmi $REGISTRY/platform:6-alpha-light-adoptium-21
+	docker tag $REGISTRY/platform:6-alpha-light-almalinux8-21 $REGISTRY/platform:6-alpha-light
+	docker rmi $REGISTRY/platform:6-alpha-light-almalinux8-21
 
 	docker rmi $REGISTRY/platform:6-alpha-light-jre > /dev/null 2>&1
-	docker tag $REGISTRY/platform:6-alpha-light-adoptium-21-jre $REGISTRY/platform:6-alpha-light-jre
-	docker rmi $REGISTRY/platform:6-alpha-light-adoptium-21-jre
+	docker tag $REGISTRY/platform:6-alpha-light-almalinux8-21-jre $REGISTRY/platform:6-alpha-light-jre
+	docker rmi $REGISTRY/platform:6-alpha-light-almalinux8-21-jre
 
 	if [ $PUSH -eq 1 ]
 	then
