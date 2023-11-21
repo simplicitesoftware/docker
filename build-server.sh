@@ -115,15 +115,15 @@ do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "alpine-adoptium" -o $TAG = "centos-adoptium" -o $TAG = "centos-jvmless" -o $TAG = "almalinux8" -o $TAG = "almalinux9" -o $TAG = "eclipse-temurin" ]
+				if [ $TAG = "centos" ]
 				then
-					JVMEXT="-$JVM"
-				else
 					JVMEXT="-openjdk-$JVM"
+				else
+					JVMEXT="-$JVM"
 				fi
 			fi
 
-			if [ $TAG != "centos" -a $TAG != "centos-adoptium" -a $TAG != "centos-jvmless" -a $TAG != "devel" ]
+			if [ $TAG != "centos" -a $TAG != "centos-adoptium" -a $TAG != "centos-jvmless" -a $TAG != "almalinux8" -a $TAG != "almalinux8-jvmless" -a $TAG != "almalinux9" -a $TAG != "almalinux9-jvmless" -a $TAG != "devel" ]
 			then
 				FROM=$(grep '^FROM' Dockerfile-$TAG | awk '{ print $2 }' | sed "s/.{jvm}/$JVM/")
 				echo "Pulling image: $FROM"
@@ -131,7 +131,7 @@ do
 				echo "Done"
 			fi
 
-			if [ $TAG = "centos" ]
+			if [ $TAG = "centos" -o $TAG = "almalinux8" -o $TAG = "almalinux9" ]
 			then
 				echo "========================================================"
 				echo "Building $SERVER:$TAG$SRVEXT$JVMEXT-jre image..."
