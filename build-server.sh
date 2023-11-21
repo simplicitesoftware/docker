@@ -41,9 +41,9 @@ BRANCH=master
 
 # JVMs
 JVMS_CENTOS="11 1.8.0"
-JVMS_ALMALINUX="17 11"
-#JVMS_ALMALINUX="21 17"
 JVMS_CENTOS_ADOPTIUM="21 21-jre 17 17-jre 11 11-jre 8 8-jre"
+JVMS_ALMALINUX8="17 17-jre 11 11-jre"
+JVMS_ALMALINUX9="21 21-jre 17 17-jre 11 11-jre"
 JVMS_ECLIPSE_TEMURIN="21 17 11"
 
 # Variant/server/JVM for the :latest tag
@@ -102,7 +102,8 @@ do
 		JVMS="latest"
 		[ $TAG = "centos" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "centos-adoptium" ] && JVMS=$JVMS_CENTOS_ADOPTIUM
-		[ $TAG = "almalinux8" -o $TAG = "almalinux9" ] && JVMS=$JVMS_ALMALINUX
+		[ $TAG = "almalinux8" ] && JVMS=$JVMS_ALMALINUX8
+		[ $TAG = "almalinux9" ] && JVMS=$JVMS_ALMALINUX9
 		[ $TAG = "eclipse-temurin" ] && JVMS=$JVMS_ECLIPSE_TEMURIN
 
 		for JVM in $JVMS
@@ -164,7 +165,8 @@ do
 		JVMS="latest"
 		[ $TAG = "centos" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "centos-adoptium" ] && JVMS=$JVMS_CENTOS_ADOPTIUM
-		[ $TAG = "almalinux8" -o $TAG = "almalinux9" ] && JVMS=$JVMS_ALMALINUX
+		[ $TAG = "almalinux8" ] && JVMS=$JVMS_ALMALINUX8
+		[ $TAG = "almalinux9" ] && JVMS=$JVMS_ALMALINUX9
 		[ $TAG = "eclipse-temurin" ] && JVMS=$JVMS_ECLIPSE_TEMURIN
 
 		for JVM in $JVMS
