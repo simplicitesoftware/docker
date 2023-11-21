@@ -29,7 +29,7 @@ echo ""
 echo "--------------------------------------------------------"
 
 TAGS=${1:-centos-base centos centos-adoptium centos-jvmless alpine alpine-adoptium alpine-adoptium-jre almalinux8 almalinux9 eclipse-temurin devel}
-#TAGS=${1:-centos-base centos centos-adoptium centos-jvmless alpine alpine-adoptium alpine-adoptium-jre rockylinux8 rockylinux9 almalinux8 almalinux9 eclipse-temurin devel}
+#TAGS=${1:-centos-base centos centos-adoptium centos-jvmless alpine alpine-adoptium alpine-adoptium-jre almalinux-base almalinux8-adoptium almalinux8-jvmless almalinux9-base almalinux9-adoptium almalinux9-jvmless eclipse-temurin devel}
 echo "Variants(s) = $TAGS"
 
 # Servers
@@ -41,8 +41,6 @@ BRANCH=master
 
 # JVMs
 JVMS_CENTOS="11 1.8.0"
-JVMS_ROCKYLINUX="17 11"
-#JVMS_ROCKYLINUX="21 17"
 JVMS_ALMALINUX="17 11"
 #JVMS_ALMALINUX="21 17"
 JVMS_CENTOS_ADOPTIUM="21 21-jre 17 17-jre 11 11-jre 8 8-jre"
@@ -104,7 +102,6 @@ do
 		JVMS="latest"
 		[ $TAG = "centos" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "centos-adoptium" ] && JVMS=$JVMS_CENTOS_ADOPTIUM
-		[ $TAG = "rockylinux8" -o $TAG = "rockylinux9" ] && JVMS=$JVMS_ROCKYLINUX
 		[ $TAG = "almalinux8" -o $TAG = "almalinux9" ] && JVMS=$JVMS_ALMALINUX
 		[ $TAG = "eclipse-temurin" ] && JVMS=$JVMS_ECLIPSE_TEMURIN
 
@@ -113,7 +110,7 @@ do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "alpine-adoptium" -o $TAG = "centos-adoptium" -o $TAG = "centos-jvmless" -o $TAG = "rockylinux8" -o $TAG = "rockylinux9" -o $TAG = "almalinux8" -o $TAG = "almalinux9" -o $TAG = "eclipse-temurin" ]
+				if [ $TAG = "alpine-adoptium" -o $TAG = "centos-adoptium" -o $TAG = "centos-jvmless" -o $TAG = "almalinux8" -o $TAG = "almalinux9" -o $TAG = "eclipse-temurin" ]
 				then
 					JVMEXT="-$JVM"
 				else
@@ -167,7 +164,6 @@ do
 		JVMS="latest"
 		[ $TAG = "centos" ] && JVMS=$JVMS_CENTOS
 		[ $TAG = "centos-adoptium" ] && JVMS=$JVMS_CENTOS_ADOPTIUM
-		[ $TAG = "rockylinux8" -o $TAG = "rockylinux9" ] && JVMS=$JVMS_ROCKYLINUX
 		[ $TAG = "almalinux8" -o $TAG = "almalinux9" ] && JVMS=$JVMS_ALMALINUX
 		[ $TAG = "eclipse-temurin" ] && JVMS=$JVMS_ECLIPSE_TEMURIN
 
@@ -176,7 +172,7 @@ do
 			JVMEXT=""
 			if [ $JVM != "latest" ]
 			then
-				if [ $TAG = "alpine-adoptium" -o $TAG = "centos-adoptium" -o $TAG = "centos-jvmless" -o $TAG = "rockylinux8" -o $TAG = "rockylinux9" -o $TAG = "almalinux8" -o $TAG = "almalinux9" -o $TAG = "eclipse-temurin" ]
+				if [ $TAG = "alpine-adoptium" -o $TAG = "centos-adoptium" -o $TAG = "centos-jvmless" -o $TAG = "almalinux8" -o $TAG = "almalinux9" -o $TAG = "eclipse-temurin" ]
 				then
 					JVMEXT="-$JVM"
 				else
