@@ -6,7 +6,7 @@ exit_with () {
 	exit ${1:-0}
 }
 
-[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] 3.0|3.1|3.2|4.0[-light]|5-<preview|latest|devel>[-light]|6-alpha[-light] [<server image tag(s)> [<platform Git tag (only applicable to 5-latest and 5-latest-light>]]\n"
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] [--no-cache] 3.0|3.1|3.2|4.0[-light]|5-<preview|latest|devel>[-light]|6-alpha[-light] [<server image tag(s)> [<platform Git tag (only applicable to 5-latest and 5-latest-light>]]\n"
 
 LOCK=/tmp/$(basename $0 .sh).lck
 if [ -f $LOCK ]
@@ -22,6 +22,13 @@ DEL=0
 if [ "$1" = "--delete" ]
 then
 	DEL=1
+	shift
+fi
+
+NOCACHE=""
+if [ "$1" = "--no-cache" ]
+then
+	NOCACHE=$1
 	shift
 fi
 
@@ -242,7 +249,7 @@ do
 		DESTPATH="tomcat"
 		[ $TAG = "jetty" ] && DESTPATH="jetty/default"
 		[ $DEL = 1 ] && docker rmi $PLATFORM:$PFTAG$EXT
-		docker build --network host -f Dockerfile-platform --build-arg date=$DATE --build-arg tag=$TAG --build-arg version=$VERSION --build-arg patchlevel=$PATCHLEVEL --build-arg revision=$REVISION --build-arg commitid=$COMMITID --build-arg template=$TEMPLATE --build-arg destpath=$DESTPATH -t $PLATFORM:$PFTAG$EXT .
+		docker build $NOCACHE --network host -f Dockerfile-platform --build-arg date=$DATE --build-arg tag=$TAG --build-arg version=$VERSION --build-arg patchlevel=$PATCHLEVEL --build-arg revision=$REVISION --build-arg commitid=$COMMITID --build-arg template=$TEMPLATE --build-arg destpath=$DESTPATH -t $PLATFORM:$PFTAG$EXT .
 		echo "Done"
 	done
 done
