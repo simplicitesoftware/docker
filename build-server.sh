@@ -49,7 +49,7 @@ JVMS_CENTOS_ADOPTIUM="21 21-jre 17 17-jre 11 11-jre 8 8-jre"
 JVMS_ECLIPSE_TEMURIN="21 17 11"
 
 # Variant/server/JVM for the :latest tag
-TAG_LATEST="centos-adoptium"
+TAG_LATEST="almalinux-adoptium"
 SRV_LATEST="tomcat"
 JVM_LATEST="21"
 
