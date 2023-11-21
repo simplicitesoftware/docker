@@ -233,6 +233,7 @@ do
 	for TAG in $TAGS
 	do
 		EXT=""
+		[ $TAG != "devel" ] && EXT="-$TAG"
 		[ $SRV != "tomcat" ] && EXT="$EXT-$SRV"
 		echo "========================================================"
 		echo "Building $PLATFORM:$PFTAG$EXT image from $SERVER:$TAG..."
@@ -258,6 +259,7 @@ do
 	for TAG in $TAGS
 	do
 		EXT=""
+		[ $TAG != "devel" ] && EXT="-$TAG"
 		[ $SRV != "tomcat" ] && EXT="$EXT-$SRV"
 		echo "-- $PLATFORM:$PFTAG$EXT ------------------"
 		echo ""
