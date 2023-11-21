@@ -1,15 +1,15 @@
 ARG reg=registry.simplicite.io
-FROM ${reg}/server:centos-base
+FROM ${reg}/server:almalinux9-base
 
 ARG date
 
-LABEL org.label-schema.name="simplicite-server-centos7-jvmless" \
+LABEL org.label-schema.name="simplicite-server-almalinux9-jvmless" \
       org.label-schema.vendor="Simplicite Software" \
       org.label-schema.license="NONE" \
       org.label-schema.build-date="${date}" \
-      org.opencontainers.image.ref.name="simplicite-server-centos7-jvmless" \
-      org.opencontainers.image.title="Simplicite server / CentOS 7 / JVM-less" \
-      org.opencontainers.image.description="Simplicite server / CentOS 7 / JVM-less" \
+      org.opencontainers.image.ref.name="simplicite-server-almalinux9-jvmless" \
+      org.opencontainers.image.title="Simplicite server / Almalinux 9 / JVM-less" \
+      org.opencontainers.image.description="Simplicite server / Almalinux 9 / JVM-less" \
       org.opencontainers.image.vendor="Simplicite Software" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="${date}"
