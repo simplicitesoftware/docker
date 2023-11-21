@@ -18,7 +18,7 @@ RUN dnf install -y vim-enhanced gcc gcc-c++ make python3 python3-pyyaml iproute 
     echo -e 'alias vi=vim' >> /root/.bashrc && \
 echo -e '#!/bin/bash\n\
 [ "$1" = "" ] && IN=/dev/stdin || IN=$1\n\
-python3 -c "import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=2)" < $IN\n\
+python3 -c "import sys, yaml, json; json.dump(yaml.load(sys.stdin, Loader=yaml.FullLoader), sys.stdout, indent=2)" < $IN\n\
 exit $?' > /usr/local/bin/yaml2json && chmod +x /usr/local/bin/yaml2json 
 
 ADD ant /usr/local/ant
