@@ -16,4 +16,5 @@ jacoco*
 *.crt
 **/Thumbs.db
 **.bak
+**.log
 nohup.out
