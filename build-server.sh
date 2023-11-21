@@ -6,7 +6,7 @@ exit_with () {
 	exit ${1:-0}
 }
 
-[ "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] [\"<variants(s), defaults to all>\" [\"<server(s)>, defaults to tomcat>\"]\n"
+[ "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] [--no-cache] [\"<variants(s), defaults to all>\" [\"<server(s)>, defaults to tomcat>\"]\n"
 
 LOCK=/tmp/$(basename $0 .sh).lck
 if [ -f $LOCK ]
@@ -22,6 +22,13 @@ DEL=0
 if [ "$1" = "--delete" ]
 then
 	DEL=1
+	shift
+fi
+
+NOCACHE=""
+if [ "$1" = "--no-cache" ]
+then
+	NOCACHE=$1
 	shift
 fi
 
@@ -47,7 +54,7 @@ JVMS_ALMALINUX9="21 21-jre 17 17-jre 11 11-jre"
 JVMS_ECLIPSE_TEMURIN="21 17 11"
 
 # Variant/server/JVM for the :latest tag
-TAG_LATEST="almalinux-adoptium"
+TAG_LATEST="almalinux9"
 SRV_LATEST="tomcat"
 JVM_LATEST="21"
 
@@ -134,7 +141,7 @@ do
 				echo "========================================================"
 				DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 				[ $DEL = 1 ] && docker rmi $SERVER:$TAG$SRVEXT$JVMEXT-jre
-				docker build --network host -f Dockerfile-$TAG-jre -t $SERVER:$TAG$SRVEXT$JVMEXT-jre --build-arg date="$DATE" --build-arg jvm="$JVM" .
+				docker build $NOCACHE --network host -f Dockerfile-$TAG-jre -t $SERVER:$TAG$SRVEXT$JVMEXT-jre --build-arg date="$DATE" --build-arg jvm="$JVM" .
 				echo "Done"
 			fi
 
@@ -143,7 +150,7 @@ do
 			echo "========================================================"
 			DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 			[ $DEL = 1 ] && docker rmi $SERVER:$TAG$SRVEXT$JVMEXT
-			docker build --network host -f Dockerfile-$TAG -t $SERVER:$TAG$SRVEXT$JVMEXT --build-arg date="$DATE" --build-arg variant="$JVMEXT" --build-arg jvm="$JVM" .
+			docker build $NOCACHE --network host -f Dockerfile-$TAG -t $SERVER:$TAG$SRVEXT$JVMEXT --build-arg date="$DATE" --build-arg variant="$JVMEXT" --build-arg jvm="$JVM" .
 			echo "Done"
 			if [ $TAG = $TAG_LATEST -a $SRV = $SRV_LATEST -a $JVM = $JVM_LATEST ]
 			then
