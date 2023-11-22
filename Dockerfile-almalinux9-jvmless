@@ -15,3 +15,7 @@ LABEL org.label-schema.name="simplicite-server-almalinux9-jvmless" \
       org.opencontainers.image.created="${date}"
 
 ENV JAVA_HOME=/usr/local/jvm
+RUN echo "JAVA_HOME=/usr/local/jvm
+export JAVA_HOME
+PATH=$JAVA_HOME/bin:$PATH
+export PATH" > /etc/profile.d/java.sh
