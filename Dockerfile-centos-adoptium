@@ -15,8 +15,13 @@ LABEL org.label-schema.name="simplicite-server-centos7-adoptium-${jvm}" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="${date}"
 
-ENV JAVA_HOME=/usr/local/jvm
 ADD jdk-${jvm} /usr/local/jvm
+
+ENV JAVA_HOME=/usr/local/jvm
+RUN echo -e "JAVA_HOME=/usr/local/jvm\n\
+export JAVA_HOME\n\
+PATH=$JAVA_HOME/bin:$PATH\n\
+export PATH" > /etc/profile.d/java.sh
 
 # JPDA, JaCoCo
 EXPOSE 8000 8001
