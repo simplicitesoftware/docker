@@ -25,3 +25,5 @@ export PATH" > /etc/profile.d/java.sh
 
 # JPDA, JaCoCo
 EXPOSE 8000 8001
+
+USER simplicite

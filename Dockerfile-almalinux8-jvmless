@@ -19,3 +19,5 @@ RUN echo -e "JAVA_HOME=/usr/local/jvm\n\
 export JAVA_HOME\n\
 PATH=$JAVA_HOME/bin:$PATH\n\
 export PATH" > /etc/profile.d/java.sh
+
+USER simplicite

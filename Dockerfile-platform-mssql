@@ -3,6 +3,8 @@ ARG tag=5-latest
 
 FROM $reg/platform:$tag
 
+USER root
+
 # Install the SQLServer client 
 ENV ACCEPT_EULA=Y
 ADD https://packages.microsoft.com/config/rhel/7/prod.repo /etc/yum.repos.d/msprod.repo
@@ -16,3 +18,5 @@ RUN rm -f /usr/local/tomcat/lib/mssql* && \
     chmod go+r /usr/local/tomcat/lib/mssql-jdbc-12.4.1.jre11.jar && \
     rm -f /tmp/mssql-jdbc-12.4.1.jre11.jar && \
     echo "alias _sqlcmd='/opt/mssql-tools/bin/sqlcmd -S \$DB_HOST,\${DB_PORT:-1433} -U \$DB_USER -P \$DB_PASSWORD -d \$DB_NAME'" >> /etc/profile.d/simplicite.sh
+
+USER simplicite
