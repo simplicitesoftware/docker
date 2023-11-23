@@ -16,12 +16,7 @@ LABEL org.label-schema.name="simplicite-server-almalinux9-${jvm}" \
       org.opencontainers.image.created="${date}"
 
 ADD jdk-${jvm} /usr/local/jvm
-
-ENV JAVA_HOME=/usr/local/jvm
-RUN echo "JAVA_HOME=/usr/local/jvm
-export JAVA_HOME
-PATH=$JAVA_HOME/bin:$PATH
-export PATH" > /etc/profile.d/java.sh
+ENV JAVA_HOME=/usr/local/jvm PATH=/usr/local/jvm/bin:$PATH
 
 # JPDA, JaCoCo
 EXPOSE 8000 8001

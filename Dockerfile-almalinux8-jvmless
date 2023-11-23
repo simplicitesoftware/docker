@@ -14,10 +14,6 @@ LABEL org.label-schema.name="simplicite-server-almalinux8-jvmless" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="${date}"
 
-ENV JAVA_HOME=/usr/local/jvm
-RUN echo -e "JAVA_HOME=/usr/local/jvm\n\
-export JAVA_HOME\n\
-PATH=$JAVA_HOME/bin:$PATH\n\
-export PATH" > /etc/profile.d/java.sh
+ENV JAVA_HOME=/usr/local/jvm PATH=/usr/local/jvm/bin:$PATH
 
 USER simplicite

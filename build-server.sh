@@ -121,7 +121,7 @@ do
 			fi
 
 			echo "========================================================"
-			echo "Building $SERVER:$TAG$TAGEXT$SRVEXT image..."
+			echo "Building $SERVER:$TAG$SRVEXT image..."
 			echo "========================================================"
 			[ $DEL = 1 ] && docker rmi $SERVER:$TAG$SRVEXT
 			docker build $NOCACHE --network host -f Dockerfile-$TAG -t $SERVER:$TAG$SRVEXT --build-arg date="=$(date -u +s'%Y-%m-%dT%H:%M:%SZ')" .
@@ -134,7 +134,7 @@ do
 				if [ $TAG = "centos" -o $TAG = "almalinux8" -o $TAG = "almalinux9" -o $TAG = "alpine" ]
 				then
 					echo "========================================================"
-					echo "Building $SERVER:$TAG$SRVEXT$JVM-jre image..."
+					echo "Building $SERVER:$TAG$TAGEXT-jre$SRVEXT image..."
 					echo "========================================================"
 					[ $DEL = 1 ] && docker rmi $SERVER:$TAG$TAGEXT-jre$SRVEXT
 					docker build $NOCACHE --network host -f Dockerfile-$TAG -t $SERVER:$TAG$TAGEXT-jre$SRVEXT --build-arg date="$(date -u +s'%Y-%m-%dT%H:%M:%SZ')" --build-arg jvm="$JVM-jre" .
@@ -142,7 +142,7 @@ do
 				fi
 
 				echo "========================================================"
-				echo "Building $SERVER:$TAG$SRVEXT$JVM image..."
+				echo "Building $SERVER:$TAG$TAGEXT$SRVEXT image..."
 				echo "========================================================"
 				[ $DEL = 1 ] && docker rmi $SERVER:$TAG$TAGEXT$SRVEXT
 				docker build $NOCACHE --network host -f Dockerfile-$TAG -t $SERVER:$TAG$TAGEXT$SRVEXT --build-arg date="$(date -u +s'%Y-%m-%dT%H:%M:%SZ')" --build-arg jvm="$JVM" .
@@ -173,7 +173,6 @@ do
 		do
 			[ $TAG = "alpine" ] && TAGEXT="" || TAGEXT="-$JVM"
 
-			echo "-- $SERVER:$TAG$TAGEXT$SRVEXT ------------------"
 			echo ""
 			if [ $TAG = "centos" -o $TAG = "almalinux8" -o $TAG = "almalinux9" -o $TAG = "alpine" ]
 			then
