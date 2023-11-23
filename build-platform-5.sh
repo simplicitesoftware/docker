@@ -23,12 +23,12 @@ then
 	./build-platform.sh --delete 5-latest || exit_with $? "Unable to build platform version 5-latest"
 
 	docker rmi $REGISTRY/platform:5-latest > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-latest-centos-adoptium-17 $REGISTRY/platform:5-latest
-	docker rmi $REGISTRY/platform:5-latest-centos-adoptium-17
+	docker tag $REGISTRY/platform:5-latest-centos-17 $REGISTRY/platform:5-latest
+	docker rmi $REGISTRY/platform:5-latest-centos-17
 
 	docker rmi $REGISTRY/platform:5-latest-jre > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-latest-centos-adoptium-17-jre $REGISTRY/platform:5-latest-jre
-	docker rmi $REGISTRY/platform:5-latest-centos-adoptium-17-jre
+	docker tag $REGISTRY/platform:5-latest-centos-17-jre $REGISTRY/platform:5-latest-jre
+	docker rmi $REGISTRY/platform:5-latest-centos-17-jre
 
 	docker rmi $REGISTRY/platform:5 $REGISTRY/platform:latest > /dev/null 2>&1
 	docker tag $REGISTRY/platform:5-latest $REGISTRY/platform:5
@@ -60,12 +60,12 @@ then
 	./build-platform.sh --delete 5-latest-light || exit_with $? "Unable to build platform version 5-latest-light"
 
 	docker rmi $REGISTRY/platform:5-latest-light > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-latest-light-centos-adoptium-17 $REGISTRY/platform:5-latest-light
-	docker rmi $REGISTRY/platform:5-latest-light-centos-adoptium-17
+	docker tag $REGISTRY/platform:5-latest-light-centos-17 $REGISTRY/platform:5-latest-light
+	docker rmi $REGISTRY/platform:5-latest-light-centos-17
 
 	docker rmi $REGISTRY/platform:5-latest-light-jre > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-latest-light-centos-adoptium-17-jre $REGISTRY/platform:5-latest-light-jre
-	docker rmi $REGISTRY/platform:5-latest-light-centos-adoptium-17-jre
+	docker tag $REGISTRY/platform:5-latest-light-centos-17-jre $REGISTRY/platform:5-latest-light-jre
+	docker rmi $REGISTRY/platform:5-latest-light-centos-17-jre
 
 	docker rmi $REGISTRY/platform:5-light $REGISTRY/platform:latest-light > /dev/null 2>&1
 	docker tag $REGISTRY/platform:5-latest-light $REGISTRY/platform:5-light
@@ -102,16 +102,16 @@ then
 	./build-platform.sh --delete 5-preview || exit_with $? "Unable to build platform version 5-preview"
 
 	docker rmi $REGISTRY/platform:5-preview > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-preview-centos-adoptium-17 $REGISTRY/platform:5-preview
-	docker rmi $REGISTRY/platform:5-preview-centos-adoptium-17
+	docker tag $REGISTRY/platform:5-preview-centos-17 $REGISTRY/platform:5-preview
+	docker rmi $REGISTRY/platform:5-preview-centos-17
 
 	#[ $PUSH -eq 1 ] && ./push-to-registries.sh platform 5-preview
 
 	./build-platform.sh --delete 5-preview-light || exit_with $? "Unable to build platform version 5-preview-light"
 
 	docker rmi $REGISTRY/platform:5-preview-light > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-preview-light-centos-adoptium-17 $REGISTRY/platform:5-preview-light
-	docker rmi $REGISTRY/platform:5-preview-light-centos-adoptium-17
+	docker tag $REGISTRY/platform:5-preview-light-centos-17 $REGISTRY/platform:5-preview-light
+	docker rmi $REGISTRY/platform:5-preview-light-centos-17
 
 	#[ $PUSH -eq 1 ] && ./push-to-registries.sh platform 5-preview-light
 fi
@@ -124,12 +124,12 @@ then
 	./build-platform.sh --delete $1-light || exit_with $? "Unable to build platform version $1-light"
 
 	docker rmi $REGISTRY/platform:$1 > /dev/null 2>&1
-	docker tag $REGISTRY/platform:$1-centos-adoptium-17 $REGISTRY/platform:$1
-	docker rmi $REGISTRY/platform:$1-centos-adoptium-17
+	docker tag $REGISTRY/platform:$1-centos-17 $REGISTRY/platform:$1
+	docker rmi $REGISTRY/platform:$1-centos-17
 
 	docker rmi $REGISTRY/platform:$1-light > /dev/null 2>&1
-	docker tag $REGISTRY/platform:$1-light-centos-adoptium-17 $REGISTRY/platform:$1-light
-	docker rmi $REGISTRY/platform:$1-light-centos-adoptium-17
+	docker tag $REGISTRY/platform:$1-light-centos-17 $REGISTRY/platform:$1-light
+	docker rmi $REGISTRY/platform:$1-light-centos-17
 
 	if [ $PUSH -eq 1 ]
 	then

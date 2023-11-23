@@ -124,12 +124,12 @@ do
 			echo "Building $SERVER:$TAG$TAGEXT$SRVEXT image..."
 			echo "========================================================"
 			[ $DEL = 1 ] && docker rmi $SERVER:$TAG$SRVEXT
-			docker build $NOCACHE --network host -f Dockerfile-$TAG -t $SERVER:$TAG$SRVEXT --build-arg date="=$(date -u +s'"%Y-%m-%dT%H:%M:%SZ')" .
+			docker build $NOCACHE --network host -f Dockerfile-$TAG -t $SERVER:$TAG$SRVEXT --build-arg date="=$(date -u +s'%Y-%m-%dT%H:%M:%SZ')" .
 			echo "Done"
 		else
 			for JVM in $JVMS
 			do
-				[ $TAG = "alpine" ] && TAGEXT="" || TAGEXT=$JVM
+				[ $TAG = "alpine" ] && TAGEXT="" || TAGEXT="-$JVM"
 
 				if [ $TAG = "centos" -o $TAG = "almalinux8" -o $TAG = "almalinux9" -o $TAG = "alpine" ]
 				then
@@ -137,7 +137,7 @@ do
 					echo "Building $SERVER:$TAG$SRVEXT$JVM-jre image..."
 					echo "========================================================"
 					[ $DEL = 1 ] && docker rmi $SERVER:$TAG$TAGEXT-jre$SRVEXT
-					docker build $NOCACHE --network host -f Dockerfile-$TAG -t $SERVER:$TAG$TAGEXT-jre$SRVEXT --build-arg date="$(date -u +s'"%Y-%m-%dT%H:%M:%SZ')" --build-arg jvm="$JVM-jre" .
+					docker build $NOCACHE --network host -f Dockerfile-$TAG -t $SERVER:$TAG$TAGEXT-jre$SRVEXT --build-arg date="$(date -u +s'%Y-%m-%dT%H:%M:%SZ')" --build-arg jvm="$JVM-jre" .
 					echo "Done"
 				fi
 
@@ -145,7 +145,7 @@ do
 				echo "Building $SERVER:$TAG$SRVEXT$JVM image..."
 				echo "========================================================"
 				[ $DEL = 1 ] && docker rmi $SERVER:$TAG$TAGEXT$SRVEXT
-				docker build $NOCACHE --network host -f Dockerfile-$TAG -t $SERVER:$TAG$TAGEXT$SRVEXT --build-arg date="$(date -u +s'"%Y-%m-%dT%H:%M:%SZ')" --build-arg jvm="$JVM" .
+				docker build $NOCACHE --network host -f Dockerfile-$TAG -t $SERVER:$TAG$TAGEXT$SRVEXT --build-arg date="$(date -u +s'%Y-%m-%dT%H:%M:%SZ')" --build-arg jvm="$JVM" .
 				echo "Done"
 
 				[ $TAG = $TAG_LATEST -a $SRV = $SRV_LATEST -a $JVM = $JVM_LATEST ] && docker tag $SERVER:$TAG$TAGEXT$SRVEXT $SERVER:latest
@@ -171,7 +171,7 @@ do
 
 		for JVM in $JVMS
 		do
-			[ $TAG = "alpine" ] && TAGEXT="" || TAGEXT=$JVM
+			[ $TAG = "alpine" ] && TAGEXT="" || TAGEXT="-$JVM"
 
 			echo "-- $SERVER:$TAG$TAGEXT$SRVEXT ------------------"
 			echo ""

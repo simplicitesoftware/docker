@@ -21,13 +21,12 @@ then
 	./build-platform.sh --delete 6-alpha || exit_with $? "Unable to build platform version 6-alpha"
 
 	docker rmi $REGISTRY/platform:6-alpha > /dev/null 2>&1
-	docker tag $REGISTRY/platform:6-alpha-almalinux8-17 $REGISTRY/platform:6-alpha
-	docker rmi $REGISTRY/platform:6-alpha-almalinux8-17
+	docker tag $REGISTRY/platform:6-alpha-almalinux8-21 $REGISTRY/platform:6-alpha
+	docker rmi $REGISTRY/platform:6-alpha-almalinux8-21
 
-# Temporary
-#	docker rmi $REGISTRY/platform:6-alpha-jre > /dev/null 2>&1
-#	docker tag $REGISTRY/platform:6-alpha-almalinux8-17-jre $REGISTRY/platform:6-alpha-jre
-#	docker rmi $REGISTRY/platform:6-alpha-almalinux-17-jre
+	docker rmi $REGISTRY/platform:6-alpha-jre > /dev/null 2>&1
+	docker tag $REGISTRY/platform:6-alpha-almalinux8-21-jre $REGISTRY/platform:6-alpha-jre
+	docker rmi $REGISTRY/platform:6-alpha-almalinux8-21-jre
 
 	if [ $PUSH -eq 1 ]
 	then
@@ -42,13 +41,12 @@ then
 	./build-platform.sh --delete 6-alpha-light || exit_with $? "Unable to build platform version 6-alpha-light"
 
 	docker rmi $REGISTRY/platform:6-alpha-light > /dev/null 2>&1
-	docker tag $REGISTRY/platform:6-alpha-light-almalinux8-17 $REGISTRY/platform:6-alpha-light
-	docker rmi $REGISTRY/platform:6-alpha-light-almalinux8-17
+	docker tag $REGISTRY/platform:6-alpha-light-almalinux8-21 $REGISTRY/platform:6-alpha-light
+	docker rmi $REGISTRY/platform:6-alpha-light-almalinux8-21
 
-# Temporary
-#	docker rmi $REGISTRY/platform:6-alpha-light-jre > /dev/null 2>&1
-#	docker tag $REGISTRY/platform:6-alpha-light-almalinux8-17-jre $REGISTRY/platform:6-alpha-light-jre
-#	docker rmi $REGISTRY/platform:6-alpha-light-almalinux8-17-jre
+	docker rmi $REGISTRY/platform:6-alpha-light-jre > /dev/null 2>&1
+	docker tag $REGISTRY/platform:6-alpha-light-almalinux8-21-jre $REGISTRY/platform:6-alpha-light-jre
+	docker rmi $REGISTRY/platform:6-alpha-light-almalinux8-21-jre
 
 	if [ $PUSH -eq 1 ]
 	then
