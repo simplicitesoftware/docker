@@ -1,22 +1,20 @@
 FROM alpine:latest
 
 ARG date
-ARG jvm=latest
 
-LABEL org.label-schema.name="simplicite-server-alpine-adoptium-${jvm}" \
+LABEL org.label-schema.name="simplicite-server-alpine-base" \
       org.label-schema.vendor="Simplicite Software" \
       org.label-schema.license="NONE" \
       org.label-schema.build-date="$date" \
-      org.opencontainers.image.ref.name="simplicite-server-alpine-adoptium-${jvm}" \
-      org.opencontainers.image.title="Simplicite server / Alpine / Adoptium OpenJDK ${jvm}" \
-      org.opencontainers.image.description="Simplicite server / Alpine / Adoptium OpenJDK ${jvm}" \
+      org.opencontainers.image.ref.name="simplicite-server-alpine-base" \
+      org.opencontainers.image.title="Simplicite server / Alpine Base" \
+      org.opencontainers.image.description="Simplicite server / Alpine Base" \
       org.opencontainers.image.vendor="Simplicite Software" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="$date"
 
-ENV DOCKER=alpine LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8 JAVA_HOME=/usr/local/jvm LOG4J_FORMAT_MSG_NO_LOOKUPS=true
+ENV DOCKER=alpine LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8 LOG4J_FORMAT_MSG_NO_LOOKUPS=true
 
-ADD jdk-${jvm}-alpine /usr/local/jvm
 ADD *.crt /usr/local/share/ca-certificates/
 RUN apk update && apk upgrade && \
     apk add --update bash openssh-client openssl git curl wget zip unzip nmap ca-certificates libjpeg fontconfig ttf-dejavu mysql-client postgresql-client && \
