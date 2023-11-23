@@ -21,41 +21,47 @@ then
 	./build-platform.sh --delete 6-alpha || exit_with $? "Unable to build platform version 6-alpha"
 
 	docker rmi $REGISTRY/platform:6-alpha > /dev/null 2>&1
-	docker tag $REGISTRY/platform:6-alpha-almalinux8-21 $REGISTRY/platform:6-alpha
-	docker rmi $REGISTRY/platform:6-alpha-almalinux8-21
+	docker tag $REGISTRY/platform:6-alpha-almalinux9-21 $REGISTRY/platform:6-alpha
+	docker rmi $REGISTRY/platform:6-alpha-almalinux9-21
 
 	docker rmi $REGISTRY/platform:6-alpha-jre > /dev/null 2>&1
-	docker tag $REGISTRY/platform:6-alpha-almalinux8-21-jre $REGISTRY/platform:6-alpha-jre
-	docker rmi $REGISTRY/platform:6-alpha-almalinux8-21-jre
+	docker tag $REGISTRY/platform:6-alpha-almalinux9-21-jre $REGISTRY/platform:6-alpha-jre
+	docker rmi $REGISTRY/platform:6-alpha-almalinux9-21-jre
+
+	docker rmi $REGISTRY/platform:6-alpha-jvmless > /dev/null 2>&1
+	docker tag $REGISTRY/platform:6-alpha-almalinux9-jvmless $REGISTRY/platform:6-alpha-jvmless
+	docker rmi $REGISTRY/platform:6-alpha-almalinux9-jvmless
 
 	if [ $PUSH -eq 1 ]
 	then
 		./push-to-registries.sh --delete platform \
 			6-alpha-alpine \
-			6-alpha
-# Temporary
-#			6-alpha-jre \
-#			6-alpha-jvmless \
+			6-alpha-jre \
+			6-alpha-jvmless
+		./push-to-registries.sh platform 6-alpha
 	fi
 
 	./build-platform.sh --delete 6-alpha-light || exit_with $? "Unable to build platform version 6-alpha-light"
 
 	docker rmi $REGISTRY/platform:6-alpha-light > /dev/null 2>&1
-	docker tag $REGISTRY/platform:6-alpha-light-almalinux8-21 $REGISTRY/platform:6-alpha-light
-	docker rmi $REGISTRY/platform:6-alpha-light-almalinux8-21
+	docker tag $REGISTRY/platform:6-alpha-light-almalinux9-21 $REGISTRY/platform:6-alpha-light
+	docker rmi $REGISTRY/platform:6-alpha-light-almalinux9-21
 
 	docker rmi $REGISTRY/platform:6-alpha-light-jre > /dev/null 2>&1
-	docker tag $REGISTRY/platform:6-alpha-light-almalinux8-21-jre $REGISTRY/platform:6-alpha-light-jre
-	docker rmi $REGISTRY/platform:6-alpha-light-almalinux8-21-jre
+	docker tag $REGISTRY/platform:6-alpha-light-almalinux9-21-jre $REGISTRY/platform:6-alpha-light-jre
+	docker rmi $REGISTRY/platform:6-alpha-light-almalinux9-21-jre
+
+	docker rmi $REGISTRY/platform:6-alpha-light-jvmless > /dev/null 2>&1
+	docker tag $REGISTRY/platform:6-alpha-light-almalinux9-jvmless $REGISTRY/platform:6-alpha-light-jvmless
+	docker rmi $REGISTRY/platform:6-alpha-light-almalinux9-jvmless
 
 	if [ $PUSH -eq 1 ]
 	then
 		./push-to-registries.sh --delete platform \
 			6-alpha-light-alpine \
-			6-alpha-light
-# Temporary
-#			6-alpha-light-jre \
-#			6-alpha-light-jvmless \
+			6-alpha-light-jre \
+			6-alpha-light-jvmless
+		./push-to-registries.sh platform 6-alpha-light
 	fi
 fi
 

@@ -30,6 +30,10 @@ then
 	docker tag $REGISTRY/platform:5-latest-centos-17-jre $REGISTRY/platform:5-latest-jre
 	docker rmi $REGISTRY/platform:5-latest-centos-17-jre
 
+	docker rmi $REGISTRY/platform:5-latest-jvmless > /dev/null 2>&1
+	docker tag $REGISTRY/platform:5-latest-centos-17-jvmless $REGISTRY/platform:5-latest-jvmless
+	docker rmi $REGISTRY/platform:5-latest-centos-17-jvmless
+
 	docker rmi $REGISTRY/platform:5 $REGISTRY/platform:latest > /dev/null 2>&1
 	docker tag $REGISTRY/platform:5-latest $REGISTRY/platform:5
 	docker tag $REGISTRY/platform:5-latest $REGISTRY/platform:latest
@@ -66,6 +70,10 @@ then
 	docker rmi $REGISTRY/platform:5-latest-light-jre > /dev/null 2>&1
 	docker tag $REGISTRY/platform:5-latest-light-centos-17-jre $REGISTRY/platform:5-latest-light-jre
 	docker rmi $REGISTRY/platform:5-latest-light-centos-17-jre
+
+	docker rmi $REGISTRY/platform:5-latest-light-jvmless > /dev/null 2>&1
+	docker tag $REGISTRY/platform:5-latest-light-centos-17-jvmless $REGISTRY/platform:5-latest-light-jvmless
+	docker rmi $REGISTRY/platform:5-latest-light-centos-17-jvmless
 
 	docker rmi $REGISTRY/platform:5-light $REGISTRY/platform:latest-light > /dev/null 2>&1
 	docker tag $REGISTRY/platform:5-latest-light $REGISTRY/platform:5-light
@@ -107,11 +115,11 @@ then
 
 	#[ $PUSH -eq 1 ] && ./push-to-registries.sh platform 5-preview
 
-	./build-platform.sh --delete 5-preview-light || exit_with $? "Unable to build platform version 5-preview-light"
+	#./build-platform.sh --delete 5-preview-light || exit_with $? "Unable to build platform version 5-preview-light"
 
-	docker rmi $REGISTRY/platform:5-preview-light > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-preview-light-centos-17 $REGISTRY/platform:5-preview-light
-	docker rmi $REGISTRY/platform:5-preview-light-centos-17
+	#docker rmi $REGISTRY/platform:5-preview-light > /dev/null 2>&1
+	#docker tag $REGISTRY/platform:5-preview-light-centos-17 $REGISTRY/platform:5-preview-light
+	#docker rmi $REGISTRY/platform:5-preview-light-centos-17
 
 	#[ $PUSH -eq 1 ] && ./push-to-registries.sh platform 5-preview-light
 fi
