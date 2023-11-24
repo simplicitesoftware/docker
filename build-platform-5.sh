@@ -41,9 +41,9 @@ then
 	if [ $PUSH -eq 1 ]
 	then
 		./push-to-registries.sh --delete platform \
+			5-latest-alpine \
 			5-latest-jvmless \
 			5-latest-jre \
-			5-latest-alpine \
 			5 \
 			latest
 		./push-to-registries.sh platform 5-latest
@@ -82,12 +82,12 @@ then
 	if [ $PUSH -eq 1 ]
 	then
 		./push-to-registries.sh --delete platform \
+			5-latest-light-alpine \
+			5-latest-light \
 			5-latest-light-jvmless \
 			5-latest-light-jre \
-			5-latest-light-alpine \
 			5-light \
 			latest-light
-		./push-to-registries.sh platform 5-latest-light
 	fi
 
 	# Additional tags
@@ -121,7 +121,7 @@ then
 	#docker tag $REGISTRY/platform:5-preview-light-centos-17 $REGISTRY/platform:5-preview-light
 	#docker rmi $REGISTRY/platform:5-preview-light-centos-17
 
-	#[ $PUSH -eq 1 ] && ./push-to-registries.sh platform 5-preview-light
+	#[ $PUSH -eq 1 ] && ./push-to-registries.sh --delete platform 5-preview-light
 fi
 
 # Previous versions

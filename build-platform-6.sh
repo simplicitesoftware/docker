@@ -59,9 +59,9 @@ then
 	then
 		./push-to-registries.sh --delete platform \
 			6-alpha-light-alpine \
+			6-alpha-light \
 			6-alpha-light-jre \
 			6-alpha-light-jvmless
-		./push-to-registries.sh platform 6-alpha-light
 	fi
 fi
 
