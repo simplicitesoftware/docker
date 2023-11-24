@@ -246,7 +246,7 @@ do
 		DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 		DESTPATH="tomcat"
 		[ $TAG = "jetty" ] && DESTPATH="jetty/default"
-		[ $DEL = 1 ] && docker rmi $PLATFORM:$PFTAG$EXT
+		[ $DEL = 1 ] && docker rmi $PLATFORM:$PFTAG$EXT > /dev/null 2>&1
 		docker build $NOCACHE --network host -f Dockerfile-platform --build-arg date=$DATE --build-arg tag=$TAG --build-arg version=$VERSION --build-arg patchlevel=$PATCHLEVEL --build-arg revision=$REVISION --build-arg commitid=$COMMITID --build-arg template=$TEMPLATE --build-arg destpath=$DESTPATH -t $PLATFORM:$PFTAG$EXT .
 		echo "Done"
 	done

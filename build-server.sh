@@ -123,7 +123,7 @@ do
 			echo "========================================================"
 			echo "Building $SERVER:$TAG$SRVEXT image..."
 			echo "========================================================"
-			[ $DEL = 1 ] && docker rmi $SERVER:$TAG$SRVEXT
+			[ $DEL = 1 ] && docker rmi $SERVER:$TAG$SRVEXT > /dev/null 2>&1
 			docker build $NOCACHE --network host -f Dockerfile-$TAG -t $SERVER:$TAG$SRVEXT --build-arg date="=$(date -u +s'%Y-%m-%dT%H:%M:%SZ')" .
 			echo "Done"
 		else
@@ -136,7 +136,7 @@ do
 					echo "========================================================"
 					echo "Building $SERVER:$TAG$TAGEXT-jre$SRVEXT image..."
 					echo "========================================================"
-					[ $DEL = 1 ] && docker rmi $SERVER:$TAG$TAGEXT-jre$SRVEXT
+					[ $DEL = 1 ] && docker rmi $SERVER:$TAG$TAGEXT-jre$SRVEXT > /dev/null 2>&1
 					docker build $NOCACHE --network host -f Dockerfile-$TAG -t $SERVER:$TAG$TAGEXT-jre$SRVEXT --build-arg date="$(date -u +s'%Y-%m-%dT%H:%M:%SZ')" --build-arg jvm="$JVM-jre" .
 					echo "Done"
 				fi
@@ -144,7 +144,7 @@ do
 				echo "========================================================"
 				echo "Building $SERVER:$TAG$TAGEXT$SRVEXT image..."
 				echo "========================================================"
-				[ $DEL = 1 ] && docker rmi $SERVER:$TAG$TAGEXT$SRVEXT
+				[ $DEL = 1 ] && docker rmi $SERVER:$TAG$TAGEXT$SRVEXT > /dev/null 2>&1
 				docker build $NOCACHE --network host -f Dockerfile-$TAG -t $SERVER:$TAG$TAGEXT$SRVEXT --build-arg date="$(date -u +s'%Y-%m-%dT%H:%M:%SZ')" --build-arg jvm="$JVM" .
 				echo "Done"
 
