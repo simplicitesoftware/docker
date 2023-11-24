@@ -31,8 +31,8 @@ then
 	docker rmi $REGISTRY/platform:5-latest-centos-17-jre
 
 	docker rmi $REGISTRY/platform:5-latest-jvmless > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-latest-centos-17-jvmless $REGISTRY/platform:5-latest-jvmless
-	docker rmi $REGISTRY/platform:5-latest-centos-17-jvmless
+	docker tag $REGISTRY/platform:5-latest-centos-jvmless $REGISTRY/platform:5-latest-jvmless
+	docker rmi $REGISTRY/platform:5-latest-centos-jvmless
 
 	docker rmi $REGISTRY/platform:5 $REGISTRY/platform:latest > /dev/null 2>&1
 	docker tag $REGISTRY/platform:5-latest $REGISTRY/platform:5
@@ -72,8 +72,8 @@ then
 	docker rmi $REGISTRY/platform:5-latest-light-centos-17-jre
 
 	docker rmi $REGISTRY/platform:5-latest-light-jvmless > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-latest-light-centos-17-jvmless $REGISTRY/platform:5-latest-light-jvmless
-	docker rmi $REGISTRY/platform:5-latest-light-centos-17-jvmless
+	docker tag $REGISTRY/platform:5-latest-light-centos-jvmless $REGISTRY/platform:5-latest-light-jvmless
+	docker rmi $REGISTRY/platform:5-latest-light-centos-jvmless
 
 	docker rmi $REGISTRY/platform:5-light $REGISTRY/platform:latest-light > /dev/null 2>&1
 	docker tag $REGISTRY/platform:5-latest-light $REGISTRY/platform:5-light
