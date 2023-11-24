@@ -137,7 +137,6 @@ then
 	TAGS=devel
 	SRVS=tomcat
 	PFTAG=$1
-	GITTAG=$3
 elif [ "$1" = "5.0" -o "$1" = "5.0-light" -o "$1" = "5.1" -o "$1" = "5.1-light" -o "$1" = "5.2" -o "$1" = "5.2-light" ]
 then
 	VERSION=5
@@ -157,6 +156,15 @@ then
 	VERSION=6
 	BRANCH=6.0-light
 	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
+	SRVS=tomcat
+	PFTAG=$1
+elif [ "$1" = "6-devel" ]
+then
+	VERSION=6
+	# Temporary
+	#BRANCH=release
+	BRANCH=6.0
+	TAGS=devel
 	SRVS=tomcat
 	PFTAG=$1
 else
