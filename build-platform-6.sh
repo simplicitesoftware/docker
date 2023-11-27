@@ -16,61 +16,58 @@ fi
 
 [ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <alpha|beta|latest> [<additional tags, e.g. \"6.x 6.x.y\">]\n" 
 
-if [ "$1" = "alpha" ]
+TARGET=$1
+
+if [ "$TARGET" = "alpha" -o "$TARGET" = "beta" ]
 then
-	./build-platform.sh --delete 6-alpha || exit_with $? "Unable to build platform version 6-alpha"
+	./build-platform.sh --delete 6-$TARGET || exit_with $? "Unable to build platform version 6-$TARGET"
 
-	docker rmi $REGISTRY/platform:6-alpha > /dev/null 2>&1
-	docker tag $REGISTRY/platform:6-alpha-almalinux9-21 $REGISTRY/platform:6-alpha
-	docker rmi $REGISTRY/platform:6-alpha-almalinux9-21
+	docker rmi $REGISTRY/platform:6-$TARGET > /dev/null 2>&1
+	docker tag $REGISTRY/platform:6-$TARGET-almalinux9-21 $REGISTRY/platform:6-$TARGET
+	docker rmi $REGISTRY/platform:6-$TARGET-almalinux9-21
 
-	docker rmi $REGISTRY/platform:6-alpha-jre > /dev/null 2>&1
-	docker tag $REGISTRY/platform:6-alpha-almalinux9-21-jre $REGISTRY/platform:6-alpha-jre
-	docker rmi $REGISTRY/platform:6-alpha-almalinux9-21-jre
+	docker rmi $REGISTRY/platform:6-$TARGET-jre > /dev/null 2>&1
+	docker tag $REGISTRY/platform:6-$TARGET-almalinux9-21-jre $REGISTRY/platform:6-$TARGET-jre
+	docker rmi $REGISTRY/platform:6-$TARGET-almalinux9-21-jre
 
-	docker rmi $REGISTRY/platform:6-alpha-jvmless > /dev/null 2>&1
-	docker tag $REGISTRY/platform:6-alpha-almalinux9-jvmless $REGISTRY/platform:6-alpha-jvmless
-	docker rmi $REGISTRY/platform:6-alpha-almalinux9-jvmless
+	docker rmi $REGISTRY/platform:6-$TARGET-jvmless > /dev/null 2>&1
+	docker tag $REGISTRY/platform:6-$TARGET-almalinux9-jvmless $REGISTRY/platform:6-$TARGET-jvmless
+	docker rmi $REGISTRY/platform:6-$TARGET-almalinux9-jvmless
 
 	if [ $PUSH -eq 1 ]
 	then
 		./push-to-registries.sh --delete platform \
-			6-alpha-alpine \
-			6-alpha-jre \
-			6-alpha-jvmless
-		./push-to-registries.sh platform 6-alpha
+			6-$TARGET-alpine \
+			6-$TARGET-jre \
+			6-$TARGET-jvmless
+		./push-to-registries.sh platform 6-$TARGET
 	fi
 
-	./build-platform.sh --delete 6-alpha-light || exit_with $? "Unable to build platform version 6-alpha-light"
+	./build-platform.sh --delete 6-$TARGET-light || exit_with $? "Unable to build platform version 6-$TARGET-light"
 
-	docker rmi $REGISTRY/platform:6-alpha-light > /dev/null 2>&1
-	docker tag $REGISTRY/platform:6-alpha-light-almalinux9-21 $REGISTRY/platform:6-alpha-light
-	docker rmi $REGISTRY/platform:6-alpha-light-almalinux9-21
+	docker rmi $REGISTRY/platform:6-$TARGET-light > /dev/null 2>&1
+	docker tag $REGISTRY/platform:6-$TARGET-light-almalinux9-21 $REGISTRY/platform:6-$TARGET-light
+	docker rmi $REGISTRY/platform:6-$TARGET-light-almalinux9-21
 
-	docker rmi $REGISTRY/platform:6-alpha-light-jre > /dev/null 2>&1
-	docker tag $REGISTRY/platform:6-alpha-light-almalinux9-21-jre $REGISTRY/platform:6-alpha-light-jre
-	docker rmi $REGISTRY/platform:6-alpha-light-almalinux9-21-jre
+	docker rmi $REGISTRY/platform:6-$TARGET-light-jre > /dev/null 2>&1
+	docker tag $REGISTRY/platform:6-$TARGET-light-almalinux9-21-jre $REGISTRY/platform:6-$TARGET-light-jre
+	docker rmi $REGISTRY/platform:6-$TARGET-light-almalinux9-21-jre
 
-	docker rmi $REGISTRY/platform:6-alpha-light-jvmless > /dev/null 2>&1
-	docker tag $REGISTRY/platform:6-alpha-light-almalinux9-jvmless $REGISTRY/platform:6-alpha-light-jvmless
-	docker rmi $REGISTRY/platform:6-alpha-light-almalinux9-jvmless
+	docker rmi $REGISTRY/platform:6-$TARGET-light-jvmless > /dev/null 2>&1
+	docker tag $REGISTRY/platform:6-$TARGET-light-almalinux9-jvmless $REGISTRY/platform:6-$TARGET-light-jvmless
+	docker rmi $REGISTRY/platform:6-$TARGET-light-almalinux9-jvmless
 
 	if [ $PUSH -eq 1 ]
 	then
 		./push-to-registries.sh --delete platform \
-			6-alpha-light-alpine \
-			6-alpha-light \
-			6-alpha-light-jre \
-			6-alpha-light-jvmless
+			6-$TARGET-light-alpine \
+			6-$TARGET-light \
+			6-$TARGET-light-jre \
+			6-$TARGET-light-jvmless
 	fi
 fi
 
-if [ "$1" = "beta" ]
-then
-	echo "Not yet available..."
-fi
-
-if [ "$1" = "latest" ]
+if [ "$TARGET" = "latest" ]
 then
 	echo "Not yet available..."
 fi
