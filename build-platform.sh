@@ -144,14 +144,14 @@ then
 	TAGS=${2:-centos-17}
 	SRVS=tomcat
 	PFTAG=$1
-elif [ "$1" = "6-beta" ]
+elif [ "$1" = "6-latest" ]
 then
 	VERSION=6
 	BRANCH=6.0
 	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
 	SRVS=tomcat
 	PFTAG=$1
-elif [ "$1" = "6-beta-light" ]
+elif [ "$1" = "6-latest-light" ]
 then
 	VERSION=6
 	BRANCH=6.0-light
