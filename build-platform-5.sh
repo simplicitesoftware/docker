@@ -44,8 +44,7 @@ then
 			5-latest-alpine \
 			5-latest-jvmless \
 			5-latest-jre \
-			5 \
-			latest
+			5
 		./push-to-registries.sh platform 5-latest
 	fi
 
@@ -86,8 +85,7 @@ then
 			5-latest-light \
 			5-latest-light-jvmless \
 			5-latest-light-jre \
-			5-light \
-			latest-light
+			5-light
 	fi
 
 	# Additional tags
