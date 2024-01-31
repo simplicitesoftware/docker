@@ -34,9 +34,8 @@ then
 	docker tag $REGISTRY/platform:5-latest-centos-jvmless $REGISTRY/platform:5-latest-jvmless
 	docker rmi $REGISTRY/platform:5-latest-centos-jvmless
 
-	docker rmi $REGISTRY/platform:5 $REGISTRY/platform:latest > /dev/null 2>&1
+	docker rmi $REGISTRY/platform:5 > /dev/null 2>&1
 	docker tag $REGISTRY/platform:5-latest $REGISTRY/platform:5
-	docker tag $REGISTRY/platform:5-latest $REGISTRY/platform:latest
 
 	if [ $PUSH -eq 1 ]
 	then
@@ -74,10 +73,9 @@ then
 	docker tag $REGISTRY/platform:5-latest-light-centos-jvmless $REGISTRY/platform:5-latest-light-jvmless
 	docker rmi $REGISTRY/platform:5-latest-light-centos-jvmless
 
-	docker rmi $REGISTRY/platform:5-light $REGISTRY/platform:latest-light > /dev/null 2>&1
+	docker rmi $REGISTRY/platform:5-light > /dev/null 2>&1
 	docker tag $REGISTRY/platform:5-latest-light $REGISTRY/platform:5-light
-	docker tag $REGISTRY/platform:5-latest-light $REGISTRY/platform:latest-light
-
+	
 	if [ $PUSH -eq 1 ]
 	then
 		./push-to-registries.sh --delete platform \

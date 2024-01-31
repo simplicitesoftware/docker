@@ -34,6 +34,10 @@ then
 	docker tag $REGISTRY/platform:6-latest-almalinux9-jvmless $REGISTRY/platform:6-latest-jvmless
 	docker rmi $REGISTRY/platform:6-latest-almalinux9-jvmless
 
+	docker rmi $REGISTRY/platform:6 $REGISTRY/platform:latest > /dev/null 2>&1
+	docker tag $REGISTRY/platform:6-latest $REGISTRY/platform:6
+	docker tag $REGISTRY/platform:6-latest $REGISTRY/platform:latest
+
 	if [ $PUSH -eq 1 ]
 	then
 		./push-to-registries.sh --delete platform \
@@ -70,6 +74,10 @@ then
 	docker rmi $REGISTRY/platform:6-latest-light-jvmless > /dev/null 2>&1
 	docker tag $REGISTRY/platform:6-latest-light-almalinux9-jvmless $REGISTRY/platform:6-latest-light-jvmless
 	docker rmi $REGISTRY/platform:6-latest-light-almalinux9-jvmless
+
+	docker rmi $REGISTRY/platform:6-light $REGISTRY/platform:latest-light > /dev/null 2>&1
+	docker tag $REGISTRY/platform:6-latest-light $REGISTRY/platform:6-light
+	docker tag $REGISTRY/platform:6-latest-light $REGISTRY/platform:latest-light
 
 	if [ $PUSH -eq 1 ]
 	then
