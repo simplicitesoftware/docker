@@ -14,9 +14,14 @@ then
 	shift
 fi
 
-[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <alpha|beta|latest> [<additional tags, e.g. \"6.x 6.x.y\">]\n" 
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <alpha|beta|latest|preview> [<additional tags, e.g. 6.x 6.x.y\>]\n" 
 
 TARGET=$1
+shift
+
+# -------------------------------------------------------------------------------------------
+# Current version
+# -------------------------------------------------------------------------------------------
 
 if [ "$TARGET" = "latest" ]
 then
@@ -49,8 +54,8 @@ then
 		./push-to-registries.sh platform 6-latest
 	fi
 
-	# Additional tags
-	for TAG in ${@:2}
+	# All additional tags
+	for TAG in $@
 	do
 		docker rmi $REGISTRY/platform:$TAG > /dev/null 2>&1
 		docker tag $REGISTRY/platform:6-latest $REGISTRY/platform:$TAG
@@ -88,10 +93,11 @@ then
 			6-latest-light-jvmless \
 			6-light \
 			latest-light
+		./push-to-registries.sh platform 6-latest-light
 	fi
 
-	# Additional tags
-	for TAG in ${@:2}
+	# First additional tag only
+	for TAG in $2
 	do
 		docker rmi $REGISTRY/platform:$TAG-light > /dev/null 2>&1
 		docker tag $REGISTRY/platform:6-latest-light $REGISTRY/platform:$TAG-light
@@ -101,7 +107,35 @@ then
 			./push-to-registries.sh --delete platform $TAG-light
 		fi
 	done
+	docker tag $REGISTRY/platform:6-latest-light
 fi
+
+# -------------------------------------------------------------------------------------------
+# Preview version
+# -------------------------------------------------------------------------------------------
+
+if [ "$TARGET" = "preview" ]
+then
+	./build-platform.sh --delete 6-preview || exit_with $? "Unable to build platform version 6-preview"
+
+	docker rmi $REGISTRY/platform:6-preview > /dev/null 2>&1
+	docker tag $REGISTRY/platform:6-preview-almalinux9-21 $REGISTRY/platform:6-preview
+	docker rmi $REGISTRY/platform:6-preview-almalinux9-21
+
+	#[ $PUSH -eq 1 ] && ./push-to-registries.sh platform 6-preview
+
+	#./build-platform.sh --delete 6-preview-light || exit_with $? "Unable to build platform version 6-preview-light"
+
+	#docker rmi $REGISTRY/platform:6-preview-light > /dev/null 2>&1
+	#docker tag $REGISTRY/platform:6-preview-light-almalinux9-21 $REGISTRY/platform:6-preview-light
+	#docker rmi $REGISTRY/platform:6-preview-light-almalinux9-21
+
+	#[ $PUSH -eq 1 ] && ./push-to-registries.sh --delete platform 6-preview-light
+fi
+
+# -------------------------------------------------------------------------------------------
+# Alpha/beta versions
+# -------------------------------------------------------------------------------------------
 
 if [ "$TARGET" = "alpha" -o "$TARGET" = "beta" ]
 then
