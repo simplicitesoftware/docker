@@ -5,9 +5,9 @@ FROM $reg/platform:$tag
 
 USER root
 
-# Install the SQLServer client 
-ENV ACCEPT_EULA=Y
+# Install the SQLServer client (ZZZ for version 6 change RHEL level to 9 ZZZ)
 ADD https://packages.microsoft.com/config/rhel/7/prod.repo /etc/yum.repos.d/msprod.repo
+ENV ACCEPT_EULA=Y
 RUN dnf install -y mssql-tools unixODBC-devel && dnf clean all
 ENV PATH="/opt/mssql-tools/bin:${PATH}"
 
