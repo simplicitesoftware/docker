@@ -6,7 +6,7 @@ exit_with () {
 	exit ${1:-0}
 }
 
-[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] [--no-cache] 3.0|3.1|3.2|4.0[-light]|5-<preview|latest|devel>[-light]|6-<alpha|beta>[-light] [<server image tag(s)> [<platform Git tag (only applicable to 5-latest and 5-latest-light>]]\n"
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] [--no-cache] 3.0|3.1|3.2|4.0[-light]|5-<preview|latest|devel>[-light]|6-<alpha|beta|preview|latest|devel>[-light] [<server image tag(s)> [<platform Git tag (only applicable to 5-latest and 5-latest-light>]]\n"
 
 LOCK=/tmp/$(basename $0 .sh).lck
 if [ -f $LOCK ]
@@ -90,13 +90,6 @@ then
 	TAGS=${2:-centos-17}
 	SRVS=tomcat
 	PFTAG=$1
-elif [ "$1" = "5-preview-light" ]
-then
-	VERSION=5
-	BRANCH=prerelease-light
-	TAGS=${2:-centos-17}
-	SRVS=tomcat
-	PFTAG=$1
 elif [ "$1" = "5-latest" -o "$1" = "5" ]
 then
 	VERSION=5
@@ -156,6 +149,13 @@ then
 	VERSION=6
 	BRANCH=6.0-light
 	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
+	SRVS=tomcat
+	PFTAG=$1
+elif [ "$1" = "6-preview" ]
+then
+	VERSION=6
+	BRANCH=preview
+	TAGS=${2:-almalinux9-21}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "6-alpha" ]

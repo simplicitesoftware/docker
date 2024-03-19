@@ -14,7 +14,7 @@ then
 	shift
 fi
 
-[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <latest|preview|5.x> [<additional tags, e.g. \"5.x 5.x.y\">]\n" 
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <preview|latest|5.x> [<additional tags, e.g. \"5.x 5.x.y\">]\n" 
 
 TARGET=$1
 shift
@@ -116,16 +116,6 @@ then
 	docker rmi $REGISTRY/platform:5-preview > /dev/null 2>&1
 	docker tag $REGISTRY/platform:5-preview-centos-17 $REGISTRY/platform:5-preview
 	docker rmi $REGISTRY/platform:5-preview-centos-17
-
-	#[ $PUSH -eq 1 ] && ./push-to-registries.sh platform 5-preview
-
-	#./build-platform.sh --delete 5-preview-light || exit_with $? "Unable to build platform version 5-preview-light"
-
-	#docker rmi $REGISTRY/platform:5-preview-light > /dev/null 2>&1
-	#docker tag $REGISTRY/platform:5-preview-light-centos-17 $REGISTRY/platform:5-preview-light
-	#docker rmi $REGISTRY/platform:5-preview-light-centos-17
-
-	#[ $PUSH -eq 1 ] && ./push-to-registries.sh --delete platform 5-preview-light
 fi
 
 # -------------------------------------------------------------------------------------------
