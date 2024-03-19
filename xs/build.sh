@@ -2,7 +2,7 @@
 
 REGISTRY=registry.simplicite.io
 
-for SIMPLICITE_BASE_TAG in 5-beta 5-beta-light 5-latest 5-latest-light
+for SIMPLICITE_BASE_TAG in 5-latest 5-latest-light 6-latest 6-latest-light
 do
     # Base image from which the dockerfile copies the webapp
     SIMPLICITE_BASE="$REGISTRY/platform:$SIMPLICITE_BASE_TAG"

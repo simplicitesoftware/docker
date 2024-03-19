@@ -17,7 +17,7 @@ services:
     volumes:
       - data:/var/lib/postgresql/data
   simplicite:
-    image: registry.simplicite.io/platform:<tag, e.g. 5-latest>
+    image: registry.simplicite.io/platform:<tag, e.g. 6-latest>
     restart: always
     container_name: simplicite
     environment:

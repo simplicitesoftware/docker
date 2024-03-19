@@ -2,7 +2,7 @@ version: "3.8"
 services:
   database:
     # See ../databases/mssql to build this custom SQLServer image
-    image: simplicite/mssql:<version> 
+    image: registry.simplicite.io/mssql:<version> 
     restart: always
     container_name: database
     #environment:
@@ -14,13 +14,13 @@ services:
     volumes:
       - data:/var/opt/mssql
   simplicite:
-    image: registry.simplicite.io/platform:<tag, e.g. 5-latest>-with-mssql-client
+    image: registry.simplicite.io/platform:<tag, e.g. 6-latest>-with-mssql-client
     # Copy ../../Dockerfile-platform-mssql in this folder
     build:
       context: .
       dockerfile: Dockerfile-platform-mssql
       args:
-        tag: <tag, e.g. 5-latest>
+        tag: <tag, e.g. -latest>
     restart: always
     container_name: simplicite
     environment:

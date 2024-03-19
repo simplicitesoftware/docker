@@ -7,13 +7,13 @@ Build the custom images
 ### For SQLServer version 2019:
 
 ```bash
-docker build --build-arg version=2019 -t simplicite/mssql:2019 .
+docker build --build-arg version=2019 -t registry.simplicite.io/mssql:2019 .
 ```
 
 ### For SQLServer bersion 2022 (default):
 
 ```bash
-docker build -t simplicite/mssql:2022 .
+docker build -t registry.simplicite.io/mssql:2022 .
 ```
 
 Test the images
@@ -22,7 +22,7 @@ Test the images
 Run a test **ephemeral** container:
 
 ```bash
-docker run -it --rm -p 127.0.0.1:1433:1433 simplicite/mssql:<version>
+docker run -it --rm -p 127.0.0.1:1433:1433 registry.simplicite.io/mssql:<version>
 ```
 
 If you have SQLServer client installed on your host machine you can now connect to this database with:

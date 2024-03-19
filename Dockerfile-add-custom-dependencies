@@ -1,5 +1,5 @@
 ARG reg=registry.simplicite.io
-ARG tag=5-latest
+ARG tag=6-latest
 FROM $reg/platform:$tag
 
 ARG maven=3.9.6
