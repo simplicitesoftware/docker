@@ -1,4 +1,4 @@
-FROM almalinux:8
+FROM almalinux:9
 
 ARG BUILD_DATE
 LABEL org.label-schema.name="simplicite-vscode" \
@@ -19,7 +19,7 @@ RUN groupadd -g 2000 simplicite && \
     chown -R simplicite:simplicite /var/simplicite/data /var/simplicite/projects /var/simplicite/extensions && \
     dnf upgrade -y && \
     dnf install -y epel-release && \
-    dnf install -y bash procps git vim-enhanced iputils bind bind-utils nmap openssh-clients openssl curl wget zip unzip xz ca-certificates libjpeg fontconfig mariadb postgresql glibc-all-langpacks sudo && \
+    dnf install -y procps git vim-enhanced bind bind-utils nmap openssh-clients wget zip unzip xz libjpeg fontconfig mariadb postgresql glibc-all-langpacks sudo && \
     dnf clean all && \
     echo 'simplicite ALL=(ALL) NOPASSWD: /usr/bin/dnf' >> /etc/sudoers && \
     echo 'Installing VSCode server' && \
