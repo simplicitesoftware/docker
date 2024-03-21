@@ -1,7 +1,7 @@
 Oracle XE example
 ------------------
 
-> **Warning**: this is just an example to launch an **ephemeral** Oracle 18c XE database.
+> **Warning**: this is just an example to launch an **ephemeral** Oracle XE database.
 > **Never** use this example for production!
 
 Build the base Oracle 21xe image:
