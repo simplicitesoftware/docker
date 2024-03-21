@@ -107,7 +107,7 @@ then
 			./push-to-registries.sh --delete platform $TAG-light
 		fi
 	done
-	docker tag $REGISTRY/platform:6-latest-light
+	docker rmi $REGISTRY/platform:6-latest-light
 fi
 
 # -------------------------------------------------------------------------------------------
