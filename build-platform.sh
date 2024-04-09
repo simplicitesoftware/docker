@@ -40,21 +40,21 @@ if [ "$1" = "3.0" ]
 then
 	VERSION=3.0
 	BRANCH=master
-	TAGS=${2:-centos-8}
+	TAGS=${2:-centos-11}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "3.1" ]
 then
 	VERSION=3.1
 	BRANCH=master
-	TAGS=${2:-centos-8}
+	TAGS=${2:-centos-11}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "3.2" ]
 then
 	VERSION=3.2
 	BRANCH=master
-	TAGS=${2:-centos-8}
+	TAGS=${2:-centos-11}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "4.0" ]

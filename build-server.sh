@@ -45,8 +45,8 @@ echo "Server(s) = $SRVS"
 
 BRANCH=master
 
-# JVMs (note: only one JVM for ALPINE)
-JVMS_CENTOS="21 17 11 8"
+# JVMs (note: only the latest JVM for ALPINE)
+JVMS_CENTOS="21 17 11"
 JVMS_ALMALINUX="21 17"
 JVMS_ALPINE="21"
 JVMS_ECLIPSE_TEMURIN="21 17 11"
