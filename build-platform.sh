@@ -158,18 +158,20 @@ then
 	TAGS=${2:-almalinux9-21}
 	SRVS=tomcat
 	PFTAG=$1
-elif [ "$1" = "6-alpha" ]
+elif [ "$1" = "6-alpha" -o "$1" = "6-beta" ]
 then
 	VERSION=6
 	BRANCH=6.1
-	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
+	TAGS=${2:-almalinux9-21}
+	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
 	SRVS=tomcat
 	PFTAG=$1
-elif [ "$1" = "6-alpha-light" ]
+elif [ "$1" = "6-alpha-light" -o "$1" = "6-beta-light" ]
 then
 	VERSION=6
 	BRANCH=6.1-light
-	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
+	TAGS=${2:-almalinux9-21}
+	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "6-devel" ]
