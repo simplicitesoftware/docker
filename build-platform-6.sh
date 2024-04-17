@@ -106,7 +106,6 @@ then
 			6-latest-light-jvmless \
 			6-light \
 			latest-light
-		./push-to-registries.sh platform 6-latest-light
 	fi
 
 	# First additional tag only
