@@ -100,12 +100,12 @@ then
 	if [ $PUSH -eq 1 ]
 	then
 		./push-to-registries.sh --delete platform \
-			6-latest-light \
 			6-latest-light-alpine \
 			6-latest-light-jre \
 			6-latest-light-jvmless \
 			6-light \
 			latest-light
+		./push-to-registries.sh platform 6-latest-light
 	fi
 
 	# First additional tag only
