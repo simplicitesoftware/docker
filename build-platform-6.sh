@@ -109,7 +109,7 @@ then
 	fi
 
 	# First additional tag only
-	for TAG in $2
+	for TAG in $1
 	do
 		docker rmi $REGISTRY/platform:$TAG-light > /dev/null 2>&1
 		docker tag $REGISTRY/platform:6-latest-light $REGISTRY/platform:$TAG-light
