@@ -30,6 +30,19 @@ then
 	docker rmi $REGISTRY/platform:6-$TARGET > /dev/null 2>&1
 	docker tag $REGISTRY/platform:6-$TARGET-almalinux9-21 $REGISTRY/platform:6-$TARGET
 	docker rmi $REGISTRY/platform:6-$TARGET-almalinux9-21
+
+	if [ "$TARGET" = "beta" ]
+	then
+		[ $PUSH -eq 1 ] && ./push-to-registries.sh platform 6-$TARGET
+
+		./build-platform.sh --delete 6-$TARGET-light || exit_with $? "Unable to build platform version 6-$TARGET-light"
+
+		docker rmi $REGISTRY/platform:6-$TARGET-light > /dev/null 2>&1
+		docker tag $REGISTRY/platform:6-$TARGET-light-almalinux9-21 $REGISTRY/platform:6-$TARGET-light
+		docker rmi $REGISTRY/platform:6-$TARGET-light-almalinux9-21
+
+		[ $PUSH -eq 1 ] && ./push-to-registries.sh --delete platform 6-$TARGET-light
+	fi
 fi
 
 # -------------------------------------------------------------------------------------------
