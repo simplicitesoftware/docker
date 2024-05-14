@@ -7,15 +7,15 @@ USER root
 
 # Install the Oracle client (SQL*Plus, ...)
 # ZZZ the URL bellow are just examples, you MUST use the appropriate client version that matches your Oracle server's version ZZZ
-ADD https://download.oracle.com/otn_software/linux/instantclient/216000/oracle-instantclient-basic-21.8.0.0.0-1.x86_64.rpm /tmp
-ADD https://download.oracle.com/otn_software/linux/instantclient/216000/oracle-instantclient-sqlplus-21.8.0.0.0-1.x86_64.rpm /tmp
+ADD https://download.oracle.com/otn_software/linux/instantclient/2340000/oracle-instantclient-basic-23.4.0.24.05-1.el9.x86_64.rpm /tmp
+ADD  https://download.oracle.com/otn_software/linux/instantclient/2340000/oracle-instantclient-sqlplus-23.4.0.24.05-1.el9.x86_64.rpm /tmp
 RUN dnf install -y libaio && dnf clean all && \
-    rpm -i /tmp/oracle-instantclient-basic-21.8.0.0.0-1.x86_64.rpm /tmp/oracle-instantclient-sqlplus-21.8.0.0.0-1.x86_64.rpm && \
+    rpm -i /tmp/oracle-instantclient-basic-23.4.0.24.05-1.el9.x86_64.rpm /tmp/oracle-instantclient-sqlplus-23.4.0.24.05-1.el9.x86_64.rpm && \
     rm -f /tmp/*.rpm
 
 # Install the Oracle JDBC driver
 # ZZZ the URL bellow is just an example, you MUST use the appropriate JDBC driver version that matches your Oracle server's version ZZZ
-ADD https://download.oracle.com/otn-pub/otn_software/jdbc/218/ojdbc11.jar /tmp
+ADD https://download.oracle.com/otn-pub/otn_software/jdbc/234/ojdbc11.jar /tmp
 RUN rm -f /usr/local/tomcat/lib/ojdbc* && \
     cp /tmp/ojdbc11.jar /usr/local/tomcat/lib && \
     chmod go+r /usr/local/tomcat/lib/ojdbc11.jar && \
