@@ -31,7 +31,7 @@ then
 	docker tag $REGISTRY/platform:6-$TARGET-almalinux9-21 $REGISTRY/platform:6-$TARGET
 	docker rmi $REGISTRY/platform:6-$TARGET-almalinux9-21
 
-	if [ "$TARGET" = "beta" ]
+	if [ "$TARGET" != "preview" ]
 	then
 		[ $PUSH -eq 1 ] && ./push-to-registries.sh platform 6-$TARGET
 

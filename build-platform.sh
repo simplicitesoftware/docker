@@ -202,7 +202,6 @@ else
 	rm -f $LOCK
 	exit_with 3 "Unknown variant: $1"
 fi
-# TODO: add 6-beta and 6-release
 
 REGISTRY=registry.simplicite.io
 SERVER=$REGISTRY/server
