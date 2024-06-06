@@ -20,16 +20,25 @@ TARGET=$1
 shift
 
 # -------------------------------------------------------------------------------------------
-# Preview version
+# Preview versions
 # -------------------------------------------------------------------------------------------
 
 if [ "$TARGET" = "preview" ]
 then
-	./build-platform.sh --delete 5-preview || exit_with $? "Unable to build platform version 5-preview"
+	./build-platform.sh --delete 5-preview centos-17 || exit_with $? "Unable to build platform version 5-preview"
 
 	docker rmi $REGISTRY/platform:5-preview > /dev/null 2>&1
 	docker tag $REGISTRY/platform:5-preview-centos-17 $REGISTRY/platform:5-preview
 	docker rmi $REGISTRY/platform:5-preview-centos-17
+fi
+
+if [ "$TARGET" = "preview-jre" ]
+then
+	./build-platform.sh --delete 5-preview centos-17-jre || exit_with $? "Unable to build platform version 5-preview-jre"
+
+	docker rmi $REGISTRY/platform:5-preview-jre > /dev/null 2>&1
+	docker tag $REGISTRY/platform:5-preview-centos-17-jre $REGISTRY/platform:5-preview-jre
+	docker rmi $REGISTRY/platform:5-preview-centos-17-jre
 fi
 
 # -------------------------------------------------------------------------------------------
