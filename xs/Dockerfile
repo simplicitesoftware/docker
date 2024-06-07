@@ -1,41 +1,31 @@
 ARG SIMPLICITE_BASE
 
-# ---IMAGE 1---- Use simplicité image to get webapp (for now)
+# ---SETP 1---- 
+# Use simplicité main image to get webapp (for now)
 FROM $SIMPLICITE_BASE as simplicite-main
 
-# ---IMAGE 2---- Using Alpine's JDK
+# ---STEP 2---- 
+# Using Alpine's JDK to
+# - build HealthCheck
+# - build custom JRE
+
 FROM alpine:latest as java-jdk-jre
-RUN apk add --no-cache openjdk17 binutils
+RUN apk add --no-cache openjdk17 binutils findutils
+
+# build HealthCheck.java
 COPY HealthCheck.java /usr/local/HealthCheck.java
 RUN javac /usr/local/HealthCheck.java
+
+# build custom JRE ()
+COPY --from=simplicite-main /usr/local/tomcat /usr/local/tomcat
 RUN jlink --no-man-pages --no-header-files --compress=2 --output /javaruntime \
     # TODO this has to be tested
     --strip-debug \
     # TODO this can be optimized
-    --add-modules ALL-MODULE-PATH
-#     --add-modules \
-# java.base,\
-# java.compiler,\
-# # java.datatransfer,\
-# java.desktop,\
-# # java.instrument,\
-# # java.logging,\
-# java.management,\
-# # java.management.rmi,\
-# java.naming,\
-# # java.net.http,\
-# # java.prefs,\
-# java.rmi,\
-# java.scripting,\
-# # java.se,\
-# # java.security.jgss,\
-# # java.security.sasl,\
-# # java.smartcardio,\
-# java.sql
-# # java.sql.rowset,\
-# # java.transaction.xa,\
-# # java.xml,\
-# # java.xml.crypto,\
+    #--add-modules ALL-MODULE-PATH
+    # TODO not working : https://stackoverflow.com/questions/71276373/how-to-calculate-list-of-needed-java-modules-with-jdeps
+    # - manually added jdk.zipfs because com.simplicite.util.tools.JARTool uses "jar://"" filesystemprovider   
+    --add-modules "$(jdeps --multi-release 17 --recursive -cp "$(find . -name *.jar -printf "%h/*\n" | sort -u | paste -sd ":")" --ignore-missing-deps --print-module-deps ./ | tail -1),jdk.zipfs"
 
 # ---IMAGE 3----
 FROM alpine:latest
@@ -57,9 +47,10 @@ HEALTHCHECK --interval=10s --timeout=1s --start-period=300s CMD java -cp /opt/ja
 ENV JAVA_HOME=/opt/java/openjdk
 ENV PATH "${JAVA_HOME}/bin:${PATH}"
 COPY --from=java-jdk-jre /javaruntime $JAVA_HOME
+#COPY --from=java-jdk-jre /usr/lib/jvm/java-17-openjdk $JAVA_HOME
 
 # https://pythonspeed.com/articles/root-capabilities-docker-security/
-# USER simplicite
+USER simplicite
 
 WORKDIR /usr/local/tomcat
 EXPOSE 8080 8443 8444 8009
