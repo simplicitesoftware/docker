@@ -92,6 +92,7 @@ then
 	then
 		./push-to-registries.sh --delete platform \
 			6-latest-alpine \
+			6-latest-alpine-jre \
 			6-latest-jre \
 			6-latest-jvmless \
 			6 \
@@ -133,6 +134,7 @@ then
 	then
 		./push-to-registries.sh --delete platform \
 			6-latest-light-alpine \
+			6-latest-light-alpine-jre \
 			6-latest-light-jre \
 			6-latest-light-jvmless \
 			6-light \

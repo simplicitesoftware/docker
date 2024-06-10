@@ -68,6 +68,7 @@ then
 	then
 		./push-to-registries.sh --delete platform \
 			5-latest-alpine \
+			5-latest-alpine-jre \
 			5-latest-jvmless \
 			5-latest-jre \
 			5
@@ -107,6 +108,7 @@ then
 	then
 		./push-to-registries.sh --delete platform \
 			5-latest-light-alpine \
+			5-latest-light-alpine-jre \
 			5-latest-light-jvmless \
 			5-latest-light-jre \
 			5-light
