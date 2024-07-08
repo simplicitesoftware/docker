@@ -87,14 +87,16 @@ elif [ "$1" = "5-preview" ]
 then
 	VERSION=5
 	BRANCH=prerelease
-	TAGS=${2:-centos-17}
+	TAGS=${2:-almalinux9-17}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-latest" -o "$1" = "5" ]
 then
 	VERSION=5
 	BRANCH=release
-	TAGS=${2:-centos-17 centos-17-jre centos-jvmless alpine alpine-jre}
+	# Temporary
+	#TAGS=${2:-almalinux9-17 almalinux9-17-jre almalinux9-jvmless alpine alpine-jre}
+	TAGS=${2:-almalinux9-17 almalinux9-17-jre almalinux9-jvmless centos-17 centos-17-jre centos-jvmless alpine alpine-jre}
 	SRVS=tomcat
 	PFTAG=$1
 	GITTAG=$3
@@ -107,7 +109,9 @@ elif [ "$1" = "5-latest-light" -o "$1" = "5-light" ]
 then
 	VERSION=5
 	BRANCH=release-light
-	TAGS=${2:-centos-17 centos-17-jre centos-jvmless alpine alpine-jre}
+	# Temporary
+	#TAGS=${2:-almalinux9-17 almalinux9-17-jre almalinux9-jvmless alpine alpine-jre}
+	TAGS=${2:-almalinux9-17 almalinux9-17-jre almalinux9-jvmless centos-17 centos-17-jre centos-jvmless alpine alpine-jre}
 	SRVS=tomcat
 	PFTAG=$1
 	GITTAG=$3
@@ -116,13 +120,6 @@ then
 		PFTAG=$GITTAG-light
 		CHECKOUT=$GITTAG
 	fi
-elif [ "$1" = "5-latest-test" ]
-then
-	VERSION=5
-	BRANCH=release
-	TAGS=${2:-almalinux8-21 almalinux9-21}
-	SRVS=tomcat
-	PFTAG=$1
 elif [ "$1" = "5-devel" ]
 then
 	VERSION=5
