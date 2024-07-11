@@ -43,7 +43,7 @@ then
 fi
 
 # -------------------------------------------------------------------------------------------
-# Preview versions
+# Preview version
 # -------------------------------------------------------------------------------------------
 
 if [ "$TARGET" = "preview" ]
@@ -154,6 +154,42 @@ then
 		fi
 	done
 	docker rmi $REGISTRY/platform:6-latest-light
+fi
+
+# -------------------------------------------------------------------------------------------
+# Previous versions
+# -------------------------------------------------------------------------------------------
+
+if [ "$TARGET" = "6.0" ]
+then
+	./build-platform.sh --delete $TARGET || exit_with $? "Unable to build platform version $TARGET"
+	./build-platform.sh --delete $TARGET-light || exit_with $? "Unable to build platform version $TARGET-light"
+
+	docker rmi $REGISTRY/platform:$TARGET > /dev/null 2>&1
+	docker tag $REGISTRY/platform:$TARGET-almalinux9-21 $REGISTRY/platform:$TARGET
+	docker rmi $REGISTRY/platform:$TARGET-almalinux9-21
+
+	docker rmi $REGISTRY/platform:$TARGET-light > /dev/null 2>&1
+	docker tag $REGISTRY/platform:$TARGET-light-almalinux9-21 $REGISTRY/platform:$TARGET-light
+	docker rmi $REGISTRY/platform:$TARGET-light-almalinux9-21
+
+	if [ $PUSH -eq 1 ]
+	then
+		./push-to-registries.sh platform $TARGET
+		./push-to-registries.sh --delete platform $TARGET-light
+	fi
+
+	# All additional tags
+	for TAG in $@
+	do
+		docker rmi $REGISTRY/platform:$TAG > /dev/null 2>&1
+		docker tag $REGISTRY/platform:$TARGET $REGISTRY/platform:$TAG
+
+		if [ $PUSH -eq 1 ]
+		then
+			./push-to-registries.sh --delete platform $TAG
+		fi
+	done
 fi
 
 exit_with
