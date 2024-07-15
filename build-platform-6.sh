@@ -14,7 +14,7 @@ then
 	shift
 fi
 
-[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <alpha|beta|preview|latest> [<additional tags, e.g. 6.x 6.x.y\>]\n" 
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <alpha|beta|latest> [<additional tags, e.g. 6.x 6.x.y\>]\n" 
 
 TARGET=$1
 shift
@@ -43,10 +43,10 @@ then
 fi
 
 # -------------------------------------------------------------------------------------------
-# Preview version
+# Current version preview
 # -------------------------------------------------------------------------------------------
 
-if [ "$TARGET" = "preview" ]
+if [ "$TARGET" = "6-preview" ]
 then
 	./build-platform.sh --delete 6-preview almalinux9-21 || exit_with $? "Unable to build platform version 6-preview"
 
@@ -55,7 +55,7 @@ then
 	docker rmi $REGISTRY/platform:6-preview-almalinux9-21
 fi
 
-if [ "$TARGET" = "preview-jre" ]
+if [ "$TARGET" = "6-preview-jre" ]
 then
 	./build-platform.sh --delete 6-preview almalinux9-21-jre || exit_with $? "Unable to build platform version 6-preview-jre"
 
@@ -190,6 +190,24 @@ then
 			./push-to-registries.sh --delete platform $TAG
 		fi
 	done
+fi
+
+if [ "$TARGET" = "6.0-preview" ]
+then
+	./build-platform.sh --delete 6.0-preview almalinux9-21 || exit_with $? "Unable to build platform version 6.0-preview"
+
+	docker rmi $REGISTRY/platform:6.0-preview > /dev/null 2>&1
+	docker tag $REGISTRY/platform:6.0-preview-almalinux9-21 $REGISTRY/platform:6.0-preview
+	docker rmi $REGISTRY/platform:6.0-preview-almalinux9-21
+fi
+
+if [ "$TARGET" = "6.0-preview-jre" ]
+then
+	./build-platform.sh --delete 6.0-preview almalinux9-21-jre || exit_with $? "Unable to build platform version 6.0-preview-jre"
+
+	docker rmi $REGISTRY/platform:6.0-preview-jre > /dev/null 2>&1
+	docker tag $REGISTRY/platform:6.0-preview-almalinux9-21-jre $REGISTRY/platform:6.0-preview-jre
+	docker rmi $REGISTRY/platform:6.0-preview-almalinux9-21-jre
 fi
 
 exit_with
