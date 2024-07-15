@@ -14,7 +14,7 @@ then
 	shift
 fi
 
-[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <alpha|beta|latest> [<additional tags, e.g. 6.x 6.x.y\>]\n" 
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <alpha|beta|latest|preview|6.0[-preview]> [<additional tags, e.g. 6.x 6.x.y\>]\n" 
 
 TARGET=$1
 shift
@@ -46,7 +46,7 @@ fi
 # Current version preview
 # -------------------------------------------------------------------------------------------
 
-if [ "$TARGET" = "6-preview" ]
+if [ "$TARGET" = "preview" ]
 then
 	./build-platform.sh --delete 6-preview almalinux9-21 || exit_with $? "Unable to build platform version 6-preview"
 
@@ -55,7 +55,7 @@ then
 	docker rmi $REGISTRY/platform:6-preview-almalinux9-21
 fi
 
-if [ "$TARGET" = "6-preview-jre" ]
+if [ "$TARGET" = "preview-jre" ]
 then
 	./build-platform.sh --delete 6-preview almalinux9-21-jre || exit_with $? "Unable to build platform version 6-preview-jre"
 

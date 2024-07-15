@@ -155,22 +155,24 @@ then
 	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine alpine-jre}
 	SRVS=tomcat
 	PFTAG=$1
-#elif [ "$1" = "6-beta" ]
-#then
+elif [ "$1" = "6-beta" ]
+then
 #	VERSION=6
 #	BRANCH=6.2
 #	TAGS=${2:-almalinux9-21}
 #	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
 #	SRVS=tomcat
 #	PFTAG=$1
-#elif [ "$1" = "6-beta-light" ]
-#then
+	exit_with 3 "Currently unavailable variant: $1"
+elif [ "$1" = "6-beta-light" ]
+then
 #	VERSION=6
 #	BRANCH=6.2-light
 #	TAGS=${2:-almalinux9-21}
 #	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
 #	SRVS=tomcat
 #	PFTAG=$1
+	exit_with 3 "Currently unavailable variant: $1"
 elif [ "$1" = "6-alpha" ]
 then
 	VERSION=6
