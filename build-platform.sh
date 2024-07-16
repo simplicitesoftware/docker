@@ -83,6 +83,13 @@ then
 		PFTAG=$GITTAG-light
 		CHECKOUT=$GITTAG
 	fi
+elif [ "$1" = "5-devel" ]
+then
+	VERSION=5
+	BRANCH=prerelease
+	TAGS=devel
+	SRVS=tomcat
+	PFTAG=$1
 elif [ "$1" = "5-preview" ]
 then
 	VERSION=5
@@ -94,7 +101,7 @@ elif [ "$1" = "5-latest" -o "$1" = "5" ]
 then
 	VERSION=5
 	BRANCH=release
-	# Temporary
+	# ZZZ temporary ZZZ
 	#TAGS=${2:-almalinux9-17 almalinux9-17-jre almalinux9-jvmless alpine alpine-jre}
 	TAGS=${2:-almalinux9-17 almalinux9-17-jre almalinux9-jvmless centos-17 centos-17-jre centos-jvmless alpine alpine-jre}
 	SRVS=tomcat
@@ -109,7 +116,7 @@ elif [ "$1" = "5-latest-light" -o "$1" = "5-light" ]
 then
 	VERSION=5
 	BRANCH=release-light
-	# Temporary
+	# ZZZ temporary ZZZ
 	#TAGS=${2:-almalinux9-17 almalinux9-17-jre almalinux9-jvmless alpine alpine-jre}
 	TAGS=${2:-almalinux9-17 almalinux9-17-jre almalinux9-jvmless centos-17 centos-17-jre centos-jvmless alpine alpine-jre}
 	SRVS=tomcat
@@ -120,13 +127,6 @@ then
 		PFTAG=$GITTAG-light
 		CHECKOUT=$GITTAG
 	fi
-elif [ "$1" = "5-devel" ]
-then
-	VERSION=5
-	BRANCH=release
-	TAGS=devel
-	SRVS=tomcat
-	PFTAG=$1
 elif [ "$1" = "5.0" -o "$1" = "5.0-light" -o "$1" = "5.1" -o "$1" = "5.1-light" -o "$1" = "5.2" -o "$1" = "5.2-light" ]
 then
 	VERSION=5
@@ -134,24 +134,35 @@ then
 	TAGS=${2:-centos-17}
 	SRVS=tomcat
 	PFTAG=$1
+elif [ "$1" = "6-devel" ]
+then
+	VERSION=6
+	# Current release branch
+	BRANCH=6.1
+	TAGS=devel
+	SRVS=tomcat
+	PFTAG=$1
 elif [ "$1" = "6-preview" ]
 then
 	VERSION=6
-	BRANCH=6.1-preview
-	TAGS=${2:-almalinux9-21}
+	# ZZZ temporary still version 6.0 ZZZ
+	BRANCH=6.0-preview
+	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine alpine-jre}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "6-latest" -o "$1" = "6" ]
 then
 	VERSION=6
-	BRANCH=6.1
+	# ZZZ temporary still version 6.0 ZZZ
+	BRANCH=6.0
 	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine alpine-jre}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "6-latest-light" -o "$1" = "6-light" ]
 then
 	VERSION=6
-	BRANCH=6.1-light
+	# ZZZ temporary still version 6.0 ZZZ
+	BRANCH=6.0-light
 	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine alpine-jre}
 	SRVS=tomcat
 	PFTAG=$1
@@ -189,15 +200,7 @@ then
 	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
 	SRVS=tomcat
 	PFTAG=$1
-elif [ "$1" = "6-devel" ]
-then
-	VERSION=6
-	# Current release branch
-	BRANCH=6.0
-	TAGS=devel
-	SRVS=tomcat
-	PFTAG=$1
-elif [ "$1" = "6.0" -o "$1" = "6.0-light" -o "$1" = "6.0-preview" ]
+elif [ "$1" = "6.0" -o "$1" = "6.0-light" -o "$1" = "6.0-preview" -o "$1" = "6.1" -o "$1" = "6.1-light" -o "$1" = "6.1-preview"]
 then
 	VERSION=6
 	BRANCH=$1
