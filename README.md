@@ -11,7 +11,7 @@ Introduction
 ------------
 
 This repository contains the scripts used to **build** [Docker](http://www.docker.com) images that contains a pre-configured
-[Tomcat](http://tomcat.apache.org/) server on which can be run a [Simplicit&eacute;&reg;](http://www.simplicitesoftware.com)
+[Tomcat](http://tomcat.apache.org) server on which can be run a [Simplicit&eacute;&reg;](http://www.simplicitesoftware.com)
 low code platform instance.
 
 The images built using these tools are **available on [our private registry](https://registry.simplicite.io)**:
@@ -30,7 +30,7 @@ Usage
 Licenses
 --------
 
-Copyright 2014-2021 Simplicit&eacute; Software
+Copyright 2014-2024 Simplicit&eacute; Software
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
