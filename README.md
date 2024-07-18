@@ -24,8 +24,8 @@ It also contains other scripts and examples for building/running other Simplicit
 Usage
 -----
 
-- See [this document](https://docs.simplicite.io/documentation/90-operation/docker-tutorial.md) for a basic tutorial.
-- See [this document](https://docs.simplicite.io/documentation/90-operation/docker.md) for more details and advanced usages.
+- See [this document](https://docs.simplicite.io/lesson/docs/operation/docker-tutorial) for a basic tutorial.
+- See [this document](https://docs.simplicite.io/lesson/docs/operation/docker) for more details and advanced usages.
 
 Licenses
 --------
