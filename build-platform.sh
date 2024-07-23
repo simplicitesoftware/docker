@@ -200,7 +200,7 @@ then
 	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
 	SRVS=tomcat
 	PFTAG=$1
-elif [ "$1" = "6.0" -o "$1" = "6.0-light" -o "$1" = "6.0-preview" -o "$1" = "6.1" -o "$1" = "6.1-light" -o "$1" = "6.1-preview"]
+elif [ "$1" = "6.0" -o "$1" = "6.0-light" -o "$1" = "6.0-preview" -o "$1" = "6.1" -o "$1" = "6.1-light" -o "$1" = "6.1-preview" ]
 then
 	VERSION=6
 	BRANCH=$1
