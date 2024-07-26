@@ -153,16 +153,14 @@ then
 elif [ "$1" = "6-latest" -o "$1" = "6" ]
 then
 	VERSION=6
-	# ZZZ temporary still version 6.0 ZZZ
-	BRANCH=6.0
+	BRANCH=6.1
 	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine alpine-jre}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "6-latest-light" -o "$1" = "6-light" ]
 then
 	VERSION=6
-	# ZZZ temporary still version 6.0 ZZZ
-	BRANCH=6.0-light
+	BRANCH=6.1-light
 	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine alpine-jre}
 	SRVS=tomcat
 	PFTAG=$1
