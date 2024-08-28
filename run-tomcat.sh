@@ -46,7 +46,7 @@ else
 	do
 		for SUBDIR in $(find $DIR -type d)
 		do
-			if [ -w $SUBDIR ] && [ !- -O $SUBDIR -o ! -G $SUBDIR ]
+			if [ -w $SUBDIR ] && [ ! -O $SUBDIR -o ! -G $SUBDIR ]
 			then
 				echo "Changing ownership of $SUBDIR to $TOMCAT_UID:$TOMCAT_GID"
 				sudo /bin/chown -R $TOMCAT_UID:$TOMCAT_GID $SUBDIR
