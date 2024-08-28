@@ -42,6 +42,7 @@ then
 	echo "------------------------------------------------------------------------"
 else
 	echo "Running Tomcat as $TOMCAT_USER (user ID $TOMCAT_UID, group ID $TOMCAT_GID)"
+	sudo /bin/chown -R $TOMCAT_UID:$TOMCAT_GID /usr/local/tomcat
 fi
 
 if [ $(id -u) = $TOMCAT_UID ]
