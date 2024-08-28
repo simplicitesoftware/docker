@@ -41,8 +41,8 @@ then
 	echo "WARNING: Running Tomcat as root, this MAY not be suitable for production"
 	echo "------------------------------------------------------------------------"
 else
+	sudo /bin/chown -R $TOMCAT_UID:$TOMCAT_GID $TOMCAT_ROOT
 	echo "Running Tomcat as $TOMCAT_USER (user ID $TOMCAT_UID, group ID $TOMCAT_GID)"
-	sudo /bin/chown -R $TOMCAT_UID:$TOMCAT_GID /usr/local/tomcat
 fi
 
 if [ $(id -u) = $TOMCAT_UID ]
