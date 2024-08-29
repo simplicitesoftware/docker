@@ -41,17 +41,14 @@ then
 	echo "WARNING: Running Tomcat as root, this MAY not be suitable for production"
 	echo "------------------------------------------------------------------------"
 else
-	# Change ownership of writeable directories if required
-	for DIR in $TOMCAT_ROOT/work $TOMCAT_ROOT/temp $TOMCAT_ROOT/logs $TOMCAT_ROOT/webapps
+	# Change ownership of work directories if required
+	for DIR in $TOMCAT_ROOT/work $TOMCAT_ROOT/temp $TOMCAT_ROOT/logs $TOMCAT_ROOT/webapps/*/WEB-INF
 	do
-		for SUBDIR in $(find $DIR -type d)
-		do
-			if [ -w $SUBDIR ] && [ ! -O $SUBDIR -o ! -G $SUBDIR ]
-			then
-				echo "Changing ownership of $SUBDIR to $TOMCAT_UID:$TOMCAT_GID"
-				sudo /bin/chown -R $TOMCAT_UID:$TOMCAT_GID $SUBDIR
-			fi
-		done
+		if [ ! -O $DIR -o ! -G $DIR ]
+		then
+			echo "WARNING: Changing ownership of $DIR to $TOMCAT_UID:$TOMCAT_GID"
+			sudo /bin/chown -R $TOMCAT_UID:$TOMCAT_GID $DIR
+		fi
 	done
 	echo "Running Tomcat as $TOMCAT_USER (user ID $TOMCAT_UID, group ID $TOMCAT_GID)"
 fi
