@@ -145,8 +145,7 @@ then
 elif [ "$1" = "6-preview" ]
 then
 	VERSION=6
-	# ZZZ temporary still version 6.0 ZZZ
-	BRANCH=6.0-preview
+	BRANCH=6.1-preview
 	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine alpine-jre}
 	SRVS=tomcat
 	PFTAG=$1
