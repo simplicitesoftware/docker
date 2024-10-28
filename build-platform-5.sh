@@ -64,28 +64,11 @@ then
 	docker rmi $REGISTRY/platform:5 > /dev/null 2>&1
 	docker tag $REGISTRY/platform:5-latest $REGISTRY/platform:5
 
-	# Temporary
-
-	docker rmi $REGISTRY/platform:5-latest-centos7 > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-latest-centos-17 $REGISTRY/platform:5-latest-centos7
-	docker rmi $REGISTRY/platform:5-latest-centos-17
-
-	docker rmi $REGISTRY/platform:5-latest-centos7-jre > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-latest-centos-17-jre $REGISTRY/platform:5-latest-centos7-jre
-	docker rmi $REGISTRY/platform:5-latest-centos-17-jre
-
-	docker rmi $REGISTRY/platform:5-latest-centos7-jvmless > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-latest-centos-jvmless $REGISTRY/platform:5-latest-centos7-jvmless
-	docker rmi $REGISTRY/platform:5-latest-centos-jvmless
-
 	if [ $PUSH -eq 1 ]
 	then
 		./push-to-registries.sh --delete platform \
 			5-latest-alpine \
 			5-latest-alpine-jre \
-			5-latest-centos7 \
-			5-latest-centos7-jvmless \
-			5-latest-centos7-jre \
 			5-latest-jvmless \
 			5-latest-jre \
 			5
@@ -121,28 +104,11 @@ then
 	docker rmi $REGISTRY/platform:5-light > /dev/null 2>&1
 	docker tag $REGISTRY/platform:5-latest-light $REGISTRY/platform:5-light
 
-	# Temporary
-
-	docker rmi $REGISTRY/platform:5-latest-light-centos7 > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-latest-light-centos-17 $REGISTRY/platform:5-latest-light-centos7
-	docker rmi $REGISTRY/platform:5-latest-light-centos-17
-
-	docker rmi $REGISTRY/platform:5-latest-light-centos7-jre > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-latest-light-centos-17-jre $REGISTRY/platform:5-latest-light-centos7-jre
-	docker rmi $REGISTRY/platform:5-latest-light-centos-17-jre
-
-	docker rmi $REGISTRY/platform:5-latest-light-centos7-jvmless > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-latest-light-centos-jvmless $REGISTRY/platform:5-latest-light-centos7-jvmless
-	docker rmi $REGISTRY/platform:5-latest-light-centos-jvmless
-
 	if [ $PUSH -eq 1 ]
 	then
 		./push-to-registries.sh --delete platform \
 			5-latest-light-alpine \
 			5-latest-light-alpine-jre \
-			5-latest-light-centos7 \
-			5-latest-light-centos7-jvmless \
-			5-latest-light-centos7-jre \
 			5-latest-light-jvmless \
 			5-latest-light-jre \
 			5-light

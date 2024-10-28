@@ -101,9 +101,7 @@ elif [ "$1" = "5-latest" -o "$1" = "5" ]
 then
 	VERSION=5
 	BRANCH=release
-	# ZZZ temporary ZZZ
-	#TAGS=${2:-almalinux9-17 almalinux9-17-jre almalinux9-jvmless alpine alpine-jre}
-	TAGS=${2:-almalinux9-17 almalinux9-17-jre almalinux9-jvmless centos-17 centos-17-jre centos-jvmless alpine alpine-jre}
+	TAGS=${2:-almalinux9-17 almalinux9-17-jre almalinux9-jvmless alpine alpine-jre}
 	SRVS=tomcat
 	PFTAG=$1
 	GITTAG=$3
@@ -116,9 +114,7 @@ elif [ "$1" = "5-latest-light" -o "$1" = "5-light" ]
 then
 	VERSION=5
 	BRANCH=release-light
-	# ZZZ temporary ZZZ
-	#TAGS=${2:-almalinux9-17 almalinux9-17-jre almalinux9-jvmless alpine alpine-jre}
-	TAGS=${2:-almalinux9-17 almalinux9-17-jre almalinux9-jvmless centos-17 centos-17-jre centos-jvmless alpine alpine-jre}
+	TAGS=${2:-almalinux9-17 almalinux9-17-jre almalinux9-jvmless alpine alpine-jre}
 	SRVS=tomcat
 	PFTAG=$1
 	GITTAG=$3
