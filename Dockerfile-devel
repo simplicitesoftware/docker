@@ -16,7 +16,7 @@ LABEL org.label-schema.name="simplicite-server-devel" \
 
 USER root
 
-RUN dnf install -y vim-enhanced gcc gcc-c++ make python3 python3-pyyaml iproute nmap xz procps gpg pinentry && dnf clean all && \
+RUN dnf install -y vim-enhanced gcc gcc-c++ make python3 python3-pyyaml iproute nmap xz gpg pinentry && dnf clean all && \
     echo -e 'alias vi=vim' >> /root/.bashrc && \
 echo -e '#!/bin/bash\n\
 [ "$1" = "" ] && IN=/dev/stdin || IN=$1\n\

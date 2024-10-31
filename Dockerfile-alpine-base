@@ -17,7 +17,7 @@ ENV DOCKER=alpine LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8 LOG4J_FORMAT_MSG_
 
 ADD *.crt /usr/local/share/ca-certificates/
 RUN apk update && apk upgrade && \
-    apk add --update bash sudo openssh-client openssl git curl wget zip unzip nmap ca-certificates libjpeg fontconfig ttf-dejavu mysql-client postgresql-client && \
+    apk add --update bash sudo procps openssh-client openssl git curl wget zip unzip nmap ca-certificates libjpeg fontconfig ttf-dejavu mysql-client postgresql-client && \
     rm -rf /var/cache/apk/* && \
     update-ca-certificates && \
     ln -s /usr/local/tomcat/logs /var/log/tomcat && \

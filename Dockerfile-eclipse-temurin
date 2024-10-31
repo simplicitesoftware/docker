@@ -21,7 +21,7 @@ ADD *.crt /usr/local/share/ca-certificates/
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y apt-utils && \
-    apt-get install -y bash sudo openssh-client openssl git curl wget zip unzip ca-certificates libjpeg-dev mysql-client postgresql-client && \
+    apt-get install -y bash sudo procps openssh-client openssl git curl wget zip unzip ca-certificates libjpeg-dev mysql-client postgresql-client && \
     apt-get clean && \
     update-ca-certificates && \
     ln -s /usr/local/tomcat/logs /var/log/tomcat && \
