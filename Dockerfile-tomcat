@@ -4,6 +4,7 @@ ADD jacoco/lib/*.jar /usr/local/jacoco/
 ADD tomcat /usr/local/tomcat
 ADD run-tomcat.sh /usr/local/tomcat/run
 
+ENV TOMCAT_ROOT=/usr/local/tomcat
 WORKDIR /usr/local/tomcat
 # HTTP, HTTP for SLL, HTTPS, AJP, JMX, RMI, JPDA, JaCoCo
 EXPOSE 8080 8443 8444 8009 8005 1099 1098 8000 8001

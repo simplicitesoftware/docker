@@ -28,12 +28,11 @@ LABEL org.label-schema.name="simplicite-platform-$version" \
 # TODO:
 # HEALTHCHECK --interval=60s --timeout=3s --start-period=300s CMD curl --fail http://localhost:8080/ping || exit 1
 
-ARG destpath=tomcat
 # Add the webapp
-ADD --chown=simplicite:simplicite $template/app /usr/local/$destpath/webapps/ROOT
-ENV WEBAPP_PATH=/usr/local/$destpath/webapps/ROOT
+ADD --chown=simplicite:simplicite $template/app /usr/local/tomcat/webapps/ROOT
 # Pre-create potentially mountable workdirs to avoid ownership issues on volumes
-RUN cd $WEBAPP_PATH/WEB-INF && \
+RUN mkdir logs work temp && \
+    chown simplicite:simplicite logs work temp
+    cd webapps/ROOT/WEB-INF && \
     mkdir src bin build cache jar log maven recyclebin tmp && \
     chown simplicite:simplicite src bin build cache jar log maven recyclebin tmp
-

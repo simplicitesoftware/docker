@@ -13,7 +13,7 @@ LABEL org.label-schema.name="simplicite-server-alpine-base" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="$date"
 
-ENV DOCKER=alpine LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8 LOG4J_FORMAT_MSG_NO_LOOKUPS=true
+ENV DOCKER=alpine LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8 LOG4J_FORMAT_MSG_NO_LOOKUPS=true TOMCAT_ROOT=/usr/local/tomcat
 
 ADD *.crt /usr/local/share/ca-certificates/
 RUN apk update && apk upgrade && \

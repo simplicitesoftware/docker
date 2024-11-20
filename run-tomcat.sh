@@ -18,10 +18,9 @@ then
 	echo "...done"
 fi
 
-TOMCAT_ROOT=/usr/local/tomcat
-[ "$TOMCAT_USER" = "" ] && TOMCAT_USER=$(id -un)
-
-TOMCAT_UID=$(id -u $TOMCAT_USER)
+TOMCAT_ROOT=${TOMCAT_ROOT:-/usr/local/tomcat}
+TOMCAT_USER=${TOMCAT_USER:-$(id -un)}
+TOMCAT_UID=${TOMCAT_UID:-$(id -u $TOMCAT_USER)}
 if [ $? -ne 0 ]
 then
 	echo "ERROR: User $TOMCAT_USER does not exist"

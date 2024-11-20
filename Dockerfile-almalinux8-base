@@ -13,7 +13,7 @@ LABEL org.label-schema.name="simplicite-server-almalinux8-base" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="${date}"
 
-ENV DOCKER=almalinux8 LANG=C.UTF-8 LANGUAGE=C.UTF-8 LOG4J_FORMAT_MSG_NO_LOOKUPS=true
+ENV DOCKER=almalinux8 LANG=C.UTF-8 LANGUAGE=C.UTF-8 LOG4J_FORMAT_MSG_NO_LOOKUPS=true TOMCAT_ROOT=/usr/local/tomcat
 
 ADD *.crt /etc/pki/ca-trust/source/anchors/
 RUN dnf upgrade -y && \

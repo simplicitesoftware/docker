@@ -14,7 +14,7 @@ LABEL org.label-schema.name="simplicite-server-eclipse-temurin-${jvm}" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="$date"
 
-ENV DOCKER=eclipse-temurin LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8
+ENV DOCKER=eclipse-temurin LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8 TOMCAT_ROOT=/usr/local/tomcat
 # JAVA_HOME is defined by default
 
 ADD *.crt /usr/local/share/ca-certificates/

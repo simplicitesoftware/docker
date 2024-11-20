@@ -3,6 +3,7 @@ FROM scratch
 ADD jetty /usr/local/jetty
 ADD run-jetty.sh /usr/local/jetty/run
 
+ENV JETTY_ROOT=/usr/local/jetty
 WORKDIR /usr/local/jetty
 EXPOSE 8080
 CMD [ "/usr/local/jetty/run" ]
