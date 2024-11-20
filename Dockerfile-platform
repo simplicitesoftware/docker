@@ -31,8 +31,6 @@ LABEL org.label-schema.name="simplicite-platform-$version" \
 # Add the webapp
 ADD --chown=simplicite:simplicite $template/app /usr/local/tomcat/webapps/ROOT
 # Pre-create potentially mountable workdirs to avoid ownership issues on volumes
-RUN mkdir logs work temp && \
-    chown simplicite:simplicite logs work temp
-    cd webapps/ROOT/WEB-INF && \
+RUN cd webapps/ROOT/WEB-INF && \
     mkdir src bin build cache jar log maven recyclebin tmp && \
     chown simplicite:simplicite src bin build cache jar log maven recyclebin tmp
