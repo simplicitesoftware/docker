@@ -27,15 +27,18 @@ exit $?' > /usr/local/bin/yaml2json && chmod +x /usr/local/bin/yaml2json
 
 ADD ant /usr/local/ant
 ADD maven /usr/local/maven
-ADD gradle /usr/local/maven
+#ADD gradle /usr/local/maven
 ADD node /usr/local/node
 ADD jacoco /usr/local/jacoco
 
 ENV ANT_HOME=/usr/local/ant \
     MAVEN_HOME=/usr/local/maven \
-    GRADLE_HOME=/usr/local/gradle \
     NODE_HOME=/usr/local/node \
     JACOCO_HOME=/usr/local/jacoco \
-    PATH=/usr/local/ant/bin:/usr/local/maven/bin:/usr/local/gradle/bin:/usr/local/node/bin:$PATH
+    PATH=/usr/local/ant/bin:/usr/local/maven/bin:/usr/local/node/bin:$PATH
+
+# Gradle & Maven use different versions of Java libs...
+#    GRADLE_HOME=/usr/local/gradle \
+#    PATH=/usr/local/gradle/bin:$PATH
 
 USER simplicite
