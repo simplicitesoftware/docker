@@ -33,4 +33,5 @@ ADD --chown=simplicite:simplicite $template/app /usr/local/tomcat/webapps/ROOT
 # Pre-create potentially mountable workdirs to avoid ownership issues on volumes
 RUN cd webapps/ROOT/WEB-INF && \
     mkdir src bin build cache jar log maven recyclebin tmp && \
-    chown simplicite:simplicite src bin build cache jar log maven recyclebin tmp
+    chown simplicite:simplicite src bin build cache jar log maven recyclebin tmp && \
+    rm -f jetty-env.xml
