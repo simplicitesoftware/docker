@@ -14,7 +14,7 @@ then
 	shift
 fi
 
-[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <alpha|beta|latest|preview|6.0[-preview]> [<additional tags, e.g. 6.x 6.x.y\>]\n" 
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <alpha|beta|preview|latest|devel|6.0[-preview]> [<additional tags, e.g. 6.x 6.x.y\>]\n" 
 
 TARGET=$1
 shift
