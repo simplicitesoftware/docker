@@ -31,7 +31,8 @@ ADD maven /usr/local/maven
 ADD node /usr/local/node
 ADD jacoco /usr/local/jacoco
 
-ENV ANT_HOME=/usr/local/ant \
+ENV DEV_MODE=true \
+    ANT_HOME=/usr/local/ant \
     MAVEN_HOME=/usr/local/maven \
     NODE_HOME=/usr/local/node \
     JACOCO_HOME=/usr/local/jacoco \
