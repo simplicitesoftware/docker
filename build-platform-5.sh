@@ -14,7 +14,7 @@ then
 	shift
 fi
 
-[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <preview|latest|5.x> [<additional tags, e.g. \"5.x 5.x.y\">]\n" 
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <preview|latest|devel|5.x> [<additional tags, e.g. \"5.x 5.x.y\">]\n" 
 
 TARGET=$1
 shift
@@ -127,6 +127,15 @@ then
 		fi
 	done
 	docker rmi $REGISTRY/platform:5-latest-light
+fi
+
+# -------------------------------------------------------------------------------------------
+# Current version whith development tools
+# -------------------------------------------------------------------------------------------
+
+if [ "$TARGET" = "devel" ]
+then
+	./build-platform.sh --delete 5-devel || exit_with $? "Unable to build platform version 5-devel"
 fi
 
 # -------------------------------------------------------------------------------------------
