@@ -6,7 +6,7 @@ exit_with () {
 	exit ${1:-0}
 }
 
-[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] [--no-cache] 3.0|3.1|3.2|4.0[-light]|5-<preview|latest|devel>[-light]|6-<alpha|beta|preview|latest|devel>[-light] [<server image tag(s)> [<platform Git tag (only applicable to 5-latest and 5-latest-light>]]\n"
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] [--no-cache] 3.0|3.1|3.2|4.0[-light]|5-<latest|devel|preview>[-light]|6-<alpha|beta|latest|devel|preview>[-light] [<server image tag(s)> [<platform Git tag (only applicable to 5-latest and 5-latest-light>]]\n"
 
 LOCK=/tmp/$(basename $0 .sh).lck
 if [ -f $LOCK ]
@@ -32,7 +32,6 @@ then
 	shift
 fi
 
-LATEST=5
 GITTAG=
 CHECKOUT=
 
@@ -86,7 +85,8 @@ then
 elif [ "$1" = "5-devel" ]
 then
 	VERSION=5
-	BRANCH=prerelease
+	# Release branch
+	BRANCH=release
 	TAGS=devel
 	SRVS=tomcat
 	PFTAG=$1
@@ -133,7 +133,7 @@ then
 elif [ "$1" = "6-devel" ]
 then
 	VERSION=6
-	# Current release branch
+	# Release branch
 	BRANCH=6.1
 	TAGS=devel
 	SRVS=tomcat
