@@ -14,19 +14,14 @@ services:
       - /mnt/data/auth:/auth
       - /mnt/data/registry:/var/lib/registry
   registry-ui:
-    image: parabuzzle/craneoperator:latest
+    image: klausmeyer/docker-registry-browser
     restart: always
     container_name: registry-ui
     environment:
-      REGISTRY_HOST: "registry"
-      REGISTRY_PORT: "5000"
-      REGISTRY_PROTOCOL: "http"
-      REGISTRY_ALLOW_DELETE: "false"
-      ALLOW_REGISTRY_LOGIN: "true"
-      REGISTRY_PUBLIC_URL: "https://registry.simplicite.io"
-      TITLE: "Simplicite Docker registry"
+       SECRET_KEY_BASE: "changeme"
+       DOCKER_REGISTRY_URL: "http://registry:5000"
     ports:
-      - 127.0.0.1:5001:80
+      - 127.0.0.1:5001:8080
   registry-pt:
     image: "portainer/portainer-ce:latest"
     container_name: registry-pt
