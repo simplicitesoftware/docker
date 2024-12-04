@@ -46,6 +46,7 @@ services:
       # Add custom additional HTTP headers
       #SYSPARAM_HTTP_HEADERS: '{ "X-Frame-Options": "SAMEORIGIN", "X-XSS-Protection": "1; mode=block;", "Content-Security-Policy": "...", ...}'
       # And/or set an IP-based Tomcat-level filtering (set at Tomcat config level)
+      #PING_WHITELIST: "127\\.0\\.0\\.1,::1"
       #HEALTH_WHITELIST: "127\\.0\\.0\\.1,::1"
       #UI_WHITELIST: "127\\.0\\.0\\.1,::1"
       #API_WHITELIST: "127\\.0\\.0\\.1,::1"
