@@ -45,8 +45,13 @@ else
 	do
 		if [ ! -O $DIR -o ! -G $DIR ]
 		then
-			echo "WARNING: Changing ownership of $DIR to $TOMCAT_UID:$TOMCAT_GID"
-			sudo /bin/chown -R $TOMCAT_UID:$TOMCAT_GID $DIR
+			if [ -w $DIR ]
+			then
+				echo "WARNING: Ownership of $DIR is not $TOMCAT_UID:$TOMCAT_GID but is writeable to $TOMCAT_USER"
+			else
+				echo "ERROR: $Ownership of $DIR is not $TOMCAT_UID:$TOMCAT_GID and is not writeable to $TOMCAT_USER"
+				exit 3
+			fi
 		fi
 	done
 	echo "Running Tomcat as $TOMCAT_USER (user ID $TOMCAT_UID, group ID $TOMCAT_GID)"
