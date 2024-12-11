@@ -46,12 +46,12 @@ services:
       # Add custom additional HTTP headers
       #SYSPARAM_HTTP_HEADERS: '{ "X-Frame-Options": "SAMEORIGIN", "X-XSS-Protection": "1; mode=block;", "Content-Security-Policy": "...", ...}'
       # And/or set an IP-based Tomcat-level filtering (set at Tomcat config level)
-      #PING_WHITELIST: "127\\.0\\.0\\.1,::1"
-      #HEALTH_WHITELIST: "127\\.0\\.0\\.1,::1"
-      #UI_WHITELIST: "127\\.0\\.0\\.1,::1"
-      #API_WHITELIST: "127\\.0\\.0\\.1,::1"
-      #IO_WHITELIST: "127\\.0\\.0\\.1,::1"
-      #GIT_WHITELIST: "127\\.0\\.0\\.1,::1"
+      #PING_WHITELIST: "127.0.0.1,::1"
+      #HEALTH_WHITELIST: "127.0.0.1,::1"
+      #UI_WHITELIST: "127.0.0.1,::1"
+      #API_WHITELIST: "127.0.0.1,::1"
+      #IO_WHITELIST: "127.0.0.1,::1"
+      #GIT_WHITELIST: "127.0.0.1,::1"
       # Force HTTP-only and secure cookies (set at Tomcat config level)
       #SECURE_COOKIES: true
     ports:
@@ -71,30 +71,30 @@ services:
     read_only: true
     tmpfs:
       # System temp dir
-      - /tmp
+      - /tmp:mode=1777
       # Tomcat work dirs
-      - /usr/local/tomcat/temp
-      - /usr/local/tomcat/work
-      - /usr/local/tomcat/conf/Catalina
+      - /usr/local/tomcat/temp:mode=0750,uid=2000,gid=2000
+      - /usr/local/tomcat/work:mode=0750,uid=2000,gid=2000
+      - /usr/local/tomcat/conf/Catalina:mode=0750,uid=2000,gid=2000
       # Tomcat log dir, may be mounted as a persistent volume if needed
-      - /usr/local/tomcat/logs
+      - /usr/local/tomcat/logs:mode=0750,uid=2000,gid=2000
       # Simplicite work dirs
-      - /usr/local/tomcat/webapps/ROOT/WEB-INF/tmp
-      - /usr/local/tomcat/webapps/ROOT/WEB-INF/recyclebin
-      - /usr/local/tomcat/webapps/ROOT/WEB-INF/cache
-      - /usr/local/tomcat/webapps/ROOT/WEB-INF/src
-      - /usr/local/tomcat/webapps/ROOT/WEB-INF/bin
-      - /usr/local/tomcat/webapps/ROOT/WEB-INF/build
-      - /usr/local/tomcat/webapps/ROOT/WEB-INF/jar
-      - /usr/local/tomcat/webapps/ROOT/WEB-INF/maven
+      - /usr/local/tomcat/webapps/ROOT/WEB-INF/tmp:mode=0750,uid=2000,gid=2000
+      - /usr/local/tomcat/webapps/ROOT/WEB-INF/recyclebin:mode=0750,uid=2000,gid=2000
+      - /usr/local/tomcat/webapps/ROOT/WEB-INF/cache:mode=0750,uid=2000,gid=2000
+      - /usr/local/tomcat/webapps/ROOT/WEB-INF/src:mode=0750,uid=2000,gid=2000
+      - /usr/local/tomcat/webapps/ROOT/WEB-INF/bin:mode=0750,uid=2000,gid=2000
+      - /usr/local/tomcat/webapps/ROOT/WEB-INF/build:mode=0750,uid=2000,gid=2000
+      - /usr/local/tomcat/webapps/ROOT/WEB-INF/jar:mode=0750,uid=2000,gid=2000
+      - /usr/local/tomcat/webapps/ROOT/WEB-INF/maven:mode=0750,uid=2000,gid=2000
       # Simplicite log dir, may be mounted as a persistent volume if needed
-      - /usr/local/tomcat/webapps/ROOT/WEB-INF/log
+      - /usr/local/tomcat/webapps/ROOT/WEB-INF/log:mode=0750,uid=2000,gid=2000
       # The following directories may be mounted as persistent volumes if needed
-      - /usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc/content
-      - /usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc/doc
-      - /usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc/import
-      - /usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc/export
-      - /usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc/index
+      - /usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc/content:mode=0750,uid=2000,gid=2000
+      - /usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc/doc:mode=0750,uid=2000,gid=2000
+      - /usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc/import:mode=0750,uid=2000,gid=2000
+      - /usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc/export:mode=0750,uid=2000,gid=2000
+      - /usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc/index:mode=0750,uid=2000,gid=2000
     volumes:
       # For embedded HSQLDB *only*
       #- db:/usr/local/tomcat/webapps/ROOT/WEB-INF/db
