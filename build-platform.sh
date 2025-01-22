@@ -163,37 +163,36 @@ elif [ "$1" = "6-beta" ]
 then
 	VERSION=6
 	BRANCH=6.2
-	TAGS=${2:-almalinux9-21}
-	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
+	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "6-beta-light" ]
 then
 	VERSION=6
 	BRANCH=6.2-light
-	TAGS=${2:-almalinux9-21}
-	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
+	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
 	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "6-alpha" ]
 then
-#	VERSION=6
-#	BRANCH=6.2
-#	TAGS=${2:-almalinux9-21}
-#	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
-#	SRVS=tomcat
-#	PFTAG=$1
+	VERSION=6
+	BRANCH=6.3
+	TAGS=${2:-almalinux9-21}
+	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
+	SRVS=tomcat
+	PFTAG=$1
 	exit_with 3 "Currently unavailable alpha variant: $1"
 elif [ "$1" = "6-alpha-light" ]
 then
-#	VERSION=6
-#	BRANCH=6.2-light
-#	TAGS=${2:-almalinux9-21}
-#	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
-#	SRVS=tomcat
-#	PFTAG=$1
+	VERSION=6
+	BRANCH=6.3-light
+	TAGS=${2:-almalinux9-21}
+	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
+	SRVS=tomcat
+	PFTAG=$1
 	exit_with 3 "Currently unavailable alpha-light variant: $1"
-elif [ "$1" = "6.0" -o "$1" = "6.0-light" -o "$1" = "6.0-preview" -o "$1" = "6.1" -o "$1" = "6.1-light" -o "$1" = "6.1-preview" ]
+elif [ "$1" = "6.0" -o "$1" = "6.0-light" -o "$1" = "6.0-preview" ]
+#elif [ "$1" = "6.0" -o "$1" = "6.0-light" -o "$1" = "6.0-preview" -o "$1" = "6.1" -o "$1" = "6.1-light" -o "$1" = "6.1-preview" ]
 then
 	VERSION=6
 	BRANCH=$1
