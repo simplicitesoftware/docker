@@ -6,23 +6,27 @@
 CREATEDB=/tmp/createdb.$$
 
 cat << EOF > $CREATEDB
-create database ${DB_NAME:-simplicite}
+print "-- Running setup script for database ${DB_NAME:-simplicite} and user  ${DB_USER:-simplicite}";
 go
-use ${DB_NAME:-simplicite}
+create database ${DB_NAME:-simplicite};
 go
-create login ${DB_USER:-simplicite} with password = '${DB_PASSWORD:-simplicite}', check_policy = off
+use ${DB_NAME:-simplicite};
 go
-create user ${DB_USER:-simplicite} for login ${DB_USER:-simplicite}
+create login ${DB_USER:-simplicite} with password = '${DB_PASSWORD:-simplicite}', check_policy = off;
 go
-grant connect to ${DB_USER:-simplicite}
+create user ${DB_USER:-simplicite} for login ${DB_USER:-simplicite};
 go
-grant control to ${DB_USER:-simplicite}
+grant connect to ${DB_USER:-simplicite};
+go
+grant control to ${DB_USER:-simplicite};
+go
+print "-- Done"
 go
 EOF
 
 for i in {1..60}
 do
-	/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $SA_PASSWORD -i $CREATEDB
+	/opt/mssql-tools18/bin/sqlcmd -C -S 127.0.0.1 -U sa -P $SA_PASSWORD -i $CREATEDB
 	if [ $? -eq 0 ]
 	then
 		echo "Database ${DB_NAME:-simplicite} created"
