@@ -207,7 +207,7 @@ fi
 
 if [ "$TARGET" = "6.0-preview" -o "$TARGET" = "6.1-preview" ]
 then
-	./build-platform.sh --delete $TARGET almalinux9-21 || exit_with $? "Unable to build platform version $TARGET"
+	./build-platform.sh --delete $TARGET || exit_with $? "Unable to build platform version $TARGET"
 
 	docker rmi $REGISTRY/platform:$TARGET > /dev/null 2>&1
 	docker tag $REGISTRY/platform:$TARGET-almalinux9-21 $REGISTRY/platform:$TARGET
