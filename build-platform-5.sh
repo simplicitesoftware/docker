@@ -31,18 +31,7 @@ then
 	docker tag $REGISTRY/platform:5-preview-almalinux9-17 $REGISTRY/platform:5-preview
 	docker rmi $REGISTRY/platform:5-preview-almalinux9-17
 
-	./push-to-registries.sh platform 5-preview
-fi
-
-if [ "$TARGET" = "preview-jre" ]
-then
-	./build-platform.sh --delete 5-preview-almalinux9-17-jre || exit_with $? "Unable to build platform version 5-preview-jre"
-
-	docker rmi $REGISTRY/platform:5-preview-jre > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-preview-almalinux9-17-jre $REGISTRY/platform:5-preview-jre
-	docker rmi $REGISTRY/platform:5-preview-almalinux9-17-jre
-
-	./push-to-registries.sh platform 5-preview-jre
+	#[ $PUSH -eq 1 ] && ./push-to-registries.sh platform 5-preview
 fi
 
 # -------------------------------------------------------------------------------------------
