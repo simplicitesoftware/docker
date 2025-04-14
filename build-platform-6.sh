@@ -35,7 +35,9 @@ then
 	docker tag $REGISTRY/platform:6-$TARGET-almalinux9-21-jre $REGISTRY/platform:6-$TARGET-jre
 	docker rmi $REGISTRY/platform:6-$TARGET-almalinux9-21-jre
 
-	[ $PUSH -eq 1 ] && ./push-to-registries.sh platform 6-$TARGET 6-$TARGET-jre
+	[ $PUSH -eq 1 ] && ./push-to-registries.sh platform \
+		6-$TARGET \
+		6-$TARGET-jre
 
 	./build-platform.sh --delete 6-$TARGET-light || exit_with $? "Unable to build platform version 6-$TARGET-light"
 
@@ -47,7 +49,9 @@ then
 	docker tag $REGISTRY/platform:6-$TARGET-light-almalinux9-21-jre $REGISTRY/platform:6-$TARGET-light-jre
 	docker rmi $REGISTRY/platform:6-$TARGET-light-almalinux9-21-jre
 
-	[ $PUSH -eq 1 ] && ./push-to-registries.sh --delete platform 6-$TARGET-light $TARGET-light-jre
+	[ $PUSH -eq 1 ] && ./push-to-registries.sh --delete platform \
+		6-$TARGET-light 
+		6-$TARGET-light-jre
 fi
 
 # -------------------------------------------------------------------------------------------
