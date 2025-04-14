@@ -13,6 +13,7 @@ gradle*
 node*
 jacoco*
 ./Dockerfile
+./Dockerfile-platform-*
 *.crt
 **/Thumbs.db
 **.bak

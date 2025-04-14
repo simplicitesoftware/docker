@@ -35,7 +35,8 @@ fi
 GITTAG=
 CHECKOUT=
 
-DOCKERFILE=Dockerfile-platform
+DOCKERFILE_DEFAULT=Dockerfile-platform
+DOCKERFILE=$DOCKERFILE_DEFAULT
 if [ "$1" = "3.0" ]
 then
 	VERSION=3.0
@@ -146,6 +147,8 @@ then
 	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine alpine-jre}
 	SRVS=tomcat
 	PFTAG=$1
+	DOCKERFILE=$DOCKERFILE_DEFAULT-preview-tmp
+	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
 elif [ "$1" = "6-latest" -o "$1" = "6" ]
 then
 	VERSION=6
@@ -168,6 +171,8 @@ then
 #	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
 #	SRVS=tomcat
 #	PFTAG=$1
+#	DOCKERFILE=$DOCKERFILE_DEFAULT-beta-tmp
+#	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
 #elif [ "$1" = "6-beta-light" ]
 #then
 #	VERSION=6
@@ -176,6 +181,8 @@ then
 #	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
 #	SRVS=tomcat
 #	PFTAG=$1
+#	DOCKERFILE=$DOCKERFILE_DEFAULT-beta-tmp
+#	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
 elif [ "$1" = "6-alpha" ]
 then
 	VERSION=6
@@ -184,6 +191,8 @@ then
 	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
 	SRVS=tomcat
 	PFTAG=$1
+	DOCKERFILE=$DOCKERFILE_DEFAULT-alpha-tmp
+	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
 elif [ "$1" = "6-alpha-light" ]
 then
 	VERSION=6
@@ -192,6 +201,8 @@ then
 	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
 	SRVS=tomcat
 	PFTAG=$1
+	DOCKERFILE=$DOCKERFILE_DEFAULT-alpha
+	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
 elif [ "$1" = "6.0" -o "$1" = "6.0-light" -o "$1" = "6.0-preview" -o "$1" = "6.1" -o "$1" = "6.1-light" -o "$1" = "6.1-preview" ]
 then
 	VERSION=6
@@ -291,6 +302,8 @@ do
 		echo "Done"
 	done
 done
+
+rm -f $DOCKERFILE_DEFAULT-*-tmp
 
 echo "Removing $TEMPLATE..."
 rm -fr $TEMPLATE
