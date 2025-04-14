@@ -297,7 +297,6 @@ do
 		DESTPATH="tomcat"
 		[ $TAG = "jetty" ] && DESTPATH="jetty/default"
 		[ $DEL = 1 ] && docker rmi $PLATFORM:$PFTAG$EXT > /dev/null 2>&1
-		xxx
 		docker build $NOCACHE --network host -f $DOCKERFILE --build-arg date=$DATE --build-arg tag=$TAG --build-arg version=$VERSION --build-arg patchlevel=$PATCHLEVEL --build-arg revision=$REVISION --build-arg commitid=$COMMITID --build-arg template=$TEMPLATE --build-arg destpath=$DESTPATH -t $PLATFORM:$PFTAG$EXT .
 		echo "Done"
 	done
