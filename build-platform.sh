@@ -35,6 +35,7 @@ fi
 GITTAG=
 CHECKOUT=
 
+DOCKERFILE=Dockerfile-platform
 if [ "$1" = "3.0" ]
 then
 	VERSION=3.0
@@ -163,7 +164,7 @@ then
 #then
 #	VERSION=6
 #	BRANCH=6.2
-#	TAGS=${2:-almalinux9-21}
+#	TAGS=${2:-almalinux9-21 almalinux9-21-jre}
 #	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
 #	SRVS=tomcat
 #	PFTAG=$1
@@ -171,7 +172,7 @@ then
 #then
 #	VERSION=6
 #	BRANCH=6.2-light
-#	TAGS=${2:-almalinux9-21}
+#	TAGS=${2:-almalinux9-21 almalinux9-21-jre}
 #	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
 #	SRVS=tomcat
 #	PFTAG=$1
@@ -179,7 +180,7 @@ elif [ "$1" = "6-alpha" ]
 then
 	VERSION=6
 	BRANCH=6.3
-	TAGS=${2:-almalinux9-21}
+	TAGS=${2:-almalinux9-21 almalinux9-21-jre}
 	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
 	SRVS=tomcat
 	PFTAG=$1
@@ -187,7 +188,7 @@ elif [ "$1" = "6-alpha-light" ]
 then
 	VERSION=6
 	BRANCH=6.3-light
-	TAGS=${2:-almalinux9-21}
+	TAGS=${2:-almalinux9-21 almalinux9-21-jre}
 	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
 	SRVS=tomcat
 	PFTAG=$1
@@ -285,7 +286,8 @@ do
 		DESTPATH="tomcat"
 		[ $TAG = "jetty" ] && DESTPATH="jetty/default"
 		[ $DEL = 1 ] && docker rmi $PLATFORM:$PFTAG$EXT > /dev/null 2>&1
-		docker build $NOCACHE --network host -f Dockerfile-platform --build-arg date=$DATE --build-arg tag=$TAG --build-arg version=$VERSION --build-arg patchlevel=$PATCHLEVEL --build-arg revision=$REVISION --build-arg commitid=$COMMITID --build-arg template=$TEMPLATE --build-arg destpath=$DESTPATH -t $PLATFORM:$PFTAG$EXT .
+		xxx
+		docker build $NOCACHE --network host -f $DOCKERFILE --build-arg date=$DATE --build-arg tag=$TAG --build-arg version=$VERSION --build-arg patchlevel=$PATCHLEVEL --build-arg revision=$REVISION --build-arg commitid=$COMMITID --build-arg template=$TEMPLATE --build-arg destpath=$DESTPATH -t $PLATFORM:$PFTAG$EXT .
 		echo "Done"
 	done
 done
