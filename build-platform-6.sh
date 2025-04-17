@@ -50,7 +50,7 @@ then
 	docker rmi $REGISTRY/platform:6-$TARGET-light-almalinux9-21-jre
 
 	[ $PUSH -eq 1 ] && ./push-to-registries.sh --delete platform \
-		6-$TARGET-light 
+		6-$TARGET-light \
 		6-$TARGET-light-jre
 fi
 
