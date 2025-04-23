@@ -54,6 +54,7 @@ COPY --chown=simplicite:simplicite vscode/settings.xml /var/simplicite/.m2/
 RUN git config --global user.name 'Simplicite Software' && \
     git config --global user.email 'contact@simplicitesoftware.com' && \
     git config --global http.sslVerify 'false' && \
+	git config --global credential.helper 'store --file /var/simplicite/projects/.git-credentials' && \
     /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension redhat.java && \
     /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension vscjava.vscode-java-debug && \
     /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension vscjava.vscode-java-dependency && \
