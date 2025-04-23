@@ -27,20 +27,22 @@ RUN groupadd -g 2000 simplicite && \
 
 COPY vscode/favicon* /usr/lib/code-server/src/browser/media/
 COPY vscode/pwa* /usr/lib/code-server/src/browser/media/
-COPY vscode/letterpress.svg /usr/lib/code-server/src/browser/media/
-RUN  echo '.letterpress { background-image: url(/_static/src/browser/media/letterpress.svg) !important; }' >> /usr/lib/code-server/lib/vscode/out/vs/workbench/workbench.web.main.css
+COPY vscode/letterpress.svg /usr/lib/code-server/lib/vscode/out/media/letterpress-light.svg
+COPY vscode/letterpress.svg /usr/lib/code-server/lib/vscode/out/media/letterpress-dark.svg
+COPY vscode/code-icon.svg /usr/lib/code-server/lib/vscode/out/media/
 
-ADD jdk-21 /usr/local/jdk
+ARG JVM
+ADD $JVM /usr/local/jvm
 ADD ant /usr/local/ant
 ADD maven /usr/local/maven
 ADD node /usr/local/node
 
 ENV LANG=C.UTF-8 \
-    JAVA_HOME=/usr/local/jdk \
+    JAVA_HOME=/usr/local/jvm \
     ANT_HOME=/usr/local/ant \
     MAVEN_HOME=/usr/local/maven \
     NODE_HOME=/usr/local/node \
-    PATH=/usr/local/jdk/bin:/usr/local/bin:/usr/local/ant/bin:/usr/local/maven/bin:/usr/local/node/bin:$PATH \
+    PATH=/usr/local/jvm/bin:/usr/local/bin:/usr/local/ant/bin:/usr/local/maven/bin:/usr/local/node/bin:$PATH \
     SERVICE_URL=https://open-vsx.org/vscode/gallery \
     ITEM_URL=https://open-vsx.org/vscode/item \
     LOG4J_FORMAT_MSG_NO_LOOKUPS=true \

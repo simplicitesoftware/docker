@@ -21,7 +21,7 @@ echo "========================================================"
 echo "Building $IMG image..."
 echo "========================================================"
 DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-docker build --network host -f vscode/Dockerfile -t $IMG --build-arg BUILD_DATE=$DATE . || exit_with 3 "Unable to build image $IMG"
+docker build --network host -f vscode/Dockerfile -t $IMG --build-arg BUILD_DATE=$DATE --build-arg JVM=jdk-21. || exit_with 3 "Unable to build image $IMG"
 echo "Done"
 echo ""
 echo "docker run -it --rm -p 127.0.0.1:3030:3030 --name=vscode $IMG"
