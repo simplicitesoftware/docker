@@ -27,9 +27,10 @@ RUN groupadd -g 2000 simplicite && \
 
 COPY vscode/favicon* /usr/lib/code-server/src/browser/media/
 COPY vscode/pwa* /usr/lib/code-server/src/browser/media/
-COPY vscode/letterpress.svg /usr/lib/code-server/lib/vscode/out/media/letterpress-light.svg
-COPY vscode/letterpress.svg /usr/lib/code-server/lib/vscode/out/media/letterpress-dark.svg
-COPY vscode/code-icon.svg /usr/lib/code-server/lib/vscode/out/media/
+# Useless, should be overriden befor code-server build... 
+#COPY vscode/letterpress.svg /usr/lib/code-server/lib/vscode/out/media/letterpress-light.svg
+#COPY vscode/letterpress.svg /usr/lib/code-server/lib/vscode/out/media/letterpress-dark.svg
+#COPY vscode/code-icon.svg /usr/lib/code-server/lib/vscode/out/media/
 
 ARG JVM
 ADD $JVM /usr/local/jvm
@@ -66,6 +67,7 @@ RUN git config --global user.name 'Simplicite Software' && \
     /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension redhat.vscode-xml && \
     /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension octref.vetur && \
     /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension simpliciteSoftware.simplicite-vscode-tools && \
+	echo 'set completion-ignore-case on' > /var/simplicite/.inputrc && \
     echo -e "alias vi=vim\n\
 alias rm='rm -i'\n\
 alias cp='cp -i'\n\
