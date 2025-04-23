@@ -10,6 +10,8 @@ exit_with () {
 
 [ "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m\n"
 
+JVM=jdk-21
+
 trap "rm -f $LOCK" TERM INT QUIT HUP
 [ -f $LOCK ] && exit_with 2 "A build process is in process since $(cat $LOCK)"
 date > $LOCK
@@ -21,7 +23,7 @@ echo "========================================================"
 echo "Building $IMG image..."
 echo "========================================================"
 DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-docker build --network host -f vscode/Dockerfile -t $IMG --build-arg BUILD_DATE=$DATE --build-arg JVM=jdk-21. || exit_with 3 "Unable to build image $IMG"
+docker build --network host -f vscode/Dockerfile -t $IMG --build-arg BUILD_DATE=$DATE --build-arg JVM=$JVM . || exit_with 3 "Unable to build image $IMG"
 echo "Done"
 echo ""
 echo "docker run -it --rm -p 127.0.0.1:3030:3030 --name=vscode $IMG"
