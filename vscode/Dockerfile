@@ -43,7 +43,8 @@ ENV LANG=C.UTF-8 \
     PATH=/usr/local/jdk/bin:/usr/local/bin:/usr/local/ant/bin:/usr/local/maven/bin:/usr/local/node/bin:$PATH \
     SERVICE_URL=https://open-vsx.org/vscode/gallery \
     ITEM_URL=https://open-vsx.org/vscode/item \
-    LOG4J_FORMAT_MSG_NO_LOOKUPS=true
+    LOG4J_FORMAT_MSG_NO_LOOKUPS=true \
+    GIT_CONFIG_GLOBAL=/var/simplicite/projects/.gitconfig
 
 USER simplicite
 COPY --chown=simplicite:simplicite vscode/config.yaml /var/simplicite/.config/code-server/
@@ -72,4 +73,4 @@ alias dir='ls -alF --color=always'" >> /var/simplicite/.bashrc
 EXPOSE 3030 3000 8080 8443 8444 8000
 
 WORKDIR /var/simplicite
-CMD [ "/usr/bin/code-server", "--user-data-dir=/var/simplicite/data", "--extensions-dir=/var/simplicite/extensions" ]
+CMD [ "/usr/bin/code-server", "--user-data-dir=/var/simplicite/data", "--extensions-dir=/var/simplicite/extensions", "/var/simplicite/projects" ]
