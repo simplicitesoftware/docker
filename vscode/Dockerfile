@@ -65,9 +65,9 @@ RUN git config --global user.name 'Simplicite Software' && \
     /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension vscjava.vscode-java-test && \
     /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension vscjava.vscode-maven && \
     /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension redhat.vscode-xml && \
-    /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension octref.vetur && \
+    /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension Vue.volar && \
     /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension simpliciteSoftware.simplicite-vscode-tools && \
-	echo 'set completion-ignore-case on' > /var/simplicite/.inputrc && \
+    echo 'set completion-ignore-case on' > /var/simplicite/.inputrc && \
     echo -e "alias vi=vim\n\
 alias rm='rm -i'\n\
 alias cp='cp -i'\n\
