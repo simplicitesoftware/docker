@@ -71,6 +71,10 @@ alias dir='ls -alF --color=always'" >> /var/simplicite/.bashrc && \
     /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension Vue.volar && \
     /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension simpliciteSoftware.simplicite-vscode-tool
 
+# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+# If above command fails, check the OpenVSX marketplace status: https://status.open-vsx.org
+# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
 EXPOSE 3030 3000 8080 8443 8444 8000
 
 WORKDIR /var/simplicite
