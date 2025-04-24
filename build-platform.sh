@@ -201,7 +201,7 @@ then
 	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
 	SRVS=tomcat
 	PFTAG=$1
-	DOCKERFILE=$DOCKERFILE_DEFAULT-alpha
+	DOCKERFILE=$DOCKERFILE_DEFAULT-alpha-tmp
 	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
 elif [ "$1" = "6.0" -o "$1" = "6.0-light" -o "$1" = "6.0-preview" -o "$1" = "6.1" -o "$1" = "6.1-light" -o "$1" = "6.1-preview" ]
 then
