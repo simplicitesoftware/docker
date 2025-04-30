@@ -14,6 +14,9 @@ LABEL org.label-schema.name="simplicite-server-devel" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="${date}"
 
+# LSP port
+EXPOSE 3003
+
 USER root
 
 RUN dnf install -y vim-enhanced gcc gcc-c++ make python3 python3-pyyaml iproute nmap xz gpg pinentry && dnf clean all && \
@@ -30,6 +33,7 @@ ADD node /usr/local/node
 ADD jacoco /usr/local/jacoco
 
 ENV DEV_MODE=true \
+    LSP=true \
     ANT_HOME=/usr/local/ant \
     MAVEN_HOME=/usr/local/maven \
     NODE_HOME=/usr/local/node \

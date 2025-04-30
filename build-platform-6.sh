@@ -54,6 +54,11 @@ then
 		6-$TARGET-light-jre
 fi
 
+if [ "$TARGET" = "alpha-devel" -o "$TARGET" = "beta-devel" ]
+then
+	./build-platform.sh --delete 6-$TARGET-devel || exit_with $? "Unable to build platform version 6-$TARGET-devel"
+fi
+
 # -------------------------------------------------------------------------------------------
 # Current version preview
 # -------------------------------------------------------------------------------------------

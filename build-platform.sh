@@ -203,6 +203,15 @@ then
 	PFTAG=$1
 	DOCKERFILE=$DOCKERFILE_DEFAULT-alpha-tmp
 	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
+elif [ "$1" = "6-alpha-devel" ]
+then
+	VERSION=6
+	BRANCH=6.3
+	TAGS=devel
+	SRVS=tomcat
+	PFTAG=$1
+	DOCKERFILE=$DOCKERFILE_DEFAULT-alpha-tmp
+	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
 elif [ "$1" = "6.0" -o "$1" = "6.0-light" -o "$1" = "6.0-preview" -o "$1" = "6.1" -o "$1" = "6.1-light" -o "$1" = "6.1-preview" ]
 then
 	VERSION=6
