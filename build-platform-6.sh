@@ -56,7 +56,7 @@ fi
 
 if [ "$TARGET" = "alpha-devel" -o "$TARGET" = "beta-devel" ]
 then
-	./build-platform.sh --delete 6-$TARGET-devel || exit_with $? "Unable to build platform version 6-$TARGET-devel"
+	./build-platform.sh --delete 6-$TARGET || exit_with $? "Unable to build platform version 6-$TARGET"
 fi
 
 # -------------------------------------------------------------------------------------------
