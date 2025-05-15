@@ -67,9 +67,10 @@ alias dir='ls -alF --color=always'" >> /var/simplicite/.bashrc && \
     /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension vscjava.vscode-java-dependency && \
     /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension vscjava.vscode-java-test && \
     /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension vscjava.vscode-maven && \
-    /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension redhat.vscode-xml && \
-    /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension Vue.volar && \
-    /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension simpliciteSoftware.simplicite-vscode-tool
+    /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension redhat.vscode-xml
+
+#    /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension Vue.volar && \
+#    /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension simpliciteSoftware.simplicite-vscode-tool
 
 # ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 # If above command fails, check the OpenVSX marketplace status: https://status.open-vsx.org
