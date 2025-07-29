@@ -148,7 +148,6 @@ then
 	SRVS=tomcat
 	PFTAG=$1
 	DOCKERFILE=$DOCKERFILE_DEFAULT-preview-tmp
-	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
 elif [ "$1" = "6-latest" -o "$1" = "6" ]
 then
 	VERSION=6
@@ -166,7 +165,7 @@ then
 #elif [ "$1" = "6-beta" ]
 #then
 #	VERSION=6
-#	BRANCH=6.2
+#	BRANCH=6.3
 #	TAGS=${2:-almalinux9-21 almalinux9-21-jre}
 #	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
 #	SRVS=tomcat
@@ -176,7 +175,7 @@ then
 #elif [ "$1" = "6-beta-light" ]
 #then
 #	VERSION=6
-#	BRANCH=6.2-light
+#	BRANCH=6.3-light
 #	TAGS=${2:-almalinux9-21 almalinux9-21-jre}
 #	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
 #	SRVS=tomcat
