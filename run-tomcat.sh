@@ -43,14 +43,17 @@ else
 	# Change ownership of work directories if required
 	for DIR in $TOMCAT_ROOT/work $TOMCAT_ROOT/temp $TOMCAT_ROOT/logs $TOMCAT_ROOT/webapps/*/WEB-INF
 	do
-		if [ ! -O $DIR -o ! -G $DIR ]
+		if [ -d $DIR ]
 		then
-			if [ -w $DIR ]
+			if [ ! -O $DIR -o ! -G $DIR ]
 			then
-				echo "WARNING: Ownership of $DIR is not $TOMCAT_UID:$TOMCAT_GID but is writeable to $TOMCAT_USER"
-			else
-				echo "ERROR: Ownership of $DIR is not $TOMCAT_UID:$TOMCAT_GID and is not writeable to $TOMCAT_USER"
-				exit 3
+				if [ -w $DIR ]
+				then
+					echo "WARNING: Ownership of $DIR is not $TOMCAT_UID:$TOMCAT_GID but is writeable to $TOMCAT_USER"
+				else
+					echo "ERROR: Ownership of $DIR is not $TOMCAT_UID:$TOMCAT_GID and is not writeable to $TOMCAT_USER"
+					exit 3
+				fi
 			fi
 		fi
 	done
