@@ -60,13 +60,12 @@ JVM_LATEST="21"
 
 IMAGE=registry.simplicite.io/server
 
-echo "--------------------------------------------------------"
-echo ""
-
-echo ""
 SERVEREXT=""
 [ $SERVER != "tomcat" ] && SERVEREXT="-${SERVER}"
 [ $BRANCH != "master" ] && SERVEREXT="${SERVEREXT}-${BRANCH}"
+
+echo "--------------------------------------------------------"
+echo ""
 
 if [ -d $SERVER.git ]
 then
@@ -103,9 +102,6 @@ echo 'CATALINA_PID="$CATALINA_BASE/work/catalina.pid"' > tomcat/bin/setenv.sh
 
 sed -i 's/<!-- SSL Connector/<Connector/;s/Connector SSL -->/Connector>/' tomcat/conf/server.xml
 sed -i 's/<!-- AJP Connector/<Connector/;s/Connector AJP -->/Connector>/' tomcat/conf/server.xml
-
-SERVEREXT=""
-[ $SERVER != "tomcat" ] && SERVEREXT="-$SERVER"
 
 for TAG in $TAGS
 do
