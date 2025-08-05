@@ -44,6 +44,7 @@ SERVER=${2:-tomcat}
 echo "Server = $SERVER"
 
 BRANCH=${3:-master}
+echo "Branch = $BRANCH"
 
 # JVMs (note: only the latest JVM for ALPINE)
 JVMS_CENTOS="21 17 11"
@@ -64,8 +65,8 @@ echo ""
 
 echo ""
 SERVEREXT=""
-[ $SERVER != "tomcat" ] && SERVEREXT="-$SERVER"
-[ $BRANCH != "master" ] && SERVEREXT="-$SERVEREXT-$BRANCH"
+[ $SERVER != "tomcat" ] && SERVEREXT="-${SERVER}"
+[ $BRANCH != "master" ] && SERVEREXT="${SERVEREXT}-${BRANCH}"
 
 if [ -d $SERVER.git ]
 then
