@@ -169,9 +169,9 @@ do
 
 		if [ $TAG = "centos" -o $TAG = "almalinux8" -o $TAG = "almalinux9" -o $TAG = "alpine" ]
 		then
-			echo "docker run -it --rm --memory=128m -p 127.0.0.1:8080:8080 -p 127.0.0.1:8443:8443 --name simplicite $SERVER:$TAG$TAGEXT-jre$SERVEREXT"
+			echo "docker run -it --rm --memory=128m -p 127.0.0.1:8080:8080 -p 127.0.0.1:8443:8443 --name simplicite $IMAGE:$TAG$TAGEXT-jre$SERVEREXT"
 		fi
-		echo "docker run -it --rm --memory=128m -p 127.0.0.1:8080:8080 -p 127.0.0.1:8443:8443 --name=simplicite $SERVER:$TAG$TAGEXT$SERVEREXT"
+		echo "docker run -it --rm --memory=128m -p 127.0.0.1:8080:8080 -p 127.0.0.1:8443:8443 --name=simplicite $IMAGE:$TAG$TAGEXT$SERVEREXT"
 		echo ""
 	done
 done
