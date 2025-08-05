@@ -65,6 +65,7 @@ echo ""
 echo ""
 SERVEREXT=""
 [ $SERVER != "tomcat" ] && SERVEREXT="-$SERVER"
+[ $BRANCH != "master" ] && SERVEREXT="-$SERVEREXT-$BRANCH"
 
 if [ -d $SERVER.git ]
 then
