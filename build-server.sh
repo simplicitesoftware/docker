@@ -125,7 +125,7 @@ do
 		echo "Building $IMAGE:$TAG$SERVEREXT image..."
 		echo "========================================================"
 		[ $DEL = 1 ] && docker rmi $IMAGE:$TAG$SERVEREXT > /dev/null 2>&1
-		docker build $NOCACHE --network host -f Dockerfile-$TAG -t $IMAGE:$TAG$SERVEREXT --build-arg date="=$(date -u +s'%Y-%m-%dT%H:%M:%SZ')" .
+		docker build $NOCACHE --network host -f Dockerfile-$TAG -t $IMAGE:$TAG$SERVEREXT --build-arg date="=$(date -u +s'%Y-%m-%dT%H:%M:%SZ')" --build-arg ext="$SERVEREXT" .
 		echo "Done"
 	else
 		for JVM in $JVMS
@@ -138,7 +138,7 @@ do
 				echo "Building $IMAGE:$TAG$TAGEXT-jre$SERVEREXT image..."
 				echo "========================================================"
 				[ $DEL = 1 ] && docker rmi $IMAGE:$TAG$TAGEXT-jre$SERVEREXT > /dev/null 2>&1
-				docker build $NOCACHE --network host -f Dockerfile-$TAG -t $IMAGE:$TAG$TAGEXT-jre$SERVEREXT --build-arg date="$(date -u +s'%Y-%m-%dT%H:%M:%SZ')" --build-arg jvm="$JVM-jre" .
+				docker build $NOCACHE --network host -f Dockerfile-$TAG -t $IMAGE:$TAG$TAGEXT-jre$SERVEREXT --build-arg date="$(date -u +s'%Y-%m-%dT%H:%M:%SZ')" --build-arg ext="$SERVEREXT" --build-arg jvm="$JVM-jre" .
 				echo "Done"
 			fi
 
@@ -146,7 +146,7 @@ do
 			echo "Building $IMAGE:$TAG$TAGEXT$SERVEREXT image..."
 			echo "========================================================"
 			[ $DEL = 1 ] && docker rmi $IMAGE:$TAG$TAGEXT$SERVEREXT > /dev/null 2>&1
-			docker build $NOCACHE --network host -f Dockerfile-$TAG -t $IMAGE:$TAG$TAGEXT$SERVEREXT --build-arg date="$(date -u +s'%Y-%m-%dT%H:%M:%SZ')" --build-arg jvm="$JVM" .
+			docker build $NOCACHE --network host -f Dockerfile-$TAG -t $IMAGE:$TAG$TAGEXT$SERVEREXT --build-arg date="$(date -u +s'%Y-%m-%dT%H:%M:%SZ')" --build-arg ext="$SERVEREXT" --build-arg jvm="$JVM" .
 			echo "Done"
 
 			[ $TAG = $TAG_LATEST -a $SERVER = $SERVER_LATEST -a $BRANCH = $BRANCH_LATEST -a $JVM = $JVM_LATEST ] && docker tag $IMAGE:$TAG$TAGEXT$SERVEREXT $IMAGE:latest
