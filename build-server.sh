@@ -54,17 +54,17 @@ JVMS_ECLIPSE_TEMURIN="21 17 11"
 # Variant/server/JVM for the :latest tag
 TAG_LATEST="almalinux9"
 SERVER_LATEST="tomcat"
+BRANCH_LATEST="master"
 JVM_LATEST="21"
+
+IMAGE=registry.simplicite.io/server
 
 echo "--------------------------------------------------------"
 echo ""
 
-SERVER=registry.simplicite.io/server
-
 echo ""
 SERVEREXT=""
 [ $SERVER != "tomcat" ] && SERVEREXT="-$SERVER"
-
 
 if [ -d $SERVER.git ]
 then
@@ -124,10 +124,10 @@ do
 		fi
 
 		echo "========================================================"
-		echo "Building $SERVER:$TAG$SERVEREXT image..."
+		echo "Building $IMAGE:$TAG$SERVEREXT image..."
 		echo "========================================================"
-		[ $DEL = 1 ] && docker rmi $SERVER:$TAG$SERVEREXT > /dev/null 2>&1
-		docker build $NOCACHE --network host -f Dockerfile-$TAG -t $SERVER:$TAG$SERVEREXT --build-arg date="=$(date -u +s'%Y-%m-%dT%H:%M:%SZ')" .
+		[ $DEL = 1 ] && docker rmi $IMAGE:$TAG$SERVEREXT > /dev/null 2>&1
+		docker build $NOCACHE --network host -f Dockerfile-$TAG -t $IMAGE:$TAG$SERVEREXT --build-arg date="=$(date -u +s'%Y-%m-%dT%H:%M:%SZ')" .
 		echo "Done"
 	else
 		for JVM in $JVMS
@@ -137,21 +137,21 @@ do
 			if [ $TAG = "centos" -o $TAG = "almalinux8" -o $TAG = "almalinux9" -o $TAG = "alpine" ]
 			then
 				echo "========================================================"
-				echo "Building $SERVER:$TAG$TAGEXT-jre$SERVEREXT image..."
+				echo "Building $IMAGE:$TAG$TAGEXT-jre$SERVEREXT image..."
 				echo "========================================================"
-				[ $DEL = 1 ] && docker rmi $SERVER:$TAG$TAGEXT-jre$SERVEREXT > /dev/null 2>&1
-				docker build $NOCACHE --network host -f Dockerfile-$TAG -t $SERVER:$TAG$TAGEXT-jre$SERVEREXT --build-arg date="$(date -u +s'%Y-%m-%dT%H:%M:%SZ')" --build-arg jvm="$JVM-jre" .
+				[ $DEL = 1 ] && docker rmi $IMAGE:$TAG$TAGEXT-jre$SERVEREXT > /dev/null 2>&1
+				docker build $NOCACHE --network host -f Dockerfile-$TAG -t $IMAGE:$TAG$TAGEXT-jre$SERVEREXT --build-arg date="$(date -u +s'%Y-%m-%dT%H:%M:%SZ')" --build-arg jvm="$JVM-jre" .
 				echo "Done"
 			fi
 
 			echo "========================================================"
-			echo "Building $SERVER:$TAG$TAGEXT$SERVEREXT image..."
+			echo "Building $IMAGE:$TAG$TAGEXT$SERVEREXT image..."
 			echo "========================================================"
-			[ $DEL = 1 ] && docker rmi $SERVER:$TAG$TAGEXT$SERVEREXT > /dev/null 2>&1
-			docker build $NOCACHE --network host -f Dockerfile-$TAG -t $SERVER:$TAG$TAGEXT$SERVEREXT --build-arg date="$(date -u +s'%Y-%m-%dT%H:%M:%SZ')" --build-arg jvm="$JVM" .
+			[ $DEL = 1 ] && docker rmi $IMAGE:$TAG$TAGEXT$SERVEREXT > /dev/null 2>&1
+			docker build $NOCACHE --network host -f Dockerfile-$TAG -t $IMAGE:$TAG$TAGEXT$SERVEREXT --build-arg date="$(date -u +s'%Y-%m-%dT%H:%M:%SZ')" --build-arg jvm="$JVM" .
 			echo "Done"
 
-			[ $TAG = $TAG_LATEST -a $SERVER = $SERVER_LATEST -a $JVM = $JVM_LATEST ] && docker tag $SERVER:$TAG$TAGEXT$SERVEREXT $SERVER:latest
+			[ $TAG = $TAG_LATEST -a $SERVER = $SERVER_LATEST -a $BRANCH = $BRANCH_LATEST -a $JVM = $JVM_LATEST ] && docker tag $IMAGE:$TAG$TAGEXT$SERVEREXT $IMAGE:latest
 		done
 	fi
 done
