@@ -49,7 +49,7 @@ else
 			then
 				echo "WARNING: Ownership of $DIR is not $TOMCAT_UID:$TOMCAT_GID but is writeable to $TOMCAT_USER"
 			else
-				echo "ERROR: $Ownership of $DIR is not $TOMCAT_UID:$TOMCAT_GID and is not writeable to $TOMCAT_USER"
+				echo "ERROR: Ownership of $DIR is not $TOMCAT_UID:$TOMCAT_GID and is not writeable to $TOMCAT_USER"
 				exit 3
 			fi
 		fi
