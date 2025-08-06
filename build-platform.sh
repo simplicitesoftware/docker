@@ -6,7 +6,7 @@ exit_with () {
 	exit ${1:-0}
 }
 
-[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] [--no-cache] 3.0|3.1|3.2|4.0[-light]|5-<latest|devel|preview>[-light]|6-<alpha|beta|latest|devel|preview>[-light] [<server image tag(s)> [<platform Git tag (only applicable to 5-latest and 5-latest-light>]]\n"
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] [--no-cache] 3.0|3.1|3.2|4.0[-light]|5-<latest|devel|preview>[-light]|6-<alpha|beta|latest|devel|preview>[-light]|7-preview [<server image tag(s)> [<platform Git tag (only applicable to 5-latest and 5-latest-light>]]\n"
 
 LOCK=/tmp/$(basename $0 .sh).lck
 if [ -f $LOCK ]
@@ -37,33 +37,32 @@ CHECKOUT=
 
 DOCKERFILE_DEFAULT=Dockerfile-platform
 DOCKERFILE=$DOCKERFILE_DEFAULT
+
+SERVER=tomcat
+
 if [ "$1" = "3.0" ]
 then
 	VERSION=3.0
 	BRANCH=master
 	TAGS=${2:-centos-11}
-	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "3.1" ]
 then
 	VERSION=3.1
 	BRANCH=master
 	TAGS=${2:-centos-11}
-	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "3.2" ]
 then
 	VERSION=3.2
 	BRANCH=master
 	TAGS=${2:-centos-11}
-	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "4.0" ]
 then
 	VERSION=4.0
 	BRANCH=release
 	TAGS=${2:-centos-17}
-	SRVS=tomcat
 	PFTAG=$1
 	GITTAG=$3
 	if [ "$GITTAG" != "" ]
@@ -76,7 +75,6 @@ then
 	VERSION=4.0
 	BRANCH=release-light
 	TAGS=${2:-centos-17}
-	SRVS=tomcat
 	PFTAG=$1
 	GITTAG=$3
 	if [ "$GITTAG" != "" ]
@@ -90,21 +88,18 @@ then
 	# Release branch
 	BRANCH=release
 	TAGS=devel
-	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-preview" ]
 then
 	VERSION=5
 	BRANCH=prerelease
 	TAGS=${2:-almalinux9-17}
-	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "5-latest" -o "$1" = "5" ]
 then
 	VERSION=5
 	BRANCH=release
 	TAGS=${2:-almalinux9-17 almalinux9-17-jre almalinux9-jvmless alpine alpine-jre}
-	SRVS=tomcat
 	PFTAG=$1
 	GITTAG=$3
 	if [ "$GITTAG" != "" ]
@@ -117,7 +112,6 @@ then
 	VERSION=5
 	BRANCH=release-light
 	TAGS=${2:-almalinux9-17 almalinux9-17-jre almalinux9-jvmless alpine alpine-jre}
-	SRVS=tomcat
 	PFTAG=$1
 	GITTAG=$3
 	if [ "$GITTAG" != "" ]
@@ -130,7 +124,6 @@ then
 	VERSION=5
 	BRANCH=$1
 	TAGS=${2:-centos-17}
-	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "6-devel" ]
 then
@@ -138,14 +131,12 @@ then
 	# Release branch
 	BRANCH=6.2
 	TAGS=devel
-	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "6-preview" ]
 then
 	VERSION=6
 	BRANCH=6.2-preview
 	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine alpine-jre}
-	SRVS=tomcat
 	PFTAG=$1
 	DOCKERFILE=$DOCKERFILE_DEFAULT-preview-tmp
 elif [ "$1" = "6-latest" -o "$1" = "6" ]
@@ -153,14 +144,12 @@ then
 	VERSION=6
 	BRANCH=6.2
 	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine alpine-jre}
-	SRVS=tomcat
 	PFTAG=$1
 elif [ "$1" = "6-latest-light" -o "$1" = "6-light" ]
 then
 	VERSION=6
 	BRANCH=6.2-light
 	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine alpine-jre}
-	SRVS=tomcat
 	PFTAG=$1
 #elif [ "$1" = "6-beta" ]
 #then
@@ -168,9 +157,8 @@ then
 #	BRANCH=6.3
 #	TAGS=${2:-almalinux9-21 almalinux9-21-jre}
 #	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
-#	SRVS=tomcat
 #	PFTAG=$1
-#	DOCKERFILE=$DOCKERFILE_DEFAULT-beta-tmp
+#	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
 #	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
 #elif [ "$1" = "6-beta-light" ]
 #then
@@ -178,9 +166,8 @@ then
 #	BRANCH=6.3-light
 #	TAGS=${2:-almalinux9-21 almalinux9-21-jre}
 #	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
-#	SRVS=tomcat
 #	PFTAG=$1
-#	DOCKERFILE=$DOCKERFILE_DEFAULT-beta-tmp
+#	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
 #	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
 elif [ "$1" = "6-alpha" ]
 then
@@ -188,9 +175,8 @@ then
 	BRANCH=6.3
 	TAGS=${2:-almalinux9-21 almalinux9-21-jre}
 	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
-	SRVS=tomcat
 	PFTAG=$1
-	DOCKERFILE=$DOCKERFILE_DEFAULT-alpha-tmp
+	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
 	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
 elif [ "$1" = "6-alpha-light" ]
 then
@@ -198,26 +184,57 @@ then
 	BRANCH=6.3-light
 	TAGS=${2:-almalinux9-21 almalinux9-21-jre}
 	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
-	SRVS=tomcat
 	PFTAG=$1
-	DOCKERFILE=$DOCKERFILE_DEFAULT-alpha-tmp
+	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
 	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
 elif [ "$1" = "6-alpha-devel" ]
 then
 	VERSION=6
 	BRANCH=6.3
 	TAGS=devel
-	SRVS=tomcat
 	PFTAG=$1
-	DOCKERFILE=$DOCKERFILE_DEFAULT-alpha-tmp
+	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
 	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
 elif [ "$1" = "6.0" -o "$1" = "6.0-light" -o "$1" = "6.0-preview" -o "$1" = "6.1" -o "$1" = "6.1-light" -o "$1" = "6.1-preview" ]
 then
 	VERSION=6
 	BRANCH=$1
 	TAGS=${2:-almalinux9-21}
-	SRVS=tomcat
 	PFTAG=$1
+elif [ "$1" = "7-preview" ]
+then
+	VERSION=7
+	BRANCH=7.0-preview
+	TAGS=almalinux9-21-tomcat11
+	PFTAG=$1
+	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
+	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
+#elif [ "$1" = "7-alpha" ]
+#then
+#	VERSION=7
+#	BRANCH=7.0
+#	TAGS=${2:-almalinux9-21-tomcat11 almalinux9-21-jre-tomcat11}
+#	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
+#	PFTAG=$1
+#	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
+#	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
+#elif [ "$1" = "7-alpha-light" ]
+#then
+#	VERSION=7
+#	BRANCH=7.0-light
+#	TAGS=${2:-almalinux9-21-tomcat11 almalinux9-21-jre-tomcat11}
+#	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
+#	PFTAG=$1
+#	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
+#	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
+#elif [ "$1" = "7-alpha-devel" ]
+#then
+#	VERSION=7
+#	BRANCH=7.0
+#	TAGS=devel-tomcat11
+#	PFTAG=$1
+#	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
+#	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
 else
 	rm -f $LOCK
 	exit_with 3 "Unknown variant: $1"
@@ -291,48 +308,27 @@ REVISION=$(grep platform.revision $PROPS | awk -F= '{print $2}')
 COMMITID=$(grep platform.commitid $PROPS | awk -F= '{print $2}')
 [ "$COMMITID" = "" ] && COMMITID=$REVISION
 
-for SRV in $SRVS
+for TAG in $TAGS
 do
-	for TAG in $TAGS
-	do
-		EXT=""
-		[ $TAG != "devel" ] && EXT="-$TAG"
-		[ $SRV != "tomcat" ] && EXT="$EXT-$SRV"
-		echo "========================================================"
-		echo "Building $PLATFORM:$PFTAG$EXT image from $SERVER:$TAG..."
-		echo "========================================================"
-		DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-		DESTPATH="tomcat"
-		[ $TAG = "jetty" ] && DESTPATH="jetty/default"
-		[ $DEL = 1 ] && docker rmi $PLATFORM:$PFTAG$EXT > /dev/null 2>&1
-		docker build $NOCACHE --network host -f $DOCKERFILE --build-arg date=$DATE --build-arg tag=$TAG --build-arg version=$VERSION --build-arg patchlevel=$PATCHLEVEL --build-arg revision=$REVISION --build-arg commitid=$COMMITID --build-arg template=$TEMPLATE --build-arg destpath=$DESTPATH -t $PLATFORM:$PFTAG$EXT .
-		echo "Done"
-	done
+	EXT=""
+	[ $TAG != "devel" ] && EXT="-$TAG"
+	[ $SERVER != "tomcat" ] && EXT="$EXT-$SERVER"
+	echo "========================================================"
+	echo "Building $PLATFORM:$PFTAG$EXT image from $SERVER:$TAG..."
+	echo "========================================================"
+	DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+	DESTPATH="tomcat"
+	[ $TAG = "jetty" ] && DESTPATH="jetty/default"
+	[ $DEL = 1 ] && docker rmi $PLATFORM:$PFTAG$EXT > /dev/null 2>&1
+	docker build $NOCACHE --network host -f $DOCKERFILE --build-arg date=$DATE --build-arg tag=$TAG --build-arg version=$VERSION --build-arg patchlevel=$PATCHLEVEL --build-arg revision=$REVISION --build-arg commitid=$COMMITID --build-arg template=$TEMPLATE --build-arg destpath=$DESTPATH -t $PLATFORM:$PFTAG$EXT .
+	echo "Done"
 done
 
-rm -f $DOCKERFILE_DEFAULT-*-tmp
+rm -f $DOCKERFILE_DEFAULT-tmp-*
 
 echo "Removing $TEMPLATE..."
 rm -fr $TEMPLATE
 echo "Done"
-
 echo ""
-DB=docker
-IP=$(ifconfig eth0 | grep 'inet ' | awk '{print $2}')
-for SRV in $SRVS
-do
-	for TAG in $TAGS
-	do
-		EXT=""
-		[ $TAG != "devel" ] && EXT="-$TAG"
-		[ $SRV != "tomcat" ] && EXT="$EXT-$SRV"
-		echo "-- $PLATFORM:$PFTAG$EXT ------------------"
-		echo ""
-		echo "docker run -it --rm -p 127.0.0.1:8080:8080 -p 127.0.0.1:8443:8443 --name=simplicite $PLATFORM:$PFTAG$EXT"
-		echo "docker run -it --rm -p 127.0.0.1:8080:8080 -p 127.0.0.1:8443:8443 --name=simplicite -e DB_SETUP=true -e DB_VENDOR=mysql -e DB_HOST=$IP -e DB_PORT=3306 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$PFTAG$EXT"
-		echo "docker run -it --rm -p 127.0.0.1:8080:8080 -p 127.0.0.1:8443:8443 --name=simplicite -e DB_SETUP=true -e DB_VENDOR=postgresql -e DB_HOST=$IP -e DB_PORT=5432 -e DB_USER=$DB -e DB_PASSWORD=$DB -e DB_NAME=$DB $PLATFORM:$PFTAG$EXT"
-		echo ""
-	done
-done
 
 exit_with
