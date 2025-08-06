@@ -25,57 +25,57 @@ shift
 # -------------------------------------------------------------------------------------------
 
 #if [ "$TARGET" = "alpha" -o "$TARGET" = "beta" ]
-if [ "$TARGET" = "alpha" ]
-then
-	./build-platform.sh --delete 7-$TARGET || exit_with $? "Unable to build platform version 7-$TARGET"
-
-	docker rmi $REGISTRY/platform:7-$TARGET > /dev/null 2>&1
-	docker tag $REGISTRY/platform:7-$TARGET-almalinux9-21 $REGISTRY/platform:7-$TARGET
-	docker rmi $REGISTRY/platform:7-$TARGET-almalinux9-21
-
-	docker rmi $REGISTRY/platform:7-$TARGET-jre > /dev/null 2>&1
-	docker tag $REGISTRY/platform:7-$TARGET-almalinux9-21-jre $REGISTRY/platform:7-$TARGET-jre
-	docker rmi $REGISTRY/platform:7-$TARGET-almalinux9-21-jre
-
-	[ $PUSH -eq 1 ] && ./push-to-registries.sh platform \
-		7-$TARGET \
-		7-$TARGET-jre
-
-	./build-platform.sh --delete 7-$TARGET-light || exit_with $? "Unable to build platform version 7-$TARGET-light"
-
-	docker rmi $REGISTRY/platform:7-$TARGET-light > /dev/null 2>&1
-	docker tag $REGISTRY/platform:7-$TARGET-light-almalinux9-21 $REGISTRY/platform:7-$TARGET-light
-	docker rmi $REGISTRY/platform:7-$TARGET-light-almalinux9-21
-
-	docker rmi $REGISTRY/platform:7-$TARGET-light-jre > /dev/null 2>&1
-	docker tag $REGISTRY/platform:7-$TARGET-light-almalinux9-21-jre $REGISTRY/platform:7-$TARGET-light-jre
-	docker rmi $REGISTRY/platform:7-$TARGET-light-almalinux9-21-jre
-
-	[ $PUSH -eq 1 ] && ./push-to-registries.sh --delete platform \
-		7-$TARGET-light \
-		7-$TARGET-light-jre
-fi
-
-#if [ "$TARGET" = "alpha-devel" -o "$TARGET" = "beta-devel" ]
-if [ "$TARGET" = "alpha-devel" ]
-then
-	./build-platform.sh --delete 7-$TARGET || exit_with $? "Unable to build platform version 7-$TARGET"
-fi
+#if [ "$TARGET" = "alpha" ]
+#then
+#	./build-platform.sh --delete 7-$TARGET || exit_with $? "Unable to build platform version 7-$TARGET"
+#
+#	docker rmi $REGISTRY/platform:7-$TARGET > /dev/null 2>&1
+#	docker tag $REGISTRY/platform:7-$TARGET-almalinux9-21-tomcat11 $REGISTRY/platform:7-$TARGET
+#	docker rmi $REGISTRY/platform:7-$TARGET-almalinux9-21-tomcat11
+#
+#	docker rmi $REGISTRY/platform:7-$TARGET-jre > /dev/null 2>&1
+#	docker tag $REGISTRY/platform:7-$TARGET-almalinux9-21-jre-tomcat11 $REGISTRY/platform:7-$TARGET-jre
+#	docker rmi $REGISTRY/platform:7-$TARGET-almalinux9-21-jre-tomcat11
+#
+#	[ $PUSH -eq 1 ] && ./push-to-registries.sh platform \
+#		7-$TARGET \
+#		7-$TARGET-jre
+#
+#	./build-platform.sh --delete 7-$TARGET-light || exit_with $? "Unable to build platform version 7-$TARGET-light"
+#
+#	docker rmi $REGISTRY/platform:7-$TARGET-light > /dev/null 2>&1
+#	docker tag $REGISTRY/platform:7-$TARGET-light-almalinux9-21-tomcat11 $REGISTRY/platform:7-$TARGET-light
+#	docker rmi $REGISTRY/platform:7-$TARGET-light-almalinux9-21-tomcat11
+#
+#	docker rmi $REGISTRY/platform:7-$TARGET-light-jre > /dev/null 2>&1
+#	docker tag $REGISTRY/platform:7-$TARGET-light-almalinux9-21-jre-tomcat11 $REGISTRY/platform:7-$TARGET-light-jre
+#	docker rmi $REGISTRY/platform:7-$TARGET-light-almalinux9-21-jre-tomcat11
+#
+#	[ $PUSH -eq 1 ] && ./push-to-registries.sh --delete platform \
+#		7-$TARGET-light \
+#		7-$TARGET-light-jre
+#fi
+#
+##if [ "$TARGET" = "alpha-devel" -o "$TARGET" = "beta-devel" ]
+#if [ "$TARGET" = "alpha-devel" ]
+#then
+#	./build-platform.sh --delete 7-$TARGET || exit_with $? "Unable to build platform version 7-$TARGET"
+#fi
 
 # -------------------------------------------------------------------------------------------
 # Current version preview
 # -------------------------------------------------------------------------------------------
 
-#if [ "$TARGET" = "preview" ]
-#then
-#	./build-platform.sh --delete 7-preview almalinux9-21 || exit_with $? "Unable to build platform version 7-preview"
-#
-#	docker rmi $REGISTRY/platform:7-preview > /dev/null 2>&1
-#	docker tag $REGISTRY/platform:7-preview-almalinux9-21 $REGISTRY/platform:7-preview
-#	docker rmi $REGISTRY/platform:7-preview-almalinux9-21
-#
-#	[ $PUSH -eq 1 ] && ./push-to-registries.sh platform 7-preview
-#fi
+if [ "$TARGET" = "preview" ]
+then
+	./build-platform.sh --delete 7-preview almalinux9-21-tomcat11 || exit_with $? "Unable to build platform version 7-preview"
+
+	docker rmi $REGISTRY/platform:7-preview > /dev/null 2>&1
+	docker tag $REGISTRY/platform:7-preview-almalinux9-21-tomcat11 $REGISTRY/platform:7-preview
+	docker rmi $REGISTRY/platform:7-preview-almalinux9-21-tomcat11
+
+	[ $PUSH -eq 1 ] && ./push-to-registries.sh platform 7-preview
+fi
 
 # -------------------------------------------------------------------------------------------
 # Current version
@@ -86,12 +86,12 @@ fi
 #	./build-platform.sh --delete 7-latest || exit_with $? "Unable to build platform version 7-latest"
 #
 #	docker rmi $REGISTRY/platform:7-latest > /dev/null 2>&1
-#	docker tag $REGISTRY/platform:7-latest-almalinux9-21 $REGISTRY/platform:7-latest
-#	docker rmi $REGISTRY/platform:7-latest-almalinux9-21
+#	docker tag $REGISTRY/platform:7-latest-almalinux9-21-tomcat11 $REGISTRY/platform:7-latest
+#	docker rmi $REGISTRY/platform:7-latest-almalinux9-21-tomcat11
 #
 #	docker rmi $REGISTRY/platform:7-latest-jre > /dev/null 2>&1
-#	docker tag $REGISTRY/platform:7-latest-almalinux9-21-jre $REGISTRY/platform:7-latest-jre
-#	docker rmi $REGISTRY/platform:7-latest-almalinux9-21-jre
+#	docker tag $REGISTRY/platform:7-latest-almalinux9-21-jre-tomcat11 $REGISTRY/platform:7-latest-jre
+#	docker rmi $REGISTRY/platform:7-latest-almalinux9-21-jre-tomcat11
 #
 #	docker rmi $REGISTRY/platform:7-latest-jvmless > /dev/null 2>&1
 #	docker tag $REGISTRY/platform:7-latest-almalinux9-jvmless $REGISTRY/platform:7-latest-jvmless
@@ -128,12 +128,12 @@ fi
 #	./build-platform.sh --delete 7-latest-light || exit_with $? "Unable to build platform version 7-latest-light"
 #
 #	docker rmi $REGISTRY/platform:7-latest-light > /dev/null 2>&1
-#	docker tag $REGISTRY/platform:7-latest-light-almalinux9-21 $REGISTRY/platform:7-latest-light
-#	docker rmi $REGISTRY/platform:7-latest-light-almalinux9-21
+#	docker tag $REGISTRY/platform:7-latest-light-almalinux9-21-tomcat11 $REGISTRY/platform:7-latest-light
+#	docker rmi $REGISTRY/platform:7-latest-light-almalinux9-21-tomcat11
 #
 #	docker rmi $REGISTRY/platform:7-latest-light-jre > /dev/null 2>&1
-#	docker tag $REGISTRY/platform:7-latest-light-almalinux9-21-jre $REGISTRY/platform:7-latest-light-jre
-#	docker rmi $REGISTRY/platform:7-latest-light-almalinux9-21-jre
+#	docker tag $REGISTRY/platform:7-latest-light-almalinux9-21-jre-tomcat11 $REGISTRY/platform:7-latest-light-jre
+#	docker rmi $REGISTRY/platform:7-latest-light-almalinux9-21-jre-tomcat11
 #
 #	docker rmi $REGISTRY/platform:7-latest-light-jvmless > /dev/null 2>&1
 #	docker tag $REGISTRY/platform:7-latest-light-almalinux9-jvmless $REGISTRY/platform:7-latest-light-jvmless
