@@ -24,19 +24,19 @@ shift
 # Alpha / beta versions
 # -------------------------------------------------------------------------------------------
 
-#if [ "$TARGET" = "alpha" -o "$TARGET" = "beta" ]
-#if [ "$TARGET" = "alpha" ]
-#then
-#	./build-platform.sh --delete 7-$TARGET || exit_with $? "Unable to build platform version 7-$TARGET"
-#
-#	docker rmi $REGISTRY/platform:7-$TARGET > /dev/null 2>&1
-#	docker tag $REGISTRY/platform:7-$TARGET-almalinux9-21-tomcat11 $REGISTRY/platform:7-$TARGET
-#	docker rmi $REGISTRY/platform:7-$TARGET-almalinux9-21-tomcat11
-#
-#	docker rmi $REGISTRY/platform:7-$TARGET-jre > /dev/null 2>&1
-#	docker tag $REGISTRY/platform:7-$TARGET-almalinux9-21-jre-tomcat11 $REGISTRY/platform:7-$TARGET-jre
-#	docker rmi $REGISTRY/platform:7-$TARGET-almalinux9-21-jre-tomcat11
-#
+##if [ "$TARGET" = "alpha" -o "$TARGET" = "beta" ]
+if [ "$TARGET" = "alpha" ]
+then
+	./build-platform.sh --delete 7-$TARGET || exit_with $? "Unable to build platform version 7-$TARGET"
+
+	docker rmi $REGISTRY/platform:7-$TARGET > /dev/null 2>&1
+	docker tag $REGISTRY/platform:7-$TARGET-almalinux9-21-tomcat11 $REGISTRY/platform:7-$TARGET
+	docker rmi $REGISTRY/platform:7-$TARGET-almalinux9-21-tomcat11
+
+	docker rmi $REGISTRY/platform:7-$TARGET-jre > /dev/null 2>&1
+	docker tag $REGISTRY/platform:7-$TARGET-almalinux9-21-jre-tomcat11 $REGISTRY/platform:7-$TARGET-jre
+	docker rmi $REGISTRY/platform:7-$TARGET-almalinux9-21-jre-tomcat11
+
 #	[ $PUSH -eq 1 ] && ./push-to-registries.sh platform \
 #		7-$TARGET \
 #		7-$TARGET-jre
@@ -54,7 +54,7 @@ shift
 #	[ $PUSH -eq 1 ] && ./push-to-registries.sh --delete platform \
 #		7-$TARGET-light \
 #		7-$TARGET-light-jre
-#fi
+fi
 #
 ##if [ "$TARGET" = "alpha-devel" -o "$TARGET" = "beta-devel" ]
 #if [ "$TARGET" = "alpha-devel" ]
@@ -66,16 +66,16 @@ shift
 # Current version preview
 # -------------------------------------------------------------------------------------------
 
-if [ "$TARGET" = "preview" ]
-then
-	./build-platform.sh --delete 7-preview almalinux9-21-tomcat11 || exit_with $? "Unable to build platform version 7-preview"
-
-	docker rmi $REGISTRY/platform:7-preview > /dev/null 2>&1
-	docker tag $REGISTRY/platform:7-preview-almalinux9-21-tomcat11 $REGISTRY/platform:7-preview
-	docker rmi $REGISTRY/platform:7-preview-almalinux9-21-tomcat11
-
-	[ $PUSH -eq 1 ] && ./push-to-registries.sh platform 7-preview
-fi
+#if [ "$TARGET" = "preview" ]
+#then
+#	./build-platform.sh --delete 7-preview almalinux9-21-tomcat11 || exit_with $? "Unable to build platform version 7-preview"
+#
+#	docker rmi $REGISTRY/platform:7-preview > /dev/null 2>&1
+#	docker tag $REGISTRY/platform:7-preview-almalinux9-21-tomcat11 $REGISTRY/platform:7-preview
+#	docker rmi $REGISTRY/platform:7-preview-almalinux9-21-tomcat11
+#
+#	[ $PUSH -eq 1 ] && ./push-to-registries.sh platform 7-preview
+#fi
 
 # -------------------------------------------------------------------------------------------
 # Current version
