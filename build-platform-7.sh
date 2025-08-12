@@ -37,10 +37,10 @@ then
 	docker tag $REGISTRY/platform:7-$TARGET-almalinux9-21-jre-tomcat11 $REGISTRY/platform:7-$TARGET-jre
 	docker rmi $REGISTRY/platform:7-$TARGET-almalinux9-21-jre-tomcat11
 
-#	[ $PUSH -eq 1 ] && ./push-to-registries.sh platform \
-#		7-$TARGET \
-#		7-$TARGET-jre
-#
+	[ $PUSH -eq 1 ] && ./push-to-registries.sh platform \
+		7-$TARGET \
+		7-$TARGET-jre
+
 #	./build-platform.sh --delete 7-$TARGET-light || exit_with $? "Unable to build platform version 7-$TARGET-light"
 #
 #	docker rmi $REGISTRY/platform:7-$TARGET-light > /dev/null 2>&1
