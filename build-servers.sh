@@ -1,9 +1,5 @@
 #!/bin/bash
 
-[ "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m\n" 
-
-REGISTRY=registry.simplicite.io
-
 # Tomcat
 for BRANCH in master tomcat11
 do
