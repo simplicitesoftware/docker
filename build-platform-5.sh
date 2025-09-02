@@ -31,7 +31,7 @@ then
 	docker tag $REGISTRY/platform:5-preview-almalinux9-17 $REGISTRY/platform:5-preview
 	docker rmi $REGISTRY/platform:5-preview-almalinux9-17
 
-	[ $PUSH -eq 1 ] && ./push-to-registries.sh platform 5-preview
+	#[ $PUSH -eq 1 ] && ./push-to-registries.sh platform 5-preview
 fi
 
 # -------------------------------------------------------------------------------------------
@@ -121,10 +121,6 @@ then
 	done
 	docker rmi $REGISTRY/platform:5-latest-light
 fi
-
-# -------------------------------------------------------------------------------------------
-# Current version whith development tools
-# -------------------------------------------------------------------------------------------
 
 if [ "$TARGET" = "devel" ]
 then
