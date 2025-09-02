@@ -138,7 +138,6 @@ then
 	BRANCH=6.2-preview
 	TAGS=${2:-almalinux9-21}
 	PFTAG=$1
-	DOCKERFILE=$DOCKERFILE_DEFAULT-preview-tmp
 elif [ "$1" = "6-latest" -o "$1" = "6" ]
 then
 	VERSION=6
