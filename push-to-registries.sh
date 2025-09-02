@@ -39,7 +39,7 @@ TAGS=$*
 
 for TAG in $TAGS
 do
-	if [ $IMG != "server" -o "${TAG:(-4)}" != "base" ]
+	if [ $IMG != "server" -o "${TAG/-base}" != $TAG ]
 	then
 		echo ""
 		echo "------------------------------------"
