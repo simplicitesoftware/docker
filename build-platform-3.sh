@@ -14,8 +14,8 @@ for VERSION in $VERSIONS
 do
 	./build-platform.sh --delete $VERSION || exit_with $? "Unable to build platform version $VERSION"
 	docker rmi $REGISTRY/platform:$VERSION > /dev/null 2>&1
-	docker tag $REGISTRY/platform:$VERSION-centos-8 $REGISTRY/platform:$VERSION
-	docker rmi $REGISTRY/platform:$VERSION-centos-8
+	docker tag $REGISTRY/platform:$VERSION-almalinux9-17 $REGISTRY/platform:$VERSION
+	docker rmi $REGISTRY/platform:$VERSION-almalinux9-17
 done
 
 ./push-to-registries.sh --delete platform $VERSIONS

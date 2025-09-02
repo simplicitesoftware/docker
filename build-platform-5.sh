@@ -137,12 +137,12 @@ then
 	./build-platform.sh --delete $TARGET-light || exit_with $? "Unable to build platform version $TARGET-light"
 
 	docker rmi $REGISTRY/platform:$TARGET > /dev/null 2>&1
-	docker tag $REGISTRY/platform:$TARGET-centos-17 $REGISTRY/platform:$TARGET
-	docker rmi $REGISTRY/platform:$TARGET-centos-17
+	docker tag $REGISTRY/platform:$TARGET-almalinux9-17 $REGISTRY/platform:$TARGET
+	docker rmi $REGISTRY/platform:$TARGET-almalinux9-17
 
 	docker rmi $REGISTRY/platform:$TARGET-light > /dev/null 2>&1
-	docker tag $REGISTRY/platform:$TARGET-light-centos-17 $REGISTRY/platform:$TARGET-light
-	docker rmi $REGISTRY/platform:$TARGET-light-centos-17
+	docker tag $REGISTRY/platform:$TARGET-light-almalinux9-17 $REGISTRY/platform:$TARGET-light
+	docker rmi $REGISTRY/platform:$TARGET-light-almalinux9-17
 
 	if [ $PUSH -eq 1 ]
 	then

@@ -44,25 +44,25 @@ if [ "$1" = "3.0" ]
 then
 	VERSION=3.0
 	BRANCH=master
-	TAGS=${2:-centos-11}
+	TAGS=${2:-almalinux9-17}
 	PFTAG=$1
 elif [ "$1" = "3.1" ]
 then
 	VERSION=3.1
 	BRANCH=master
-	TAGS=${2:-centos-11}
+	TAGS=${2:-almalinux9-17}
 	PFTAG=$1
 elif [ "$1" = "3.2" ]
 then
 	VERSION=3.2
 	BRANCH=master
-	TAGS=${2:-centos-11}
+	TAGS=${2:-almalinux9-17}
 	PFTAG=$1
 elif [ "$1" = "4.0" ]
 then
 	VERSION=4.0
 	BRANCH=release
-	TAGS=${2:-centos-17}
+	TAGS=${2:-almalinux9-17}
 	PFTAG=$1
 	GITTAG=$3
 	if [ "$GITTAG" != "" ]
@@ -74,7 +74,7 @@ elif [ "$1" = "4.0-light" ]
 then
 	VERSION=4.0
 	BRANCH=release-light
-	TAGS=${2:-centos-17}
+	TAGS=${2:-almalinux9-17}
 	PFTAG=$1
 	GITTAG=$3
 	if [ "$GITTAG" != "" ]
@@ -123,7 +123,7 @@ elif [ "$1" = "5.0" -o "$1" = "5.0-light" -o "$1" = "5.1" -o "$1" = "5.1-light" 
 then
 	VERSION=5
 	BRANCH=$1
-	TAGS=${2:-centos-17}
+	TAGS=${2:-almalinux9-17}
 	PFTAG=$1
 elif [ "$1" = "6-devel" ]
 then
@@ -136,7 +136,7 @@ elif [ "$1" = "6-preview" ]
 then
 	VERSION=6
 	BRANCH=6.2-preview
-	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine alpine-jre}
+	TAGS=${2:-almalinux9-21}
 	PFTAG=$1
 	DOCKERFILE=$DOCKERFILE_DEFAULT-preview-tmp
 elif [ "$1" = "6-latest" -o "$1" = "6" ]

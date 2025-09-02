@@ -36,7 +36,7 @@ echo ""
 echo "--------------------------------------------------------"
 
 TAGS=${1:-all}
-#[ $TAGS = "all" ] && TAGS="centos-base centos centos-jvmless almalinux8-base almalinux8 almalinux8-jvmless almalinux9-base almalinux9 almalinux9-jvmless alpine-base alpine eclipse-temurin devel"
+#[ $TAGS = "all" ] && TAGS="almalinux8-base almalinux8 almalinux8-jvmless almalinux9-base almalinux9 almalinux9-jvmless alpine-base alpine eclipse-temurin devel"
 [ $TAGS = "all" ] && TAGS="almalinux9-base almalinux9 almalinux9-jvmless alpine-base alpine devel"
 echo "Variants(s) = $TAGS"
 
@@ -48,7 +48,6 @@ BRANCH=${3:-master}
 echo "Branch = $BRANCH"
 
 # JVMs (note: only the latest JVM for ALPINE)
-JVMS_CENTOS="21 17 11"
 JVMS_ALMALINUX="21 17"
 JVMS_ALPINE="21"
 JVMS_ECLIPSE_TEMURIN="21 17 11"
@@ -107,7 +106,6 @@ sed -i 's/<!-- AJP Connector/<Connector/;s/Connector AJP -->/Connector>/' tomcat
 for TAG in $TAGS
 do
 	JVMS=""
-	[ $TAG = "centos" ] && JVMS=$JVMS_CENTOS
 	[ $TAG = "almalinux8" -o $TAG = "almalinux9" ] && JVMS=$JVMS_ALMALINUX
 	[ $TAG = "alpine" ] && JVMS=$JVMS_ALPINE
 	[ $TAG = "eclipse-temurin" ] && JVMS=$JVMS_ECLIPSE_TEMURIN
@@ -133,7 +131,7 @@ do
 		do
 			[ $TAG = "alpine" ] && TAGEXT="" || TAGEXT="-$JVM"
 
-			if [ $TAG = "centos" -o $TAG = "almalinux8" -o $TAG = "almalinux9" -o $TAG = "alpine" ]
+			if [ $TAG = "almalinux8" -o $TAG = "almalinux9" -o $TAG = "alpine" ]
 			then
 				echo "========================================================"
 				echo "Building $IMAGE:$TAG$TAGEXT-jre$SERVEREXT image..."
@@ -159,7 +157,6 @@ rm -fr tomcat
 for TAG in $TAGS
 do
 	JVMS=""
-	[ $TAG = "centos" ] && JVMS=$JVMS_CENTOS
 	[ $TAG = "almalinux8" -o $TAG = "almalinux9" ] && JVMS=$JVMS_ALMALINUX
 	[ $TAG = "alpine" ] && JVMS=$JVMS_ALPINE
 	[ $TAG = "eclipse-temurin" ] && JVMS=$JVMS_ECLIPSE_TEMURIN
@@ -168,7 +165,7 @@ do
 	do
 		[ $TAG = "alpine" ] && TAGEXT="" || TAGEXT="-$JVM"
 
-		if [ $TAG = "centos" -o $TAG = "almalinux8" -o $TAG = "almalinux9" -o $TAG = "alpine" ]
+		if [ $TAG = "almalinux8" -o $TAG = "almalinux9" -o $TAG = "alpine" ]
 		then
 			echo "docker run -it --rm --memory=128m -p 127.0.0.1:8080:8080 -p 127.0.0.1:8443:8443 --name simplicite $IMAGE:$TAG$TAGEXT-jre$SERVEREXT"
 		fi
