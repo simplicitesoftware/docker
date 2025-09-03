@@ -1,0 +1,41 @@
+FROM almalinux:10
+
+ARG date
+
+LABEL org.label-schema.name="simplicite-server-almalinux10-base" \
+      org.label-schema.vendor="Simplicite Software" \
+      org.label-schema.license="NONE" \
+      org.label-schema.build-date="${date}" \
+      org.opencontainers.image.ref.name="simplicite-server-almalinux10-base" \
+      org.opencontainers.image.title="Simplicite server / AlmaLinux 10 / Base" \
+      org.opencontainers.image.description="Simplicite server / AlmaLinux 10 / Base" \
+      org.opencontainers.image.vendor="Simplicite Software" \
+      org.opencontainers.image.licenses="NONE" \
+      org.opencontainers.image.created="${date}"
+
+ENV DOCKER=almalinux10 LANG=C.UTF-8 LANGUAGE=C.UTF-8 LOG4J_FORMAT_MSG_NO_LOOKUPS=true TOMCAT_ROOT=/usr/local/tomcat
+
+ADD *.crt /etc/pki/ca-trust/source/anchors/
+RUN dnf upgrade -y && \
+    dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-10-x86_64/pgdg-redhat-repo-latest.noarch.rpm && \
+    dnf install -y --allowerasing bash sudo procps openssh-clients openssl hostname bind-utils git curl wget zip unzip xz ca-certificates libjpeg fontconfig mariadb postgresql16 glibc-all-langpacks && \
+    dnf clean all && \
+    /bin/update-ca-trust extract && \
+    ln -s /usr/local/tomcat/logs /var/log/tomcat && \
+    ln -s /usr/local/tomcat/webapps/ROOT/WEB-INF/log /var/log/simplicite && \
+    mkdir -p /root/.ssh && chmod 700 /root/.ssh && \
+    groupadd -g 2000 simplicite && useradd -N -g 2000 -u 2000 simplicite && \
+    mkdir -p ~simplicite/.ssh && chmod 700 ~simplicite/.ssh && chown simplicite:simplicite ~simplicite/.ssh && \
+    echo -e "alias dir='ls -alF --color=always'\n\
+alias _mysql='mysql --host=\$DB_HOST --port=\${DB_PORT:-3306} --user=\$DB_USER --password=\$DB_PASSWORD \$DB_NAME'\n\
+alias _psql='PGPASSWD=\$DB_PASSWORD psql -h \$DB_HOST -p \${DB_PORT:-5432} -U \$DB_USER \$DB_NAME'" > /etc/profile.d/simplicite.sh && \
+    echo '%simplicite ALL=(ALL) NOPASSWD: /bin/chown' >> /etc/sudoers
+
+ADD jacoco/lib/*.jar /usr/local/jacoco/
+ADD --chown=simplicite:simplicite tomcat /usr/local/tomcat
+ADD --chown=simplicite:simplicite run-tomcat.sh /usr/local/tomcat/run
+
+WORKDIR /usr/local/tomcat
+# HTTP, HTTP for SLL, HTTPS, AJP, JMX, RMI, JPDA, JaCoCo
+EXPOSE 8080 8443 8444 8009 8005 1099 1098 8000 8001
+CMD [ "/usr/local/tomcat/run" ]
