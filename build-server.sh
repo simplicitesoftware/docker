@@ -106,7 +106,7 @@ sed -i 's/<!-- AJP Connector/<Connector/;s/Connector AJP -->/Connector>/' tomcat
 for TAG in $TAGS
 do
 	JVMS=""
-	[ $TAG = "almalinux8" -o $TAG = "almalinux9" ] && JVMS=$JVMS_ALMALINUX
+	[ $TAG = "almalinux10" -o $TAG = "almalinux9" -o $TAG = "almalinux8" ] && JVMS=$JVMS_ALMALINUX
 	[ $TAG = "alpine" ] && JVMS=$JVMS_ALPINE
 	[ $TAG = "eclipse-temurin" ] && JVMS=$JVMS_ECLIPSE_TEMURIN
 
@@ -131,7 +131,7 @@ do
 		do
 			[ $TAG = "alpine" ] && TAGEXT="" || TAGEXT="-$JVM"
 
-			if [ $TAG = "almalinux8" -o $TAG = "almalinux9" -o $TAG = "alpine" ]
+			if [ $TAG = "almalinux10" -o $TAG = "almalinux9" -o $TAG = "almalinux8" -o $TAG = "alpine" ]
 			then
 				echo "========================================================"
 				echo "Building $IMAGE:$TAG$TAGEXT-jre$SERVEREXT image..."
@@ -157,7 +157,7 @@ rm -fr tomcat
 for TAG in $TAGS
 do
 	JVMS=""
-	[ $TAG = "almalinux8" -o $TAG = "almalinux9" ] && JVMS=$JVMS_ALMALINUX
+	[ $TAG = "almalinux10" -o $TAG = "almalinux9" -o $TAG = "almalinux8" ] && JVMS=$JVMS_ALMALINUX
 	[ $TAG = "alpine" ] && JVMS=$JVMS_ALPINE
 	[ $TAG = "eclipse-temurin" ] && JVMS=$JVMS_ECLIPSE_TEMURIN
 
@@ -165,7 +165,7 @@ do
 	do
 		[ $TAG = "alpine" ] && TAGEXT="" || TAGEXT="-$JVM"
 
-		if [ $TAG = "almalinux8" -o $TAG = "almalinux9" -o $TAG = "alpine" ]
+		if [ $TAG = "almalinux10" -o $TAG = "almalinux9" -o $TAG = "almalinux8" -o $TAG = "alpine" ]
 		then
 			echo "docker run -it --rm --memory=128m -p 127.0.0.1:8080:8080 -p 127.0.0.1:8443:8443 --name simplicite $IMAGE:$TAG$TAGEXT-jre$SERVEREXT"
 		fi
