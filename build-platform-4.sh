@@ -53,7 +53,7 @@ docker rmi $REGISTRY/platform:4-light > /dev/null 2>&1
 docker tag $REGISTRY/platform:4.0-latest-light $REGISTRY/platform:4-light
 
 if [ $PUSH -eq 1 ]
-then²
+then
 	./push-to-registries.sh --delete platform 4.0-light 4.0-latest-light 4-latest-light 4-light
 fi
 
