@@ -6,7 +6,7 @@ exit_with () {
 	exit ${1:-0}
 }
 
-[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] [--no-cache] 3.0|3.1|3.2|4.0[-light]|5-<latest|devel|preview>[-light]|6-<alpha|beta|latest|devel|preview>[-light]|7-preview [<server image tag(s)> [<platform Git tag (only applicable to 5-latest and 5-latest-light>]]\n"
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] [--no-cache] 3.0|3.1|3.2|4.0[-light]|5-<latest|devel|preview>[-light]|6-<beta|latest|devel|preview>[-light]|7-<alpha> [<server image tag(s)> [<platform Git tag (only applicable to 5-latest and 5-latest-light>]]\n"
 
 LOCK=/tmp/$(basename $0 .sh).lck
 if [ -f $LOCK ]
@@ -150,25 +150,7 @@ then
 	BRANCH=6.2-light
 	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine alpine-jre}
 	PFTAG=$1
-#elif [ "$1" = "6-beta" ]
-#then
-#	VERSION=6
-#	BRANCH=6.3
-#	TAGS=${2:-almalinux9-21 almalinux9-21-jre}
-#	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
-#	PFTAG=$1
-#	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
-#	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
-#elif [ "$1" = "6-beta-light" ]
-#then
-#	VERSION=6
-#	BRANCH=6.3-light
-#	TAGS=${2:-almalinux9-21 almalinux9-21-jre}
-#	#TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
-#	PFTAG=$1
-#	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
-#	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
-elif [ "$1" = "6-alpha" ]
+elif [ "$1" = "6-beta" ]
 then
 	VERSION=6
 	BRANCH=6.3
@@ -177,7 +159,7 @@ then
 	PFTAG=$1
 	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
 	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
-elif [ "$1" = "6-alpha-light" ]
+elif [ "$1" = "6-beta-light" ]
 then
 	VERSION=6
 	BRANCH=6.3-light
@@ -186,7 +168,7 @@ then
 	PFTAG=$1
 	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
 	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
-elif [ "$1" = "6-alpha-devel" ]
+elif [ "$1" = "6-beta-devel" ]
 then
 	VERSION=6
 	BRANCH=6.3
@@ -200,37 +182,21 @@ then
 	BRANCH=$1
 	TAGS=${2:-almalinux9-21}
 	PFTAG=$1
-#elif [ "$1" = "7-preview" ]
-#then
-#	VERSION=7
-#	BRANCH=7.0-preview
-#	TAGS=almalinux10-21-tomcat11
-#	PFTAG=$1
-#	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
-#	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
 elif [ "$1" = "7-alpha" ]
 then
 	VERSION=7
 	BRANCH=7.0
 	TAGS=${2:-almalinux10-21-tomcat11 almalinux10-21-jre-tomcat11}
-	#TAGS=${2:-almalinux10-21 almalinux10-21-jre almalinux10-jvmless alpine}
+	#TAGS=${2:-almalinux10-25 almalinux10-25-jre almalinux10-jvmless alpine}
 	PFTAG=$1
 	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
 	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
-elif [ "$1" = "7-alpha-light" ]
-then
-	VERSION=7
-	BRANCH=7.0-light
-	TAGS=${2:-almalinux10-21-tomcat11 almalinux10-21-jre-tomcat11}
-	#TAGS=${2:-almalinux10-21 almalinux10-21-jre almalinux10-jvmless alpine}
-	PFTAG=$1
-	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
-	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
-#elif [ "$1" = "7-alpha-devel" ]
+#elif [ "$1" = "7-alpha-light" ]
 #then
 #	VERSION=7
-#	BRANCH=7.0
-#	TAGS=devel-tomcat11
+#	BRANCH=7.0-light
+#	TAGS=${2:-almalinux10-21-tomcat11 almalinux10-21-jre-tomcat11}
+#	#TAGS=${2:-almalinux10-25 almalinux10-25-jre almalinux10-jvmless alpine}
 #	PFTAG=$1
 #	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
 #	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE

@@ -25,13 +25,15 @@ shift
 
 if [ "$TARGET" = "preview" ]
 then
-	./build-platform.sh --delete 5-preview almalinux9-17 || exit_with $? "Unable to build platform version 5-preview"
+	./build-platform.sh --delete 5-$TARGET almalinux9-17 || exit_with $? "Unable to build platform version 5-$TARGET"
 
-	docker rmi $REGISTRY/platform:5-preview > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-preview-almalinux9-17 $REGISTRY/platform:5-preview
-	docker rmi $REGISTRY/platform:5-preview-almalinux9-17
+	docker rmi $REGISTRY/platform:5-$TARGET > /dev/null 2>&1
+	docker tag $REGISTRY/platform:5-$TARGET-almalinux9-17 $REGISTRY/platform:5-$TARGET
+	docker rmi $REGISTRY/platform:5-$TARGET-almalinux9-17
 
-	#[ $PUSH -eq 1 ] && ./push-to-registries.sh platform 5-preview
+	#[ $PUSH -eq 1 ] && ./push-to-registries.sh platform 5-$TARGET
+
+	exit_with
 fi
 
 # -------------------------------------------------------------------------------------------
@@ -40,39 +42,39 @@ fi
 
 if [ "$TARGET" = "latest" ]
 then
-	./build-platform.sh --delete 5-latest || exit_with $? "Unable to build platform version 5-latest"
+	./build-platform.sh --delete 5-$TARGET || exit_with $? "Unable to build platform version 5-$TARGET"
 
-	docker rmi $REGISTRY/platform:5-latest > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-latest-almalinux9-17 $REGISTRY/platform:5-latest
-	docker rmi $REGISTRY/platform:5-latest-almalinux9-17
+	docker rmi $REGISTRY/platform:5-$TARGET > /dev/null 2>&1
+	docker tag $REGISTRY/platform:5-$TARGET-almalinux9-17 $REGISTRY/platform:5-$TARGET
+	docker rmi $REGISTRY/platform:5-$TARGET-almalinux9-17
 
-	docker rmi $REGISTRY/platform:5-latest-jre > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-latest-almalinux9-17-jre $REGISTRY/platform:5-latest-jre
-	docker rmi $REGISTRY/platform:5-latest-almalinux9-17-jre
+	docker rmi $REGISTRY/platform:5-$TARGET-jre > /dev/null 2>&1
+	docker tag $REGISTRY/platform:5-$TARGET-almalinux9-17-jre $REGISTRY/platform:5-$TARGET-jre
+	docker rmi $REGISTRY/platform:5-$TARGET-almalinux9-17-jre
 
-	docker rmi $REGISTRY/platform:5-latest-jvmless > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-latest-almalinux9-jvmless $REGISTRY/platform:5-latest-jvmless
-	docker rmi $REGISTRY/platform:5-latest-almalinux9-jvmless
+	docker rmi $REGISTRY/platform:5-$TARGET-jvmless > /dev/null 2>&1
+	docker tag $REGISTRY/platform:5-$TARGET-almalinux9-jvmless $REGISTRY/platform:5-$TARGET-jvmless
+	docker rmi $REGISTRY/platform:5-$TARGET-almalinux9-jvmless
 
 	docker rmi $REGISTRY/platform:5 > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-latest $REGISTRY/platform:5
+	docker tag $REGISTRY/platform:5-$TARGET $REGISTRY/platform:5
 
 	if [ $PUSH -eq 1 ]
 	then
 		./push-to-registries.sh --delete platform \
-			5-latest-alpine \
-			5-latest-alpine-jre \
-			5-latest-jvmless \
-			5-latest-jre \
+			5-$TARGET-alpine \
+			5-$TARGET-alpine-jre \
+			5-$TARGET-jvmless \
+			5-$TARGET-jre \
 			5
-		./push-to-registries.sh platform 5-latest
+		./push-to-registries.sh platform 5-$TARGET
 	fi
 
 	# All additional tags
 	for TAG in $@
 	do
 		docker rmi $REGISTRY/platform:$TAG > /dev/null 2>&1
-		docker tag $REGISTRY/platform:5-latest $REGISTRY/platform:$TAG
+		docker tag $REGISTRY/platform:5-$TARGET $REGISTRY/platform:$TAG
 
 		if [ $PUSH -eq 1 ]
 		then
@@ -80,51 +82,55 @@ then
 		fi
 	done
 
-	./build-platform.sh --delete 5-latest-light || exit_with $? "Unable to build platform version 5-latest-light"
+	./build-platform.sh --delete 5-$TARGET-light || exit_with $? "Unable to build platform version 5-$TARGET-light"
 
-	docker rmi $REGISTRY/platform:5-latest-light > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-latest-light-almalinux9-17 $REGISTRY/platform:5-latest-light
-	docker rmi $REGISTRY/platform:5-latest-light-almalinux9-17
+	docker rmi $REGISTRY/platform:5-$TARGET-light > /dev/null 2>&1
+	docker tag $REGISTRY/platform:5-$TARGET-light-almalinux9-17 $REGISTRY/platform:5-$TARGET-light
+	docker rmi $REGISTRY/platform:5-$TARGET-light-almalinux9-17
 
-	docker rmi $REGISTRY/platform:5-latest-light-jre > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-latest-light-almalinux9-17-jre $REGISTRY/platform:5-latest-light-jre
-	docker rmi $REGISTRY/platform:5-latest-light-almalinux9-17-jre
+	docker rmi $REGISTRY/platform:5-$TARGET-light-jre > /dev/null 2>&1
+	docker tag $REGISTRY/platform:5-$TARGET-light-almalinux9-17-jre $REGISTRY/platform:5-$TARGET-light-jre
+	docker rmi $REGISTRY/platform:5-$TARGET-light-almalinux9-17-jre
 
-	docker rmi $REGISTRY/platform:5-latest-light-jvmless > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-latest-light-almalinux9-jvmless $REGISTRY/platform:5-latest-light-jvmless
-	docker rmi $REGISTRY/platform:5-latest-light-almalinux9-jvmless
+	docker rmi $REGISTRY/platform:5-$TARGET-light-jvmless > /dev/null 2>&1
+	docker tag $REGISTRY/platform:5-$TARGET-light-almalinux9-jvmless $REGISTRY/platform:5-$TARGET-light-jvmless
+	docker rmi $REGISTRY/platform:5-$TARGET-light-almalinux9-jvmless
 
 	docker rmi $REGISTRY/platform:5-light > /dev/null 2>&1
-	docker tag $REGISTRY/platform:5-latest-light $REGISTRY/platform:5-light
+	docker tag $REGISTRY/platform:5-$TARGET-light $REGISTRY/platform:5-light
 
 	if [ $PUSH -eq 1 ]
 	then
 		./push-to-registries.sh --delete platform \
-			5-latest-light-alpine \
-			5-latest-light-alpine-jre \
-			5-latest-light-jvmless \
-			5-latest-light-jre \
+			5-$TARGET-light-alpine \
+			5-$TARGET-light-alpine-jre \
+			5-$TARGET-light-jvmless \
+			5-$TARGET-light-jre \
 			5-light
-		./push-to-registries.sh platform 5-latest-light
+		./push-to-registries.sh platform 5-$TARGET-light
 	fi
 
 	# First additional tag only
 	for TAG in $1
 	do
 		docker rmi $REGISTRY/platform:$TAG-light > /dev/null 2>&1
-		docker tag $REGISTRY/platform:5-latest-light $REGISTRY/platform:$TAG-light
+		docker tag $REGISTRY/platform:5-$TARGET-light $REGISTRY/platform:$TAG-light
 
 		if [ $PUSH -eq 1 ]
 		then
 			./push-to-registries.sh --delete platform $TAG-light
 		fi
 	done
-	docker rmi $REGISTRY/platform:5-latest-light
+	docker rmi $REGISTRY/platform:5-$TARGET-light
+
+	exit_with
 fi
 
 if [ "$TARGET" = "devel" ]
 then
-	./build-platform.sh --delete 5-devel || exit_with $? "Unable to build platform version 5-devel"
+	./build-platform.sh --delete 5-$TARGET || exit_with $? "Unable to build platform version 5-$TARGET"
+
+	exit_with
 fi
 
 # -------------------------------------------------------------------------------------------
@@ -161,6 +167,8 @@ then
 			./push-to-registries.sh --delete platform $TAG
 		fi
 	done
+
+	exit_with
 fi
 
-exit_with
+exit_with 1 "Unknown target $TARGET"
