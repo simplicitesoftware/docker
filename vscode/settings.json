@@ -23,9 +23,10 @@
     "files.autoSave": "off",
     "files.trimTrailingWhitespace": true,
     "redhat.telemetry.enabled": false,
+    "java.configuration.detectJdksAtStart": false,
     "java.configuration.runtimes": [
         {
-            "name": "JDK",
+            "name": "JavaSE-21",
             "path": "/usr/local/jvm",
             "default": true
         }
