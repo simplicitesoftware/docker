@@ -186,8 +186,8 @@ elif [ "$1" = "7-alpha" ]
 then
 	VERSION=7
 	BRANCH=7.0
-	TAGS=${2:-almalinux10-21-tomcat11 almalinux10-21-jre-tomcat11}
-	#TAGS=${2:-almalinux10-25 almalinux10-25-jre almalinux10-jvmless alpine}
+	TAGS=${2:-almalinux10-25-tomcat11 almalinux10-25-jre-tomcat11}
+	#TAGS=${2:-almalinux10-25-tomcat11 almalinux10-25-jre-tomcat11 almalinux10-jvmless-tomcat11 alpine-tomcat11}
 	PFTAG=$1
 	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
 	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
@@ -195,8 +195,8 @@ then
 #then
 #	VERSION=7
 #	BRANCH=7.0-light
-#	TAGS=${2:-almalinux10-21-tomcat11 almalinux10-21-jre-tomcat11}
-#	#TAGS=${2:-almalinux10-25 almalinux10-25-jre almalinux10-jvmless alpine}
+#	TAGS=${2:-almalinux10-25-tomcat11 almalinux10-25-jre-tomcat11}
+#	#TAGS=${2:-almalinux10-25-tomcat11 almalinux10-25-jre-tomcat11 almalinux10-jvmless-tomcat11 alpine-tomcat11}
 #	PFTAG=$1
 #	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
 #	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
