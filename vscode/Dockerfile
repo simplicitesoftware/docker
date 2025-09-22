@@ -1,4 +1,4 @@
-FROM almalinux:9
+FROM almalinux:10
 
 ARG BUILD_DATE
 LABEL org.label-schema.name="simplicite-vscode" \
@@ -63,6 +63,7 @@ alias dir='ls -alF --color=always'" >> /var/simplicite/.bashrc && \
     git config --global user.email 'contact@simplicitesoftware.com' && \
     git config --global http.sslVerify 'false' && \
     git config --global credential.helper 'store --file /var/simplicite/projects/.git-credentials'
+# Not possible anymore at that stage => talled when opening a project with suggestions
 #    /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension vscjava.vscode-java-pack
 #    /usr/bin/code-server --verbose --extensions-dir=/var/simplicite/extensions --install-extension simpliciteSoftware.simplicite-vscode-tool
 
