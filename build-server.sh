@@ -48,9 +48,9 @@ BRANCH=${3:-master}
 echo "Branch = $BRANCH"
 
 # JVMs (note: only the latest JVM for ALPINE)
-JVMS_ALMALINUX="21 17"
-JVMS_ALPINE="21"
-JVMS_ECLIPSE_TEMURIN="21 17 11"
+JVMS_ALMALINUX="25 21 17"
+JVMS_ALPINE="25"
+JVMS_ECLIPSE_TEMURIN="25 21 17"
 
 # Variant/server/JVM for the :latest tag
 TAG_LATEST="almalinux9"
