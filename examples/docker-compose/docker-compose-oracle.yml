@@ -2,7 +2,7 @@ services:
   database:
     # See ../databases/oraclexe to build this custom Oracle image
     image: registry.simplicite.io/oracle:<version>
-    restart: always
+    restart: unless-stopped
     container_name: database
     #environment:
       # Custom timezone if needed ZZZ must match the simplicite container timezone ZZZ
@@ -20,7 +20,7 @@ services:
       dockerfile: Dockerfile-platform-oracle
       args:
         tag: <tag, e.g. 6-latest>
-    restart: always
+    restart: unless-stopped
     container_name: simplicite
     environment:
       # Custom timezone if needed ZZZ must match the database container timezone ZZZ

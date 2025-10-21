@@ -1,14 +1,14 @@
 services:
   cache:
     image: redis:latest
-    restart: always
+    restart: unless-stopped
     container_name: cache
     # Uncomment if you need to access the cache from the host
     #ports:
     #  - 127.0.0.1:6379:6379
   simplicite:
     image: registry.simplicite.io/platform:<tag, e.g. 6-latest>
-    restart: always
+    restart: unless-stopped
     container_name: simplicite
     ports:
       # For *non* SSL endoint of HTTP reverse proxying

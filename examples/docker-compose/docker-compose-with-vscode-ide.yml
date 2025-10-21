@@ -1,7 +1,7 @@
 services:
   simplicite:
     image: registry.simplicite.io/platform:<tag, e.g. 6-latest>
-    restart: always
+    restart: unless-stopped
     container_name: simplicite
     environment:
       # Uncomment these 3 lines if you are implementing a custom frontend
@@ -19,7 +19,7 @@ services:
       - git:/usr/local/tomcat/webapps/ROOT/WEB-INF/git
   vscode:
     image: registry.simplicite.io/vscode:latest
-    restart: always
+    restart: unless-stopped
     container_name: myide
     ports:
       - 127.0.0.1:3030:3030

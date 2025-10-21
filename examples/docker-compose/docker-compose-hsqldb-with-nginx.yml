@@ -1,7 +1,7 @@
 services:
   nginx: 
     image: nginx:latest
-    restart: always
+    restart: unless-stopped
     container_name: myrp
     ports:
       - 80:80
@@ -12,7 +12,7 @@ services:
       - ./server.key:/etc/ssl/server.key
   simplicite:
     image: registry.simplicite.io/platform:<tag, e.g. 6-latest>
-    restart: always
+    restart: unless-stopped
     container_name: simplicite
     volumes:
       - db:/usr/local/tomcat/webapps/ROOT/WEB-INF/db

@@ -1,7 +1,7 @@
 services:
   database:
     image: mysql:latest
-    restart: always
+    restart: unless-stopped
     container_name: database
     command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     environment:
@@ -18,7 +18,7 @@ services:
       - data:/var/lib/mysql
   simplicite:
     image: registry.simplicite.io/platform:<tag, e.g. 6-latest>
-    restart: always
+    restart: unless-stopped
     container_name: simplicite
     environment:
       # Custom timezone if needed ZZZ must match the database container timezone ZZZ

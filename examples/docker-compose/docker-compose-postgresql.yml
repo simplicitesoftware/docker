@@ -1,7 +1,7 @@
 services:
   database:
     image: postgres:latest
-    restart: always
+    restart: unless-stopped
     container_name: database
     environment:
       # Custom timezone if needed ZZZ must match the simplicite container timezone ZZZ
@@ -17,7 +17,7 @@ services:
       - data:/var/lib/postgresql/data
   simplicite:
     image: registry.simplicite.io/platform:<tag, e.g. 6-latest>
-    restart: always
+    restart: unless-stopped
     container_name: simplicite
     environment:
       # Custom timezone if needed ZZZ must match the database container timezone ZZZ
