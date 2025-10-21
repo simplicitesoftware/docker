@@ -1,7 +1,7 @@
 services:
   registry:
     image: registry:2
-    restart: always
+    restart: unless-stopped
     container_name: registry
     environment:
       REGISTRY_AUTH: "htpasswd"
@@ -15,7 +15,7 @@ services:
       - /mnt/data/registry:/var/lib/registry
   registry-ui:
     image: klausmeyer/docker-registry-browser
-    restart: always
+    restart: unless-stopped
     container_name: registry-ui
     environment:
        SECRET_KEY_BASE: "changeme"
