@@ -80,13 +80,14 @@ services:
       - /usr/local/tomcat/logs:mode=0750,uid=2000,gid=2000
       # Simplicite work dirs
       - /usr/local/tomcat/webapps/ROOT/WEB-INF/tmp:mode=0750,uid=2000,gid=2000
-      - /usr/local/tomcat/webapps/ROOT/WEB-INF/recyclebin:mode=0750,uid=2000,gid=2000
       - /usr/local/tomcat/webapps/ROOT/WEB-INF/cache:mode=0750,uid=2000,gid=2000
       - /usr/local/tomcat/webapps/ROOT/WEB-INF/src:mode=0750,uid=2000,gid=2000
       - /usr/local/tomcat/webapps/ROOT/WEB-INF/bin:mode=0750,uid=2000,gid=2000
       - /usr/local/tomcat/webapps/ROOT/WEB-INF/build:mode=0750,uid=2000,gid=2000
       - /usr/local/tomcat/webapps/ROOT/WEB-INF/jar:mode=0750,uid=2000,gid=2000
       - /usr/local/tomcat/webapps/ROOT/WEB-INF/maven:mode=0750,uid=2000,gid=2000
+      # Simplicite recyclebin dir, may be mounted as a persistent volume if needed
+      - /usr/local/tomcat/webapps/ROOT/WEB-INF/recyclebin:mode=0750,uid=2000,gid=2000
       # Simplicite log dir, may be mounted as a persistent volume if needed
       - /usr/local/tomcat/webapps/ROOT/WEB-INF/log:mode=0750,uid=2000,gid=2000
       # The following directories may be mounted as persistent volumes if needed
