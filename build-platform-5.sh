@@ -31,7 +31,7 @@ then
 	docker tag $REGISTRY/platform:5-$TARGET-almalinux9-17 $REGISTRY/platform:5-$TARGET
 	docker rmi $REGISTRY/platform:5-$TARGET-almalinux9-17
 
-	#[ $PUSH -eq 1 ] && ./push-to-registries.sh platform 5-$TARGET
+	[ $PUSH -eq 1 ] && ./push-to-registries.sh platform 5-$TARGET
 
 	exit_with
 fi
