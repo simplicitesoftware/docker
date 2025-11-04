@@ -14,10 +14,10 @@ services:
       - data:/opt/oracle/oradata
   simplicite:
     image: registry.simplicite.io/platform:<tag, e.g. 6-latest>-with-oracle-client
-    # Copy ../../Dockerfile-platform-oracle in this folder
+    # Copy ../../Dockerfile-platform-with-oracle-client in this folder
     build:
       context: .
-      dockerfile: Dockerfile-platform-oracle
+      dockerfile: Dockerfile-platform-with-oracle-client
       args:
         tag: <tag, e.g. 6-latest>
     restart: unless-stopped

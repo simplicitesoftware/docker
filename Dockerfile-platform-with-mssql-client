@@ -11,11 +11,11 @@ RUN dnf install -y mssql-tools unixODBC-devel && dnf clean all
 ENV PATH="/opt/mssql-tools/bin:${PATH}"
 
 # Install the SQLServer JDBC driver
-ADD https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/12.6.2.jre11/mssql-jdbc-12.6.2.jre11.jar /tmp
+ADD https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/13.2.1.jre11/mssql-jdbc-13.2.1.jre11.jar /tmp
 RUN rm -f /usr/local/tomcat/lib/mssql* && \
-    cp /tmp/mssql-jdbc-12.6.2.jre11.jar /usr/local/tomcat/lib && \
-    chmod go+r /usr/local/tomcat/lib/mssql-jdbc-12.6.2.jre11.jar && \
-    rm -f /tmp/mssql-jdbc-12.6.2.jre11.jar && \
+    cp /tmp/mssql-jdbc-13.2.1.jre11.jar /usr/local/tomcat/lib && \
+    chmod go+r /usr/local/tomcat/lib/mssql-jdbc-13.2.1.jre11.jar && \
+    rm -f /tmp/mssql-jdbc-13.2.1.jre11.jar && \
     echo "alias _sqlcmd='/opt/mssql-tools/bin/sqlcmd -S \$DB_HOST,\${DB_PORT:-1433} -U \$DB_USER -P \$DB_PASSWORD -d \$DB_NAME'" >> /etc/profile.d/simplicite.sh
 
 USER simplicite

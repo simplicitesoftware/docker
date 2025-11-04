@@ -14,10 +14,10 @@ services:
       - data:/var/opt/mssql
   simplicite:
     image: registry.simplicite.io/platform:<tag, e.g. 6-latest>-with-mssql-client
-    # Copy ../../Dockerfile-platform-mssql in this folder
+    # Copy ../../Dockerfile-platform-with-mssql-client in this folder
     build:
       context: .
-      dockerfile: Dockerfile-platform-mssql
+      dockerfile: Dockerfile-platform-with-mssql-client
       args:
         tag: <tag, e.g. -latest>
     restart: unless-stopped
