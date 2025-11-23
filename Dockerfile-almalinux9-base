@@ -17,8 +17,8 @@ ENV DOCKER=almalinux9 LANG=C.UTF-8 LANGUAGE=C.UTF-8 LOG4J_FORMAT_MSG_NO_LOOKUPS=
 
 ADD *.crt /etc/pki/ca-trust/source/anchors/
 RUN dnf upgrade -y && \
-    dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-9-x86_64/pgdg-redhat-repo-latest.noarch.rpm && \
-    dnf install -y --allowerasing bash sudo procps openssh-clients openssl hostname bind-utils git curl wget zip unzip xz ca-certificates libjpeg fontconfig mariadb postgresql16 glibc-all-langpacks && \
+    dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-9-x86_64/pgdg-redhat-repo-latest.noarch.rpm && dnf install -y postgresql17 && \
+    dnf install -y --allowerasing procps-ng openssh-clients git curl wget zip unzip ca-certificates libjpeg-turbo mariadb glibc-all-langpacks && \
     dnf clean all && \
     /bin/update-ca-trust extract && \
     ln -s /usr/local/tomcat/logs /var/log/tomcat && \
@@ -28,8 +28,7 @@ RUN dnf upgrade -y && \
     mkdir -p ~simplicite/.ssh && chmod 700 ~simplicite/.ssh && chown simplicite:simplicite ~simplicite/.ssh && \
     echo -e "alias dir='ls -alF --color=always'\n\
 alias _mysql='mysql --host=\$DB_HOST --port=\${DB_PORT:-3306} --user=\$DB_USER --password=\$DB_PASSWORD \$DB_NAME'\n\
-alias _psql='PGPASSWD=\$DB_PASSWORD psql -h \$DB_HOST -p \${DB_PORT:-5432} -U \$DB_USER \$DB_NAME'" > /etc/profile.d/simplicite.sh && \
-    echo '%simplicite ALL=(ALL) NOPASSWD: /bin/chown' >> /etc/sudoers
+alias _psql='PGPASSWD=\$DB_PASSWORD psql -h \$DB_HOST -p \${DB_PORT:-5432} -U \$DB_USER \$DB_NAME'" > /etc/profile.d/simplicite.sh
 
 ADD jacoco/lib/*.jar /usr/local/jacoco/
 ADD --chown=simplicite:simplicite tomcat /usr/local/tomcat
