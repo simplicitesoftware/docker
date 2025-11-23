@@ -58,15 +58,12 @@ JETTY_START="java $JAVA_OPTS -jar ./start.jar"
 
 if [ "$JETTY_USER" != "" ]
 then
-	JETTY_UID=$(id -u $JETTY_USER)
-	if [ $? -ne 0 ]
+	if id "$JETTY_USER" >/dev/null 2>&1
 	then
 		echo "ERROR: User $JETTY_USER does not exist"
 		exit 1
 	fi
-	JETTY_GID=$(id -g $JETTY_USER)
-	sudo chown -f -R $JETTY_UID:$JETTY_GID $JETTY_HOME
-	echo "Running Jetty as $JETTY_USER (user ID $JETTY_UID, group ID $JETTY_GID)"
+	echo "Running Jetty as $JETTY_USER"
 	exec su $JETTY_USER -c "cd $JETTY_HOME && $JETTY_START"
 else
 	cd $JETTY_HOME && exec $JETTY_START

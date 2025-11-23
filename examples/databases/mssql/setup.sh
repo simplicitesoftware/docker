@@ -6,7 +6,7 @@
 CREATEDB=/tmp/createdb.$$
 
 cat << EOF > $CREATEDB
-print "-- Running setup script for database ${DB_NAME:-simplicite} and user  ${DB_USER:-simplicite}";
+print "-- Running setup script for database ${DB_NAME:-simplicite} and user ${DB_USER:-simplicite}";
 go
 create database ${DB_NAME:-simplicite};
 go
