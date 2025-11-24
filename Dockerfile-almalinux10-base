@@ -17,7 +17,7 @@ ENV DOCKER=almalinux10 LANG=C.UTF-8 LANGUAGE=C.UTF-8 LOG4J_FORMAT_MSG_NO_LOOKUPS
 
 ADD *.crt /etc/pki/ca-trust/source/anchors/
 RUN dnf upgrade -y && \
-    dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-10-x86_64/pgdg-redhat-repo-latest.noarch.rpm && dnf install -y postgresql17 && \
+    dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-10-x86_64/pgdg-redhat-repo-latest.noarch.rpm && dnf install -y postgresql18 && \
     dnf install -y --allowerasing procps-ng openssh-clients git curl wget zip unzip ca-certificates libjpeg-turbo mariadb fontconfig glibc-all-langpacks && \
     dnf clean all && \
     /bin/update-ca-trust extract && \
