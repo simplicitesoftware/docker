@@ -13,7 +13,13 @@ docker build --build-arg version=2019 -t registry.simplicite.io/mssql:2019 .
 ### For SQLServer bersion 2022 (default):
 
 ```bash
-docker build -t registry.simplicite.io/mssql:2022 .
+docker build --build-arg version=2022 -t registry.simplicite.io/mssql:2022 .
+```
+
+### For SQLServer bersion 2025 (latest):
+
+```bash
+docker build -t registry.simplicite.io/mssql:latest .
 ```
 
 Test the images
