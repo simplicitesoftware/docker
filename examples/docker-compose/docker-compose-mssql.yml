@@ -1,6 +1,6 @@
 services:
   database:
-    # See ../databases/mssql to build this custom SQLServer image
+    # See databases/mssql to build this custom SQLServer image
     image: registry.simplicite.io/mssql:<version> 
     restart: unless-stopped
     container_name: database
@@ -14,12 +14,12 @@ services:
       - data:/var/opt/mssql
   simplicite:
     image: registry.simplicite.io/platform:<tag, e.g. 6-latest>-with-mssql-client
-    # Copy ../../Dockerfile-platform-with-mssql-client in this folder
+    # Copy Dockerfile-platform-with-mssql-client in this folder
     build:
       context: .
       dockerfile: Dockerfile-platform-with-mssql-client
       args:
-        tag: <tag, e.g. -latest>
+        tag: <tag, e.g. 6-latest>
     restart: unless-stopped
     container_name: simplicite
     environment:
