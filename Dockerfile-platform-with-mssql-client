@@ -4,7 +4,7 @@ FROM ${reg}/platform:${tag}
 
 USER root
 
-# Install the SQLServer client (ZZZ for version 5 built on CentOS 7 change RHEL level to 7 ZZZ)
+# Install the SQLServer client (for v7 use rhel 10)
 ADD https://packages.microsoft.com/config/rhel/9/prod.repo /etc/yum.repos.d/msprod.repo
 ENV ACCEPT_EULA=Y
 RUN dnf install -y mssql-tools unixODBC-devel && dnf clean all
