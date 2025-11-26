@@ -7,6 +7,8 @@ services:
     #environment:
       # Custom timezone if needed ZZZ must match the simplicite container timezone ZZZ
       #TZ: "Europe/Paris"
+      # System user password (only if needed)
+      # ORACLE_PASSWORD: "<a very complex password>"
     # Uncomment if you need to access the database from the host
     #ports:
     #  - 127.0.0.1:1521:1521
@@ -30,7 +32,7 @@ services:
       DB_HOST: "database"
       DB_USER: "simplicite"
       DB_PASSWORD: "simplicite"
-      DB_NAME: "xe"
+      DB_NAME: "<xe for XE Edition or freepdb1 for Oracle Free Edition>"
       DB_WAIT: 100
     ports:
       # For *non* SSL endoint of HTTP reverse proxying
