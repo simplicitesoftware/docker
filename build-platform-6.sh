@@ -53,6 +53,18 @@ then
 		6-$TARGET-light \
 		6-$TARGET-light-jre
 
+	# All additional tags
+	for TAG in $@
+	do
+		docker rmi $REGISTRY/platform:$TAG > /dev/null 2>&1
+		docker tag $REGISTRY/platform:6-$TARGET $REGISTRY/platform:$TAG
+
+		if [ $PUSH -eq 1 ]
+		then
+			./push-to-registries.sh --delete platform $TAG
+		fi
+	done
+
 	exit_with
 fi
 
