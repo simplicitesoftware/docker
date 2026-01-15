@@ -14,70 +14,10 @@ then
 	shift
 fi
 
-[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <beta|preview|latest|devel|6.1[-preview]|6.0[-preview]> [<additional tags, e.g. 6.x 6.x.y\>]\n" 
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <preview|latest|devel|6.2[-preview]|6.1[-preview]|6.0[-preview]> [<additional tags, e.g. 6.x 6.x.y\>]\n" 
 
 TARGET=$1
 shift
-
-# -------------------------------------------------------------------------------------------
-# Next version
-# -------------------------------------------------------------------------------------------
-
-if [ "$TARGET" = "beta" ]
-then
-	./build-platform.sh --delete 6-$TARGET || exit_with $? "Unable to build platform version 6-$TARGET"
-
-	docker rmi $REGISTRY/platform:6-$TARGET > /dev/null 2>&1
-	docker tag $REGISTRY/platform:6-$TARGET-almalinux9-21 $REGISTRY/platform:6-$TARGET
-	docker rmi $REGISTRY/platform:6-$TARGET-almalinux9-21
-
-	docker rmi $REGISTRY/platform:6-$TARGET-jre > /dev/null 2>&1
-	docker tag $REGISTRY/platform:6-$TARGET-almalinux9-21-jre $REGISTRY/platform:6-$TARGET-jre
-	docker rmi $REGISTRY/platform:6-$TARGET-almalinux9-21-jre
-
-	[ $PUSH -eq 1 ] && ./push-to-registries.sh platform \
-		6-$TARGET \
-		6-$TARGET-jre
-
-	./build-platform.sh --delete 6-$TARGET-light || exit_with $? "Unable to build platform version 6-$TARGET-light"
-
-	docker rmi $REGISTRY/platform:6-$TARGET-light > /dev/null 2>&1
-	docker tag $REGISTRY/platform:6-$TARGET-light-almalinux9-21 $REGISTRY/platform:6-$TARGET-light
-	docker rmi $REGISTRY/platform:6-$TARGET-light-almalinux9-21
-
-	docker rmi $REGISTRY/platform:6-$TARGET-light-jre > /dev/null 2>&1
-	docker tag $REGISTRY/platform:6-$TARGET-light-almalinux9-21-jre $REGISTRY/platform:6-$TARGET-light-jre
-	docker rmi $REGISTRY/platform:6-$TARGET-light-almalinux9-21-jre
-
-	[ $PUSH -eq 1 ] && ./push-to-registries.sh --delete platform \
-		6-$TARGET-light \
-		6-$TARGET-light-jre
-
-	# All additional tags
-	for TAG in $@
-	do
-		docker rmi $REGISTRY/platform:$TAG > /dev/null 2>&1
-		docker tag $REGISTRY/platform:6-$TARGET $REGISTRY/platform:$TAG
-
-		if [ $PUSH -eq 1 ]
-		then
-			./push-to-registries.sh --delete platform $TAG
-		fi
-	done
-
-	exit_with
-fi
-
-# -------------------------------------------------------------------------------------------
-# Next version with development tools
-# -------------------------------------------------------------------------------------------
-
-if [ "$TARGET" = "beta-devel" ]
-then
-	./build-platform.sh --delete 6-$TARGET || exit_with $? "Unable to build platform version 6-$TARGET"
-
-	exit_with
-fi
 
 # -------------------------------------------------------------------------------------------
 # Current version preview
@@ -201,7 +141,7 @@ fi
 # Previous versions
 # -------------------------------------------------------------------------------------------
 
-if [ "$TARGET" = "6.0" -o "$TARGET" = "6.1" ]
+if [ "$TARGET" = "6.0" -o "$TARGET" = "6.1" -o "$TARGET" = "6.2" ]
 then
 	./build-platform.sh --delete $TARGET || exit_with $? "Unable to build platform version $TARGET"
 	./build-platform.sh --delete $TARGET-light || exit_with $? "Unable to build platform version $TARGET-light"
