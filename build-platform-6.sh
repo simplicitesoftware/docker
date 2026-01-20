@@ -160,6 +160,23 @@ then
 		./push-to-registries.sh --delete platform $TARGET-light
 	fi
 
+	if [ "$TARGET" = "6.2" ]
+	then
+		docker rmi $REGISTRY/platform:$TARGET-jre > /dev/null 2>&1
+		docker tag $REGISTRY/platform:$TARGET-almalinux9-21-jre $REGISTRY/platform:$TARGET-jre
+		docker rmi $REGISTRY/platform:$TARGET-almalinux9-21-jre
+
+		docker rmi $REGISTRY/platform:$TARGET-light-jre > /dev/null 2>&1
+		docker tag $REGISTRY/platform:$TARGET-light-almalinux9-21-jre $REGISTRY/platform:$TARGET-light-jre
+		docker rmi $REGISTRY/platform:$TARGET-light-almalinux9-21-jre
+
+		if [ $PUSH -eq 1 ]
+		then
+			./push-to-registries.sh platform $TARGET-jre
+			./push-to-registries.sh --delete platform $TARGET-light-jre
+		fi
+	fi
+
 	# All additional tags
 	for TAG in $@
 	do
