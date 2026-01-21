@@ -65,7 +65,7 @@ fi
 if [ "$TARGET" = "latest" -o "$TARGET" = "$CURRENT" ]
 then
 	TARGET=latest
-	[ -z "$REVISION" ] && exit_with 2 "Missing revision"
+	[ -z "$REVISION" ] && exit_with 2 "Missing revision for $CURRENT"
 
 	trace "Building platform images for $TARGET"
 	./build-platform.sh --delete 6-$TARGET || exit_with $? "Unable to build platform version 6-$TARGET"
@@ -237,7 +237,7 @@ fi
 
 if [ "$TARGET" = "6.0" -o "$TARGET" = "6.1" -o "$TARGET" = "6.2" ]
 then
-	[ -z "$REVISION" ] && exit_with 2 "Missing revision"
+	[ -z "$REVISION" ] && exit_with 2 "Missing revision for $TARGET"
 
 	trace "Building platform images for $TARGET and $TARGET-light"
 	./build-platform.sh --delete $TARGET || exit_with $? "Unable to build platform version $TARGET"
