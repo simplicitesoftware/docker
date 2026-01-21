@@ -18,11 +18,11 @@ then
 	shift
 fi
 
-#[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <alpha|beta|preview|latest> [<additional tags, e.g. 7.x 7.x.y\>]\n" 
+#[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <alpha|beta|preview|latest|7.x> [<revision (for latest and 7.x)>]\n" 
 [ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <alpha>\n" 
 
 TARGET=$1
-shift
+REVISION=$2
 
 CURRENT=7.0
 

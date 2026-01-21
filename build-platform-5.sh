@@ -18,10 +18,10 @@ then
 	shift
 fi
 
-[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <preview|latest|devel|5.x> [<additional tags, e.g. \"5.x 5.x.y\">]\n" 
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <preview|latest|devel|5.x> [<revision (for latest and 6.x)>]\n" 
 
 TARGET=$1
-shift
+REVISION=$2
 
 CURRENT=5.3
 
@@ -58,6 +58,7 @@ fi
 if [ "$TARGET" = "latest" -o "$TARGET" = "$CURRENT" ]
 then
 	TARGET=latest
+	[ -z "$REVISION" ] && exit_with 2 "Missing revision"
 
 	trace "Building platform images for $TARGET"
 	./build-platform.sh --delete 5-$TARGET || exit_with $? "Unable to build platform version 5-$TARGET"
@@ -99,7 +100,7 @@ then
 		trace "Done"
 	fi
 
-	for TAG in $CURRENT $1
+	for TAG in $CURRENT $CURRENT.$REVISION
 	do
 		trace "Tagging $TAG"
 		docker rmi $REGISTRY/platform:$TAG > /dev/null 2>&1
@@ -153,7 +154,7 @@ then
 		trace "Done"
 	fi
 
-	for TAG in $CURRENT $1
+	for TAG in $CURRENT $CURRENT.$REVISION
 	do
 		trace "Tagging $TAG-light"
 		docker rmi $REGISTRY/platform:$TAG-light > /dev/null 2>&1
@@ -186,6 +187,8 @@ fi
 
 if [ "$TARGET" = "5.0" -o "$TARGET" = "5.1" -o "$TARGET" = "5.2" ]
 then
+	[ -z "$REVISION" ] && exit_with 2 "Missing revision"
+
 	./build-platform.sh --delete $TARGET || exit_with $? "Unable to build platform version $TARGET"
 	./build-platform.sh --delete $TARGET-light || exit_with $? "Unable to build platform version $TARGET-light"
 
@@ -208,7 +211,7 @@ then
 		trace "Done"
 	fi
 
-	for TAG in $1
+	for TAG in $CURRENT.$REVISION
 	do
 		trace "Tagging $TAG"
 		docker rmi $REGISTRY/platform:$TAG > /dev/null 2>&1
