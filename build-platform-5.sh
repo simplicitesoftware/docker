@@ -55,7 +55,7 @@ fi
 # Current version
 # -------------------------------------------------------------------------------------------
 
-if [ "$TARGET" = "latest" -o "$TARGET" = "5.3" ]
+if [ "$TARGET" = "latest" -o "$TARGET" = "$CURRENT" ]
 then
 	TARGET=latest
 
