@@ -243,14 +243,14 @@ fi
 if [ -x $TEMPLATE/tools/convert-oracle.sh ]
 then
 	echo "Generating Oracle script in $TEMPLATE..."
-	$TEMPLATE/tools/convert-oracle.sh simplicite $TEMPLATE/app/WEB-INF/db/simplicite.script
+	$TEMPLATE/tools/convert-oracle.sh --silent simplicite $TEMPLATE/app/WEB-INF/db/simplicite.script
 	echo "Done"
 fi
 
 if [ -x $TEMPLATE/tools/convert-mssql.sh ]
 then
 	echo "Generating SQLServer script in $TEMPLATE..."
-	$TEMPLATE/tools/convert-mssql.sh simplicite $TEMPLATE/app/WEB-INF/db/simplicite.script
+	$TEMPLATE/tools/convert-mssql.sh --silent simplicite $TEMPLATE/app/WEB-INF/db/simplicite.script
 	echo "Done"
 fi
 
