@@ -5,6 +5,10 @@ exit_with () {
 	exit ${1:-0}
 }
 
+trace () {
+	printf "\n\e[1;33m================================================================================\n== %-74s ==\n================================================================================\e[00m\n\n" "$1"
+}
+
 REGISTRY=registry.simplicite.io
 
 PUSH=1
@@ -19,19 +23,30 @@ fi
 TARGET=$1
 shift
 
+CURRENT=5.3
+
 # -------------------------------------------------------------------------------------------
 # Preview version
 # -------------------------------------------------------------------------------------------
 
 if [ "$TARGET" = "preview" ]
 then
-	./build-platform.sh --delete 5-$TARGET almalinux9-17 || exit_with $? "Unable to build platform version 5-$TARGET"
+	trace "Building platform images for $TARGET"
+	./build-platform.sh --delete 5-$TARGET || exit_with $? "Unable to build platform version 5-$TARGET"
+	trace "Done"
 
+	trace "Tagging 5-$TARGET"
 	docker rmi $REGISTRY/platform:5-$TARGET > /dev/null 2>&1
 	docker tag $REGISTRY/platform:5-$TARGET-almalinux9-17 $REGISTRY/platform:5-$TARGET
 	docker rmi $REGISTRY/platform:5-$TARGET-almalinux9-17
+	trace "Done"
 
-	[ $PUSH -eq 1 ] && ./push-to-registries.sh platform 5-$TARGET
+	if [ $PUSH -eq 1 ]
+	then
+		trace "Pushing tag 5-$TARGET"
+		./push-to-registries.sh platform 5-$TARGET
+		trace "Done"
+	fi
 
 	exit_with
 fi
@@ -40,9 +55,13 @@ fi
 # Current version
 # -------------------------------------------------------------------------------------------
 
-if [ "$TARGET" = "latest" ]
+if [ "$TARGET" = "latest" -o "$TARGET" = "5.3" ]
 then
+	TARGET=latest
+
+	trace "Building platform images for $TARGET"
 	./build-platform.sh --delete 5-$TARGET || exit_with $? "Unable to build platform version 5-$TARGET"
+	trace "Done"
 
 	docker rmi $REGISTRY/platform:5-$TARGET > /dev/null 2>&1
 	docker tag $REGISTRY/platform:5-$TARGET-almalinux9-17 $REGISTRY/platform:5-$TARGET
@@ -70,8 +89,7 @@ then
 		./push-to-registries.sh platform 5-$TARGET
 	fi
 
-	# All additional tags
-	for TAG in $@
+	for TAG in $CURRENT $1
 	do
 		docker rmi $REGISTRY/platform:$TAG > /dev/null 2>&1
 		docker tag $REGISTRY/platform:5-$TARGET $REGISTRY/platform:$TAG
@@ -110,8 +128,7 @@ then
 		./push-to-registries.sh platform 5-$TARGET-light
 	fi
 
-	# First additional tag only
-	for TAG in $1
+	for TAG in $CURRENT $1
 	do
 		docker rmi $REGISTRY/platform:$TAG-light > /dev/null 2>&1
 		docker tag $REGISTRY/platform:5-$TARGET-light $REGISTRY/platform:$TAG-light
@@ -121,14 +138,15 @@ then
 			./push-to-registries.sh --delete platform $TAG-light
 		fi
 	done
-	docker rmi $REGISTRY/platform:5-$TARGET-light
 
 	exit_with
 fi
 
 if [ "$TARGET" = "devel" ]
 then
+	trace "Building platform images for $TARGET"
 	./build-platform.sh --delete 5-$TARGET || exit_with $? "Unable to build platform version 5-$TARGET"
+	trace "Done"
 
 	exit_with
 fi

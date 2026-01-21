@@ -5,6 +5,10 @@ exit_with () {
 	exit ${1:-0}
 }
 
+trace () {
+	printf "\n\e[1;33m================================================================================\n== %-74s ==\n================================================================================\e[00m\n\n" "$1"
+}
+
 REGISTRY=registry.simplicite.io
 
 PUSH=1
@@ -20,178 +24,67 @@ fi
 TARGET=$1
 shift
 
+CURRENT=7.0
+
 # -------------------------------------------------------------------------------------------
-# Next versions
+# Alpha version
 # -------------------------------------------------------------------------------------------
 
-#if [ "$TARGET" = "alpha" -o "$TARGET" = "beta" ]
-if [ "$TARGET" = "alpha" ]
+if [ "$TARGET" = "alpha" -o "$TARGET" = "$CURRENT" ]
 then
-	./build-platform.sh --delete 7-$TARGET || exit_with $? "Unable to build platform version 7-$TARGET"
+	TARGET=alpha
 
+	trace "Building platform images for $TARGET"
+	./build-platform.sh --delete 7-$TARGET || exit_with $? "Unable to build platform version 7-$TARGET"
+	trace "Done"
+
+	trace "Tagging 7-$TARGET"
 	docker rmi $REGISTRY/platform:7-$TARGET > /dev/null 2>&1
 	docker tag $REGISTRY/platform:7-$TARGET-almalinux10-25-tomcat11 $REGISTRY/platform:7-$TARGET
 	docker rmi $REGISTRY/platform:7-$TARGET-almalinux10-25-tomcat11
+	trace "Done"
 
+	trace "Tagging 7-$TARGET-jre"
 	docker rmi $REGISTRY/platform:7-$TARGET-jre > /dev/null 2>&1
 	docker tag $REGISTRY/platform:7-$TARGET-almalinux10-25-jre-tomcat11 $REGISTRY/platform:7-$TARGET-jre
 	docker rmi $REGISTRY/platform:7-$TARGET-almalinux10-25-jre-tomcat11
+	trace "Done"
 
-	[ $PUSH -eq 1 ] && ./push-to-registries.sh platform \
+	if [ $PUSH -eq 1 ]
+	then
+		trace "Pushing tags 7-$TARGET and 7-$TARGET-jre"
+		./push-to-registries.sh platform \
 		7-$TARGET \
 		7-$TARGET-jre
+		trace "Done"
+	fi
 
+#	trace "Building platform images for $TARGET-light"
 #	./build-platform.sh --delete 7-$TARGET-light || exit_with $? "Unable to build platform version 7-$TARGET-light"
+#	trace "Done"
 #
+#	trace "Tagging 7-$TARGET-light"
 #	docker rmi $REGISTRY/platform:7-$TARGET-light > /dev/null 2>&1
 #	docker tag $REGISTRY/platform:7-$TARGET-light-almalinux10-25-tomcat11 $REGISTRY/platform:7-$TARGET-light
 #	docker rmi $REGISTRY/platform:7-$TARGET-light-almalinux10-25-tomcat11
+#	trace "Done"
 #
+#	trace "Tagging 7-$TARGET-light-jre"
 #	docker rmi $REGISTRY/platform:7-$TARGET-light-jre > /dev/null 2>&1
 #	docker tag $REGISTRY/platform:7-$TARGET-light-almalinux10-25-jre-tomcat11 $REGISTRY/platform:7-$TARGET-light-jre
 #	docker rmi $REGISTRY/platform:7-$TARGET-light-almalinux10-25-jre-tomcat11
+#	trace "Done"
 #
-#	[ $PUSH -eq 1 ] && ./push-to-registries.sh --delete platform \
+#	if [ $PUSH -eq 1 ]
+#	then
+#		trace "Pushing tags 7-$TARGET-light and 7-$TARGET-light-jre"
+#		./push-to-registries.sh --delete platform \
 #		7-$TARGET-light \
 #		7-$TARGET-light-jre
+#		trace "Done"
+#	fi
 
 	exit_with
 fi
-
-# -------------------------------------------------------------------------------------------
-# Next version with development tools
-# -------------------------------------------------------------------------------------------
-
-##if [ "$TARGET" = "alpha-devel" -o "$TARGET" = "beta-devel" ]
-#if [ "$TARGET" = "alpha-devel" ]
-#then
-#	./build-platform.sh --delete 7-$TARGET || exit_with $? "Unable to build platform version 7-$TARGET"
-#
-#	exit_with
-#fi
-
-# -------------------------------------------------------------------------------------------
-# Current version preview
-# -------------------------------------------------------------------------------------------
-
-#if [ "$TARGET" = "preview" ]
-#then
-#	./build-platform.sh --delete 7-$TARGET almalinux10-25-tomcat11 || exit_with $? "Unable to build platform version 7-$TARGET"
-#
-#	docker rmi $REGISTRY/platform:7-$TARGET > /dev/null 2>&1
-#	docker tag $REGISTRY/platform:7-$TARGET-almalinux10-25-tomcat11 $REGISTRY/platform:7-$TARGET
-#	docker rmi $REGISTRY/platform:7-$TARGET-almalinux10-25-tomcat11
-#
-#	[ $PUSH -eq 1 ] && ./push-to-registries.sh platform 7-$TARGET
-#
-#	exit_with
-#fi
-
-# -------------------------------------------------------------------------------------------
-# Current version
-# -------------------------------------------------------------------------------------------
-
-#if [ "$TARGET" = "latest" ]
-#then
-#	./build-platform.sh --delete 7-$TARGET || exit_with $? "Unable to build platform version 7-$TARGET"
-#
-#	docker rmi $REGISTRY/platform:7-$TARGET > /dev/null 2>&1
-#	docker tag $REGISTRY/platform:7-$TARGET-almalinux10-25-tomcat11 $REGISTRY/platform:7-$TARGET
-#	docker rmi $REGISTRY/platform:7-$TARGET-almalinux10-25-tomcat11
-#
-#	docker rmi $REGISTRY/platform:7-$TARGET-jre > /dev/null 2>&1
-#	docker tag $REGISTRY/platform:7-$TARGET-almalinux10-25-jre-tomcat11 $REGISTRY/platform:7-$TARGET-jre
-#	docker rmi $REGISTRY/platform:7-$TARGET-almalinux10-25-jre-tomcat11
-#
-#	docker rmi $REGISTRY/platform:7-$TARGET-jvmless > /dev/null 2>&1
-#	docker tag $REGISTRY/platform:7-$TARGET-almalinux10-jvmless $REGISTRY/platform:7-$TARGET-jvmless
-#	docker rmi $REGISTRY/platform:7-$TARGET-almalinux10-jvmless
-#
-#	docker rmi $REGISTRY/platform:7 $REGISTRY/platform:$TARGET > /dev/null 2>&1
-#	docker tag $REGISTRY/platform:7-$TARGET $REGISTRY/platform:7
-#	docker tag $REGISTRY/platform:7-$TARGET $REGISTRY/platform:$TARGET
-#
-#	if [ $PUSH -eq 1 ]
-#	then
-#		./push-to-registries.sh --delete platform \
-#			7-$TARGET-alpine \
-#			7-$TARGET-alpine-jre \
-#			7-$TARGET-jre \
-#			7-$TARGET-jvmless \
-#			7 \
-#			$TARGET
-#		./push-to-registries.sh platform 7-$TARGET
-#	fi
-#
-#	for TAG in 7.0 $1
-#	do
-#		docker rmi $REGISTRY/platform:$TAG > /dev/null 2>&1
-#		docker tag $REGISTRY/platform:7-$TARGET $REGISTRY/platform:$TAG
-#		[ $TAG = "7.0 "] && docker tag $REGISTRY/platform:7-$TARGET $REGISTRY/platform:$TAG-jre
-#
-#		if [ $PUSH -eq 1 ]
-#		then
-#			./push-to-registries.sh --delete platform $TAG
-#			[ $TAG = "7.0 "] && ./push-to-registries.sh --delete platform $TAG-jre
-#		fi
-#	done
-#
-#	./build-platform.sh --delete 7-$TARGET-light || exit_with $? "Unable to build platform version 7-$TARGET-light"
-#
-#	docker rmi $REGISTRY/platform:7-$TARGET-light > /dev/null 2>&1
-#	docker tag $REGISTRY/platform:7-$TARGET-light-almalinux10-25-tomcat11 $REGISTRY/platform:7-$TARGET-light
-#	docker rmi $REGISTRY/platform:7-$TARGET-light-almalinux10-25-tomcat11
-#
-#	docker rmi $REGISTRY/platform:7-$TARGET-light-jre > /dev/null 2>&1
-#	docker tag $REGISTRY/platform:7-$TARGET-light-almalinux10-25-jre-tomcat11 $REGISTRY/platform:7-$TARGET-light-jre
-#	docker rmi $REGISTRY/platform:7-$TARGET-light-almalinux10-25-jre-tomcat11
-#
-#	docker rmi $REGISTRY/platform:7-$TARGET-light-jvmless > /dev/null 2>&1
-#	docker tag $REGISTRY/platform:7-$TARGET-light-almalinux10-jvmless $REGISTRY/platform:7-$TARGET-light-jvmless
-#	docker rmi $REGISTRY/platform:7-$TARGET-light-almalinux10-jvmless
-#
-#	docker rmi $REGISTRY/platform:7-light $REGISTRY/platform:$TARGET-light > /dev/null 2>&1
-#	docker tag $REGISTRY/platform:7-$TARGET-light $REGISTRY/platform:7-light
-#	docker tag $REGISTRY/platform:7-$TARGET-light $REGISTRY/platform:$TARGET-light
-#
-#	if [ $PUSH -eq 1 ]
-#	then
-#		./push-to-registries.sh --delete platform \
-#			7-$TARGET-light-alpine \
-#			7-$TARGET-light-alpine-jre \
-#			7-$TARGET-light-jre \
-#			7-$TARGET-light-jvmless \
-#			7-light \
-#			$TARGET-light
-#		./push-to-registries.sh platform 7-$TARGET-light
-#	fi
-#
-#	for TAG in 7.0 $1
-#	do
-#		docker rmi $REGISTRY/platform:$TAG-light > /dev/null 2>&1
-#		docker tag $REGISTRY/platform:7-$TARGET-light $REGISTRY/platform:$TAG-light
-#		[ $TAG = "7.0 "] && docker tag $REGISTRY/platform:7-$TARGET-light $REGISTRY/platform:$TAG-light
-#
-#		if [ $PUSH -eq 1 ]
-#		then
-#			./push-to-registries.sh --delete platform $TAG-light
-#			[ $TAG = "7.0 "] && ./push-to-registries.sh --delete platform $TAG-light-jre
-#		fi
-#	done
-#	docker rmi $REGISTRY/platform:7-$TARGET-light
-#
-#	exit_with
-#fi
-
-# -------------------------------------------------------------------------------------------
-# Current version whith development tools
-# -------------------------------------------------------------------------------------------
-
-#if [ "$TARGET" = "devel" ]
-#then
-#	./build-platform.sh --delete 7-$TARGET || exit_with $? "Unable to build platform version 7-$TARGET"
-#
-#	exit_with
-#fi
 
 exit_with 1 "Unknown target $TARGET"

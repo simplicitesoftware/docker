@@ -23,8 +23,10 @@ fi
 TARGET=$1
 shift
 
+CURRENT=6.3
+
 # -------------------------------------------------------------------------------------------
-# Current version preview => tags: 6-preview / 6-preview-jre
+# Current version preview
 # -------------------------------------------------------------------------------------------
 
 if [ "$TARGET" = "preview" ]
@@ -56,14 +58,15 @@ then
 fi
 
 # -------------------------------------------------------------------------------------------
-# Current version => tags: 6-latest / 6-latest-light / 6-latest-jre / 6-latest-light-jre / 6.3 / 6.3-light / 6.3-jre / 6.3-light-jre / 6.3.x / 6.3.x-light"
+# Current version
 # -------------------------------------------------------------------------------------------
 
-if [ "$TARGET" = "latest" ]
+if [ "$TARGET" = "latest" -o "$TARGET" = "$CURRENT" ]
 then
-	trace "Building platform images for $TARGET and $TARGET-light"
+	TARGET=latest
+
+	trace "Building platform images for $TARGET"
 	./build-platform.sh --delete 6-$TARGET || exit_with $? "Unable to build platform version 6-$TARGET"
-	./build-platform.sh --delete 6-$TARGET-light || exit_with $? "Unable to build platform version 6-$TARGET-light"
 	trace "Done"
 
 	trace "Tagging 6-$TARGET"
@@ -106,14 +109,14 @@ then
 		trace "Done"
 	fi
 
-	for TAG in 6.3 $1
+	for TAG in $CURRENT $1
 	do
 		trace "Tagging $TAG"
 		docker rmi $REGISTRY/platform:$TAG > /dev/null 2>&1
 		docker tag $REGISTRY/platform:6-$TARGET $REGISTRY/platform:$TAG
 		trace "Done"
 
-		if [ $TAG = "6.3" ]
+		if [ $TAG = "$CURRENT" ]
 		then
 			trace "Tagging $TAG-jre"
 			docker rmi $REGISTRY/platform:$TAG-jre > /dev/null 2>&1
@@ -127,7 +130,7 @@ then
 			./push-to-registries.sh --delete platform $TAG
 			trace "Done"
 
-			if [ $TAG = "6.3" ]
+			if [ $TAG = "$CURRENT" ]
 			then
 				trace "Pushing tag $TAG-jre"
 				./push-to-registries.sh --delete platform $TAG-jre
@@ -135,6 +138,10 @@ then
 			fi
 		fi
 	done
+
+	trace "Building platform images for $TARGET-light"
+	./build-platform.sh --delete 6-$TARGET-light || exit_with $? "Unable to build platform version 6-$TARGET-light"
+	trace "Done"
 
 	trace "Tagging 6-$TARGET-light"
 	docker rmi $REGISTRY/platform:6-$TARGET-light > /dev/null 2>&1
@@ -178,14 +185,14 @@ then
 		trace "Done"
 	fi
 
-	for TAG in 6.3 $1
+	for TAG in $CURRENT $1
 	do
 		trace "Tagging $TAG-light"
 		docker rmi $REGISTRY/platform:$TAG-light > /dev/null 2>&1
 		docker tag $REGISTRY/platform:6-$TARGET-light $REGISTRY/platform:$TAG-light
 		trace "Done"
 
-		if [ $TAG = "6.3" ]
+		if [ $TAG = "$CURRENT" ]
 		then
 			trace "Tagging $TAG-light-jre"
 			docker rmi $REGISTRY/platform:$TAG-light-jre > /dev/null 2>&1
@@ -199,7 +206,7 @@ then
 			./push-to-registries.sh --delete platform $TAG-light
 			trace "Done"
 
-			if [ $TAG = "6.3" ]
+			if [ $TAG = "$CURRENT" ]
 			then
 				trace "Pushing tag $TAG-light-jre"
 				./push-to-registries.sh --delete platform $TAG-light-jre
@@ -221,7 +228,7 @@ then
 fi
 
 # -------------------------------------------------------------------------------------------
-# Previous versions => tags: 6.x / 6.x-light / 6.x.y / 6.x.y-light (plus -jre tags for 6.2 only ZZZ temporary ZZZ)
+# Previous versions
 # -------------------------------------------------------------------------------------------
 
 if [ "$TARGET" = "6.0" -o "$TARGET" = "6.1" -o "$TARGET" = "6.2" ]
