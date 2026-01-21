@@ -259,8 +259,7 @@ then
 	if [ $PUSH -eq 1 ]
 	then
 		trace "Pushing tags $TARGET and $TARGET-light"
-		./push-to-registries.sh platform $TARGET
-		./push-to-registries.sh --delete platform $TARGET-light
+		./push-to-registries.sh platform $TARGET $TARGET-light
 		trace "Done"
 	fi
 
@@ -281,7 +280,7 @@ then
 		if [ $PUSH -eq 1 ]
 		then
 			trace "Pushing tags $TARGET-jre and $TARGET-light-jre"
-			./push-to-registries.sh --delete platform $TARGET-jre platform $TARGET-light-jre
+			./push-to-registries.sh --delete platform $TARGET-jre $TARGET-light-jre
 			trace "Done"
 		fi
 	fi
