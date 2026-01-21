@@ -206,8 +206,9 @@ then
 
 	if [ $PUSH -eq 1 ]
 	then
+		trace "Pushing tags $TARGET $TARGET-light"
 		./push-to-registries.sh platform $TARGET
-		./push-to-registries.sh --delete platform $TARGET-light
+		./push-to-registries.sh platform $TARGET-light
 		trace "Done"
 	fi
 
