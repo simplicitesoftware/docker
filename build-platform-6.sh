@@ -166,11 +166,29 @@ then
 		./push-to-registries.sh --delete platform $TARGET-light
 	fi
 
+	# ZZZ temporary ZZZ
+	if [ "$TARGET" = "6.2" ]
+	then
+		docker rmi $REGISTRY/platform:$TARGET-jre > /dev/null 2>&1
+		docker tag $REGISTRY/platform:$TARGET-almalinux9-21 $REGISTRY/platform:$TARGET-jre
+		docker rmi $REGISTRY/platform:$TARGET-almalinux9-21-jre
+	
+		docker rmi $REGISTRY/platform:$TARGET-light-jre > /dev/null 2>&1
+		docker tag $REGISTRY/platform:$TARGET-light-almalinux9-21 $REGISTRY/platform:$TARGET-light-jre
+		docker rmi $REGISTRY/platform:$TARGET-light-almalinux9-21-jre
+
+		if [ $PUSH -eq 1 ]
+		then
+			./push-to-registries.sh --delete platform $TARGET-jre platform $TARGET-light-jre
+		fi
+	fi
+
 	for TAG in $TARGET $1
 	do
 		docker rmi $REGISTRY/platform:$TAG > /dev/null 2>&1
 		docker tag $REGISTRY/platform:$TARGET $REGISTRY/platform:$TAG
 		docker tag $REGISTRY/platform:$TARGET-light $REGISTRY/platform:$TAG-light
+
 		# ZZZ temporary ZZZ
 		if [ "$TARGET" = "6.2" ]
 		then
@@ -181,6 +199,7 @@ then
 		if [ $PUSH -eq 1 ]
 		then
 			./push-to-registries.sh --delete platform $TAG $TAG-light
+
 			# ZZZ temporary ZZZ
 			[ "$TARGET" = "6.2" ] && ./push-to-registries.sh --delete platform $TAG-jre $TAG-light-jre
 		fi
