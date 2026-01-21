@@ -50,7 +50,7 @@ then
 	if [ $PUSH -eq 1 ]
 	then
 		trace "Pushing tags 6-$TARGET and 6-$TARGET-jre"
-		./push-to-registries.sh platform 6-$TARGET $TARGET-jre
+		./push-to-registries.sh platform 6-$TARGET 6-$TARGET-jre
 		trace "Done"
 	fi
 
