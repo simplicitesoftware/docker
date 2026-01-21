@@ -86,12 +86,12 @@ then
 	trace "Done"
 
 	trace "Tagging 6"
-	docker rmi $REGISTRY/platform:6 $REGISTRY/platform:6 > /dev/null 2>&1
+	docker rmi $REGISTRY/platform:6 > /dev/null 2>&1
 	docker tag $REGISTRY/platform:6-$TARGET $REGISTRY/platform:6
 	trace "Done"
 
 	trace "Tagging $TARGET"
-	docker rmi $REGISTRY/platform:6 $REGISTRY/platform:$TARGET > /dev/null 2>&1
+	docker rmi $REGISTRY/platform:$TARGET > /dev/null 2>&1
 	docker tag $REGISTRY/platform:6-$TARGET $REGISTRY/platform:$TARGET
 	trace "Done"
 
@@ -162,12 +162,12 @@ then
 	trace "Done"
 
 	trace "Tagging 6-light"
-	docker rmi $REGISTRY/platform:6-light $REGISTRY/platform:6-$TARGET-light > /dev/null 2>&1
+	docker rmi $REGISTRY/platform:6-light > /dev/null 2>&1
 	docker tag $REGISTRY/platform:6-$TARGET-light $REGISTRY/platform:6-light
 	trace "Done"
 
 	trace "Tagging $TARGET-light"
-	docker rmi $REGISTRY/platform:6-light $REGISTRY/platform:$TARGET-light > /dev/null 2>&1
+	docker rmi $REGISTRY/platform:$TARGET-light > /dev/null 2>&1
 	docker tag $REGISTRY/platform:6-$TARGET-light $REGISTRY/platform:$TARGET-light
 	trace "Done"
 
