@@ -14,13 +14,13 @@ then
 	shift
 fi
 
-[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <preview|latest|devel|6.2[-preview]|6.1[-preview]|6.0[-preview]> [<additional tags, e.g. 6.x 6.x.y\>]\n" 
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <preview|latest|devel|6.2|6.1|6.0>\n" 
 
 TARGET=$1
 shift
 
 # -------------------------------------------------------------------------------------------
-# Current version preview
+# Current version preview => tags: 6-preview / 6-preview-jre
 # -------------------------------------------------------------------------------------------
 
 if [ "$TARGET" = "preview" ]
@@ -41,7 +41,7 @@ then
 fi
 
 # -------------------------------------------------------------------------------------------
-# Current version
+# Current version => tags: 6-latest / 6-latest-light / 6-latest-jre / 6-latest-light-jre / 6.3 / 6.3-light / 6.3-jre / 6.3-light-jre / 6.3.x / 6.3.x-light"
 # -------------------------------------------------------------------------------------------
 
 if [ "$TARGET" = "latest" ]
@@ -76,15 +76,16 @@ then
 		./push-to-registries.sh platform 6-$TARGET
 	fi
 
-	# All additional tags
-	for TAG in $@
+	for TAG in 6.3 $1
 	do
 		docker rmi $REGISTRY/platform:$TAG > /dev/null 2>&1
 		docker tag $REGISTRY/platform:6-$TARGET $REGISTRY/platform:$TAG
+		[ $TAG = "6.3" ] && docker tag $REGISTRY/platform:6-$TARGET-jre $REGISTRY/platform:$TAG-jre
 
 		if [ $PUSH -eq 1 ]
 		then
 			./push-to-registries.sh --delete platform $TAG
+			[ $TAG = "6.3" ] && ./push-to-registries.sh --delete platform $TAG-jre
 		fi
 	done
 
@@ -118,15 +119,16 @@ then
 		./push-to-registries.sh platform 6-$TARGET-light
 	fi
 
-	# First additional tag only
-	for TAG in $1
+	for TAG in 6.3 $1
 	do
 		docker rmi $REGISTRY/platform:$TAG-light > /dev/null 2>&1
 		docker tag $REGISTRY/platform:6-$TARGET-light $REGISTRY/platform:$TAG-light
+		[ $TAG = "6.3" ] && docker tag $REGISTRY/platform:6-$TARGET-light-jre $REGISTRY/platform:$TAG-light-jre
 
 		if [ $PUSH -eq 1 ]
 		then
 			./push-to-registries.sh --delete platform $TAG-light
+			[ $TAG = "6.3" ] && ./push-to-registries.sh --delete platform $TAG-light-jre
 		fi
 	done
 	docker rmi $REGISTRY/platform:6-$TARGET-light
@@ -142,7 +144,7 @@ then
 fi
 
 # -------------------------------------------------------------------------------------------
-# Previous versions
+# Previous versions => tags: 6.x / 6.x-light / 6.x.y / 6.x.y-light (plus -jre tags for 6.2 only ZZZ temporary ZZZ)
 # -------------------------------------------------------------------------------------------
 
 if [ "$TARGET" = "6.0" -o "$TARGET" = "6.1" -o "$TARGET" = "6.2" ]
@@ -164,32 +166,23 @@ then
 		./push-to-registries.sh --delete platform $TARGET-light
 	fi
 
-	if [ "$TARGET" = "6.2" ]
-	then
-		docker rmi $REGISTRY/platform:$TARGET-jre > /dev/null 2>&1
-		docker tag $REGISTRY/platform:$TARGET-almalinux9-21-jre $REGISTRY/platform:$TARGET-jre
-		docker rmi $REGISTRY/platform:$TARGET-almalinux9-21-jre
-
-		docker rmi $REGISTRY/platform:$TARGET-light-jre > /dev/null 2>&1
-		docker tag $REGISTRY/platform:$TARGET-light-almalinux9-21-jre $REGISTRY/platform:$TARGET-light-jre
-		docker rmi $REGISTRY/platform:$TARGET-light-almalinux9-21-jre
-
-		if [ $PUSH -eq 1 ]
-		then
-			./push-to-registries.sh platform $TARGET-jre
-			./push-to-registries.sh --delete platform $TARGET-light-jre
-		fi
-	fi
-
-	# All additional tags
-	for TAG in $@
+	for TAG in $TARGET $1
 	do
 		docker rmi $REGISTRY/platform:$TAG > /dev/null 2>&1
 		docker tag $REGISTRY/platform:$TARGET $REGISTRY/platform:$TAG
-
+		docker tag $REGISTRY/platform:$TARGET-light $REGISTRY/platform:$TAG-light
+		# ZZZ temporary ZZZ
+		if [ "$TARGET" = "6.2" ]
+		then
+			docker tag $REGISTRY/platform:$TARGET-jre $REGISTRY/platform:$TAG-jre
+			docker tag $REGISTRY/platform:$TARGET-light-jre $REGISTRY/platform:$TAG-light-jre
+		fi
+		
 		if [ $PUSH -eq 1 ]
 		then
-			./push-to-registries.sh --delete platform $TAG
+			./push-to-registries.sh --delete platform $TAG $TAG-light
+			# ZZZ temporary ZZZ
+			[ "$TARGET" = "6.2" ] && ./push-to-registries.sh --delete platform $TAG-jre $TAG-light-jre
 		fi
 	done
 

@@ -163,6 +163,7 @@ then
 	BRANCH=$1
 	TAGS=${2:-almalinux9-21}
 	PFTAG=$1
+# ZZZ temporary ZZZ	
 elif [ "$1" = "6.2" -o "$1" = "6.2-light" ]
 then
 	VERSION=6

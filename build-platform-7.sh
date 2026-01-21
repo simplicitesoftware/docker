@@ -123,15 +123,16 @@ fi
 #		./push-to-registries.sh platform 7-$TARGET
 #	fi
 #
-#	# All additional tags
-#	for TAG in $@
+#	for TAG in 7.0 $1
 #	do
 #		docker rmi $REGISTRY/platform:$TAG > /dev/null 2>&1
 #		docker tag $REGISTRY/platform:7-$TARGET $REGISTRY/platform:$TAG
+#		[ $TAG = "7.0 "] && docker tag $REGISTRY/platform:7-$TARGET $REGISTRY/platform:$TAG-jre
 #
 #		if [ $PUSH -eq 1 ]
 #		then
 #			./push-to-registries.sh --delete platform $TAG
+#			[ $TAG = "7.0 "] && ./push-to-registries.sh --delete platform $TAG-jre
 #		fi
 #	done
 #
@@ -165,15 +166,16 @@ fi
 #		./push-to-registries.sh platform 7-$TARGET-light
 #	fi
 #
-#	# First additional tag only
-#	for TAG in $1
+#	for TAG in 7.0 $1
 #	do
 #		docker rmi $REGISTRY/platform:$TAG-light > /dev/null 2>&1
 #		docker tag $REGISTRY/platform:7-$TARGET-light $REGISTRY/platform:$TAG-light
+#		[ $TAG = "7.0 "] && docker tag $REGISTRY/platform:7-$TARGET-light $REGISTRY/platform:$TAG-light
 #
 #		if [ $PUSH -eq 1 ]
 #		then
 #			./push-to-registries.sh --delete platform $TAG-light
+#			[ $TAG = "7.0 "] && ./push-to-registries.sh --delete platform $TAG-light-jre
 #		fi
 #	done
 #	docker rmi $REGISTRY/platform:7-$TARGET-light
