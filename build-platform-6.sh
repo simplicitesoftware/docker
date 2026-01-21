@@ -5,6 +5,10 @@ exit_with () {
 	exit ${1:-0}
 }
 
+trace () {
+	printf "\n\e[1;33m%s\e[00m\n\n" $1
+}
+
 REGISTRY=registry.simplicite.io
 
 PUSH=1
@@ -25,27 +29,27 @@ shift
 
 if [ "$TARGET" = "preview" ]
 then
-	echo "Building platform images for $TARGET"
+	trace "Building platform images for $TARGET"
 	./build-platform.sh --delete 6-$TARGET || exit_with $? "Unable to build platform version 6-$TARGET"
-	echo "Done"
+	trace "Done"
 
-	echo "Tagging 6-$TARGET"
+	trace "Tagging 6-$TARGET"
 	docker rmi $REGISTRY/platform:6-$TARGET > /dev/null 2>&1
 	docker tag $REGISTRY/platform:6-$TARGET-almalinux9-21 $REGISTRY/platform:6-$TARGET
 	docker rmi $REGISTRY/platform:6-$TARGET-almalinux9-21
-	echo "Done"
+	trace "Done"
 
-	echo "Tagging 6-$TARGET-jre"
+	trace "Tagging 6-$TARGET-jre"
 	docker rmi $REGISTRY/platform:6-$TARGET-jre > /dev/null 2>&1
 	docker tag $REGISTRY/platform:6-$TARGET-almalinux9-21-jre $REGISTRY/platform:6-$TARGET-jre
 	docker rmi $REGISTRY/platform:6-$TARGET-almalinux9-21-jre
-	echo "Done"
+	trace "Done"
 
 	if [ $PUSH -eq 1 ]
 	then
-		echo "Pushing tags 6-$TARGET and 6-$TARGET-jre"
+		trace "Pushing tags 6-$TARGET and 6-$TARGET-jre"
 		./push-to-registries.sh platform 6-$TARGET $TARGET-jre
-		echo "Done"
+		trace "Done"
 	fi
 
 	exit_with
@@ -57,40 +61,40 @@ fi
 
 if [ "$TARGET" = "latest" ]
 then
-	echo "Building platform images for $TARGET and $TARGET-light"
+	trace "Building platform images for $TARGET and $TARGET-light"
 	./build-platform.sh --delete 6-$TARGET || exit_with $? "Unable to build platform version 6-$TARGET"
 	./build-platform.sh --delete 6-$TARGET-light || exit_with $? "Unable to build platform version 6-$TARGET-light"
-	echo "Done"
+	trace "Done"
 
-	echo "Tagging 6-$TARGET"
+	trace "Tagging 6-$TARGET"
 	docker rmi $REGISTRY/platform:6-$TARGET > /dev/null 2>&1
 	docker tag $REGISTRY/platform:6-$TARGET-almalinux9-21 $REGISTRY/platform:6-$TARGET
 	docker rmi $REGISTRY/platform:6-$TARGET-almalinux9-21
 
-	echo "Tagging 6-$TARGET-jre"
+	trace "Tagging 6-$TARGET-jre"
 	docker rmi $REGISTRY/platform:6-$TARGET-jre > /dev/null 2>&1
 	docker tag $REGISTRY/platform:6-$TARGET-almalinux9-21-jre $REGISTRY/platform:6-$TARGET-jre
 	docker rmi $REGISTRY/platform:6-$TARGET-almalinux9-21-jre
 
-	echo "Tagging 6-$TARGET-jvmless"
+	trace "Tagging 6-$TARGET-jvmless"
 	docker rmi $REGISTRY/platform:6-$TARGET-jvmless > /dev/null 2>&1
 	docker tag $REGISTRY/platform:6-$TARGET-almalinux9-jvmless $REGISTRY/platform:6-$TARGET-jvmless
 	docker rmi $REGISTRY/platform:6-$TARGET-almalinux9-jvmless
-	echo "Done"
+	trace "Done"
 
-	echo "Tagging 6"
+	trace "Tagging 6"
 	docker rmi $REGISTRY/platform:6 $REGISTRY/platform:6 > /dev/null 2>&1
 	docker tag $REGISTRY/platform:6-$TARGET $REGISTRY/platform:6
-	echo "Done"
+	trace "Done"
 
-	echo "Tagging $TARGET"
+	trace "Tagging $TARGET"
 	docker rmi $REGISTRY/platform:6 $REGISTRY/platform:$TARGET > /dev/null 2>&1
 	docker tag $REGISTRY/platform:6-$TARGET $REGISTRY/platform:$TARGET
-	echo "Done"
+	trace "Done"
 
 	if [ $PUSH -eq 1 ]
 	then
-		echo "Pushing tags 6-$TARGET[-<alpine|alpine-jre|jre|jvmless>], 6 and $TARGET"
+		trace "Pushing tags 6-$TARGET[-<alpine|alpine-jre|jre|jvmless>], 6 and $TARGET"
 		./push-to-registries.sh --delete platform \
 			6-$TARGET-alpine \
 			6-$TARGET-alpine-jre \
@@ -99,70 +103,70 @@ then
 			6 \
 			$TARGET
 		./push-to-registries.sh platform 6-$TARGET
-		echo "Done"
+		trace "Done"
 	fi
 
 	for TAG in 6.3 $1
 	do
-		echo "Tagging $TAG"
+		trace "Tagging $TAG"
 		docker rmi $REGISTRY/platform:$TAG > /dev/null 2>&1
 		docker tag $REGISTRY/platform:6-$TARGET $REGISTRY/platform:$TAG
-		echo "Done"
+		trace "Done"
 
 		if [ $TAG = "6.3" ]
 		then
-			echo "Tagging $TAG-jre"
+			trace "Tagging $TAG-jre"
 			docker rmi $REGISTRY/platform:$TAG-jre > /dev/null 2>&1
 			docker tag $REGISTRY/platform:6-$TARGET-jre $REGISTRY/platform:$TAG-jre
-			echo "Done"
+			trace "Done"
 		fi
 
 		if [ $PUSH -eq 1 ]
 		then
-			echo "Pushing tag $TAG"
+			trace "Pushing tag $TAG"
 			./push-to-registries.sh --delete platform $TAG
-			echo "Done"
+			trace "Done"
 
 			if [ $TAG = "6.3" ]
 			then
-				echo "Pushing tag $TAG-jre"
+				trace "Pushing tag $TAG-jre"
 				./push-to-registries.sh --delete platform $TAG-jre
-				echo "Done"
+				trace "Done"
 			fi
 		fi
 	done
 
-	echo "Tagging 6-$TARGET-light"
+	trace "Tagging 6-$TARGET-light"
 	docker rmi $REGISTRY/platform:6-$TARGET-light > /dev/null 2>&1
 	docker tag $REGISTRY/platform:6-$TARGET-light-almalinux9-21 $REGISTRY/platform:6-$TARGET-light
 	docker rmi $REGISTRY/platform:6-$TARGET-light-almalinux9-21
-	echo "Done"
+	trace "Done"
 
-	echo "Tagging 6-$TARGET-light-jre"
+	trace "Tagging 6-$TARGET-light-jre"
 	docker rmi $REGISTRY/platform:6-$TARGET-light-jre > /dev/null 2>&1
 	docker tag $REGISTRY/platform:6-$TARGET-light-almalinux9-21-jre $REGISTRY/platform:6-$TARGET-light-jre
 	docker rmi $REGISTRY/platform:6-$TARGET-light-almalinux9-21-jre
-	echo "Done"
+	trace "Done"
 
-	echo "Tagging 6-$TARGET-jvmless"
+	trace "Tagging 6-$TARGET-jvmless"
 	docker rmi $REGISTRY/platform:6-$TARGET-light-jvmless > /dev/null 2>&1
 	docker tag $REGISTRY/platform:6-$TARGET-light-almalinux9-jvmless $REGISTRY/platform:6-$TARGET-light-jvmless
 	docker rmi $REGISTRY/platform:6-$TARGET-light-almalinux9-jvmless
-	echo "Done"
+	trace "Done"
 
-	echo "Tagging 6-light"
+	trace "Tagging 6-light"
 	docker rmi $REGISTRY/platform:6-light $REGISTRY/platform:6-$TARGET-light > /dev/null 2>&1
 	docker tag $REGISTRY/platform:6-$TARGET-light $REGISTRY/platform:6-light
-	echo "Done"
+	trace "Done"
 
-	echo "Tagging $TARGET-light"
+	trace "Tagging $TARGET-light"
 	docker rmi $REGISTRY/platform:6-light $REGISTRY/platform:$TARGET-light > /dev/null 2>&1
 	docker tag $REGISTRY/platform:6-$TARGET-light $REGISTRY/platform:$TARGET-light
-	echo "Done"
+	trace "Done"
 
 	if [ $PUSH -eq 1 ]
 	then
-		echo "Pushing tags 6-$TARGET-light[-<alpine|alpine-jre|jre|jvmless>], 6-light and $TARGET-light"
+		trace "Pushing tags 6-$TARGET-light[-<alpine|alpine-jre|jre|jvmless>], 6-light and $TARGET-light"
 		./push-to-registries.sh --delete platform \
 			6-$TARGET-light-alpine \
 			6-$TARGET-light-alpine-jre \
@@ -171,35 +175,35 @@ then
 			6-light \
 			$TARGET-light
 		./push-to-registries.sh platform 6-$TARGET-light
-		echo "Done"
+		trace "Done"
 	fi
 
 	for TAG in 6.3 $1
 	do
-		echo "Tagging $TAG-light"
+		trace "Tagging $TAG-light"
 		docker rmi $REGISTRY/platform:$TAG-light > /dev/null 2>&1
 		docker tag $REGISTRY/platform:6-$TARGET-light $REGISTRY/platform:$TAG-light
-		echo "Done"
+		trace "Done"
 
 		if [ $TAG = "6.3" ]
 		then
-			echo "Tagging $TAG-light-jre"
+			trace "Tagging $TAG-light-jre"
 			docker rmi $REGISTRY/platform:$TAG-light-jre > /dev/null 2>&1
 			docker tag $REGISTRY/platform:6-$TARGET-light-jre $REGISTRY/platform:$TAG-light-jre
-			echo "Done"
+			trace "Done"
 		fi
 
 		if [ $PUSH -eq 1 ]
 		then
-			echo "Pushing tag $TAG-light"
+			trace "Pushing tag $TAG-light"
 			./push-to-registries.sh --delete platform $TAG-light
-			echo "Done"
+			trace "Done"
 
 			if [ $TAG = "6.3" ]
 			then
-				echo "Pushing tag $TAG-light-jre"
+				trace "Pushing tag $TAG-light-jre"
 				./push-to-registries.sh --delete platform $TAG-light-jre
-				echo "Done"
+				trace "Done"
 			fi
 		fi
 	done
@@ -209,9 +213,9 @@ fi
 
 if [ "$TARGET" = "devel" ]
 then
-	echo "Building platform images for $TARGET"
+	trace "Building platform images for $TARGET"
 	./build-platform.sh --delete 6-$TARGET || exit_with $? "Unable to build platform version 6-$TARGET"
-	echo "Done"
+	trace "Done"
 
 	exit_with
 fi
@@ -222,65 +226,65 @@ fi
 
 if [ "$TARGET" = "6.0" -o "$TARGET" = "6.1" -o "$TARGET" = "6.2" ]
 then
-	echo "Building platform images for $TARGET and $TARGET-light"
+	trace "Building platform images for $TARGET and $TARGET-light"
 	./build-platform.sh --delete $TARGET || exit_with $? "Unable to build platform version $TARGET"
 	./build-platform.sh --delete $TARGET-light || exit_with $? "Unable to build platform version $TARGET-light"
-	echo "Done"
+	trace "Done"
 
-	echo "Tagging $TARGET"
+	trace "Tagging $TARGET"
 	docker rmi $REGISTRY/platform:$TARGET > /dev/null 2>&1
 	docker tag $REGISTRY/platform:$TARGET-almalinux9-21 $REGISTRY/platform:$TARGET
 	docker rmi $REGISTRY/platform:$TARGET-almalinux9-21
-	echo "Done"
+	trace "Done"
 
-	echo "Tagging $TARGET-light"
+	trace "Tagging $TARGET-light"
 	docker rmi $REGISTRY/platform:$TARGET-light > /dev/null 2>&1
 	docker tag $REGISTRY/platform:$TARGET-light-almalinux9-21 $REGISTRY/platform:$TARGET-light
 	docker rmi $REGISTRY/platform:$TARGET-light-almalinux9-21
-	echo "Done"
+	trace "Done"
 
 	if [ $PUSH -eq 1 ]
 	then
-		echo "Pushing tags $TARGET and $TARGET-light"
+		trace "Pushing tags $TARGET and $TARGET-light"
 		./push-to-registries.sh platform $TARGET
 		./push-to-registries.sh --delete platform $TARGET-light
-		echo "Done"
+		trace "Done"
 	fi
 
 	# ZZZ temporary ZZZ
 	if [ "$TARGET" = "6.2" ]
 	then
-		echo "Tagging $TARGET-jre"
+		trace "Tagging $TARGET-jre"
 		docker rmi $REGISTRY/platform:$TARGET-jre > /dev/null 2>&1
 		docker tag $REGISTRY/platform:$TARGET-almalinux9-21 $REGISTRY/platform:$TARGET-jre
 		docker rmi $REGISTRY/platform:$TARGET-almalinux9-21-jre
-		echo "Done"
+		trace "Done"
 	
-		echo "Tagging $TARGET-light-jre"
+		trace "Tagging $TARGET-light-jre"
 		docker rmi $REGISTRY/platform:$TARGET-light-jre > /dev/null 2>&1
 		docker tag $REGISTRY/platform:$TARGET-light-almalinux9-21 $REGISTRY/platform:$TARGET-light-jre
 		docker rmi $REGISTRY/platform:$TARGET-light-almalinux9-21-jre
-		echo "Done"
+		trace "Done"
 
 		if [ $PUSH -eq 1 ]
 		then
-			echo "Pushing tags $TARGET-jre and $TARGET-light-jre"
+			trace "Pushing tags $TARGET-jre and $TARGET-light-jre"
 			./push-to-registries.sh --delete platform $TARGET-jre platform $TARGET-light-jre
-			echo "Done"
+			trace "Done"
 		fi
 	fi
 
 	for TAG in $1
 	do
-		echo "Tagging $TAG"
+		trace "Tagging $TAG"
 		docker rmi $REGISTRY/platform:$TAG > /dev/null 2>&1
 		docker tag $REGISTRY/platform:$TARGET $REGISTRY/platform:$TAG
-		echo "Done"
+		trace "Done"
 
-		echo "Tagging $TAG-light"
+		trace "Tagging $TAG-light"
 		docker rmi $REGISTRY/platform:$TAG-light > /dev/null 2>&1
 		docker tag $REGISTRY/platform:$TARGET-light $REGISTRY/platform:$TAG-light
-		echo "Done"
+		trace "Done"
 
 		if [ $PUSH -eq 1 ]
 		then
