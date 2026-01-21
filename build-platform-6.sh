@@ -268,13 +268,13 @@ then
 	then
 		trace "Tagging $TARGET-jre"
 		docker rmi $REGISTRY/platform:$TARGET-jre > /dev/null 2>&1
-		docker tag $REGISTRY/platform:$TARGET-almalinux9-21 $REGISTRY/platform:$TARGET-jre
+		docker tag $REGISTRY/platform:$TARGET-almalinux9-21-jre $REGISTRY/platform:$TARGET-jre
 		docker rmi $REGISTRY/platform:$TARGET-almalinux9-21-jre
 		trace "Done"
 	
 		trace "Tagging $TARGET-light-jre"
 		docker rmi $REGISTRY/platform:$TARGET-light-jre > /dev/null 2>&1
-		docker tag $REGISTRY/platform:$TARGET-light-almalinux9-21 $REGISTRY/platform:$TARGET-light-jre
+		docker tag $REGISTRY/platform:$TARGET-light-almalinux9-21-jre $REGISTRY/platform:$TARGET-light-jre
 		docker rmi $REGISTRY/platform:$TARGET-light-almalinux9-21-jre
 		trace "Done"
 
