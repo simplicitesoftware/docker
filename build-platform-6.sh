@@ -73,11 +73,13 @@ then
 	docker rmi $REGISTRY/platform:6-$TARGET > /dev/null 2>&1
 	docker tag $REGISTRY/platform:6-$TARGET-almalinux9-21 $REGISTRY/platform:6-$TARGET
 	docker rmi $REGISTRY/platform:6-$TARGET-almalinux9-21
+	trace "Done"
 
 	trace "Tagging 6-$TARGET-jre"
 	docker rmi $REGISTRY/platform:6-$TARGET-jre > /dev/null 2>&1
 	docker tag $REGISTRY/platform:6-$TARGET-almalinux9-21-jre $REGISTRY/platform:6-$TARGET-jre
 	docker rmi $REGISTRY/platform:6-$TARGET-almalinux9-21-jre
+	trace "Done"
 
 	trace "Tagging 6-$TARGET-jvmless"
 	docker rmi $REGISTRY/platform:6-$TARGET-jvmless > /dev/null 2>&1
