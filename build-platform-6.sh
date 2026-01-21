@@ -300,7 +300,9 @@ then
 
 		if [ $PUSH -eq 1 ]
 		then
+			trace "Pushing tags $TAG and $TAG-light"
 			./push-to-registries.sh --delete platform $TAG $TAG-light
+			trace "Done"
 		fi
 	done
 
