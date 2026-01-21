@@ -285,7 +285,7 @@ then
 		fi
 	fi
 
-	for TAG in $CURRENT.$REVISION
+	for TAG in $TARGET.$REVISION
 	do
 		trace "Tagging $TAG"
 		docker rmi $REGISTRY/platform:$TAG > /dev/null 2>&1
