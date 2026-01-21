@@ -63,79 +63,108 @@ then
 	./build-platform.sh --delete 5-$TARGET || exit_with $? "Unable to build platform version 5-$TARGET"
 	trace "Done"
 
+	trace "Tagging 5-$TARGET"
 	docker rmi $REGISTRY/platform:5-$TARGET > /dev/null 2>&1
 	docker tag $REGISTRY/platform:5-$TARGET-almalinux9-17 $REGISTRY/platform:5-$TARGET
 	docker rmi $REGISTRY/platform:5-$TARGET-almalinux9-17
+	trace "Done"
 
+	trace "Tagging 5-$TARGET-jre"
 	docker rmi $REGISTRY/platform:5-$TARGET-jre > /dev/null 2>&1
 	docker tag $REGISTRY/platform:5-$TARGET-almalinux9-17-jre $REGISTRY/platform:5-$TARGET-jre
 	docker rmi $REGISTRY/platform:5-$TARGET-almalinux9-17-jre
+	trace "Done"
 
+	trace "Tagging 5-$TARGET-jvmless"
 	docker rmi $REGISTRY/platform:5-$TARGET-jvmless > /dev/null 2>&1
 	docker tag $REGISTRY/platform:5-$TARGET-almalinux9-jvmless $REGISTRY/platform:5-$TARGET-jvmless
 	docker rmi $REGISTRY/platform:5-$TARGET-almalinux9-jvmless
+	trace "Done"
 
+	trace "Tagging 5"
 	docker rmi $REGISTRY/platform:5 > /dev/null 2>&1
 	docker tag $REGISTRY/platform:5-$TARGET $REGISTRY/platform:5
+	trace "Done"
 
 	if [ $PUSH -eq 1 ]
 	then
+		trace "Pushing tags 5-$TARGET[-<alpine|alpine-jre|jre|jvmless>], 5 and $TARGET"
 		./push-to-registries.sh --delete platform \
 			5-$TARGET-alpine \
 			5-$TARGET-alpine-jre \
-			5-$TARGET-jvmless \
 			5-$TARGET-jre \
+			5-$TARGET-jvmless \
 			5
 		./push-to-registries.sh platform 5-$TARGET
+		trace "Done"
 	fi
 
 	for TAG in $CURRENT $1
 	do
+		trace "Tagging $TAG"
 		docker rmi $REGISTRY/platform:$TAG > /dev/null 2>&1
 		docker tag $REGISTRY/platform:5-$TARGET $REGISTRY/platform:$TAG
+		trace "Done"
 
 		if [ $PUSH -eq 1 ]
 		then
+			trace "Pushing tag $TAG"
 			./push-to-registries.sh --delete platform $TAG
+			trace "Done"
 		fi
 	done
 
 	./build-platform.sh --delete 5-$TARGET-light || exit_with $? "Unable to build platform version 5-$TARGET-light"
+	trace "Done"
 
+	trace "Tagging 5-$TARGET-light"
 	docker rmi $REGISTRY/platform:5-$TARGET-light > /dev/null 2>&1
 	docker tag $REGISTRY/platform:5-$TARGET-light-almalinux9-17 $REGISTRY/platform:5-$TARGET-light
 	docker rmi $REGISTRY/platform:5-$TARGET-light-almalinux9-17
+	trace "Done"
 
+	trace "Tagging 5-$TARGET-light-jre"
 	docker rmi $REGISTRY/platform:5-$TARGET-light-jre > /dev/null 2>&1
 	docker tag $REGISTRY/platform:5-$TARGET-light-almalinux9-17-jre $REGISTRY/platform:5-$TARGET-light-jre
 	docker rmi $REGISTRY/platform:5-$TARGET-light-almalinux9-17-jre
+	trace "Done"
 
+	trace "Tagging 5-$TARGET-light-jvmless"
 	docker rmi $REGISTRY/platform:5-$TARGET-light-jvmless > /dev/null 2>&1
 	docker tag $REGISTRY/platform:5-$TARGET-light-almalinux9-jvmless $REGISTRY/platform:5-$TARGET-light-jvmless
 	docker rmi $REGISTRY/platform:5-$TARGET-light-almalinux9-jvmless
+	trace "Done"
 
+	trace "Tagging 5-light"
 	docker rmi $REGISTRY/platform:5-light > /dev/null 2>&1
 	docker tag $REGISTRY/platform:5-$TARGET-light $REGISTRY/platform:5-light
+	trace "Done"
 
 	if [ $PUSH -eq 1 ]
 	then
+		trace "Pushing tags 5-$TARGET-light[-<alpine|alpine-jre|jre|jvmless>], 5 and $TARGET"
 		./push-to-registries.sh --delete platform \
 			5-$TARGET-light-alpine \
 			5-$TARGET-light-alpine-jre \
-			5-$TARGET-light-jvmless \
 			5-$TARGET-light-jre \
+			5-$TARGET-light-jvmless \
 			5-light
 		./push-to-registries.sh platform 5-$TARGET-light
+		trace "Done"
 	fi
 
 	for TAG in $CURRENT $1
 	do
+		trace "Tagging $TAG-light"
 		docker rmi $REGISTRY/platform:$TAG-light > /dev/null 2>&1
 		docker tag $REGISTRY/platform:5-$TARGET-light $REGISTRY/platform:$TAG-light
+		trace "Done"
 
 		if [ $PUSH -eq 1 ]
 		then
+			trace "Pushing tag $TAG-light"
 			./push-to-registries.sh --delete platform $TAG-light
+			trace "Done"
 		fi
 	done
 
@@ -160,29 +189,37 @@ then
 	./build-platform.sh --delete $TARGET || exit_with $? "Unable to build platform version $TARGET"
 	./build-platform.sh --delete $TARGET-light || exit_with $? "Unable to build platform version $TARGET-light"
 
+	trace "Tagging $TARGET"
 	docker rmi $REGISTRY/platform:$TARGET > /dev/null 2>&1
 	docker tag $REGISTRY/platform:$TARGET-almalinux9-17 $REGISTRY/platform:$TARGET
 	docker rmi $REGISTRY/platform:$TARGET-almalinux9-17
+	trace "Done"
 
+	trace "Tagging $TARGET-light"
 	docker rmi $REGISTRY/platform:$TARGET-light > /dev/null 2>&1
 	docker tag $REGISTRY/platform:$TARGET-light-almalinux9-17 $REGISTRY/platform:$TARGET-light
 	docker rmi $REGISTRY/platform:$TARGET-light-almalinux9-17
+	trace "Done"
 
 	if [ $PUSH -eq 1 ]
 	then
 		./push-to-registries.sh platform $TARGET
 		./push-to-registries.sh --delete platform $TARGET-light
+		trace "Done"
 	fi
 
-	# All additional tags
-	for TAG in $@
+	for TAG in $1
 	do
+		trace "Tagging $TAG"
 		docker rmi $REGISTRY/platform:$TAG > /dev/null 2>&1
 		docker tag $REGISTRY/platform:$TARGET $REGISTRY/platform:$TAG
+		trace "Done"
 
 		if [ $PUSH -eq 1 ]
 		then
+			trace "Pushing tag $TAG"
 			./push-to-registries.sh --delete platform $TAG
+			trace "Done"
 		fi
 	done
 
