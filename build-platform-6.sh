@@ -25,7 +25,7 @@ shift
 
 if [ "$TARGET" = "preview" ]
 then
-	./build-platform.sh --delete 6-$TARGET almalinux9-21 || exit_with $? "Unable to build platform version 6-$TARGET"
+	./build-platform.sh --delete 6-$TARGET || exit_with $? "Unable to build platform version 6-$TARGET"
 
 	docker rmi $REGISTRY/platform:6-$TARGET > /dev/null 2>&1
 	docker tag $REGISTRY/platform:6-$TARGET-almalinux9-21 $REGISTRY/platform:6-$TARGET
