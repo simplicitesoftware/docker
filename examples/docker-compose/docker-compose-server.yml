@@ -1,6 +1,0 @@
-services:
-  server:
-    image: registry.simplicite.io/server:latest
-    environment:
-      FOO: "foo\\bar"
-      BAR: 'foo\\bar'

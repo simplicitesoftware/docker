@@ -18,7 +18,9 @@ services:
       # For AJP reverse proxying
       - 127.0.0.1:8009:8009
     environment:
-      - REDIS_URL=redis://cache
+      # Development mode?
+      #DEV_MODE: "true"
+      REDIS_URL=redis://cache
     volumes:
       - db:/usr/local/tomcat/webapps/ROOT/WEB-INF/db
       - dbdoc:/usr/local/tomcat/webapps/ROOT/WEB-INF/dbdoc

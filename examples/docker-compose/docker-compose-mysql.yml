@@ -21,6 +21,8 @@ services:
     restart: unless-stopped
     container_name: simplicite
     environment:
+      # Development mode?
+      #DEV_MODE: "true"
       # Custom timezone if needed ZZZ must match the database container timezone ZZZ
       #TOMCAT_TIMEZONE: "Europe/Paris"
       DB_SETUP: "true"

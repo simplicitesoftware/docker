@@ -4,6 +4,7 @@ services:
     restart: unless-stopped
     container_name: simplicite
     environment:
+      DEV_MODE: "true"
       JPDA: "true"
       #JPDA_SUSPEND: "y"
       SSH_KNOWN_HOSTS: "github.com gitlab.com"

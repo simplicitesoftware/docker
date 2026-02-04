@@ -10,6 +10,7 @@ services:
       start_period: 300s
       timeout: 5s
     environment:
+      DEV_MODE: "false"
       IO_PASSWORD: "<a very strong password dedicated to I/O access (only if needed)>"
       DB_SETUP: "true"
       DB_VENDOR: "<database vendor: hsqldb, mysql, postgresql, oracle or msssql>"

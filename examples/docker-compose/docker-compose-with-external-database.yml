@@ -4,6 +4,8 @@ services:
     restart: unless-stopped
     container_name: simplicite
     environment:
+      # Development mode?
+      #DEV_MODE: "true"
       DB_SETUP: "true"
       DB_VENDOR: "<mysql|postgresql|mssql|oracle>"
       DB_HOST: "<your database server hostname or IP address>"

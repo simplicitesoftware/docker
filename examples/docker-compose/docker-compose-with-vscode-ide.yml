@@ -4,11 +4,12 @@ services:
     restart: unless-stopped
     container_name: simplicite
     environment:
+      DEV_MODE: "true"
+      JPDA: "true"
       # Uncomment these 3 lines if you are implementing a custom frontend
       #CORS: "true"
       #CORS_ORIGINS: "http://localhost:3000"
       #CORS_CREDENTIALS: "true"
-      JPDA: "true"
     ports:
       - 127.0.0.1:8080:8080
       - 127.0.0.1:8443:8443
