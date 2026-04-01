@@ -14,11 +14,11 @@ RUN dnf install -y libaio && dnf clean all && \
 
 # Install the Oracle JDBC driver
 # ZZZ the URL bellow is just an example, you MUST use the appropriate JDBC driver version that matches your Oracle server's version ZZZ
-ADD https://download.oracle.com/otn-pub/otn_software/jdbc/23261/ojdbc11.jar /tmp
+ADD https://download.oracle.com/otn-pub/otn_software/jdbc/23261/ojdbc17.jar /tmp
 RUN rm -f /usr/local/tomcat/lib/ojdbc* && \
-    cp /tmp/ojdbc11.jar /usr/local/tomcat/lib && \
-    chmod go+r /usr/local/tomcat/lib/ojdbc11.jar && \
-    rm -f /tmp/ojdbc11.jar && \
+    cp /tmp/ojdbc17.jar /usr/local/tomcat/lib && \
+    chmod go+r /usr/local/tomcat/lib/ojdbc17.jar && \
+    rm -f /tmp/ojdbc17.jar && \
     echo "alias _sqlplus='/usr/bin/sqlplus \$DB_USER/\$DB_PASSWORD@//\$DB_HOST:\${DB_PORT:-1521}/\$DB_NAME'" >> /etc/profile.d/simplicite.sh
 
 # Set Oracle encoding to UTF-8
