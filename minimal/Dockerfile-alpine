@@ -1,0 +1,21 @@
+FROM alpine:latest
+
+ARG java=25
+ARG tomcat=9.0.117
+ARG simplicite=6.3.7
+
+WORKDIR /home/simplicite
+
+ADD https://dlcdn.apache.org/tomcat/tomcat-9/v${tomcat}/bin/apache-tomcat-${tomcat}.tar.gz /tmp/
+ADD simplicite-${simplicite}.war /tmp/
+RUN apk update && apk upgrade && apk add --update bash tar unzip openjdk${java} && rm -rf /var/cache/apk/* && \
+    addgroup -g 2000 simplicite && adduser -D -G simplicite -u 2000 -s /bin/bash simplicite && \
+    tar xfz /tmp/apache-tomcat-${tomcat}.tar.gz -C /home/simplicite/ && rm -f /tmp/apache-tomcat-${tomcat}.tar.gz && \
+    mv /home/simplicite/apache-tomcat-${tomcat} /home/simplicite/tomcat && rm -fr /home/simplicite/tomcat/webapps/* && \
+    unzip /tmp/simplicite-${simplicite}.war -d /home/simplicite/tomcat/webapps/ROOT && rm -f /tmp/simplicite-${simplicite}.war && \
+    chown -R simplicite: /home/simplicite
+
+USER simplicite
+
+EXPOSE 8080
+CMD [ "/home/simplicite/tomcat/bin/catalina.sh", "run" ]
