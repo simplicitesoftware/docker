@@ -41,7 +41,7 @@ To use another type of database (e.g. PostgreSQL) you need to :
 - Add the appropriate JDBC driver to the image in the docker file in the `/home/simplicite/tomcat/lib` folder,
   e.g. `ADD https://jdbc.postgresql.org/download/postgresql-<x.y.z>.jar /home/simplicite/tomcat/lib`
 - Adjust the JVM properties in the `JAVA_OPTS` environment variable in the docker file
-  or pass it using `-e JAVA_OPTS="..."` when running the container
+  (or pass it using `-e JAVA_OPTS="..."` when running the container)
 - Prior to the **first** start of the container you need to load the **initial** database dump
   (the dumps are located in the WAR package in the `WEB-INF/db` folder).
 
