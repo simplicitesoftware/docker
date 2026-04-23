@@ -1,10 +1,11 @@
 FROM almalinux:10
 
+# ---------------------------------------------------------------*
+# Set the actual "x" revisions for Tomcat and Simplicite bellow:
 ARG java=25
 ARG tomcat=9.0.x
 ARG simplicite=6.3.y
-
-WORKDIR /home/simplicite
+# ---------------------------------------------------------------*
 
 ADD https://dlcdn.apache.org/tomcat/tomcat-9/v${tomcat}/bin/apache-tomcat-${tomcat}.tar.gz /tmp/
 ADD simplicite-${simplicite}.war /tmp/
@@ -16,6 +17,7 @@ RUN dnf upgrade -y && dnf install -y unzip java-${java}-openjdk && dnf clean all
     chown -R simplicite: /home/simplicite
 
 USER simplicite
+WORKDIR /home/simplicite
 
 EXPOSE 8080
 CMD [ "/home/simplicite/tomcat/bin/catalina.sh", "run" ]
