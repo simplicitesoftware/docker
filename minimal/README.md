@@ -1,5 +1,5 @@
-Minimal Simplicité images
-=========================
+Minimal Simplicité custom images
+================================
 
 Introduction
 ------------
