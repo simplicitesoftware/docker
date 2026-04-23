@@ -4,15 +4,16 @@ Minimal Simplicité custom images
 Introduction
 ------------
 
-These docker files are provided as minimal examples to build **custom** Simplicité images from a base OS (Almalinux or Alpine) with:
+These docker files are provided as **minimal examples** to build **custom** Simplicité images
+from a base OS (Almalinux or Alpine) using:
 
 - An up-to-date JVM from the OS distribution
 - An "out of the box" Tomcat server downloaded from the [Tomcat website](https://tomcat.apache.org)
 - A Simplicité WAR package downloaded from the [Simplicité download page](https://platform.simplicite.io/downloads/),
-  accessing this page requires credentials.
+  note that accessing to this page requires appropriate credentials.
 
 **Warning**: unless you have **very specific needs** we **strongly** recommend that you use our **standard** images
-instead of building such custom images in particular because they offer more advanced configuration capabilities.
+instead of building such custom images, in particular because they offer more advanced configuration capabilities.
 
 Instructions
 ------------
