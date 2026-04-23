@@ -22,14 +22,22 @@ Instructions
 <docker|podman> build -f Dockerfile-<almalinux|alpine> -t mysimplicite .
 ```
 
-3. Test the container (with an embedded HSQLDB database)
+3. Test the container (with the default embedded HSQLDB database)
 
 ```text
-<docker|podman> run -it --rm -p 127.0.0.1:8080:8080 -e JAVA_OPTS="-Ddb.user='sa' -Ddb.password='' -Ddb.driver='org.hsqldb.jdbcDriver' -Ddb.url='hsqldb:file:/home/simplicite/tomcat/webapps/ROOT/WEB-INF/db/simplicite;shutdown=true;sql.ignore_case=true'" mysimplicite
+<docker|podman> run -it --rm -p 127.0.0.1:8080:8080 mysimplicite
 ```
 
 The instance is then available on `http://localhost:8080`
 
-**Note**: to use another type of database (e.g. PostgreSQL or MySQL) you need to set the above JVM properties accordingly
-and, if needed, load the **initial** database dumps (they are located in the WAR package in the `WEB-INF/db` folder).
+**Note**:
+
+To use another type of database (e.g. PostgreSQL or MySQL) you need to :
+
+- Add the appropriate JDBC driver to the image in the docker file
+  (put it in the `/home/simplicite/tomcat/lib` folder)
+- Adjust the JVM properties in the `JAVA_OPTS` environment variable in the docker file
+  or pass it using `-e` when running the container
+- Prior to the **first** start of the container you need to load the **initial** database dump
+  (the dumps are located in the WAR package in the `WEB-INF/db` folder).
 
