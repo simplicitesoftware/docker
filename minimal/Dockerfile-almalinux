@@ -20,7 +20,7 @@ USER simplicite
 WORKDIR /home/simplicite
 
 # Settings for the default HSQLDB embedded database
-JAVA_OPTS="-Ddb.user='sa' -Ddb.password='' -Ddb.driver='org.hsqldb.jdbcDriver' -Ddb.url='hsqldb:file:/home/simplicite/tomcat/webapps/ROOT/WEB-INF/db/simplicite;shutdown=true;sql.ignore_case=true'"
+ENV JAVA_OPTS="-Ddb.user='sa' -Ddb.password='' -Ddb.driver='org.hsqldb.jdbcDriver' -Ddb.url='hsqldb:file:/home/simplicite/tomcat/webapps/ROOT/WEB-INF/db/simplicite;shutdown=true;sql.ignore_case=true'"
 
 EXPOSE 8080
 CMD [ "/home/simplicite/tomcat/bin/catalina.sh", "run" ]
