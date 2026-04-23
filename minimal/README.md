@@ -4,7 +4,7 @@ Minimal Simplicité images
 Introduction
 ------------
 
-These docker files are provided as minimal examples to build Simplicité images from a base OS (Almalinux or Alpine) with:
+These docker files are provided as minimal examples to build **custom** Simplicité images from a base OS (Almalinux or Alpine) with:
 
 - An up-to-date JVM from the OS distribution
 - An "out of the box" Tomcat server downloaded from the [Tomcat website](https://tomcat.apache.org)
@@ -14,7 +14,7 @@ These docker files are provided as minimal examples to build Simplicité images 
 Instructions
 ------------
 
-1. Check the versions in the chosen `Dockerfile-<almalinux|alpine>`
+1. Set the Tomcat and Simplicité revision (replace the `x`s with the actual values) in the chosen `Dockerfile-<almalinux|alpine>`
 
 2. Build the image
 

@@ -1,8 +1,8 @@
 FROM almalinux:10
 
 ARG java=25
-ARG tomcat=9.0.117
-ARG simplicite=6.3.7
+ARG tomcat=9.0.x
+ARG simplicite=6.3.y
 
 WORKDIR /home/simplicite
 
