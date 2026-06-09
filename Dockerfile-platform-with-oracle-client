@@ -18,9 +18,9 @@ RUN dnf install -y libaio && dnf clean all && \
 # For v7 use rhel 10 packages
 #ADD https://download.oracle.com/otn_software/linux/instantclient/2326200v2/oracle-instantclient-basic-23.26.2.0.0-2.el10.x86_64.rpm /tmp
 #ADD https://download.oracle.com/otn_software/linux/instantclient/2326200v2/oracle-instantclient-sqlplus-23.26.2.0.0-2.el10.x86_64.rpm /tmp
-RUN dnf install -y libaio && dnf clean all && \
-    rpm -i /tmp/oracle-instantclient-basic-23.26.2.0.0-2.el10.x86_64.rpm /tmp/oracle-instantclient-sqlplus-23.26.2.0.0-2.el10.x86_64.rpm && \
-    rm -f /tmp/*.rpm
+#RUN dnf install -y libaio && dnf clean all && \
+#    rpm -i /tmp/oracle-instantclient-basic-23.26.2.0.0-2.el10.x86_64.rpm /tmp/oracle-instantclient-sqlplus-23.26.2.0.0-2.el10.x86_64.rpm && \
+#    rm -f /tmp/*.rpm
 
 #---------------------------------------------------------------------------------------------------------------------------------
 # Install the Oracle JDBC driver
