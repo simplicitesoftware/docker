@@ -6,10 +6,10 @@ USER root
 
 # Install the Oracle client (SQL*Plus, ...)
 # ZZZ the URL bellow are just examples, you MUST use the appropriate client version that matches your Oracle server's version ZZZ
-ADD https://download.oracle.com/otn_software/linux/instantclient/2326100/oracle-instantclient-basic-23.26.1.0.0-1.el9.x86_64.rpm /tmp
-ADD https://download.oracle.com/otn_software/linux/instantclient/2326100/oracle-instantclient-sqlplus-23.26.1.0.0-1.el9.x86_64.rpm /tmp
+ADD https://download.oracle.com/otn_software/linux/instantclient/2326100/oracle-instantclient-basic-23.26.2.0.0.el9.x86_64.rpm /tmp
+ADD https://download.oracle.com/otn_software/linux/instantclient/2326100/oracle-instantclient-sqlplus-23.26.2.0.0.el9.x86_64.rpm /tmp
 RUN dnf install -y libaio && dnf clean all && \
-    rpm -i /tmp/oracle-instantclient-basic-23.26.1.0.0-1.el9.x86_64.rpm /tmp/oracle-instantclient-sqlplus-23.26.1.0.0-1.el9.x86_64.rpm && \
+    rpm -i /tmp/oracle-instantclient-basic-23.26.2.0.0.el9.x86_64.rpm /tmp/oracle-instantclient-sqlplus-23.26.2.0.0.el9.x86_64.rpm && \
     rm -f /tmp/*.rpm
 
 # Install the Oracle JDBC driver
