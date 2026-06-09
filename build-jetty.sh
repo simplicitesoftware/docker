@@ -52,10 +52,4 @@ echo "Done"
 
 rm -fr $SRV
 
-echo ""
-echo "-- $SERVER:$TAG$SRVEXT$JVMEXT ------------------"
-echo ""
-echo "docker run -it --rm --memory=128m -p 127.0.0.1:8443:8080 --name=simplicite $SERVER:$TAG"
-echo ""
-
 exit_with

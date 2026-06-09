@@ -26,7 +26,5 @@ docker pull $FROM
 docker build --network host -f theia/Dockerfile -t $IMG --build-arg THEIA_TAG=$TAG --build-arg BUILD_DATE=$DATE . || exit_with 3 "Unable to build image $IMG"
 echo "Done"
 echo ""
-echo "docker run -it --rm -p 127.0.0.1:3030:3030 --name=theia $IMG"
-echo ""
 
 exit_with

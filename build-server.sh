@@ -154,24 +154,4 @@ do
 done
 rm -fr tomcat
 
-for TAG in $TAGS
-do
-	JVMS=""
-	[ $TAG = "almalinux10" -o $TAG = "almalinux9" ] && JVMS=$JVMS_ALMALINUX
-	[ $TAG = "alpine" ] && JVMS=$JVMS_ALPINE
-	[ $TAG = "eclipse-temurin" ] && JVMS=$JVMS_ECLIPSE_TEMURIN
-
-	for JVM in $JVMS
-	do
-		[ $TAG = "alpine" ] && TAGEXT="" || TAGEXT="-$JVM"
-
-		if [ $TAG = "almalinux10" -o $TAG = "almalinux9" -o $TAG = "alpine" ]
-		then
-			echo "docker run -it --rm --memory=128m -p 127.0.0.1:8080:8080 -p 127.0.0.1:8443:8443 --name simplicite $IMAGE:$TAG$TAGEXT-jre$SERVEREXT"
-		fi
-		echo "docker run -it --rm --memory=128m -p 127.0.0.1:8080:8080 -p 127.0.0.1:8443:8443 --name=simplicite $IMAGE:$TAG$TAGEXT$SERVEREXT"
-		echo ""
-	done
-done
-
 exit_with
