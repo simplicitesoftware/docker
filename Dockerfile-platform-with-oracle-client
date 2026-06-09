@@ -1,20 +1,32 @@
 ARG reg=registry.simplicite.io
 ARG tag=6-latest
+#ARG tag=7-alpha
 FROM ${reg}/platform:${tag}
 
 USER root
 
+#---------------------------------------------------------------------------------------------------------------------------------
 # Install the Oracle client (SQL*Plus, ...)
-# ZZZ the URL bellow are just examples, you MUST use the appropriate client version that matches your Oracle server's version ZZZ
-ADD https://download.oracle.com/otn_software/linux/instantclient/2326100/oracle-instantclient-basic-23.26.2.0.0.el9.x86_64.rpm /tmp
-ADD https://download.oracle.com/otn_software/linux/instantclient/2326100/oracle-instantclient-sqlplus-23.26.2.0.0.el9.x86_64.rpm /tmp
+# ZZZ the URLs bellow are just examples, you MUST use the appropriate client version that matches your Oracle server's version ZZZ
+#---------------------------------------------------------------------------------------------------------------------------------
+# For v6 use rhel 9 packages
+ADD https://download.oracle.com/otn_software/linux/instantclient/2326200v2/oracle-instantclient-basic-23.26.2.0.0-2.el9.x86_64.rpm /tmp
+ADD https://download.oracle.com/otn_software/linux/instantclient/2326200v2/oracle-instantclient-sqlplus-23.26.2.0.0-2.el9.x86_64.rpm /tmp
 RUN dnf install -y libaio && dnf clean all && \
     rpm -i /tmp/oracle-instantclient-basic-23.26.2.0.0.el9.x86_64.rpm /tmp/oracle-instantclient-sqlplus-23.26.2.0.0.el9.x86_64.rpm && \
     rm -f /tmp/*.rpm
+# For v7 use rhel 10 packages
+#ADD https://download.oracle.com/otn_software/linux/instantclient/2326200v2/oracle-instantclient-basic-23.26.2.0.0-2.el10.x86_64.rpm /tmp
+#ADD https://download.oracle.com/otn_software/linux/instantclient/2326200v2/oracle-instantclient-sqlplus-23.26.2.0.0-2.el10.x86_64.rpm
+RUN dnf install -y libaio && dnf clean all && \
+    rpm -i /tmp/oracle-instantclient-basic-23.26.2.0.0.el10.x86_64.rpm /tmp/oracle-instantclient-sqlplus-23.26.2.0.0.el10.x86_64.rpm && \
+    rm -f /tmp/*.rpm
 
+#---------------------------------------------------------------------------------------------------------------------------------
 # Install the Oracle JDBC driver
 # ZZZ the URL bellow is just an example, you MUST use the appropriate JDBC driver version that matches your Oracle server's version ZZZ
-ADD https://download.oracle.com/otn-pub/otn_software/jdbc/23261/ojdbc17.jar /tmp
+#---------------------------------------------------------------------------------------------------------------------------------
+ADD https://download.oracle.com/otn-pub/otn_software/jdbc/23262/ojdbc17.jar /tmp
 RUN rm -f /usr/local/tomcat/lib/ojdbc* && \
     cp /tmp/ojdbc17.jar /usr/local/tomcat/lib && \
     chmod go+r /usr/local/tomcat/lib/ojdbc17.jar && \

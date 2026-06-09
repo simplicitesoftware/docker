@@ -1,16 +1,24 @@
 ARG reg=registry.simplicite.io
 ARG tag=6-latest
+#ARG tag=7-alpha
 FROM ${reg}/platform:${tag}
 
 USER root
 
-# Install the SQLServer client (for v7 use rhel 10)
+#---------------------------------------------------------------------------------------------------------------------------------
+# Install the SQLServer client
+#---------------------------------------------------------------------------------------------------------------------------------
+# For v6 use the RHEL 9 repository
 ADD https://packages.microsoft.com/config/rhel/9/prod.repo /etc/yum.repos.d/msprod.repo
+# For v7 use RHEL 10 repository
+#ADD https://packages.microsoft.com/config/rhel/10/prod.repo /etc/yum.repos.d/msprod.repo
 ENV ACCEPT_EULA=Y
 RUN dnf install -y mssql-tools unixODBC-devel && dnf clean all
 ENV PATH="/opt/mssql-tools/bin:${PATH}"
 
+#---------------------------------------------------------------------------------------------------------------------------------
 # Install the SQLServer JDBC driver
+#---------------------------------------------------------------------------------------------------------------------------------
 ADD https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/13.4.0.jre11/mssql-jdbc-13.4.0.jre11.jar /tmp
 RUN rm -f /usr/local/tomcat/lib/mssql* && \
     cp /tmp/mssql-jdbc-13.4.0.jre11.jar /usr/local/tomcat/lib && \
