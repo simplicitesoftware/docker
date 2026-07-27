@@ -34,7 +34,8 @@ ADD jacoco/lib/*.jar /usr/local/jacoco/
 ADD --chown=simplicite:simplicite tomcat /usr/local/tomcat
 ADD --chown=simplicite:simplicite run-tomcat.sh /usr/local/tomcat/run
 
+# HTTP, HTTP for SLL, HTTPS, AJP, admin, JMX
+EXPOSE 8080 8443 8444 8009 8005 1098 1099
+
 WORKDIR /usr/local/tomcat
-# HTTP, HTTP for SLL, HTTPS, AJP, JMX, RMI, JPDA, JaCoCo
-EXPOSE 8080 8443 8444 8009 8005 1099 1098 8000 8001
 CMD [ "/usr/local/tomcat/run" ]

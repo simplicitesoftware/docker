@@ -1,0 +1,38 @@
+ARG reg=registry.simplicite.io
+FROM ${reg}/server:alpine
+
+ARG date
+
+LABEL org.label-schema.name="simplicite-server-alpine-devel" \
+      org.label-schema.vendor="Simplicite Software" \
+      org.label-schema.license="NONE" \
+      org.label-schema.build-date="${date}" \
+      org.opencontainers.image.ref.name="simplicite-server-alpine-devel" \
+      org.opencontainers.image.title="Simplicite server / Alpine (devel)" \
+      org.opencontainers.image.description="Simplicite server / Alpine (devel)" \
+      org.opencontainers.image.vendor="Simplicite Software" \
+      org.opencontainers.image.licenses="NONE" \
+      org.opencontainers.image.created="${date}"
+
+USER root
+
+RUN apk add --update vim-enhanced git gpg iproute nmap xz && dnf clean all && \
+    echo -e 'alias vi=vim' >> /root/.bashrc && \
+    echo '%simplicite ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+
+ADD ant /usr/local/ant
+ADD maven /usr/local/maven
+ADD node /usr/local/node
+ADD jacoco /usr/local/jacoco
+
+ENV DEV_MODE=true \
+    ANT_HOME=/usr/local/ant \
+    MAVEN_HOME=/usr/local/maven \
+    NODE_HOME=/usr/local/node \
+    JACOCO_HOME=/usr/local/jacoco \
+    PATH=/usr/local/ant/bin:/usr/local/maven/bin:/usr/local/node/bin:$PATH
+
+# JPDA, JaCoCo
+EXPOSE 8000 8001
+
+USER simplicite
