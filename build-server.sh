@@ -36,8 +36,8 @@ echo ""
 echo "--------------------------------------------------------"
 
 TAGS=${1:-all}
-#[ $TAGS = "all" ] && TAGS="almalinux10-base almalinux10 almalinux10-jvmless almalinux9-base almalinux9 almalinux9-jvmless alpine-base alpine eclipse-temurin devel"
-[ $TAGS = "all" ] && TAGS="almalinux10-base almalinux10 almalinux10-jvmless almalinux9-base almalinux9 almalinux9-jvmless alpine-base alpine devel"
+#[ $TAGS = "all" ] && TAGS="almalinux10-base almalinux10 almalinux10-jvmless almalinux9-base almalinux9 almalinux9-jvmless almalinux9-devel alpine-base alpine eclipse-temurin"
+[ $TAGS = "all" ] && TAGS="almalinux10-base almalinux10 almalinux10-jvmless almalinux10-devel almalinux9-base almalinux9 almalinux9-jvmless almalinux9-devel alpine-base alpine"
 echo "Variants(s) = $TAGS"
 
 # Server
@@ -112,7 +112,7 @@ do
 
 	if [ "$JVMS" = "" ]
 	then
-		if [ $TAG != "devel" ]
+		if [ $TAG != "almalinux10-devel" -a $TAG != "almalinux9-devel" ]
 		then
 			FROM=$(grep '^FROM' Dockerfile-$TAG | awk '{ print $2 }')
 			echo "Pulling image: $FROM"

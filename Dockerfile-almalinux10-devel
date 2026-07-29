@@ -1,22 +1,22 @@
 ARG reg=registry.simplicite.io
-FROM ${reg}/server:alpine
+FROM ${reg}/server:latest
 
 ARG date
 
-LABEL org.label-schema.name="simplicite-server-alpine-devel" \
+LABEL org.label-schema.name="simplicite-server-almalinux10-devel" \
       org.label-schema.vendor="Simplicite Software" \
       org.label-schema.license="NONE" \
       org.label-schema.build-date="${date}" \
-      org.opencontainers.image.ref.name="simplicite-server-alpine-devel" \
-      org.opencontainers.image.title="Simplicite server / Alpine (devel)" \
-      org.opencontainers.image.description="Simplicite server / Alpine (devel)" \
+      org.opencontainers.image.ref.name="simplicite-server-almalinux10-devel" \
+      org.opencontainers.image.title="Simplicite server / Almalinux 10 (devel)" \
+      org.opencontainers.image.description="Simplicite server / Almalinux 10 (devel)" \
       org.opencontainers.image.vendor="Simplicite Software" \
       org.opencontainers.image.licenses="NONE" \
       org.opencontainers.image.created="${date}"
 
 USER root
 
-RUN apk add --update vim-enhanced git gpg iproute nmap xz && dnf clean all && \
+RUN dnf install -y sudo vim-enhanced git gpg iproute nmap xz pinentry && dnf clean all && \
     echo -e 'alias vi=vim' >> /root/.bashrc && \
     echo '%simplicite ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
