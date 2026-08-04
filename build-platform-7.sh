@@ -40,22 +40,14 @@ then
 
 	trace "Tagging 7-$TARGET"
 	docker rmi $REGISTRY/platform:7-$TARGET > /dev/null 2>&1
-	docker tag $REGISTRY/platform:7-$TARGET-almalinux10-25-tomcat11 $REGISTRY/platform:7-$TARGET
-	docker rmi $REGISTRY/platform:7-$TARGET-almalinux10-25-tomcat11
-	trace "Done"
-
-	trace "Tagging 7-$TARGET-jre"
-	docker rmi $REGISTRY/platform:7-$TARGET-jre > /dev/null 2>&1
-	docker tag $REGISTRY/platform:7-$TARGET-almalinux10-25-jre-tomcat11 $REGISTRY/platform:7-$TARGET-jre
+	docker tag $REGISTRY/platform:7-$TARGET-almalinux10-25-jre-tomcat11 $REGISTRY/platform:7-$TARGET
 	docker rmi $REGISTRY/platform:7-$TARGET-almalinux10-25-jre-tomcat11
 	trace "Done"
 
 	if [ $PUSH -eq 1 ]
 	then
-		trace "Pushing tags 7-$TARGET and 7-$TARGET-jre"
-		./push-to-registries.sh platform \
-		7-$TARGET \
-		7-$TARGET-jre
+		trace "Pushing tags 7-$TARGET"
+		./push-to-registries.sh platform 7-$TARGET
 		trace "Done"
 	fi
 
@@ -65,22 +57,14 @@ then
 #
 #	trace "Tagging 7-$TARGET-light"
 #	docker rmi $REGISTRY/platform:7-$TARGET-light > /dev/null 2>&1
-#	docker tag $REGISTRY/platform:7-$TARGET-light-almalinux10-25-tomcat11 $REGISTRY/platform:7-$TARGET-light
-#	docker rmi $REGISTRY/platform:7-$TARGET-light-almalinux10-25-tomcat11
-#	trace "Done"
-#
-#	trace "Tagging 7-$TARGET-light-jre"
-#	docker rmi $REGISTRY/platform:7-$TARGET-light-jre > /dev/null 2>&1
-#	docker tag $REGISTRY/platform:7-$TARGET-light-almalinux10-25-jre-tomcat11 $REGISTRY/platform:7-$TARGET-light-jre
+#	docker tag $REGISTRY/platform:7-$TARGET-light-almalinux10-25-jre-tomcat11 $REGISTRY/platform:7-$TARGET-light
 #	docker rmi $REGISTRY/platform:7-$TARGET-light-almalinux10-25-jre-tomcat11
 #	trace "Done"
 #
 #	if [ $PUSH -eq 1 ]
 #	then
-#		trace "Pushing tags 7-$TARGET-light and 7-$TARGET-light-jre"
-#		./push-to-registries.sh --delete platform \
-#		7-$TARGET-light \
-#		7-$TARGET-light-jre
+#		trace "Pushing tags 7-$TARGET-light"
+#		./push-to-registries.sh --delete platform 7-$TARGET-light
 #		trace "Done"
 #	fi
 
