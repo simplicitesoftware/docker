@@ -51,22 +51,22 @@ then
 		trace "Done"
 	fi
 
-#	trace "Building platform images for $TARGET-light"
-#	./build-platform.sh --delete 7-$TARGET-light || exit_with $? "Unable to build platform version 7-$TARGET-light"
-#	trace "Done"
-#
-#	trace "Tagging 7-$TARGET-light"
-#	docker rmi $REGISTRY/platform:7-$TARGET-light > /dev/null 2>&1
-#	docker tag $REGISTRY/platform:7-$TARGET-light-almalinux10-25-jre-tomcat11 $REGISTRY/platform:7-$TARGET-light
-#	docker rmi $REGISTRY/platform:7-$TARGET-light-almalinux10-25-jre-tomcat11
-#	trace "Done"
-#
-#	if [ $PUSH -eq 1 ]
-#	then
-#		trace "Pushing tags 7-$TARGET-light"
-#		./push-to-registries.sh --delete platform 7-$TARGET-light
-#		trace "Done"
-#	fi
+	trace "Building platform images for $TARGET-light"
+	./build-platform.sh --delete 7-$TARGET-light || exit_with $? "Unable to build platform version 7-$TARGET-light"
+	trace "Done"
+
+	trace "Tagging 7-$TARGET-light"
+	docker rmi $REGISTRY/platform:7-$TARGET-light > /dev/null 2>&1
+	docker tag $REGISTRY/platform:7-$TARGET-light-almalinux10-25-jre-tomcat11 $REGISTRY/platform:7-$TARGET-light
+	docker rmi $REGISTRY/platform:7-$TARGET-light-almalinux10-25-jre-tomcat11
+	trace "Done"
+
+	if [ $PUSH -eq 1 ]
+	then
+		trace "Pushing tags 7-$TARGET-light"
+		./push-to-registries.sh --delete platform 7-$TARGET-light
+		trace "Done"
+	fi
 
 	exit_with
 fi
