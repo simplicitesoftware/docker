@@ -33,4 +33,5 @@ ADD --chown=simplicite:simplicite $template/app /usr/local/tomcat/webapps/ROOT
 RUN cd webapps/ROOT/WEB-INF && \
     mkdir git src bin build cache jar log maven recyclebin tmp dbdoc/content/jacoco && \
     chown simplicite:simplicite src bin build cache jar log maven recyclebin tmp dbdoc/content/jacoco && \
-    rm -f jetty-env.xml
+    rm -f jetty-env.xml && \
+    [ $(echo "$version" | cut -d. -f1) = "6" ] && rm -f /usr/local/tomcat/lib/simplicite-valves-*.jar
