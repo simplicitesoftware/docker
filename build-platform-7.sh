@@ -40,8 +40,8 @@ then
 
 	trace "Tagging 7-$TARGET"
 	docker rmi $REGISTRY/platform:7-$TARGET > /dev/null 2>&1
-	docker tag $REGISTRY/platform:7-$TARGET-almalinux10-25-jre-tomcat11 $REGISTRY/platform:7-$TARGET
-	docker rmi $REGISTRY/platform:7-$TARGET-almalinux10-25-jre-tomcat11
+	docker tag $REGISTRY/platform:7-$TARGET-almalinux10-25-tomcat11 $REGISTRY/platform:7-$TARGET
+	docker rmi $REGISTRY/platform:7-$TARGET-almalinux10-25-tomcat11
 	trace "Done"
 
 	if [ $PUSH -eq 1 ]
@@ -57,8 +57,8 @@ then
 
 	trace "Tagging 7-$TARGET-light"
 	docker rmi $REGISTRY/platform:7-$TARGET-light > /dev/null 2>&1
-	docker tag $REGISTRY/platform:7-$TARGET-light-almalinux10-25-jre-tomcat11 $REGISTRY/platform:7-$TARGET-light
-	docker rmi $REGISTRY/platform:7-$TARGET-light-almalinux10-25-jre-tomcat11
+	docker tag $REGISTRY/platform:7-$TARGET-light-almalinux10-25-tomcat11 $REGISTRY/platform:7-$TARGET-light
+	docker rmi $REGISTRY/platform:7-$TARGET-light-almalinux10-25-tomcat11
 	trace "Done"
 
 	if [ $PUSH -eq 1 ]
