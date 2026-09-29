@@ -163,6 +163,14 @@ then
 	BRANCH=$1
 	TAGS=${2:-almalinux9-21}
 	PFTAG=$1
+elif [ "$1" = "7-alpha-devel" ]
+then
+	VERSION=7
+	BRANCH=7.0
+	TAGS=devel
+	PFTAG=$1
+	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
+	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
 elif [ "$1" = "7-alpha" ]
 then
 	VERSION=7
