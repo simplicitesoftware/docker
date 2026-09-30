@@ -52,12 +52,6 @@ JVMS_ALMALINUX="25 21 17"
 JVMS_ALPINE="25"
 JVMS_ECLIPSE_TEMURIN="25 21 17"
 
-# Variant/server/JVM for the :latest tag
-TAG_LATEST="almalinux9"
-SERVER_LATEST="tomcat"
-BRANCH_LATEST="master"
-JVM_LATEST="21"
-
 IMAGE=registry.simplicite.io/server
 
 SERVEREXT=""
@@ -147,8 +141,6 @@ do
 			[ $DEL = 1 ] && docker rmi $IMAGE:$TAG$TAGEXT$SERVEREXT > /dev/null 2>&1
 			docker build $NOCACHE --network host -f Dockerfile-$TAG -t $IMAGE:$TAG$TAGEXT$SERVEREXT --build-arg date="$(date -u +s'%Y-%m-%dT%H:%M:%SZ')" --build-arg ext="$SERVEREXT" --build-arg jvm="$JVM" .
 			echo "Done"
-
-			[ $TAG = $TAG_LATEST -a $SERVER = $SERVER_LATEST -a $BRANCH = $BRANCH_LATEST -a $JVM = $JVM_LATEST ] && docker tag $IMAGE:$TAG$TAGEXT$SERVEREXT $IMAGE:latest
 		done
 	fi
 done
