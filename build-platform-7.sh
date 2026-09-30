@@ -18,8 +18,7 @@ then
 	shift
 fi
 
-[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <alpha>\n" 
-#[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <beta>\n" 
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <beta>\n" 
 #[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m <preview|latest|7.x> [<revision (for latest and 7.x)>]\n" 
 
 TARGET=$1
@@ -28,12 +27,12 @@ REVISION=$2
 CURRENT=7.0
 
 # -------------------------------------------------------------------------------------------
-# Alpha version
+# Beta version
 # -------------------------------------------------------------------------------------------
 
-if [ "$TARGET" = "alpha" -o "$TARGET" = "$CURRENT" ]
+if [ "$TARGET" = "beta" -o "$TARGET" = "$CURRENT" ]
 then
-	TARGET=alpha
+	TARGET=beta
 
 	trace "Building platform images for $TARGET"
 	./build-platform.sh --delete 7-$TARGET || exit_with $? "Unable to build platform version 7-$TARGET"
@@ -72,7 +71,7 @@ then
 	exit_with
 fi
 
-if [ "$TARGET" = "alpha-devel" ]
+if [ "$TARGET" = "beta-devel" ]
 then
 	trace "Building platform images for $TARGET"
 	./build-platform.sh --delete 7-$TARGET || exit_with $? "Unable to build platform version 7-$TARGET"

@@ -6,7 +6,7 @@ exit_with () {
 	exit ${1:-0}
 }
 
-[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] [--no-cache] 3.0|3.1|3.2|4.0[-light]|5-<latest|devel|preview>[-light]|6-<latest|devel|preview>[-light]|7-<alpha> [<server image tag(s)> [<platform Git tag (only applicable to 5-latest and 5-latest-light>]]\n"
+[ "$1" = "" -o "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] [--no-cache] 3.0|3.1|3.2|4.0[-light]|5-<latest|devel|preview>[-light]|6-<latest|devel|preview>[-light]|7-<beta> [<server image tag(s)> [<platform Git tag (only applicable to 5-latest and 5-latest-light>]]\n"
 
 LOCK=/tmp/$(basename $0 .sh).lck
 if [ -f $LOCK ]
@@ -163,7 +163,7 @@ then
 	BRANCH=$1
 	TAGS=${2:-almalinux9-21}
 	PFTAG=$1
-elif [ "$1" = "7-alpha-devel" ]
+elif [ "$1" = "7-beta-devel" ]
 then
 	VERSION=7
 	BRANCH=7.0
@@ -171,7 +171,7 @@ then
 	PFTAG=$1
 	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
 	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
-elif [ "$1" = "7-alpha" ]
+elif [ "$1" = "7-beta" ]
 then
 	VERSION=7
 	BRANCH=7.0
@@ -180,7 +180,7 @@ then
 	PFTAG=$1
 	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
 	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
-elif [ "$1" = "7-alpha-light" ]
+elif [ "$1" = "7-beta-light" ]
 then
 	VERSION=7
 	BRANCH=7.0-light

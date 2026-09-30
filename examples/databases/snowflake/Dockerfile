@@ -1,4 +1,4 @@
-FROM registry.simplicite.io/platform:7-alpha
+FROM registry.simplicite.io/platform:7-beta
 USER simplicite
 ARG maven=3.9.16
 ARG snowflake=4.2.0
