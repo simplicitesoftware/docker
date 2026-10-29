@@ -15,8 +15,11 @@ do
 	[ $RES -ne 0 ] && exit $RES
 done
 
-TAGS=
-[ ${1:-all} = "devel" ] && TAGS=$( docker images registry.simplicite.io/server --format '{{.Tag}}' | grep 'devel')
-./push-to-registries.sh server $TAGS
+if [ ${1:-all} = "devel" ]
+then
+	./push-to-registries.sh server $(docker images registry.simplicite.io/server --format '{{.Tag}}' | grep 'devel' | xargs)
+else
+	./push-to-registries.sh server
+fi
 
 exit 0

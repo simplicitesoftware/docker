@@ -77,4 +77,3 @@ echo ""
 [ "$DOCKER_PRIVATE_REGISTRY_CONTAINER" != "" ] && docker exec $DOCKER_PRIVATE_REGISTRY_CONTAINER /bin/registry garbage-collect -m /etc/docker/registry/config.yml > /dev/null 2>&1
 
 exit 0
-
