@@ -25,6 +25,7 @@ ENV DEV_MODE=true \
     ANT_HOME=/usr/local/ant \
     MAVEN_HOME=/usr/local/maven \
     NODE_HOME=/usr/local/node \
+    NODE_MODULES=/home/simplicite/node_modules \
     JACOCO_HOME=/usr/local/jacoco \
     PATH=/usr/local/ant/bin:/usr/local/maven/bin:/usr/local/node/bin:$PATH
 
@@ -37,4 +38,4 @@ EXPOSE 8000 8001
 
 USER simplicite
 
-RUN npm install typescript@6.0.3 jquery@3.7.1
+RUN npm install --prefix /home/simplicite typescript@6.0.3 @types/jquery@4.0.1
