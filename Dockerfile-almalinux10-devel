@@ -16,10 +16,6 @@ LABEL org.label-schema.name="simplicite-server-almalinux10-devel" \
 
 USER root
 
-RUN dnf install -y sudo vim-enhanced git gpg iproute nmap xz pinentry && dnf clean all && \
-    echo -e 'alias vi=vim' >> /root/.bashrc && \
-    echo '%simplicite ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
-
 ADD ant /usr/local/ant
 ADD maven /usr/local/maven
 ADD node /usr/local/node
@@ -31,6 +27,11 @@ ENV DEV_MODE=true \
     NODE_HOME=/usr/local/node \
     JACOCO_HOME=/usr/local/jacoco \
     PATH=/usr/local/ant/bin:/usr/local/maven/bin:/usr/local/node/bin:$PATH
+
+RUN npm install typescript jquery && \
+    dnf install -y sudo vim-enhanced git gpg iproute nmap xz pinentry && dnf clean all && \
+    echo -e 'alias vi=vim' >> /root/.bashrc && \
+    echo '%simplicite ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 # JPDA, JaCoCo
 EXPOSE 8000 8001
