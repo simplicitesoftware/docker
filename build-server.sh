@@ -6,7 +6,7 @@ exit_with () {
 	exit ${1:-0}
 }
 
-[ "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] [--no-cache] [\"<variants(s), defaults to all>\" [\"<server>, defaults to tomcat>\" [\"<branch, defaults to master>\"]]\n"
+[ "$1" = "--help" ] && exit_with 1 "\nUsage: \e[1m$(basename $0)\e[0m [--delete] [--no-cache] [\"<variants(s), defaults to 'all'>\" [\"<server type, defaults to 'tomcat'>\" [\"<branch, defaults to 'master'>\"]]\n"
 
 LOCK=/tmp/$(basename $0 .sh).lck
 if [ -f $LOCK ]
@@ -38,6 +38,7 @@ echo "--------------------------------------------------------"
 TAGS=${1:-all}
 #[ $TAGS = "all" ] && TAGS="almalinux10-base almalinux10 almalinux10-jvmless almalinux10-devel almalinux9-base almalinux9 almalinux9-jvmless almalinux9-devel alpine-base alpine eclipse-temurin"
 [ $TAGS = "all" ] && TAGS="almalinux10-base almalinux10 almalinux10-jvmless almalinux10-devel almalinux9-base almalinux9 almalinux9-jvmless almalinux9-devel alpine-base alpine"
+[ $TAGS = "devel" ] && TAGS="almalinux10-devel almalinux9-devel"
 echo "Variants(s) = $TAGS"
 
 # Server
