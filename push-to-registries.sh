@@ -35,7 +35,7 @@ fi
 [ -x /usr/bin/figlet ] && echo "" && /usr/bin/figlet -f small ${IMG^}
 
 TAGS=$*
-[ "$TAGS" = "" ] && TAGS=$(docker images | grep "^$REGISTRY.$IMG" | awk '{print $2}')
+[ "$TAGS" = "" ] && TAGS=$(docker images $REGISTRY/$IMG --format '{{.Tag}}' | xargs)
 
 for TAG in $TAGS
 do
