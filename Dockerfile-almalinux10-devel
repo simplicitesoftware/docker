@@ -28,8 +28,8 @@ ENV DEV_MODE=true \
     JACOCO_HOME=/usr/local/jacoco \
     PATH=/usr/local/ant/bin:/usr/local/maven/bin:/usr/local/node/bin:$PATH
 
-RUN /usr/local/node/bin/npm install typescript jquery && \
-    dnf install -y sudo vim-enhanced git gpg iproute nmap xz pinentry && dnf clean all && \
+RUN dnf install -y sudo vim-enhanced git gpg iproute nmap xz pinentry libatomic && dnf clean all && \
+    /usr/local/node/bin/npm install typescript jquery && \
     echo -e 'alias vi=vim' >> /root/.bashrc && \
     echo '%simplicite ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
