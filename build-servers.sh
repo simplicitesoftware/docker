@@ -16,7 +16,7 @@ do
 done
 
 TAGS=
-[ ${1:-all} = "devel" ] && TAGS=$(docker images --format '{{.Repository}}:{{.Tag}} | grep 'registry.simplicite.io/server' | grep 'devel')
+[ ${1:-all} = "devel" ] && TAGS=$( docker images registry.simplicite.io/server --format '{{.Tag}}' | grep 'devel')
 ./push-to-registries.sh server $TAGS
 
 exit 0
