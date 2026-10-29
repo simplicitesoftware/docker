@@ -37,4 +37,4 @@ EXPOSE 8000 8001
 
 USER simplicite
 
-RUN npm install typescript jquery
+RUN npm install typescript@6.0.3 jquery@3.7.1
