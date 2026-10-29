@@ -2,7 +2,7 @@
 
 if [ "$1" = "--help" ]
 then
-	echo -e  "\nUsage: \e[1m$(basename $0)\e[0m [all|devel]]\n" >&2
+	echo -e  "\nUsage: \e[1m$(basename $0)\e[0m [all|devel]\n" >&2
 	exit 1
 fi
 
@@ -15,6 +15,8 @@ do
 	[ $RES -ne 0 ] && exit $RES
 done
 
-./push-to-registries.sh server
+TAGS=
+[ ${1:-all} = "devel" ] && TAGS=$(docker images --format '{{.Repository}}:{{.Tag}} | grep 'registry.simplicite.io/server' | grep 'devel')
+./push-to-registries.sh server $TAGS
 
 exit 0
