@@ -36,7 +36,7 @@ echo ""
 echo "--------------------------------------------------------"
 
 TAGS=${1:-all}
-#[ $TAGS = "all" ] && TAGS="almalinux10-base almalinux10 almalinux10-jvmless almalinux9-base almalinux9 almalinux9-jvmless almalinux9-devel alpine-base alpine eclipse-temurin"
+#[ $TAGS = "all" ] && TAGS="almalinux10-base almalinux10 almalinux10-jvmless almalinux10-devel almalinux9-base almalinux9 almalinux9-jvmless almalinux9-devel alpine-base alpine eclipse-temurin"
 [ $TAGS = "all" ] && TAGS="almalinux10-base almalinux10 almalinux10-jvmless almalinux10-devel almalinux9-base almalinux9 almalinux9-jvmless almalinux9-devel alpine-base alpine"
 echo "Variants(s) = $TAGS"
 
