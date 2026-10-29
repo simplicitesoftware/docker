@@ -4,22 +4,21 @@ USAGE="\nUsage: \e[1m$(basename $0)\e[0m [--delete] <repository> [<tags>]\n"
 if [ "$1" = "" -o "$1" = "--help" ]
 then
 	echo -e $USAGE >&2
-	exit -1
+	exit 1
 fi
 
+if [ "$DOCKER_PRIVATE_REGISTRY_HOST" = "" ]
+then
+	echo -e "\nError: DOCKER_PRIVATE_REGISTRY_HOST environment variable is not defined" >&2
+	exit 2
+fi
+ 
 REGISTRY=registry.simplicite.io
 
 DEL=0
 if [ "$1" = "--delete" ]
 then
 	DEL=1
-	shift
-fi
-
-PUB=0
-if [ "$1" = "--public" ]
-then
-	PUB=1
 	shift
 fi
 
@@ -35,41 +34,21 @@ fi
 [ -x /usr/bin/figlet ] && echo "" && /usr/bin/figlet -f small ${IMG^}
 
 TAGS=$*
-[ "$TAGS" = "" ] && TAGS=$(docker images $REGISTRY/$IMG --format '{{.Tag}}' | xargs)
+[ "$TAGS" = "" ] && TAGS=$(docker images $REGISTRY/$IMG --format '{{.Tag}}' | sort | xargs)
 
 for TAG in $TAGS
 do
-	if [ $IMG != "server" -o "${TAG/-base}" != $TAG ]
-	then
-		echo ""
-		echo "------------------------------------"
-		echo "Image $IMG:$TAG"
-		echo "------------------------------------"
-		echo ""
+	echo ""
+	echo "------------------------------------"
+	echo "Pushing image $IMG:$TAG to the local registry $DOCKER_PRIVATE_REGISTRY_HOST"
+	echo "------------------------------------"
+	echo ""
+	docker tag $REGISTRY/$IMG:$TAG $DOCKER_PRIVATE_REGISTRY_HOST/$IMG:$TAG
+	docker push $DOCKER_PRIVATE_REGISTRY_HOST/$IMG:$TAG
+	docker rmi $DOCKER_PRIVATE_REGISTRY_HOST/$IMG:$TAG
+	echo "Done"
 
-		if [ $PUB -eq 0 -a "$DOCKER_PRIVATE_REGISTRY_HOST" != "" ]
-		then
-			echo "Pushing image $IMG:$TAG to the local registry $DOCKER_PRIVATE_REGISTRY_HOST"
-			docker tag $REGISTRY/$IMG:$TAG $DOCKER_PRIVATE_REGISTRY_HOST/$IMG:$TAG
-			docker push $DOCKER_PRIVATE_REGISTRY_HOST/$IMG:$TAG
-			docker rmi $DOCKER_PRIVATE_REGISTRY_HOST/$IMG:$TAG
-			echo "Done"
-		fi
-
-		if [ $PUB -eq 1 ]
-		then
-			if [ $IMG = "server" -o $IMG = "platform" ]
-			then
-				echo "Pushing image $IMG:$TAG to the public DockerHub registry"
-				docker tag $REGISTRY/$IMG:$TAG simplicite/$IMG:$TAG
-				docker push simplicite/$IMG:$TAG
-				docker rmi simplicite/$IMG:$TAG
-				echo "Done"
-			fi
-		fi
-
-		[ $DEL -eq 1 ] && docker rmi $REGISTRY/$IMG:$TAG
-	fi
+	[ $DEL -eq 1 ] && docker rmi $REGISTRY/$IMG:$TAG
 done
 echo ""
 		
