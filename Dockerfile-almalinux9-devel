@@ -29,7 +29,6 @@ ENV DEV_MODE=true \
     PATH=/usr/local/ant/bin:/usr/local/maven/bin:/usr/local/node/bin:$PATH
 
 RUN dnf install -y sudo vim-enhanced git gpg iproute nmap xz pinentry libatomic && dnf clean all && \
-    /usr/local/node/bin/npm install typescript jquery && \
     echo -e 'alias vi=vim' >> /root/.bashrc && \
     echo '%simplicite ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
@@ -37,3 +36,5 @@ RUN dnf install -y sudo vim-enhanced git gpg iproute nmap xz pinentry libatomic 
 EXPOSE 8000 8001
 
 USER simplicite
+
+RUN npm install typescript jquery
