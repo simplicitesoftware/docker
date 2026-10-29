@@ -38,4 +38,4 @@ EXPOSE 8000 8001
 
 USER simplicite
 
-RUN npm install --prefix /home/simplicite typescript@6.0.3 @types/jquery@4.0.1
+RUN npm install --prefix /home/simplicite typescript@6.0.3 @types/jquery@3.7.1
