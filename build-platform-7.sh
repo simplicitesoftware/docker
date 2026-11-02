@@ -42,6 +42,8 @@ then
 	docker rmi $REGISTRY/platform:7-$TARGET > /dev/null 2>&1
 	docker tag $REGISTRY/platform:7-$TARGET-almalinux10-25-tomcat11 $REGISTRY/platform:7-$TARGET
 	docker rmi $REGISTRY/platform:7-$TARGET-almalinux10-25-tomcat11
+	#docker tag $REGISTRY/platform:7-$TARGET-almalinux10-25-jre-tomcat11 $REGISTRY/platform:7-$TARGET
+	#docker rmi $REGISTRY/platform:7-$TARGET-almalinux10-25-jre-tomcat11
 	trace "Done"
 
 	if [ $PUSH -eq 1 ]
@@ -59,6 +61,8 @@ then
 	#docker rmi $REGISTRY/platform:7-$TARGET-light > /dev/null 2>&1
 	#docker tag $REGISTRY/platform:7-$TARGET-light-almalinux10-25-tomcat11 $REGISTRY/platform:7-$TARGET-light
 	#docker rmi $REGISTRY/platform:7-$TARGET-light-almalinux10-25-tomcat11
+	##docker tag $REGISTRY/platform:7-$TARGET-light-almalinux10-25-jre-tomcat11 $REGISTRY/platform:7-$TARGET-light
+	##docker rmi $REGISTRY/platform:7-$TARGET-light-almalinux10-25-jre-tomcat11
 	#trace "Done"
 
 	#if [ $PUSH -eq 1 ]
@@ -73,22 +77,22 @@ fi
 
 if [ "$TARGET" = "beta-devel" ]
 then
-	trace "Building platform images for $TARGET"
-	./build-platform.sh --delete 7-$TARGET || exit_with $? "Unable to build platform version 7-$TARGET"
+	trace "Building platform images for $TARGET-devel"
+	./build-platform.sh --delete 7-$TARGET-devel || exit_with $? "Unable to build platform version 7-$TARGET-devel"
 	trace "Done"
 
-	#trace "Tagging 7-$TARGET"
-	#docker rmi $REGISTRY/platform:7-$TARGET > /dev/null 2>&1
-	#docker tag $REGISTRY/platform:7-$TARGET-almalinux10-25-tomcat11 $REGISTRY/platform:7-$TARGET
-	#docker rmi $REGISTRY/platform:7-$TARGET-almalinux10-25-tomcat11
-	#trace "Done"
+	trace "Tagging 7-$TARGET-devel"
+	docker rmi $REGISTRY/platform:7-$TARGET-devel > /dev/null 2>&1
+	docker tag $REGISTRY/platform:7-$TARGET-devel-almalinux10-devel-tomcat11 $REGISTRY/platform:7-$TARGET-devel
+	docker rmi $REGISTRY/platform:7-$TARGET-devel-almalinux10-devel-tomcat11
+	trace "Done"
 
-	#if [ $PUSH -eq 1 ]
-	#then
-	#	trace "Pushing tags 7-$TARGET"
-	#	./push-to-registries.sh --delete platform 7-$TARGET
-	#	trace "Done"
-	#fi
+	if [ $PUSH -eq 1 ]
+	then
+		trace "Pushing tags 7-$TARGET-devel"
+		./push-to-registries.sh --delete platform 7-$TARGET-devel
+		trace "Done"
+	fi
 
 	exit_with
 fi
