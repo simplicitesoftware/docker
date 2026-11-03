@@ -90,7 +90,7 @@ then
 	if [ $PUSH -eq 1 ]
 	then
 		trace "Pushing tags 7-$TARGET"
-		./push-to-registries.sh --delete platform 7-$TARGET
+		./push-to-registries.sh platform 7-$TARGET
 		trace "Done"
 	fi
 
