@@ -26,7 +26,7 @@ ENV DEV_MODE=true \
     ANT_HOME=/usr/local/ant \
     MAVEN_HOME=/usr/local/maven \
     NODE_HOME=/usr/local/node \
-    NODE_MODULES=/home/simplicite/node_modules \
+    NODE_PATH=/home/simplicite/node_modules \
     JACOCO_HOME=/usr/local/jacoco \
     PATH=/usr/local/ant/bin:/usr/local/maven/bin:/usr/local/node/bin:$PATH
 
