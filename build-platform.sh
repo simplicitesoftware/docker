@@ -145,7 +145,7 @@ elif [ "$1" = "6-latest" -o "$1" = "6" ]
 then
 	VERSION=6
 	BRANCH=6.3
-	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
+	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine alpine-jre}
 	PFTAG=$1
 	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
 	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
@@ -153,7 +153,7 @@ elif [ "$1" = "6-latest-light" -o "$1" = "6-light" ]
 then
 	VERSION=6
 	BRANCH=6.3-light
-	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine}
+	TAGS=${2:-almalinux9-21 almalinux9-21-jre almalinux9-jvmless alpine alpine-jre}
 	PFTAG=$1
 	DOCKERFILE=${DOCKERFILE_DEFAULT}-tmp-$$
 	sed 's/^# HEALTHCHECK/HEALTHCHECK/' $DOCKERFILE_DEFAULT > $DOCKERFILE
