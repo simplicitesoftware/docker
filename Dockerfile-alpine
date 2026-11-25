@@ -19,7 +19,4 @@ LABEL org.label-schema.name="simplicite-server-alpine-${jvm}" \
 ADD jdk-${jvm}-alpine /usr/local/jvm
 ENV JAVA_HOME=/usr/local/jvm PATH=/usr/local/jvm/bin:$PATH
 
-# JPDA, JaCoCo
-EXPOSE 8000 8001
-
 USER simplicite
